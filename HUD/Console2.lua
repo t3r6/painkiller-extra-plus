@@ -466,24 +466,6 @@ function Console:Cmd_SCOREBOARDSHOWPACKETLOSS(enable)
 	else CONSOLE_AddMessage("State: ScoreboardShowPacketLoss is currently off.") end
 end
 --=======================================================================
-function Console:Cmd_BOTCHAT(enable)    
-	if(enable=="1")then Cfg.BotChat = true CONSOLE_AddMessage("BotChat is now enabled.")  return end
-	if(enable=="0")then Cfg.BotChat = false CONSOLE_AddMessage("BotChat is now disabled.") return end
-	CONSOLE_AddMessage("Syntax: BotNoBotChatChat [1/0]")
-	CONSOLE_AddMessage("Help: Toggles bot talking.")
-	if Cfg.BotChat then CONSOLE_AddMessage("State: BotChat is currently on.")
-	else CONSOLE_AddMessage("State: BotChat is currently off.") end
-end
---=======================================================================
-function Console:Cmd_BOTATTACK(enable)    
-	if(enable=="1")then Cfg.BotAttack = true CONSOLE_AddMessage("BotAttack is now enabled.")  return end
-	if(enable=="0")then Cfg.BotAttack = false CONSOLE_AddMessage("BotAttack is now disabled.") return end
-	CONSOLE_AddMessage("Syntax: BotAttack [1/0]")
-	CONSOLE_AddMessage("Help: Toggles bots attack.")
-	if Cfg.BotAttack then CONSOLE_AddMessage("State: BotAttack is currently on.")
-	else CONSOLE_AddMessage("State: BotAttack is currently off.") end
-end
---=======================================================================
 function Console:Cmd_SAFERESPAWN(enable)    
 	if(enable=="1")then Cfg.SafeRespawn = true CONSOLE_AddMessage("SafeRespawn is now enabled.")  return end
 	if(enable=="0")then Cfg.SafeRespawn = false CONSOLE_AddMessage("SafeRespawn is now disabled.") return end
