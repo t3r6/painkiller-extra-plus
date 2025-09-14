@@ -430,14 +430,7 @@ function Console:Cmd_COLOUREDICONS(enable)
 	else CONSOLE_AddMessage("State: ColouredIcons is currently off.") end
 end
 --=======================================================================
-function Console:Cmd_COLOREDICONS(enable)    
-	if(enable=="1")then Cfg.ColouredIcons = true CONSOLE_AddMessage("ColouredIcons is now enabled. Requires restart.")  return end
-	if(enable=="0")then Cfg.ColouredIcons = false CONSOLE_AddMessage("ColouredIcons is now disabled. Requires restart.") return end
-	CONSOLE_AddMessage("Syntax: ColouredIcons [1/0]")
-	CONSOLE_AddMessage("Help: Use of coloured icons")
-	if Cfg.ColouredIcons then CONSOLE_AddMessage("State: ColouredIcons is currently on.")
-	else CONSOLE_AddMessage("State: ColouredIcons is currently off.") end
-end
+Console.Cmd_COLOREDICONS = Console.Cmd_COLOUREDICONS
 --=======================================================================
 function Console:Cmd_CAMERAINTERPOLATEPOSITION(enable)    
 	if(enable=="1")then Cfg.CameraInterpolatePosition = true CONSOLE_AddMessage("CameraInterpolatePosition is now enabled.")  return end
