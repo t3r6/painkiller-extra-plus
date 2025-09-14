@@ -351,7 +351,6 @@ Cfg =
     CustomCrosshairLocationX = 0.5,
     CustomCrosshairLocationY = 0.5,
     ScoreboardFontSize = 20,
-    SimplehudShadow = true,
 
     CrosshairHit_RGB = {255,0,0},
     CrosshairHit_Trans = 255,
@@ -477,6 +476,7 @@ Cfg =
     -- TeamScoresFontSize = 32,
     -- ShowTimerFontSize = 45,
     -- Simplehud = false,
+    -- SimplehudShadow = true,
     -- HUD_CurrentWeapon_Icon = true,
 
     CrosshairNamesE = "Red",

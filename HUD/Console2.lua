@@ -421,15 +421,6 @@ function Console:Cmd_SHOWPING(enable)
 	else CONSOLE_AddMessage("State: ShowPing is currently off.") end
 end
 --=======================================================================
-function Console:Cmd_SIMPLEHUDSHADOW(enable)    
-	if(enable=="1")then Cfg.SimplehudShadow = true CONSOLE_AddMessage("SimplehudShadow is now enabled.")  return end
-	if(enable=="0")then Cfg.SimplehudShadow = false CONSOLE_AddMessage("SimplehudShadow is now disabled.") return end
-	CONSOLE_AddMessage("Syntax: SimplehudShadow [1/0]")
-	CONSOLE_AddMessage("Help: Shows simple HUD Shadow")
-	if Cfg.SimplehudShadow then CONSOLE_AddMessage("State: SimplehudShadow is currently on.")
-	else CONSOLE_AddMessage("State: SimplehudShadow is currently off.") end
-end
---=======================================================================
 function Console:Cmd_COLOUREDICONS(enable)    
 	if(enable=="1")then Cfg.ColouredIcons = true CONSOLE_AddMessage("ColouredIcons is now enabled. Requires restart.")  return end
 	if(enable=="0")then Cfg.ColouredIcons = false CONSOLE_AddMessage("ColouredIcons is now disabled. Requires restart.") return end
