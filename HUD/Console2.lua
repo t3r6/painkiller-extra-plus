@@ -2669,3 +2669,34 @@ function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
   end
 end
 --=======================================================================
+function Console:Cmd_AUTOJUMP(enable)
+  if enable == nil then
+    if Cfg.AutoJump then
+      CONSOLE_AddMessage("Cfg.AutoJump is 1 (enabled).")
+    else
+      CONSOLE_AddMessage("Cfg.AutoJump is 0 (disabled).")
+    end
+    CONSOLE_AddMessage("AutoJump Toggle. Enables automatic bunnyhop feature.")
+    return
+  end
+
+  if enable ~= "1" and enable ~= "0" then
+    CONSOLE_AddMessage("Syntax: AUTOJUMP [1/0]")
+    return
+  end
+
+  if enable == "1" then
+    Cfg.AutoJump = true
+    CONSOLE_AddMessage("AutoJump is now enabled.")
+  elseif enable == "0" then
+    Cfg.AutoJump = false
+    CONSOLE_AddMessage("AutoJump is now disabled.")
+  end
+
+  if Cfg.AutoJump then
+    CONSOLE_AddMessage("State: AutoJump is currently enabled.")
+  else
+    CONSOLE_AddMessage("State: AutoJump is currently disabled.")
+  end
+end
+--=======================================================================
