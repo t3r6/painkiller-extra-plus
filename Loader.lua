@@ -80,15 +80,15 @@ linker = "versionB.txt ../Data/PKPlusSounds ../Data/Locs PKPlusSounds.pak"
     local paksextracted = true
     file = io.open ("../Data/Locs/versionB.txt","r")
     if not file then
-		  paksextracted = false
+		paksextracted = false
     else
     	io.close(file)
     end
 
 if(not paksextracted)then
 	-- Create default external files
-  FS.CreateDirectory("../Data/Locs")
-  FS.ExtractPack("../Data/Locs.pak","../Data/Locs")
+	FS.CreateDirectory('../Data/Locs')
+	FS.ExtractPack('../Data/Locs.pak','../Data/Locs')
 end
 -- Test for presence of extracted paks
 -- Look for a known extracted file
@@ -103,22 +103,22 @@ end
 
 if(not paksextracted)then
 	-- Create default external files
-  FS.CreateDirectory("../Data/Mapview")
-  FS.ExtractPack("../Data/Mapview.pak","../Data/Mapview")
+	FS.CreateDirectory('../Data/Mapview')
+	FS.ExtractPack('../Data/Mapview.pak','../Data/Mapview')
 end
 -- Test for presence of extracted paks
 -- Look for a known extracted file
     file = io.open ("../Data/Waypoints/versionB.txt","r")
     if not file then
-		  paksextracted = false
+		paksextracted = false
     else
     	io.close(file)
     end
 
 if(not paksextracted)then
 	-- Create default external files
-  FS.CreateDirectory("../Data/Waypoints")
-  FS.ExtractPack("../Data/Waypoints.pak","../Data/Waypoints")
+	FS.CreateDirectory('../Data/Waypoints')
+	FS.ExtractPack('../Data/Waypoints.pak','../Data/Waypoints')
 end
 
 --collectgarbage(0)
