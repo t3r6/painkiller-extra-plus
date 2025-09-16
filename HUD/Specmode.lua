@@ -180,7 +180,7 @@ if(not Hud) then return end
         HUD.PrintXY(cmx+2,cmy+2,cameramode,"Impact",0,0,0,36)
 				HUD.PrintXY(cmx,cmy,cameramode,"Impact",160,160,160,36)
 
-    if MPCfg.GameMode ~= "Last Man Standing" or MPCfg.GameState == GameStates.Playing or MPCfg.GameState ~= GameStates.Finished then
+    if not (MPCfg.GameMode == "Last Man Standing" and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
         --HUD.PrintXY(w-HUD.GetTextWidth(Languages.Texts[726])-10*w/1024+1,h-30*h/768+1,Languages.Texts[726],"Impact",10,10,10,26*h/480)
         --HUD.PrintXY(w-HUD.GetTextWidth(Languages.Texts[726])-10*w/1024,h-30*h/768,Languages.Texts[726],"Impact",230,161,97,26*h/480)
     end
@@ -547,7 +547,7 @@ function PSpectatorControler:CameraModeSwitch()
         self._altfire = true
         for i,o in Game.PlayerStats do
 		self:SetPlayerVisibility(o._Entity,true)
-		end
+	end
     else
         self._altfire = nil
     end
@@ -572,7 +572,7 @@ function PSpectatorControler:CameraModeSwitch()
 end
 --============================================================================
 function PSpectatorControler:ForceSpecCheck()
-    if (MPCfg.GameMode ~= "Last Man Standing" and MPCfg.GameMode ~= "Clan Arena" or MPCfg.GameState ~= GameStates.Playing and MPCfg.GameState ~= GameStates.Finished) then
+    if not ((MPCfg.GameMode == "Last Man Standing" or MPCfg.GameMode == "Clan Arena") and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
         if INP.Action(Actions.Jump) then
             INP.Reset()
             MPSTATS.Hide()
@@ -642,11 +642,11 @@ function PSpectatorControler:ProHud(he, ar, am1, am2, cwi, art)
   end
 
   local colorh = {255, 0, 0}
-  if 25 < he and he <= 50 then
+  if he > 25 and he <= 50 then
     colorh = {255, 102, 0}
-  elseif 50 < he and he <= 100 then
+  elseif he > 50 and he <= 100 then
     colorh = {0, 204, 0}
-  elseif 100 < he then
+  elseif he > 100 then
     colorh = {0, 204, 255}
   end
 
@@ -882,26 +882,26 @@ function PSpectatorControler:DrawMapview()
 
         if MPCfg.GameMode == "Clan Arena" and MPCfg.GameState ~= GameStates.WarmUp then
           if ps.Team == Cfg.Team and Cfg.Team == 0 then
-            if 0 < yscale * py - yscale * 18 then
-              HUD.PrintXY(xscale * px, yscale * py - yscale * 18, ps.Name, "Impact", 230, 161, 97, yscale * 16)
+            if(yscale*py-yscale*18>0)then
+              HUD.PrintXY(xscale*px,yscale*py-yscale*18,ps.Name,"Impact",230,161,97,yscale*16)
             end
-            HUD.DrawQuadRGBA(self._matMapViewBluePlayerIcon, xscale * px - xscale * 20 / 2, yscale * py - yscale * 20 / 2, xscale * 20, yscale * 20, 255, 255, 255, 255)
+            HUD.DrawQuadRGBA(self._matMapViewBluePlayerIcon,xscale*px-xscale*20/2,yscale*py-yscale*20/2,xscale*20,yscale*20,255,255,255,255)
           elseif ps.Team == Cfg.Team and Cfg.Team == 1 then
-            if 0 < yscale * py - yscale * 18 then
-              HUD.PrintXY(xscale * px, yscale * py - yscale * 18, ps.Name, "Impact", 230, 161, 97, yscale * 16)
+            if(yscale*py-yscale*18>0)then
+              HUD.PrintXY(xscale*px,yscale*py-yscale*18,ps.Name,"Impact",230,161,97,yscale*16)
             end
-            HUD.DrawQuadRGBA(self._matMapViewRedPlayerIcon, xscale * px - xscale * 20 / 2, yscale * py - yscale * 20 / 2, xscale * 20, yscale * 20, 255, 255, 255, 255)
+            HUD.DrawQuadRGBA(self._matMapViewRedPlayerIcon,xscale*px-xscale*20/2,yscale*py-yscale*20/2,xscale*20,yscale*20,255,255,255,255)
           end
         elseif ps.Team == 0 then
-          if 0 < yscale * py - yscale * 18 then
-            HUD.PrintXY(xscale * px, yscale * py - yscale * 18, ps.Name, "Impact", 230, 161, 97, yscale * 16)
+          if(yscale*py-yscale*18>0)then
+            HUD.PrintXY(xscale*px,yscale*py-yscale*18,ps.Name,"Impact",230,161,97,yscale*16)
           end
-          HUD.DrawQuadRGBA(self._matMapViewBluePlayerIcon, xscale * px - xscale * 20 / 2, yscale * py - yscale * 20 / 2, xscale * 20, yscale * 20, 255, 255, 255, 255)
+          HUD.DrawQuadRGBA(self._matMapViewBluePlayerIcon,xscale*px-xscale*20/2,yscale*py-yscale*20/2,xscale*20,yscale*20,255,255,255,255)
         else
-          if 0 < yscale * py - yscale * 18 then
-            HUD.PrintXY(xscale * px, yscale * py - yscale * 18, ps.Name, "Impact", 230, 161, 97, yscale * 16)
+          if(yscale*py-yscale*18>0)then
+            HUD.PrintXY(xscale*px,yscale*py-yscale*18,ps.Name,"Impact",230,161,97,yscale*16)
           end
-          HUD.DrawQuadRGBA(self._matMapViewRedPlayerIcon, xscale * px - xscale * 20 / 2, yscale * py - yscale * 20 / 2, xscale * 20, yscale * 20, 255, 255, 255, 255) --Hud:DrawQuadRGBA(Hud._matMapViewRedPlayerIcon,psx*playersscale+playertranslationx,psz*playersscale+playertranslationy,10,10,255,255,255,960)
+          HUD.DrawQuadRGBA(self._matMapViewRedPlayerIcon,xscale*px-xscale*20/2,yscale*py-yscale*20/2,xscale*20,yscale*20,255,255,255,255) --Hud:DrawQuadRGBA(Hud._matMapViewRedPlayerIcon,psx*playersscale+playertranslationx,psz*playersscale+playertranslationy,10,10,255,255,255,960)
         end
       end
     end
