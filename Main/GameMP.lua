@@ -205,7 +205,7 @@ function Game:AfterWorldSynchronization(mapName,levelName)
 	    numPlayers,
 	    numSpecs
         )
-
+        
         if Cfg.AllowBunnyhopping then 
             PHYSICS.SetBunnyHopAcceleration(Tweak.MultiPlayerMove.BunnyHopAcceleration)
         else
@@ -311,56 +311,68 @@ function Game_InterpretVariable(name,value)
 				end
 			end
 		end
-    if name == "CHATO" then
-      for i, ps in Game.PlayerStats, nil do
-        if ps.ClientID ~= ServerID then
-          NET.SendVariable(ps.ClientID, "CHATOR", value)
-          Game._ChatData[tonumber(value)] = {
-            ClientID = tonumber(value),
-            Check = true
-          }
-        end
-      end
-    end
-    if name == "CHATC" then
-      for i, ps in Game.PlayerStats, nil do
-        if ps.ClientID ~= ServerID then
-          NET.SendVariable(ps.ClientID, "CHATCR", value)
-          Game._ChatData[tonumber(value)] = {
-            ClientID = tonumber(value),
-            Check = false
-          }
-        end
-      end
-    end
-    if name == "CLIENTID" then
-      Game.ServerCheckModUser = value
-    end
+		if (name == "CHATO") then
+			for i, ps in Game.PlayerStats, nil do
+				if ps.ClientID ~= ServerID then
+					NET.SendVariable(ps.ClientID, "CHATOR", value)
+					Game._ChatData[tonumber(value)] = {
+						ClientID = tonumber(value),
+						Check = true
+					}
+				end
+			end
+		end
+		if (name == "CHATC") then
+			for i, ps in Game.PlayerStats, nil do
+				if ps.ClientID ~= ServerID then
+					NET.SendVariable(ps.ClientID, "CHATCR", value)
+					Game._ChatData[tonumber(value)] = {
+						ClientID = tonumber(value),
+						Check = false
+					}
+				end
+			end
+		end
+		if (name == "CLIENTID") then
+			Game.ServerCheckModUser = value
+		end
 	else
 		if(name=="MOTD")then
 			MPCfg.MOTD = tostring(value)
 			if(not Hud) then return end
 			Hud._MOTDTime = INP.GetTime()+10
+		end	
+		if (name == "FGMN") then
+			Hud.fname = value
+			fragmessagestart = Game.currentTime
+			fragmessageend = Game.currentTime + 60
 		end
-    if name == "FGMN" then
-      Hud.fname = value
-      fragmessagestart = Game.currentTime
-      fragmessageend = Game.currentTime + 60
-    end
-    if name == "HITSND" and Game._procSpec and Game._procSpec ~= nil and Game._procSpec.player ~= nil and Game._procSpec.player >= 0 and tonumber(value) == Game._procSpec.player and Cfg.HitSound then
-      if Cfg.Newhitsound == false then
-        PlaySound2D("../Sounds/hitsound", nil, nil, true)
-      else
-        PlaySound2D("../Sounds/hitsoundnew", nil, nil, true)
-      end
-    end
-    if name == "DTHSND" and Game._procSpec and Game._procSpec ~= nil and Game._procSpec.player ~= nil and Game._procSpec.player >= 0 and tonumber(value) == Game._procSpec.player and Cfg.KillSound then
-      if Cfg.Newhitsound == false then
-        PlaySound2D("../Sounds/killsound", nil, nil, true)
-      else
-        PlaySound2D("../Sounds/killsoundnew", nil, nil, true)
-      end
-    end
+		if(name=="HITSND")then
+			if(Game._procSpec and Game._procSpec~=nil and Game._procSpec.player~=nil and Game._procSpec.player >= 0) then
+				if(tonumber(value) == Game._procSpec.player)then
+					if Cfg.HitSound then
+						if Cfg.Newhitsound == false then
+								PlaySound2D("../Sounds/hitsound", nil, nil, true)
+						else
+								PlaySound2D("../Sounds/hitsoundnew", nil, nil, true)
+						end
+					end
+				end
+			end
+		end	
+		if(name=="DTHSND")then
+			if(Game._procSpec and Game._procSpec~=nil and Game._procSpec.player~=nil and Game._procSpec.player >= 0) then
+				if(tonumber(value) == Game._procSpec.player)then
+				  if Cfg.KillSound then
+						if Cfg.Newhitsound == false then
+							PlaySound2D("../Sounds/killsound", nil, nil, true)
+						else
+							PlaySound2D("../Sounds/killsoundnew", nil, nil, true)
+						end
+					end
+				end
+			end	
+		end	
 		if(name=="RFX")then
 			if value and value=="1" then 
 			        if not MPCfg.RocketFix then 
@@ -369,7 +381,7 @@ function Game_InterpretVariable(name,value)
 				MPCfg.RocketFix = true
 				Tweak.MultiPlayerMove.AlternateRocketJump = false
 				WORLD.ApplyTweaks()
-		  end
+		 end
 			if value and value=="0" then 
 				if MPCfg.RocketFix then 
 			        CONSOLE_AddMessage ( "#1***Rocketfix has now been disabled on the server***" )
@@ -379,23 +391,23 @@ function Game_InterpretVariable(name,value)
 				WORLD.ApplyTweaks() 
 			end
 		end
-    if name == "CHATOR" then
-      if Game._SomeConsoleOpened == false then
-        Game._SomeConsoleOpened = true
-      end
-      Game.ChatData[tonumber(value)] = {
-        ClientID = tonumber(value),
-        Check = true
-      }
-    end
-    if name == "CHATCR" then
-      Game._ConsoleClientID = tonumber(value)
-      Game._SomeConsoleClosed = true
-      Game.ChatData[tonumber(value)] = {
-        ClientID = tonumber(value),
-        Check = false
-      }
-    end
+		if (name == "CHATOR") then
+			if Game._SomeConsoleOpened == false then
+				Game._SomeConsoleOpened = true
+			end
+			Game.ChatData[tonumber(value)] = {
+				ClientID = tonumber(value),
+				Check = true
+			}
+		end
+		if (name == "CHATCR") then
+			Game._ConsoleClientID = tonumber(value)
+			Game._SomeConsoleClosed = true
+			Game.ChatData[tonumber(value)] = {
+				ClientID = tonumber(value),
+				Check = false
+			}
+		end
 	end
 end
 --============================================================================
@@ -616,7 +628,7 @@ function Game:OnMultiplayerServerTick(delta)
                 end
                 if MPCfg.GameMode == "Clan Arena" and MPGameRules[MPCfg.GameMode].ResetStatusAfterCountdown then
                   local weapon = 3
-                  if 0 < Cfg.StartupWeapon and Cfg.StartupWeapon <= 7 then
+                  if Cfg.StartupWeapon > 0 and Cfg.StartupWeapon <= 7 then
                     weapon = Cfg.StartupWeapon
                   end
                   for i, o in Game.PlayerStats, nil do
@@ -818,32 +830,36 @@ function Game:OnMultiplayerClientTick(delta)
         MPSTATS.SetTeamsScore(0,0)
     end
     
-    if not (INP.UIAction(UIActions.Scoreboard) and Game._procStats) or MPCfg.GameState ~= GameStates.Finished then
+    if INP.UIAction(UIActions.Scoreboard) and Game._procStats and MPCfg.GameState ~= GameStates.Finished then
 	    --GObjects:ToKill(Game._procStats)
             --Game._procStats = nil  
             --Hud.Enabled = true  
     end
     
     if not self._procStats then
-		  if MPCfg.GameState == GameStates.WarmUp then
-			  if INP.UIAction(UIActions.Scoreboard) then
-				  local t = nil
-				  if MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp then t = 2  end
-				  Game._procStats = GObjects:Add(TempObjName(),Templates["EndOfMatch.CProcess"]:New(t))
-          INP.RemoveUIAction(UIActions.Scoreboard)
-			  end
-      elseif INP.UIAction(UIActions.Scoreboard) then
+		if MPCfg.GameState == GameStates.WarmUp then
+			if INP.UIAction(UIActions.Scoreboard) then
+				local t = nil
+				if MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp then t = 2  end
+				Game._procStats = GObjects:Add(TempObjName(),Templates["EndOfMatch.CProcess"]:New(t))
+                INP.RemoveUIAction(UIActions.Scoreboard)
+			end
+		else
+			if INP.UIAction(UIActions.Scoreboard) then
 				MPSTATS.Show()
 			else
 				MPSTATS.Hide()
 			end
-    elseif INP.UIAction(UIActions.Scoreboard) and (MPCfg.GameState == GameStates.WarmUp or (MPCfg.GameState == GameStates.Counting and (MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp))) then
+		end
+    else
+	if INP.UIAction(UIActions.Scoreboard) and (MPCfg.GameState == GameStates.WarmUp or (MPCfg.GameState == GameStates.Counting and (MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp))) then
 	    GObjects:ToKill(Game._procStats)
-      Game._procStats = nil
-      Hud.Enabled = true
-      MPSTATS.Hide()
-      INP.RemoveUIAction(UIActions.Scoreboard)
-	  end
+            Game._procStats = nil
+            Hud.Enabled = true
+            MPSTATS.Hide()
+            INP.RemoveUIAction(UIActions.Scoreboard)
+	end
+    end
     if Game.LevelStarted == true then
       Game:ChatIcon()
       PressedKey()
@@ -944,7 +960,7 @@ function Game:NewPlayerRequest(clientID,name,model,team,state,spectator)
     		playercount = playercount + 1
     	end
     end          
-    if (not (Cfg.GameMode == "Duel" and Cfg.ForceSpec) or playercount ~= 2 or spectator ~= 0) and Cfg.ForceSpec and Game.NewComers[clientID] == nil and spectator == 0 and MPCfg.GameState == GameStates.Playing and (Cfg.GameMode == "Duel" or Cfg.GameMode == "Team Deathmatch" and Game.bot[clientID] == nil) then -- 
+    if not (Cfg.GameMode == "Duel" and Cfg.ForceSpec and playercount == 2 and spectator == 0) and Cfg.ForceSpec and Game.NewComers[clientID] == nil and spectator==0 and MPCfg.GameState == GameStates.Playing and (Cfg.GameMode == "Duel" or Cfg.GameMode == "Team Deathmatch" and Game.bot[clientID]==nil) then -- 
 	    Game.PlayerSpectatorRequest(clientID,1)
 	    spectator = 1
 	    -- SO IT ONLY DOES IT ONCE ON CONNECT
@@ -1226,7 +1242,7 @@ function Game:PlayerSpectatorRequest(clientID,spectator)
     else -- (ps and not ps.Bot)
         SendNetMethod(Game.ConsoleMessage, clientID, true, true, errormessage)
     end
-    if not (can and ps) or ps.Bot then
+    if can and ps and ps.Bot then 
     	--Game.PlayerSpectatorConfirmation(clientID,spectator) 
     end
 end
@@ -1241,7 +1257,7 @@ Network:RegisterMethod("Game.PlayerSpectatorConfirmation", NCallOn.SingleClient,
 -- [NET - SERVER ONLY]  
 function Game:PlayerRespawnRequest(clientID)
     
-    if MPCfg.GameState ~= GameStates.Playing and MPCfg.GameState ~= GameStates.WarmUp and MPCfg.GameState ~= GameStates.Counting then return end
+    if not (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.WarmUp or MPCfg.GameState == GameStates.Counting) then return end
     
     local player = Game:FindPlayerByClientID(clientID)
     if player and not player._Entity then    
@@ -1256,7 +1272,7 @@ function Game:PlayerRespawnRequest(clientID)
         -- za kazdym razem tworze nowe entity, poniewaz stare zostaje na levelu    
            --
         local model = Game.PlayerStats[clientID].Model
-        if Cfg.ForceModel then
+        if (Cfg.ForceModel)then
           if MPGameRules[MPCfg.GameMode].Teams and Cfg.ForceModel_Teams then
             if Game.PlayerStats[clientID].Team == 0 then
               model = MPModels[2]
@@ -1286,7 +1302,7 @@ function Game:PlayerRespawnRequest(clientID)
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)                 
         
         -- telefrag ?
-        if not MPCfg.ProPlus then player:CheckTeleFrag() end
+        if(not MPCfg.ProPlus) then player:CheckTeleFrag() end
         
         -- send limits info & current time
         SendNetMethod(Game.SetTimeLimit,clientID, true, true,MPCfg.TimeLimit,Game._TimeLimitOut)
@@ -1301,19 +1317,19 @@ end
 Network:RegisterMethod("Game.NewPlayerNameRequest", NCallOn.Server, NMode.Reliable, "bs")
 --============================================================================
 -- [NET - SERVER AND ALL CLIENTS]  
-function Game:NewPlayerNameConfirmation(clientID, name)
+function Game:NewPlayerNameConfirmation(clientID,name)
     local ps = Game.PlayerStats[clientID]
     if ps then
         CONSOLE_AddMessage(ps.Name.." is now "..name..".")
         -- PiTaBOT server mod
         if(Cfg.PitabotEnabled) then
 	        if (ps.Name ~= name) then
-		        PBLogEvent(ps.Name, "NickChange", name)
+		PBLogEvent(ps.Name, "NickChange", name)
 	        end
         end
         -- end
         ps.Name = name
-        MPSTATS.Update(ps.ClientID, ps.Name, ps.Score, ps.Kills, ps.Deaths, ps.Ping, ps.PacketLoss, ps.Team, ps.State, ps.Spectator)        
+        MPSTATS.Update(ps.ClientID,ps.Name, ps.Score, ps.Kills, ps.Deaths, ps.Ping, ps.PacketLoss, ps.Team, ps.State, ps.Spectator)        
     end    
 end
 Network:RegisterMethod("Game.NewPlayerNameConfirmation", NCallOn.ServerAndAllClients, NMode.Reliable, "bs")
@@ -1355,8 +1371,8 @@ function Game:NewPlayerTeamConfirmation(clientID,team)
         Cfg.Team = team
     end
     for i,o in Game.PlayerStats do
-		  Game:BrightSkin( o._Entity, MPCfg.AllowBrightskins, o.Team )
-	  end
+		Game:BrightSkin( o._Entity, MPCfg.AllowBrightskins, o.Team )
+	end
     Game:CheckWarmUpStatus()
 end
 Network:RegisterMethod("Game.NewPlayerTeamConfirmation", NCallOn.ServerAndAllClients, NMode.Reliable, "bb")
@@ -1491,8 +1507,8 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "reloadmap" and Cfg.UserReloadMap then
 		allowed = true
 	elseif cmd == "gamemode" and Cfg.UserGameMode then
-    allowed = true
-  elseif cmd == "mode" and Cfg.UserGameMode then
+		allowed = true
+	elseif cmd == "mode" and Cfg.UserGameMode then
 		allowed = true
 	elseif cmd == "map" and Cfg.UserMapChange then
 		allowed = true
@@ -1674,7 +1690,7 @@ function Game:PlayerRespawnConfirmation(clientID,newe,a,weapon)
             player:ResetStatus(weapon)
         end
     end
-    if newe == nil then return end
+    if(newe==nil)then return end
     Game:Print("PlayerRespawnConfirmation")            
     local player = Game:FindPlayerByClientID(clientID)
     local ps = Game.PlayerStats[clientID]
@@ -1866,7 +1882,9 @@ function Game:BrightSkin(entity, enable, team)
         ENTITY.RegisterChild(entity,ei)
     end
     
-    if Cfg.BrightSkins and enable and MPCfg.AllowBrightskins then
+    if Cfg.BrightSkins then
+    
+    if enable and MPCfg.AllowBrightskins then
         local color        
         
         --if MPCfg.GameMode == "Capture The Flag" then
@@ -1960,52 +1978,53 @@ function Game:BrightSkin(entity, enable, team)
         end
     else 
         MDL.SetMeshLighting(entity,"*",true)
-        if teams then
-          if Cfg.Team ~= team then
-            MDL.SetTexture(entity, "mpplayer5_texture_1_add", "mpplayer5_texture_1_red")
-            MDL.SetTexture(entity, "mpplayer5_texture_2_add", "mpplayer5_texture_2_red")
-            MDL.SetTexture(entity, "mp_player_2_tex_1_add", "mp_player_2_tex_1_red")
-            MDL.SetTexture(entity, "mp_player_2_tex_2_add", "mp_player_2_tex_2_red")
-            MDL.SetTexture(entity, "mpplayer1texture2_add", "mpplayer1texture2_red")
-            MDL.SetTexture(entity, "mpplayer1texture3_add", "mpplayer1texture3_red")
-            MDL.SetTexture(entity, "templar_tex_2_add", "templar_tex_2_red")
-            MDL.SetTexture(entity, "templar_tex_3_add", "templar_tex_3_red")
-            MDL.SetTexture(entity, "painplayer_texture1_add", "painplayer_texture1_red")
-            MDL.SetTexture(entity, "painplayer_texture2_add", "painplayer_texture2_red")
-            MDL.SetTexture(entity, "painplayer_texture3_add", "painplayer_texture3_red")
-            MDL.SetTexture(entity, "mpplayer6_texture1_add", "mpplayer6_texture1_red")
-            MDL.SetTexture(entity, "labcomando_texture1_add", "labcomando_texture1_red")
-          else
-            MDL.SetTexture(entity, "mpplayer5_texture_1_add", "mpplayer5_texture_1_white")
-            MDL.SetTexture(entity, "mpplayer5_texture_2_add", "mpplayer5_texture_2_white")
-            MDL.SetTexture(entity, "mp_player_2_tex_1_add", "mp_player_2_tex_1_white")
-            MDL.SetTexture(entity, "mp_player_2_tex_2_add", "mp_player_2_tex_2_white")
-            MDL.SetTexture(entity, "mpplayer1texture2_add", "mpplayer1texture2_white")
-            MDL.SetTexture(entity, "mpplayer1texture3_add", "mpplayer1texture3_white")
-            MDL.SetTexture(entity, "templar_tex_2_add", "templar_tex_2_white")
-            MDL.SetTexture(entity, "templar_tex_3_add", "templar_tex_3_white")
-            MDL.SetTexture(entity, "painplayer_texture1_add", "painplayer_texture1_white")
-            MDL.SetTexture(entity, "painplayer_texture2_add", "painplayer_texture2_white")
-            MDL.SetTexture(entity, "painplayer_texture3_add", "painplayer_texture3_white")
-            MDL.SetTexture(entity, "mpplayer6_texture1_add", "mpplayer6_texture1_white")
-            MDL.SetTexture(entity, "labcomando_texture1_add", "labcomando_texture1_white")
-          end
-        end
-        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture1", "models/mp-model-fallenangel/mpplayer1texture1")
-        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture2", "models/mp-model-fallenangel/mpplayer1texture2")
-        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture3", "models/mp-model-fallenangel/mpplayer1texture3")
-        MATERIAL.Replace("models/mp-model-demon/mp_player_2_tex_1", "models/mp-model-demon/mp_player_2_tex_1")
-        MATERIAL.Replace("models/mp-model-demon/mp_player_2_tex_2", "models/mp-model-demon/mp_player_2_tex_2")
-        MATERIAL.Replace("models/mp-model-beast/mpplayer5_texture_1", "models/mp-model-beast/mpplayer5_texture_1")
-        MATERIAL.Replace("models/mp-model-beast/mpplayer5_texture_2", "models/mp-model-beast/mpplayer5_texture_2")
-        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture1", "models/mp-model-painkiller/PAINPLAYER_texture1")
-        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture2", "models/mp-model-painkiller/PAINPLAYER_texture2")
-        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture3", "models/mp-model-painkiller/PAINPLAYER_texture3")
-        MATERIAL.Replace("models/mp-model-knight/templar_tex_1", "models/mp-model-knight/templar_tex_1")
-        MATERIAL.Replace("models/mp-model-knight/templar_tex_2", "models/mp-model-knight/templar_tex_2")
-        MATERIAL.Replace("models/mp-model-knight/templar_tex_3", "models/mp-model-knight/templar_tex_3")
-        MATERIAL.Replace("models/mp-model-player6/mpplayer6_texture1", "models/mp-model-player6/mpplayer6_texture1")
-        MATERIAL.Replace("models/mp-model-player7/labcomando_texture1", "models/mp-model-player7/labcomando_texture1")
+		if teams then
+			if Cfg.Team ~= team then
+				MDL.SetTexture(entity,"mpplayer5_texture_1_add","mpplayer5_texture_1_red")
+				MDL.SetTexture(entity,"mpplayer5_texture_2_add","mpplayer5_texture_2_red")
+				MDL.SetTexture(entity,"mp_player_2_tex_1_add","mp_player_2_tex_1_red")
+				MDL.SetTexture(entity,"mp_player_2_tex_2_add","mp_player_2_tex_2_red")
+				MDL.SetTexture(entity,"mpplayer1texture2_add","mpplayer1texture2_red")
+				MDL.SetTexture(entity,"mpplayer1texture3_add","mpplayer1texture3_red")
+				MDL.SetTexture(entity,"templar_tex_2_add","templar_tex_2_red")
+				MDL.SetTexture(entity,"templar_tex_3_add","templar_tex_3_red")
+				MDL.SetTexture(entity,"painplayer_texture1_add","painplayer_texture1_red")
+				MDL.SetTexture(entity,"painplayer_texture2_add","painplayer_texture2_red")
+				MDL.SetTexture(entity,"painplayer_texture3_add","painplayer_texture3_red")
+				MDL.SetTexture(entity,"mpplayer6_texture1_add","mpplayer6_texture1_red")
+				MDL.SetTexture(entity,"labcomando_texture1_add","labcomando_texture1_red")
+			else
+				MDL.SetTexture(entity,"mpplayer5_texture_1_add","mpplayer5_texture_1_white")
+				MDL.SetTexture(entity,"mpplayer5_texture_2_add","mpplayer5_texture_2_white")
+				MDL.SetTexture(entity,"mp_player_2_tex_1_add","mp_player_2_tex_1_white")
+				MDL.SetTexture(entity,"mp_player_2_tex_2_add","mp_player_2_tex_2_white")
+				MDL.SetTexture(entity,"mpplayer1texture2_add","mpplayer1texture2_white")
+				MDL.SetTexture(entity,"mpplayer1texture3_add","mpplayer1texture3_white")
+				MDL.SetTexture(entity,"templar_tex_2_add","templar_tex_2_white")
+				MDL.SetTexture(entity,"templar_tex_3_add","templar_tex_3_white")
+				MDL.SetTexture(entity,"painplayer_texture1_add","painplayer_texture1_white")
+				MDL.SetTexture(entity,"painplayer_texture2_add","painplayer_texture2_white")
+				MDL.SetTexture(entity,"painplayer_texture3_add","painplayer_texture3_white")
+				MDL.SetTexture(entity,"mpplayer6_texture1_add","mpplayer6_texture1_white")
+				MDL.SetTexture(entity,"labcomando_texture1_add","labcomando_texture1_white")
+			end
+		end
+        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture1","models/mp-model-fallenangel/mpplayer1texture1")
+        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture2","models/mp-model-fallenangel/mpplayer1texture2")
+        MATERIAL.Replace("models/mp-model-fallenangel/mpplayer1texture3","models/mp-model-fallenangel/mpplayer1texture3")
+        MATERIAL.Replace("models/mp-model-demon/mp_player_2_tex_1","models/mp-model-demon/mp_player_2_tex_1")
+        MATERIAL.Replace("models/mp-model-demon/mp_player_2_tex_2","models/mp-model-demon/mp_player_2_tex_2")
+        MATERIAL.Replace("models/mp-model-beast/mpplayer5_texture_1","models/mp-model-beast/mpplayer5_texture_1")
+        MATERIAL.Replace("models/mp-model-beast/mpplayer5_texture_2","models/mp-model-beast/mpplayer5_texture_2")
+        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture1","models/mp-model-painkiller/PAINPLAYER_texture1")
+        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture2","models/mp-model-painkiller/PAINPLAYER_texture2")
+        MATERIAL.Replace("models/mp-model-painkiller/PAINPLAYER_texture3","models/mp-model-painkiller/PAINPLAYER_texture3")
+        MATERIAL.Replace("models/mp-model-knight/templar_tex_1","models/mp-model-knight/templar_tex_1")
+        MATERIAL.Replace("models/mp-model-knight/templar_tex_2","models/mp-model-knight/templar_tex_2")
+        MATERIAL.Replace("models/mp-model-knight/templar_tex_3","models/mp-model-knight/templar_tex_3")
+        MATERIAL.Replace("models/mp-model-player6/mpplayer6_texture1","models/mp-model-player6/mpplayer6_texture1")
+        MATERIAL.Replace("models/mp-model-player7/labcomando_texture1","models/mp-model-player7/labcomando_texture1")        
+    end
     end
 end
 --============================================================================
@@ -2404,26 +2423,23 @@ function Game:BotResetWaypoints(botclientid)
 			end
 		end
 	end
-	if not changedone then
-        repeat
-            do break end -- pseudo-goto
-            -- ROAM MODE
-            local botx,boty,botz = ENTITY.PO_GetPawnHeadPos(self.bot[botclientid]._Entity) 
-                for i=1,32 do
-                    self.bot[botclientid].mex = math.random(-10,10)
-                    self.bot[botclientid].mey = boty
-                    self.bot[botclientid].mez = math.random(-10,10)
-                    ENTITY.RemoveFromIntersectionSolver(self.bot[botclientid]._Entity)
-                    local b,d,wx,wy,wz = WORLD.LineTraceFixedGeom(botx,boty,botz,mex,mey,mez)
-                    ENTITY.AddToIntersectionSolver(self.bot[botclientid]._Entity)	
-                    if(not b)then
-                        self.bot[botclientid].angle = math.random(2*math.pi)
-                        self.bot[botclientid].state = BotStates.HeadingToWaypoint	
-                        self.bot[botclientid].statetime = INP.GetTime()	+ 2
-                        return
-                    end
-                end
-            until true
+	if(not changedone and false)then
+		-- ROAM MODE
+		local botx,boty,botz = ENTITY.PO_GetPawnHeadPos(self.bot[botclientid]._Entity) 
+		for i=1,32 do
+			self.bot[botclientid].mex = math.random(-10,10)
+			self.bot[botclientid].mey = boty
+			self.bot[botclientid].mez = math.random(-10,10)
+			ENTITY.RemoveFromIntersectionSolver(self.bot[botclientid]._Entity)
+			local b,d,wx,wy,wz = WORLD.LineTraceFixedGeom(botx,boty,botz,mex,mey,mez)
+			ENTITY.AddToIntersectionSolver(self.bot[botclientid]._Entity)	
+			if(not b)then
+				self.bot[botclientid].angle = math.random(2*math.pi)
+				self.bot[botclientid].state = BotStates.HeadingToWaypoint	
+				self.bot[botclientid].statetime = INP.GetTime()	+ 2
+				return
+			end
+		end
 	end	
 	self.bot[botclientid].statetime = INP.GetTime()	
 end
@@ -2459,7 +2475,7 @@ function Game:ChatIcon()
       if Game.PlayerStats[o.ClientID] ~= nil then
         local entity = Game.PlayerStats[o.ClientID]._Entity
         ENTITY.KillAllChildrenByName(entity, "ChatIcon")
-        if entity and 0 < entity and not PMENU.Active() and (not Player or entity ~= Player._Entity) and Game.ChatData[o.ClientID].Check and Cfg.ChatIcon then
+        if entity and entity > 0 and not PMENU.Active() and (not Player or entity ~= Player._Entity) and Game.ChatData[o.ClientID].Check and Cfg.ChatIcon then
           local ei = ENTITY.Create(ETypes.Billboard, "Script", "ChatIcon")
           local t = Game.currentTime / 60
           local m = math.floor(t)
@@ -2497,7 +2513,7 @@ function ReloadTeammate(entity, team)
   if MPGameRules[MPCfg.GameMode] and MPGameRules[MPCfg.GameMode].Teams then
     teams = true
   end
-  if entity and 0 < entity and not PMENU.Active() and teams and team == Cfg.Team and (not Player or entity ~= Player._Entity) and (Cfg.TeammateIcon == 1 or Cfg.TeammateIcon == 2) then
+  if entity and entity > 0 and not PMENU.Active() and teams and team == Cfg.Team and (not Player or entity ~= Player._Entity) and (Cfg.TeammateIcon == 1 or Cfg.TeammateIcon == 2) then
     local ei = ENTITY.Create(ETypes.Billboard, "Script", "teammateIcon")
     local ticon = "hud/teammate"
     local color = Color:New(255, 255, 255)
