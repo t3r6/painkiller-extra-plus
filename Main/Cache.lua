@@ -155,8 +155,10 @@ function Cache:PrecacheSpawnPoint(objname)
     else
         self:PrecacheActor(obj.SpawnTemplate)
     end
+    if obj.SpawnFX then
 		-- preload
-		local temp = obj.SpawnFX and Templates[obj.SpawnFX]
+		local temp = Templates[obj.SpawnFX]
+    end
 end
 --============================================================================
 --function Cache:PrecacheMesh(pack,mesh,scale,centered)
