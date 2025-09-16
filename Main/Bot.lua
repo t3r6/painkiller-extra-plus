@@ -340,7 +340,7 @@ function Game:BotTick(delta)
 								tauntcount = tauntcount + 1
 							end
 							local txt = Cfg.BotTaunts[math.floor(math.random(1,tauntcount-1))]
-							if not Cfg.BotEliza or not Game.PlayerStats[botclientid].LastThingHeard then
+							if(Cfg.BotEliza and not Game.PlayerStats[botclientid].LastThingHeard)then
 								--PLAYER.BotAction(Game.PlayerStats[botclientid]._Entity,Actions.SelectBestWeapon1,yaw,pitch,delta)
 								--return
 							end
@@ -617,7 +617,7 @@ function Console:Cmd_REPLACEBOT()
         end
     end
 end
-
+--=======================================================================
 function Console:Cmd_KICKBOT()
   Console:Cmd_REPLACEBOT()
 	if Cfg.BotMinPlayers > 0 then
@@ -789,9 +789,9 @@ function Game:CheckBotCount()
 		    	if ps.Bot and ps.Spectator == 0 then
 		    		botcount = botcount + 1	
 		    	end
-        if ps.Bot and ps.Spectator == 1 then
-          botspeccount = botspeccount + 1
-        end
+		    	if ps.Bot and ps.Spectator == 1 then
+		    		botspeccount = botspeccount + 1
+		    	end
 		    	if ps.Spectator == 1 then
 		    		speccount = speccount + 1
 		    	end
@@ -801,9 +801,9 @@ function Game:CheckBotCount()
 		-- AUTO ADDBOT/KICKBOT LOGIC
 		
 		local maxplayers = Cfg.MaxPlayers
-    if Cfg.BotLimit and Cfg.BotLimit < Cfg.MaxPlayers then
-      maxplayers = Cfg.BotLimit
-    end
+		if Cfg.BotLimit and Cfg.BotLimit < Cfg.MaxPlayers then
+			maxplayers = Cfg.BotLimit
+		end
 		if Cfg.GameMode == "Duel" then maxplayers = 2 end
 		
 		if( Cfg.BotMinPlayers < maxplayers and playercount < maxplayers-1 and playercount < Cfg.BotMinPlayers ) then Console:Cmd_ADDBOT() return end 
