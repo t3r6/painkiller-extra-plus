@@ -5,33 +5,34 @@ function Game:Server2ClientCommand(clientid,command,param)
 	if(param==nil)then param="" end
 	if(command == "pollall")then
 		if Game:IsServer() then           
-	    for i,ps in Game.PlayerStats do
-	    	if not (Game.PlayerStats[ps.ClientID].Version or Game.PlayerStats[ps.ClientID].notified) then
+	    		for i,ps in Game.PlayerStats do
+	    			--if(Game.PlayerStats[ps.ClientID].Version==nil)then Game.PlayerStats[ps.ClientID].Version = false end
+				if not (Game.PlayerStats[ps.ClientID].Version or Game.PlayerStats[ps.ClientID].notified) then
 					local txt = "Please install PK++ www.pkeuro.com"
 					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
-          Game.PlayerStats[ps.ClientID].notified = true
+					Game.PlayerStats[ps.ClientID].notified = true
 				end
 			end
 		end
 	end
 	if(command == "enableproplusall")then
 		if Game:IsServer() then           
-      for i,ps in Game.PlayerStats do
-        if(Game.PlayerStats[ps.ClientID].Version==true)then	
-          local txt = "CMD:PROPLUS1"
-          SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
-        end
-      end
+	    		for i,ps in Game.PlayerStats do
+	    			if(Game.PlayerStats[ps.ClientID].Version==true)then	
+					local txt = "CMD:PROPLUS1"
+					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
+				end
+			end
 		end
 	end
 	if(command == "disenableproplusall")then
 		if Game:IsServer() then           
-      for i,ps in Game.PlayerStats do
-        if(Game.PlayerStats[ps.ClientID].Version==true)then
-          local txt = "CMD:PROPLUS0"
-          SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
-        end
-      end
+	    		for i,ps in Game.PlayerStats do
+	    			if(Game.PlayerStats[ps.ClientID].Version==true)then
+					local txt = "CMD:PROPLUS0"
+					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
+				end
+			end
 		end
 	end
 	if(command == "CMD:PRINTSTATSALL" 
@@ -41,7 +42,7 @@ function Game:Server2ClientCommand(clientid,command,param)
 	or command == "PK++VERSIONOKAY"
 	or command == "PK++ Authenticated.")then
 		if Game:IsServer() then           
-	    for i,ps in Game.PlayerStats do
+	    		for i,ps in Game.PlayerStats do
 				if(ps.ClientID~=nil and ps.ClientID == clientid)then --and Game.PlayerStats[ps.ClientID].Version
 					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, command..param, 0)
 				end
@@ -64,7 +65,7 @@ function Game:Server2ClientRead(txt)
 		    	local specplayeridweapon = string.gsub(txt, pattern, "%5")
 		    	local specplayeridammo1 = string.gsub(txt, pattern, "%6")
 		    	local specplayeridammo2 = string.gsub(txt, pattern, "%7")
-			    local specplayeridarmortype = string.gsub(txt, pattern, "%8")
+			local specplayeridarmortype = string.gsub(txt, pattern, "%8")
 		    	
 		    	Game.PlayerData[specplayerid] = {ClientID = specplayerid, Health = tonumber(specplayeridhealth),Armour = tonumber(specplayeridarmor),Weapon = tonumber(specplayeridweapon),Ammo1 = tonumber(specplayeridammo1),Ammo2 = tonumber(specplayeridammo2),ArmorType = tonumber(specplayeridarmortype)}	
 	    	end
@@ -74,9 +75,9 @@ function Game:Server2ClientRead(txt)
 	    check = string.gsub(txt, pattern , "%1")  
 	    if(check=="ST4TZ")then
 	    		--MsgBox("got stats id,type,hits,shots,dmg - "..txt)
-			    local statsclientid = string.gsub(txt, pattern, "%2")
+			local statsclientid = string.gsub(txt, pattern, "%2")
 		    	statsclientid = tonumber(statsclientid)
-		   	  local statsattacktype = string.gsub(txt, pattern, "%3")
+		   	local statsattacktype = string.gsub(txt, pattern, "%3")
 		    	statsattacktype = tonumber(statsattacktype)
 		    	local statshits = string.gsub(txt, pattern, "%4")
 		    	statshits = tonumber(statshits)
@@ -158,7 +159,6 @@ function Game:Client2ServerRead(clientid, txt)
 	return false
 end
 --============================================================================
-
 
 
 
