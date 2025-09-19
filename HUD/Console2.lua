@@ -883,7 +883,7 @@ end
 function Console:Cmd_EXAMPLECONFIG()
   -- Create any Cfg parameter list you want to execute
 	Cfg.ShowPing = false
-  Cfg.FOV = 110
+	Cfg.FOV = 110
 
 	PainMenu:ApplyVideoSettings() INP.SetUseDInput(Cfg.DirectInput) INP.Reset()
 	
