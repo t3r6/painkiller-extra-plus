@@ -238,12 +238,12 @@ function Console:Cmd_MAP(name)
         CONSOLE_AddMessage('map "name"  (loads map)') 
     else
 		name = string.lower(name)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name, 1, 3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return
 		end
 
-		if (string.sub(name, 1, 3) == "dm_" or string.sub(name, 1, 3) == "pro_") and (MPCfg.GameMode == "People Can Fly" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
+		if (string.sub(name,1,3) == "dm_" or string.sub(name,1,3) == "pro_") and (MPCfg.GameMode == "People Can Fly" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end
@@ -789,21 +789,21 @@ function Console:Cmd_GAMEMODE(mode)
 		if Cfg.GameMode == "Clan Arena" then return end
 		Cfg.GameMode = "Clan Arena"
 		newMap = "DM_Sacred"
-		mapsTable = Cfg.ServerMapsCLA
-    elseif mode == "ig" then
-        if Cfg.GameMode == "Instagib" then
-            return
-        end
-        Cfg.GameMode = "Instagib"
-        newMap = "DM_Unseen"
-        mapsTable = Cfg.ServerMapsFFA
-    elseif mode == "ictf" then
-        if Cfg.GameMode == "ICTF" then
-            return
-        end
-        Cfg.GameMode = "ICTF"
-        newMap = "CTF_Forbidden"
-        mapsTable = Cfg.ServerMapsCTF
+		mapsTable = Cfg.ServerMapsCLA	
+	elseif mode == "ig" then
+		if Cfg.GameMode == "Instagib" then
+			return
+		end
+		Cfg.GameMode = "Instagib"
+		newMap = "DM_Unseen"
+		mapsTable = Cfg.ServerMapsFFA
+	elseif mode == "ictf" then
+		if Cfg.GameMode == "ICTF" then
+			return
+		end
+		Cfg.GameMode = "ICTF"
+		newMap = "CTF_Forbidden"
+		mapsTable = Cfg.ServerMapsCTF
 	elseif mode == "lms" then
 		if Cfg.GameMode == "Last Man Standing" then return end
 		Cfg.GameMode = "Last Man Standing"
@@ -838,12 +838,12 @@ Console.Cmd_MODE = Console.Cmd_GAMEMODE
 function Console:CheckVotingParams(cmd,params)
 	if cmd == "map" then
 		name = string.lower(params)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name, 1, 3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return false
 		end
 
-		if (string.sub(name, 1, 3) == "dm_" or string.sub(name, 1, 3) == "pro_") and (MPCfg.GameMode == "People Can Fly" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
+		if (string.sub(name,1,3) == "dm_" or string.sub(name,1,3) == "pro_") and (MPCfg.GameMode == "People Can Fly" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end
@@ -917,14 +917,14 @@ function Console:CheckVotingParams(cmd,params)
 			return false
 		end
 		return true
-    elseif cmd == "teamlock" then
-        return true
-    elseif cmd == "addbot" then
-        return true
+	elseif cmd == "teamlock" then	
+		return true
+	elseif cmd == "addbot" then	
+		return true
 	elseif cmd == "botminplayers" then
-        return true
-    elseif cmd == "botattack" then
-        return true
+		return true
+	elseif cmd == "botattack" then
+		return true
 	elseif cmd == "kickbot" then
 		return true
 	elseif cmd == "kickallbots" then
@@ -938,10 +938,10 @@ function Console:CheckVotingParams(cmd,params)
 	elseif cmd == "fallingdamage" then
 		return true
 	elseif cmd == "rocketfix" then
-        return true
-    elseif cmd == "stopmatchonplayersquit" then
-        return true
-    elseif cmd == "stopmatchonteamquit" then
+		return true
+	elseif cmd == "stopmatchonplayersquit" then
+		return true
+	elseif cmd == "stopmatchonteamquit" then
 		return true
 	end
 
