@@ -1158,7 +1158,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
     if((not Cfg.FallingDamage) and MPCfg.GameState == GameStates.Playing and attack_type == AttackTypes.HitGround) then return end 
     if not Cfg.WarmupDamage and MPCfg.GameState ~= GameStates.Playing and attack_type ~= AttackTypes.ConsoleKill then return end
     -- if MPCfg.GameState == GameStates.WarmUp and MPCfg.GameMode == "Clan Arena" and attack_type ~= AttackTypes.ConsoleKill then return end
-    if killer ~= nil and self.ClientID ~= killer.ClientID then
+    if(killer~=nil)then if(self.ClientID~=killer.ClientID)then
       if MPGameRules[MPCfg.GameMode].Teams then
         if Game.PlayerStats[self.ClientID].Team ~= Game.PlayerStats[killer.ClientID].Team then
           Game:AddToStats(killer.ClientID, attack_type, 1, 0, damage)
@@ -1166,6 +1166,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
       else
         Game:AddToStats(killer.ClientID, attack_type, 1, 0, damage)
       end
+    end
     end
     local kID = 250 -- not exist
     if killer and killer.ClientID then kID = killer.ClientID  end
@@ -1562,22 +1563,18 @@ function CPlayer:ResetStatus(weapon)
         self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
         local cw = self:AddWeapon(weapon)
         self._CurWeaponIndex = weapon
-        if self == Player then
-          WORLD.AddEntity(cw._Entity)
-        end
-        for i, o in CPlayer.s_SubClass.MPStartAmmoCA[weapon], nil do
-          self.Ammo[i] = o
+        if self == Player then WORLD.AddEntity(cw._Entity) end
+        for i,o in CPlayer.s_SubClass.MPStartAmmoCA[weapon] do
+            self.Ammo[i] = o
         end
       end
     elseif weapon then
       self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
       local cw = self:AddWeapon(weapon)
       self._CurWeaponIndex = weapon
-      if self == Player then
-        WORLD.AddEntity(cw._Entity)
-      end
-      for i, o in CPlayer.s_SubClass.MPStartAmmo[weapon], nil do
-        self.Ammo[i] = o
+        if self == Player then WORLD.AddEntity(cw._Entity) end
+        for i,o in CPlayer.s_SubClass.MPStartAmmo[weapon] do
+            self.Ammo[i] = o
       end
     end
     
@@ -2094,7 +2091,7 @@ function CPlayer:Common_UpdateStats(checkOnly,deadID,killerID,attack_type,score)
             txt = txt[math.random(1,table.getn(txt))]
             txt = string.gsub(txt,"$PLAYER",ds.Name)
             if ks then
-              txt = string.gsub(txt, "$KILLER", ks.Name)
+                txt = string.gsub(txt,"$KILLER",ks.Name)
               if Cfg.HUD_FragMessage_Status then
                 local checkattacktype = {
                   [1] = 1,
@@ -2379,11 +2376,13 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
       MDL.SetMeshLighting(ds._Entity, "*", false, 102, 102, 102)
     end
 
-    if Player and Player.ClientID == killerID and deadID ~= Player.ClientID and Cfg.KillSound then
+    if Player and Player.ClientID == killerID and deadID ~= Player.ClientID then
+    if Cfg.KillSound then
       if Cfg.Newhitsound == false then
         PlaySound2D("../Sounds/killsound", Cfg.KillSoundVolume, nil, true)
       else
         PlaySound2D("../Sounds/killsoundnew", Cfg.KillSoundVolume, nil, true)
+      end
       end
     end
 
@@ -2491,7 +2490,7 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
     -- komentarze lucyfera
     if Player and (Player.ClientID == deadID or Player.ClientID == killerID) then        
         if Player.ClientID == deadID then
-            if 0 < Player.MedalGood then
+            if Player.MedalGood > 0 then
               Player.MedalGood = 0
             end
             if Player.Comments > 0 then Player.Comments = 0 end
@@ -2509,10 +2508,8 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
             end
         end        
         if Player.ClientID == killerID and Player.ClientID ~= deadID then
-          if 0 > Player.Comments then
-            Player.Comments = 0
-          end
-          Player.Comments = Player.Comments + 1
+            if Player.Comments < 0 then Player.Comments = 0 end
+            Player.Comments = Player.Comments + 1
           if Cfg.HUD_Show_Medals then
             Player.MedalGood = Player.MedalGood + 1
             if Player.MedalGood == 1 then
