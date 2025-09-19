@@ -143,7 +143,7 @@ Cfg =
     MasterVolume = 100,
     MaxPlayers = 16,
     MaxSpectators = 8,
-    MessagesKeys = {"None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None",},
+       MessagesKeys = {"None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None","None",},
     MessagesSayAll = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     MouseSensitivity = 40,
     Multisample = "x0",
@@ -668,7 +668,7 @@ function Cfg:Save()
         else
             MsgBox("WARNING: "..CfgFile.." is read-only. Configuration not saved.")
         end
-		    return
+		return
     end
        
     local sorted = {}
@@ -689,22 +689,22 @@ function Cfg:Save()
             f:write("Cfg."..v[1].." = "..val..'\n')
         end
         if type(v[2]) == "table" then
-          local tab = v[2]
-          f:write( "Cfg."..v[1].." = {" )
-          for i=1,table.getn(tab) do
-            local val = tab[i]
-            if type(val) == "string" or type(val) == "number" or type(val) == "boolean" then
-              if type(val) == "string" then 
-                            --val = '"'..val..'"' 
-                            val = string.format('%q', val)
-              end
-              if type(val) == "boolean" then 
-                if val == true then val = "true" else val = "false" end
-              end
-              f:write( val.."," )
-            end
-          end
-          f:write( "}"..'\n' )
+			local tab = v[2]
+			f:write( "Cfg."..v[1].." = {" )
+			for i=1,table.getn(tab) do
+				local val = tab[i]
+				if type(val) == "string" or type(val) == "number" or type(val) == "boolean" then
+					if type(val) == "string" then 
+                        --val = '"'..val..'"' 
+                        val = string.format('%q', val)
+                    end
+					if type(val) == "boolean" then 
+						if val == true then val = "true" else val = "false" end
+					end
+					f:write( val.."," )
+				end
+			end
+			f:write( "}"..'\n' )
         end
     end
     io.close(f)
