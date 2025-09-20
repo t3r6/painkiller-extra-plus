@@ -2576,37 +2576,6 @@ end
 --=======================================================================
 -- Extra Plus
 --=======================================================================
-function Console:Cmd_TELEPORTCONFIRMATION(enable)
-  if enable == nil then
-    if Cfg.TeleportConfirmation then
-      CONSOLE_AddMessage("Cfg.TeleportConfirmation is 1 (enabled).")
-    else
-      CONSOLE_AddMessage("Cfg.TeleportConfirmation is 0 (disabled).")
-    end
-    CONSOLE_AddMessage("Teleport Confirmation Toggle. Turning this off prevents double teleports on high ping, but may cause a bug on low ping when exiting a teleport backwards.")
-    return
-  end
-
-  if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: TELEPORTCONFIRMATION [1/0]")
-    return
-  end
-
-  if enable == "1" then
-    Cfg.TeleportConfirmation = true
-    CONSOLE_AddMessage("Teleport Confirmation is now enabled.")
-  elseif enable == "0" then
-    Cfg.TeleportConfirmation = false
-    CONSOLE_AddMessage("Teleport Confirmation is now disabled.")
-  end
-
-  if Cfg.TeleportConfirmation then
-    CONSOLE_AddMessage("State: Teleport Confirmation is currently enabled.")
-  else
-    CONSOLE_AddMessage("State: Teleport Confirmation is currently disabled.")
-  end
-end
---=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
   if enable == nil then
     if Cfg.StopMatchOnPlayersQuit then

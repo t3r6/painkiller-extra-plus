@@ -84,9 +84,28 @@ function Teleport:OnEnter(entity)
     end
 end
 
+function hash(numbers)
+    local hash
+    for i,v in numbers do
+        v = math.floor(v)
+        if hash then hash = (hash * 37) + v else hash = v end
+    end
+    return hash
+end
+
 function Teleport:MovePlayer(entity,x,y,z,a)
     local ox,oy,oz = ENTITY.GetPosition(entity)
     local player = EntityToObject[entity]
+    if Game.GMode == GModes.MultiplayerClient and player and player == Player then
+        local key = hash({x,y,z,a})
+        local name = '73l3p0r7'
+        -- local obj = GObjects:FindByName(name)
+        local obj = _G[name]
+        if not obj then obj = GObjects:Add(name,Clone(getfenv()['CObject'])) end
+        if obj._Timers then for i,v in obj._Timers do if v[1] == key then return end end end
+        obj[key] = function() obj:RemoveTimer(key) end
+        obj:AddTimer(key,0.5) -- deactivate for 500 ms
+    end
     if player then        
         if Game:IsServer() and not MPCfg.ProPlus then player:CheckTeleFrag(x,y,z) end
         ENTITY.SetPosition(entity,x,y,z)    

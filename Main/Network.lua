@@ -82,9 +82,7 @@ Network.mt.__call = function(tbl,...)
             cID = arg[1]
             table.remove(arg,1)            
         end
-	
         SendNetMethod(tbl,cID,false,reliable,unpack(arg))
-
         if Game.GMode == GModes.MultiplayerServer or Game.GMode == GModes.DedicatedServer then
             tbl[6](nil,unpack(arg))
         end
@@ -118,7 +116,7 @@ Network.mt.__call = function(tbl,...)
 
 end  
 ------------------------------------------------------------------------------
-function RawCallMethod(tbl,...)   
+function RawCallMethod(tbl,...)
     tbl[6](nil,unpack(arg))
 end
 ------------------------------------------------------------------------------
@@ -211,7 +209,7 @@ function SendNetMethod(event,clientID,singleClient,reliable,...)
     msgnr = msgnr +1
 end
 ------------------------------------------------------------------------------
-function GetNetEvent(msg,clientID)  
+function GetNetEvent(msg,clientID)      
     local euin = NET.MsgReadVar(msg,"b")
     local event = Network.SortedMethods[euin]
     if not event then 
@@ -244,17 +242,10 @@ function GetNetEvent(msg,clientID)
         end 
     end
     table.setn(args,ia-1) -- wymagane, inaczej przy nil'ach konczyl unpack'a
-
-    	-- DEBUG TESTING
     --Game:Print("* GetNetEvent: After Decompose")
     
 	--	local a1 = INP.GetTimeFromTimerReset()		-- ###Marek, test szybkosci dzialania funkcji
-	--CONSOLE_AddMessage(tostring(event[2]))
-	
-	-- IGNORE TELEPORT CONFIRMATION
-	if not Cfg.TeleportConfirmation and (tostring(event[2]) == "Teleport.MovePlayer") then  return end
-	
-  event[6](nil,unpack(args))
+    event[6](nil,unpack(args))
 	--    local a2 = INP.GetTimeFromTimerReset()
 end
 --============================================================================
