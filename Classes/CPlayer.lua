@@ -1244,9 +1244,12 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
 		
         --if debugMarek then Game:Print("Player, damage = "..damage) end
 
+        -- Now all damage is always rounded, including damage under freezer; request by killua-chan
+        -- pk extra plus modification=start##############################################################
+        local save = 0
         if not self.FrozenArmor then
             local rf = self.ArmorRescueFactor        
-            local save = rf * damage
+            save = rf * damage
             if Game.GMode ~= GModes.SingleGame then
                 save = math.ceil(rf * damage)
             end
@@ -1258,6 +1261,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
             
             
             self.Armor = self.Armor - save
+        end
             
             if Game.GMode == GModes.SingleGame then
                 damage = damage-save
@@ -1268,10 +1272,12 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
         	--if self.FrozenArmorTime and self.FrozenArmorTime < INP.GetTime() or math.abs(self.FrozenArmorTime - INP.GetTime()) > 6 then
         		--self.FrozenArmor = false
         		--self.FrozenArmorTime = nil
-        	end
+        	-- end
         --end
         
         --MsgBox("damage after save = ".. damage)
+
+        -- pk extra plus modification=end##############################################################
 
         local gib = 0
 	self.Health = self.Health - damage
