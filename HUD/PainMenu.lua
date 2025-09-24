@@ -1936,7 +1936,7 @@ function PainMenu:AfterControlChange(name)
 		PainMenu:ApplySettings()
 		Cfg.BrightskinTeam = item.values[item.currValue]
 		Cfg:Save()
-		if MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
+		if Cfg.SimpleItems and (MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
 			for i = 1, 2 do
 				local entity = Game.FlagEntityData[i].Entity
 				local param = Game.FlagEntityData[i].Param
@@ -1946,7 +1946,7 @@ function PainMenu:AfterControlChange(name)
 		PainMenu:ActivateScreenAlt(PlayerOptions)
 	elseif self.currScreen == PlayerOptions and name == "BrightskinE" then
 		PainMenu:ApplySettings()
-		if MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
+		if Cfg.SimpleItems and (MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
 			for i = 1, 2 do
 				local entity = Game.FlagEntityData[i].Entity
 				local param = Game.FlagEntityData[i].Param

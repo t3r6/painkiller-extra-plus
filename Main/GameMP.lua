@@ -2639,7 +2639,7 @@ function PressedKey()
     elseif Cfg.Team == 1 then
       Console:Cmd_TEAM(1)
     end
-    if MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
+    if Cfg.SimpleItems and (MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
       for i = 1, 2 do
         local entity = Game.FlagEntityData[i].Entity
         local param = Game.FlagEntityData[i].Param
