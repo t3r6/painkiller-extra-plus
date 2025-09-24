@@ -1,3 +1,4 @@
+--=====================================================================================
 function Hud:DrawSpeedmeter(entity)
   local w, h = R3D.ScreenSize()
   
@@ -9,11 +10,8 @@ function Hud:DrawSpeedmeter(entity)
   if Player then
     spfontsizes = infoitems[3] - 4
   end
-  local spfontcolortxt = {
-    255,
-    255,
-    255
-  }
+
+  local spfontcolortxt = {255, 255, 255}
   local spfonttypo = "Impact"
   if Cfg.PositioningSystem == 4 then
     if INP.Key(Keys.Home) == 2 then
@@ -23,43 +21,43 @@ function Hud:DrawSpeedmeter(entity)
       spressthiskey = false
     end
   end
+
   if Cfg.HUD_HudStyle == 0 then
     spfontsizes = infoitems[3]
-    spfontcolortxt = {
-      230,
-      161,
-      97
-    }
+    spfontcolortxt = {230, 161, 97}
     spfonttypo = "timesbd"
   end
+
   local hll = Dist2D(0, 0, vx, vz)
   if Cfg.HUD_Show_Speedmeter == 2 then
     hll = 0
   end
   local fh = 0
-  if 12 <= hll then
+  if hll >= 12 then
     fh = hll - 10
   end
+
   colorfont = {
     347 - string.format("%02d", Dist2D(0, 0, vx, vz)) * (9.2 + fh / 5),
     -92 + string.format("%02d", Dist2D(0, 0, vx, vz)) * (9.2 + fh / 5)
   }
-  if 0 >= colorfont[1] then
-    colorfont[1] = 0
-  elseif 255 <= colorfont[1] then
-    colorfont[1] = 255
+  if colorfont[1] <= 0 then
+      colorfont[1] = 0
+  elseif colorfont[1] >= 255 then
+      colorfont[1] = 255
   end
-  if 0 >= colorfont[2] then
-    colorfont[2] = 0
-  elseif 255 <= colorfont[2] then
-    colorfont[2] = 255
+  if colorfont[2] <= 0 then
+      colorfont[2] = 0
+  elseif colorfont[2] >= 255 then
+      colorfont[2] = 255
   end
+
   local posx = Cfg.HUD_SMeter_Setting[1]
   local posy = Cfg.HUD_SMeter_Setting[2]
   local fontsize = Cfg.HUD_SMeter_Setting[3]
   local checkposx = posx * w / 1024
   HUD.SetFont(spfonttypo, spfontsizes)
-  if infoitems[1] < 508 or 4 < infoitems[2] then
+  if infoitems[1] < 508 or infoitems[2] > 4 then
     realpos = 0
     showpossmeter = 0
   else
@@ -70,7 +68,7 @@ function Hud:DrawSpeedmeter(entity)
   local varb = realpos + HUD.GetTextHeight()
   specrealpos = specrealpos
   if Player then
-    if 0 < checkposx then
+    if checkposx > 0 then
       HUD.SetFont(spfonttypo, spfontsizes)
       if Cfg.HUD_Show_Speedmeter == 2 or Cfg.HUD_Show_Speedmeter == 3 then
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(ups) + (posx * w / 1024 + 1), vara + (posy + 1) * h / 768, ups, spfonttypo, 15, 15, 15, spfontsizes)
@@ -126,7 +124,7 @@ function Hud:DrawSpeedmeter(entity)
     HUD.DrawQuadRGBA(nil, w / 2 - HUD.GetTextWidth(ups) + 508 * w / 1024, specrealpos + HUD.GetTextHeight() + 5 * h / 768, hll * 1.6 * w / 1024, 3 * h / 768, colorfont[1], colorfont[2], 0)
   end
 end
-
+--=====================================================================================
 function Hud:DrawInfosTimerBegins()
   local w, h = R3D.ScreenSize()
   local spressthiskey = false
@@ -154,22 +152,8 @@ function Hud:DrawInfosTimerBegins()
     Cfg.HUD_Timer_Setting_Save,
     Cfg.HUD_FragMessage_Status_Setting_Save
   }
-  local itemsname = {
-    "FPS",
-    "Packet loss",
-    "Ping",
-    "Speedmeter",
-    "Timer",
-    "FragMessage"
-  }
-  local checkitem = {
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  }
+  local itemsname = { "FPS", "Packet loss", "Ping", "Speedmeter", "Timer", "FragMessage" }
+  local checkitem = { false, false, false, false, false, false }
   local j = 0
   local showpospl = 0
   local showposping = 0
@@ -178,13 +162,7 @@ function Hud:DrawInfosTimerBegins()
   local ploss = NET.GetClientPacketLoss(NET.GetClientID()) .. " PL"
   local vx, vy, vz, vl = ENTITY.GetVelocity(entity)
   local ups = string.format("%.01f Ups", Dist2D(0, 0, vx, vz))
-  local fontsizes = {
-    22,
-    22,
-    22,
-    22,
-    40
-  }
+  local fontsizes = { 22, 22, 22, 22, 40 }
   if Player then
     fontsizes = {
       infoitems[1][3] - 4,
@@ -194,16 +172,8 @@ function Hud:DrawInfosTimerBegins()
       infoitems[5][3] - 4
     }
   end
-  local fontcolortxt = {
-    255,
-    255,
-    255
-  }
-  local fontcolortxtb = {
-    255,
-    255,
-    255
-  }
+  local fontcolortxt = {255, 255, 255}
+  local fontcolortxtb = {255, 255, 255}
   local fonttypo = "Impact"
   if Cfg.HUD_HudStyle == 0 then
     fontsizes = {
@@ -213,16 +183,8 @@ function Hud:DrawInfosTimerBegins()
       infoitems[4][3],
       infoitems[5][3]
     }
-    fontcolortxt = {
-      230,
-      161,
-      97
-    }
-    fontcolortxtb = {
-      230,
-      161,
-      97
-    }
+    fontcolortxt = {230, 161, 97}
+    fontcolortxtb = {230, 161, 97}
     fonttypo = "timesbd"
   end
   local settingsave = "Your custom settings have been saved."
@@ -247,6 +209,7 @@ function Hud:DrawInfosTimerBegins()
       spressthiskey = false
     end
   end
+
   if self._showFPS or Game.GMode ~= GModes.SingleGame then
     if Cfg.HUD_Show_FPS == false then
       Cfg.ShowFPS = false
@@ -261,7 +224,7 @@ function Hud:DrawInfosTimerBegins()
       j = j + 1
       checkitem[1] = true
       if Player then
-        if 0 < checkposx then
+        if checkposx > 0 then
           HUD.SetFont(fonttypo, fontsizes[1])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(fps) + (posx * w / 1024 + 1), posy * h / 768 + 1, fps, fonttypo, 15, 15, 15, fontsizes[1])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(fps) + posx * w / 1024, posy * h / 768, fps, fonttypo, fontcolortxt[1], fontcolortxt[2], fontcolortxt[3], fontsizes[1])
@@ -283,7 +246,7 @@ function Hud:DrawInfosTimerBegins()
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(fps) + (508 * w / 1024 + 1), 5 * h / 768 + 1, fps, fonttypo, 15, 15, 15, fontsizes[1])
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(fps) + 508 * w / 1024, 4 * h / 768, fps, fonttypo, fontcolortxt[1], fontcolortxt[2], fontcolortxt[3], fontsizes[1])
       end
-      if infoitems[1][1] < 508 or 4 < infoitems[1][2] then
+      if infoitems[1][1] < 508 or infoitems[1][2] > 4 then
         heightpos = heightpos
       else
         heightpos = HUD.GetTextHeight()
@@ -298,6 +261,7 @@ function Hud:DrawInfosTimerBegins()
       end
       grosfps = HUD.GetTextWidth("000 FPS") / 2
     end
+
     if Cfg.HUD_Show_PacketLoss then
       local posx = Cfg.HUD_PL_Setting[1]
       local posy = Cfg.HUD_PL_Setting[2]
@@ -305,7 +269,7 @@ function Hud:DrawInfosTimerBegins()
       local checkposx = posx * w / 1024
       j = j + 1
       checkitem[2] = true
-      if infoitems[2][1] < 508 or 4 < infoitems[2][2] then
+      if infoitems[2][1] < 508 or infoitems[2][2] > 4 then
         realpos = 0
         showpospl = 0
       else
@@ -313,7 +277,7 @@ function Hud:DrawInfosTimerBegins()
         showpospl = heightpos
       end
       if Player then
-        if 0 < checkposx then
+        if checkposx > 0 then
           HUD.SetFont(fonttypo, fontsizes[2])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(ploss) + (posx * w / 1024 + 1), realpos + (posy * h / 768 + 1), ploss, fonttypo, 15, 15, 15, fontsizes[2])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(ploss) + posx * w / 1024, realpos + posy * h / 768, ploss, fonttypo, fontcolortxt[1], fontcolortxt[2], fontcolortxt[3], fontsizes[2])
@@ -335,7 +299,7 @@ function Hud:DrawInfosTimerBegins()
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(ploss) + (508 * w / 1024 + 1), specrealpos + 5 * h / 768 + 1, ploss, fonttypo, 15, 15, 15, fontsizes[2])
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(ploss) + 508 * w / 1024, specrealpos + 4 * h / 768, ploss, fonttypo, fontcolortxt[1], fontcolortxt[2], fontcolortxt[3], fontsizes[2])
       end
-      if infoitems[2][1] < 508 or 4 < infoitems[2][2] then
+      if infoitems[2][1] < 508 or infoitems[2][2] > 4 then
         heightpos = heightpos
       else
         heightpos = heightpos + HUD.GetTextHeight()
@@ -354,6 +318,7 @@ function Hud:DrawInfosTimerBegins()
       specrealpos = specrealpos
     end
   end
+
   if Game.GMode ~= GModes.SingleGame then
     if Cfg.HUD_Show_Ping then
       local posx = Cfg.HUD_Ping_Setting[1]
@@ -362,38 +327,28 @@ function Hud:DrawInfosTimerBegins()
       local checkposx = posx * w / 1024
       j = j + 1
       checkitem[3] = true
-      if infoitems[3][1] < 508 or 4 < infoitems[3][2] then
+
+      if infoitems[3][1] < 508 or infoitems[3][2] > 4 then
         realpos = 0
         showposping = 0
       else
         realpos = heightpos
         showposping = heightpos
       end
+
       local pingcolor = fontcolortxt
       local vping = NET.GetClientPing(NET.GetClientID())
       if Cfg.HUD_Ping_Colored then
-        if 20 < vping and vping <= 60 then
-          pingcolor = {
-            0,
-            255,
-            0
-          }
-        elseif 60 < vping and vping <= 100 then
-          pingcolor = {
-            255,
-            255,
-            0
-          }
-        elseif 100 < vping then
-          pingcolor = {
-            255,
-            0,
-            0
-          }
+        if vping > 20 and vping <= 60 then
+          pingcolor = {0, 255, 0}
+        elseif vping > 60 and vping <= 100 then
+          pingcolor = {255, 255, 0}
+        elseif vping > 100 then
+          pingcolor = {255, 0, 0}
         end
       end
       if Player then
-        if 0 < checkposx then
+        if checkposx > 0 then
           HUD.SetFont(fonttypo, fontsizes[3])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(ping) + (posx * w / 1024 + 1), realpos + (posy * h / 768 + 1), ping, fonttypo, 15, 15, 15, fontsizes[3])
           HUD.PrintXY(w / 2 - HUD.GetTextWidth(ping) + posx * w / 1024, realpos + posy * h / 768, ping, fonttypo, pingcolor[1], pingcolor[2], pingcolor[3], fontsizes[3])
@@ -415,7 +370,7 @@ function Hud:DrawInfosTimerBegins()
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(ping) + (508 * w / 1024 + 1), specrealpos + 5 * h / 768 + 1, ping, fonttypo, 15, 15, 15, fontsizes[3])
         HUD.PrintXY(w / 2 - HUD.GetTextWidth(ping) + 508 * w / 1024, specrealpos + 4 * h / 768, ping, fonttypo, pingcolor[1], pingcolor[2], pingcolor[3], fontsizes[3])
       end
-      if infoitems[3][1] < 508 or 4 < infoitems[3][2] then
+      if infoitems[3][1] < 508 or infoitems[3][2] > 4 then
         heightpos = heightpos
       else
         heightpos = heightpos + HUD.GetTextHeight()
@@ -434,6 +389,7 @@ function Hud:DrawInfosTimerBegins()
       specrealpos = specrealpos
     end
   end
+
   if Cfg.HUD_Show_Speedmeter == 1 or Cfg.HUD_Show_Speedmeter == 2 or Cfg.HUD_Show_Speedmeter == 3 then
     j = j + 1
     checkitem[4] = true
@@ -443,12 +399,13 @@ function Hud:DrawInfosTimerBegins()
       Hud:DrawSpeedmeter(getplayerentity)
     end
   end
+
   if Game and Game.GMode ~= GModes.SingleGame and (self._showtimer or Cfg.ShowTimer) and Game._TimeLimitOut then
     local tm = (MPCfg.TimeLimit * 60 - Game._TimeLimitOut) / 60
     if Cfg.ShowTimerCountUp == true then
-      tm = Game._TimeLimitOut / 60
+      tm = (Game._TimeLimitOut) / 60
     end
-    if 0 > Game._TimeLimitOut then
+    if Game._TimeLimitOut < 0 then
       tm = 0
     end
     local m = math.floor(tm)
@@ -456,9 +413,9 @@ function Hud:DrawInfosTimerBegins()
     local red = false
     local posw = infoitems[5][1] * w / 1024
     local posh = (768 - infoitems[5][2]) * h / 768
-    if m <= 0 and Cfg.ShowTimerCountUp == false then
+    if(m <= 0.0) and Cfg.ShowTimerCountUp == false then
       red = true
-    elseif m >= MPCfg.TimeLimit - 1 and Cfg.ShowTimerCountUp then
+    elseif (m >= MPCfg.TimeLimit - 1) and Cfg.ShowTimerCountUp then
       red = true
     end
     if Cfg.ShowTimer ~= false then
@@ -513,6 +470,7 @@ function Hud:DrawInfosTimerBegins()
       end
     end
   end
+
   if Cfg.HUD_FragMessage_Status then
     local posx = Cfg.HUD_FragMessage_Status_Setting[1]
     local posy = Cfg.HUD_FragMessage_Status_Setting[2]
@@ -554,35 +512,16 @@ function Hud:DrawInfosTimerBegins()
     local at = Hud.AttackType
     local itemsposh = Hud.FMessageStatusPos
     if spressthiskey == true then
-      dname = {
-        "Player",
-        "Player",
-        "Player",
-        "Player"
-      }
-      kname = {
-        "Player",
-        "Player",
-        "Player",
-        "Player"
-      }
-      at = {
-        1,
-        1,
-        1,
-        1
-      }
-      itemsposh = {
-        0,
-        42,
-        82,
-        122
-      }
+      dname = {"Player", "Player", "Player", "Player"}
+      kname = {"Player", "Player", "Player", "Player"}
+      at = {1, 1, 1, 1}
+      itemsposh = {0, 42, 82, 122}
     end
+
     local fsize = infoitems[6][3]
     local varsize = string.format("%.01f", fsize / (22 / 0.6))
     HUD.SetFont("Impact", fsize)
-    if 0 < checkposx then
+    if checkposx > 0 then
       if Game.currentTime * 2 == Hud.AttackTypeEnd[1] then
         Hud.AttackTypeEnd[1] = 0
       end
@@ -675,7 +614,7 @@ function Hud:DrawInfosTimerBegins()
     end
     if infoitems[6][2] >= 661 + HUD.GetTextHeight() then
       infoitems[6][2] = tonumber(string.format("%01d", 661 + HUD.GetTextHeight()))
-    elseif 4 >= infoitems[6][2] then
+    elseif infoitems[6][2] <= 4 then
       infoitems[6][2] = tonumber(string.format("%01d", 4))
     end
     if posx * w / 1024 <= -(w - w / 2 - HUD.GetTextWidth("Player") * 2 - sizex * varsize * w / 1024) then
@@ -686,10 +625,11 @@ function Hud:DrawInfosTimerBegins()
       infoitems[6][1] = tonumber(string.format("%01d", 511))
     end
   end
+
   if Player and Cfg.PositioningSystem == 4 then
     local nosavecheck = false
     if spressthiskey == true then
-      if 0 < j then
+      if j > 0 then
         local nu = 1
         if INP.Key(Keys.Num7) == 1 then
           nu = 1
@@ -705,7 +645,7 @@ function Hud:DrawInfosTimerBegins()
             if Cfg.HUD_Infos_Items > 6 then
               Cfg.HUD_Infos_Items = 1
             end
-            if 1 > Cfg.HUD_Infos_Items then
+            if Cfg.HUD_Infos_Items < 1 then
               Cfg.HUD_Infos_Items = 6
             end
           end
@@ -713,7 +653,7 @@ function Hud:DrawInfosTimerBegins()
       end
       local v = Cfg.HUD_Infos_Items
       if checkitem[v] == true then
-        if 5 > Cfg.HUD_Infos_Items then
+        if Cfg.HUD_Infos_Items < 5 then
           if INP.Key(Keys.Num4) == Hud.keypressmode then
             if Hud.keypressmode == 1 then
               Hud.movespeedstarttime = Game.currentTime + Hud.latency
@@ -744,7 +684,7 @@ function Hud:DrawInfosTimerBegins()
               Hud.movespeedstart = true
             end
             infoitems[v][3] = tonumber(string.format("%02d", infoitems[v][3] + 1))
-            if 40 <= infoitems[v][3] then
+            if infoitems[v][3] >= 40 then
               infoitems[v][3] = tonumber(string.format("%02d", 40))
             end
           elseif INP.Key(Keys.Num3) == Hud.keypressmode then
@@ -760,7 +700,7 @@ function Hud:DrawInfosTimerBegins()
           if infoitems[v][1] >= 510 then
             infoitems[v][1] = tonumber(string.format("%d", 510))
           end
-          if 4 >= infoitems[v][2] then
+          if infoitems[v][2] <= 4 then
             infoitems[v][2] = tonumber(string.format("%d", 4))
           end
           if INP.Key(Keys.Num8) == 3 or INP.Key(Keys.Num6) == 3 or INP.Key(Keys.Num4) == 3 or INP.Key(Keys.Num2) == 3 or INP.Key(Keys.Num9) == 3 or INP.Key(Keys.Num3) == 3 then
@@ -797,18 +737,9 @@ function Hud:DrawInfosTimerBegins()
               CONSOLE.AddMessage(settingloaded, R3D.RGB(0, 255, 0))
             end
           end
-          local showpos = {
-            0,
-            showpospl,
-            showposping,
-            showpossmeter
-          }
-          local infos = {
-            fps,
-            ploss,
-            ping,
-            ups
-          }
+
+          local showpos = {0, showpospl, showposping, showpossmeter}
+          local infos = {fps, ploss, ping, ups}
           local fixposw = grosfps
           if Cfg.HUD_Infos_Items == 2 then
             fixposw = grospl
@@ -901,9 +832,9 @@ function Hud:DrawInfosTimerBegins()
           end
           if infoitems[v][1] == 0 then
             npositon = "Timer Center - Font: " .. infoitems[v][3]
-          elseif 0 > infoitems[v][1] then
+          elseif infoitems[v][1] < 0 then
             npositon = "Timer Left- Font: " .. infoitems[v][3]
-          elseif 0 < infoitems[v][1] then
+          elseif infoitems[v][1] > 0 then
             npositon = "Timer Right- Font: " .. infoitems[v][3]
           end
           HUD.SetFont("courbd", 20)
@@ -999,14 +930,16 @@ function Hud:DrawInfosTimerBegins()
       end
     end
   end
+
   if Game and MPCfg.GameState == GameStates.Counting and Game._countTimer and Game._countTimer > 0.99 then
     local countdown = "Match begins in: " .. string.format("%02d", Game._countTimer)
     HUD.SetFont(fonttypo, 26)
     HUD.PrintXY((w - HUD.GetTextWidth(countdown)) / 2 + 1, 601 * h / 768, countdown, fonttypo, 15, 15, 15, 26)
     HUD.PrintXY((w - HUD.GetTextWidth(countdown)) / 2, 601 * h / 768, countdown, fonttypo, fontcolortxtb[1], fontcolortxtb[2], fontcolortxtb[3], 26)
   end
-end
 
+end
+--=====================================================================================
 function Hud:CurrentWeaponIcon()
   local w, h = R3D.ScreenSize()
   local CurrentWeaponIcons = {
@@ -1040,376 +973,54 @@ function Hud:CurrentWeaponIcon()
   }
   local n = Player._CurWeaponIndex
   local s = 0
-  local color = {
-    {
-      0,
-      204,
-      255
-    },
-    {
-      255,
-      102,
-      0
-    },
-    {
-      0,
-      255,
-      0
-    },
-    {
-      255,
-      0,
-      0
-    },
-    {
-      204,
-      0,
-      255
-    },
-    {
-      153,
-      153,
-      153
-    },
-    {
-      0,
-      255,
-      204
-    }
-  }
+  local color = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
   if not INP.IsFireSwitched() then
     if not (not Game.SwitchFire[n] and Cfg.SwitchFire[n]) or not Cfg.SwitchFire[n] and Game.SwitchFire[n] then
       s = 1
-      color = {
-        {
-          0,
-          204,
-          255
-        },
-        {
-          255,
-          102,
-          0
-        },
-        {
-          0,
-          255,
-          0
-        },
-        {
-          255,
-          0,
-          0
-        },
-        {
-          204,
-          0,
-          255
-        },
-        {
-          153,
-          153,
-          153
-        },
-        {
-          0,
-          255,
-          204
-        }
-      }
+      color = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
     else
       s = 2
-      color = {
-        {
-          255,
-          255,
-          255
-        },
-        {
-          0,
-          102,
-          255
-        },
-        {
-          255,
-          0,
-          0
-        },
-        {
-          255,
-          255,
-          0
-        },
-        {
-          255,
-          255,
-          153
-        },
-        {
-          0,
-          0,
-          0
-        },
-        {
-          255,
-          0,
-          153
-        }
-      }
+      color = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
     end
     if INP.Action(Actions.AltFire) then
       if not (not Game.SwitchFire[n] and Cfg.SwitchFire[n]) or not Cfg.SwitchFire[n] and Game.SwitchFire[n] then
         s = 2
-        color = {
-          {
-            255,
-            255,
-            255
-          },
-          {
-            0,
-            102,
-            255
-          },
-          {
-            255,
-            0,
-            0
-          },
-          {
-            255,
-            255,
-            0
-          },
-          {
-            255,
-            255,
-            153
-          },
-          {
-            0,
-            0,
-            0
-          },
-          {
-            255,
-            0,
-            153
-          }
-        }
+        color = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
       else
         s = 1
-        color = {
-          {
-            0,
-            204,
-            255
-          },
-          {
-            255,
-            102,
-            0
-          },
-          {
-            0,
-            255,
-            0
-          },
-          {
-            255,
-            0,
-            0
-          },
-          {
-            204,
-            0,
-            255
-          },
-          {
-            153,
-            153,
-            153
-          },
-          {
-            0,
-            255,
-            204
-          }
-        }
+        color = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
       end
     end
   else
     if not (not Game.SwitchFire[n] and Cfg.SwitchFire[n]) or not Cfg.SwitchFire[n] and Game.SwitchFire[n] then
       s = 2
-      color = {
-        {
-          255,
-          255,
-          255
-        },
-        {
-          0,
-          102,
-          255
-        },
-        {
-          255,
-          0,
-          0
-        },
-        {
-          255,
-          255,
-          0
-        },
-        {
-          255,
-          255,
-          153
-        },
-        {
-          0,
-          0,
-          0
-        },
-        {
-          255,
-          0,
-          153
-        }
-      }
+      color = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
     else
       s = 1
-      color = {
-        {
-          0,
-          204,
-          255
-        },
-        {
-          255,
-          102,
-          0
-        },
-        {
-          0,
-          255,
-          0
-        },
-        {
-          255,
-          0,
-          0
-        },
-        {
-          204,
-          0,
-          255
-        },
-        {
-          153,
-          153,
-          153
-        },
-        {
-          0,
-          255,
-          204
-        }
-      }
+      color = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
     end
     if INP.Action(Actions.Fire) then
       if not (not Game.SwitchFire[n] and Cfg.SwitchFire[n]) or not Cfg.SwitchFire[n] and Game.SwitchFire[n] then
         s = 1
-        color = {
-          {
-            0,
-            204,
-            255
-          },
-          {
-            255,
-            102,
-            0
-          },
-          {
-            0,
-            255,
-            0
-          },
-          {
-            255,
-            0,
-            0
-          },
-          {
-            204,
-            0,
-            255
-          },
-          {
-            153,
-            153,
-            153
-          },
-          {
-            0,
-            255,
-            204
-          }
-        }
+        color = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
       else
         s = 2
-        color = {
-          {
-            255,
-            255,
-            255
-          },
-          {
-            0,
-            102,
-            255
-          },
-          {
-            255,
-            0,
-            0
-          },
-          {
-            255,
-            255,
-            0
-          },
-          {
-            255,
-            255,
-            153
-          },
-          {
-            0,
-            0,
-            0
-          },
-          {
-            255,
-            0,
-            153
-          }
-        }
+        color = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
       end
     end
   end
+
   local ji = Player:GetCurWeaponSlotIndex()
   if Cfg.HUD_HudStyle == 0 then
-    if type(ji) == "number" and ji <= 7 and 1 <= ji and Player._CurWeaponIndex == ji then
+    if type(ji) == "number" and ji <= 7 and ji >= 1 and Player._CurWeaponIndex == ji then
       Hud:QuadTrans(CurrentWeaponIcons[ji], 490.5 * w / 1024, 700 * h / 768, 1, false, 255)
     end
-  elseif Cfg.HUD_HudStyle == 3 and type(ji) == "number" and ji <= 7 and 1 <= ji and Player._CurWeaponIndex == ji then
+  elseif Cfg.HUD_HudStyle == 3 and type(ji) == "number" and ji <= 7 and ji >= 1 and Player._CurWeaponIndex == ji then
     Hud:QuadRGBA(curw[s][ji], 492 * w / 1024, 695 * h / 768, 1, false, color[ji][1], color[ji][2], color[ji][3], 255)
   end
-end
 
+end
+--=====================================================================================
 function Hud:DrawPlayerVsPlayer(check)
   if MPCfg.GameState == GameStates.WarmUp or MPCfg.GameState == GameStates.Counting then
     local w, h = R3D.ScreenSize()
@@ -1417,19 +1028,11 @@ function Hud:DrawPlayerVsPlayer(check)
     local pl2 = ""
     if Cfg.HUD_HudStyle == 0 then
       vsfontsizes = 36
-      vsfontcolortxt = {
-        230,
-        161,
-        97
-      }
+      vsfontcolortxt = {230, 161, 97}
       vsfonttypo = "timesbd"
     else
       vsfontsizes = 32
-      vsfontcolortxt = {
-        255,
-        255,
-        255
-      }
+      vsfontcolortxt = {255, 255, 255}
       vsfonttypo = "Impact"
     end
     for i, o in Game.PlayerStats, nil do
@@ -1441,27 +1044,11 @@ function Hud:DrawPlayerVsPlayer(check)
         end
       end
     end
-    local cb = {
-      0,
-      102,
-      255
-    }
-    local cr = {
-      255,
-      0,
-      0
-    }
+    local cb = {0, 102, 255}
+    local cr = {255, 0, 0}
     if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-      cb = {
-        Game._ColorTeamB[1],
-        Game._ColorTeamB[2],
-        Game._ColorTeamB[3]
-      }
-      cr = {
-        Game._ColorTeamR[1],
-        Game._ColorTeamR[2],
-        Game._ColorTeamR[3]
-      }
+      cb = { Game._ColorTeamB[1], Game._ColorTeamB[2], Game._ColorTeamB[3] }
+      cr = { Game._ColorTeamR[1], Game._ColorTeamR[2], Game._ColorTeamR[3] }
     end
     if check == "no" then
       if pl1 ~= "" and pl2 ~= "" then
@@ -1502,31 +1089,23 @@ function Hud:DrawPlayerVsPlayer(check)
     end
   end
 end
-
+--=====================================================================================
 function Hud:FragMessage(fname)
   local w, h = R3D.ScreenSize()
   if Cfg.HUD_HudStyle == 0 then
     fafontsizes = Cfg.HUD_FragMessageFontSize + 4
-    fafontcolortxt = {
-      230,
-      161,
-      97
-    }
+    fafontcolortxt = {230, 161, 97}
     fafonttypo = "timesbd"
   else
     fafontsizes = Cfg.HUD_FragMessageFontSize
-    fafontcolortxt = {
-      255,
-      255,
-      255
-    }
+    fafontcolortxt = {255, 255, 255}
     fafonttypo = "Impact"
   end
   HUD.SetFont(fafonttypo, fafontsizes)
   HUD.PrintXY((w - HUD.GetTextWidth("You killed: " .. HUD.StripColorInfo(fname) .. "!")) / 2 + 1, 450 * h / 768 + 1, "You killed: " .. HUD.StripColorInfo(fname) .. "!", fafonttypo, 15, 15, 15, fafontsizes)
   HUD.PrintXY((w - HUD.GetTextWidth("You killed: " .. fname .. "!")) / 2, 450 * h / 768, "You killed: " .. fname .. "!", fafonttypo, fafontcolortxt[1], fafontcolortxt[2], fafontcolortxt[3], fafontsizes)
 end
-
+--=====================================================================================
 function Hud:CurrentWeaponBG()
   local w, h = R3D.ScreenSize()
   local wep1 = {w = 0.07, d = 0.049}
@@ -1547,39 +1126,23 @@ function Hud:CurrentWeaponBG()
     HUD.DrawQuadRGBA(Hud._matBluePix, AmmoList_Text_Pos7_X, AmmoList_Pos7_Y, w * wep2.w, h * wep2.d)
   end
 end
-
+--=====================================================================================
 function Hud_OnConsoleTab(cmd)
   Hud:OnConsoleTab(cmd)
 end
-
+--=====================================================================================
 function Hud:TeamWins()
   local bluecount = 0
   local redcount = 0
   local teamwins = "Demons team wins"
-  local co = {
-    255,
-    0,
-    0
-  }
+  local co = {255, 0, 0}
   if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-    co = {
-      Game._ColorTeamR[1],
-      Game._ColorTeamR[2],
-      Game._ColorTeamR[3]
-    }
+    co = { Game._ColorTeamR[1], Game._ColorTeamR[2], Game._ColorTeamR[3] }
   end
   if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false and Cfg.Team == 1 then
-    co = {
-      0,
-      102,
-      255
-    }
+    co = {0, 102, 255}
     if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-      co = {
-        Game._ColorTeamB[1],
-        Game._ColorTeamB[2],
-        Game._ColorTeamB[3]
-      }
+      co = { Game._ColorTeamB[1], Game._ColorTeamB[2], Game._ColorTeamB[3] }
     end
   end
   local w, h = R3D.ScreenSize()
@@ -1592,30 +1155,14 @@ function Hud:TeamWins()
     end
   end
   if redcount == 0 then
-    co = {
-      0,
-      102,
-      255
-    }
+    co = {0, 102, 255}
     if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-      co = {
-        Game._ColorTeamB[1],
-        Game._ColorTeamB[2],
-        Game._ColorTeamB[3]
-      }
+      co = { Game._ColorTeamB[1], Game._ColorTeamB[2], Game._ColorTeamB[3] }
     end
     if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false and Cfg.Team == 1 then
-      co = {
-        255,
-        0,
-        0
-      }
+      co = {255, 0, 0}
       if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-        co = {
-          Game._ColorTeamR[1],
-          Game._ColorTeamR[2],
-          Game._ColorTeamR[3]
-        }
+        co = { Game._ColorTeamR[1], Game._ColorTeamR[2], Game._ColorTeamR[3] }
       end
     end
     teamwins = "Angels team wins"
@@ -1625,3 +1172,4 @@ function Hud:TeamWins()
   HUD.PrintXY(w / 2 - tw / 2 + 3, h - 600 * h / 768 + 3, teamwins, "impact", 15, 15, 15, 50)
   HUD.PrintXY(w / 2 - tw / 2, h - 600 * h / 768, teamwins, "impact", co[1], co[2], co[3], 50)
 end
+--=====================================================================================
