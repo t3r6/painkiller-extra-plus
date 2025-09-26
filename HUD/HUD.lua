@@ -893,7 +893,7 @@ end
       end
       if Game.currentTime * 2 >= Hud.MedalGoodIconStart and Game.currentTime * 2 <= Hud.MedalGoodIconEnd and Cfg.HUD_Medal_Good_Icon then
         Hud:Shape("good", nil, morethantwo)
-        if 9 < Hud.MedalGood then
+        if Hud.MedalGood > 9 then
           morethantwo = morethantwo + -94 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
         else
           morethantwo = morethantwo + -68 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
@@ -901,7 +901,7 @@ end
       end
       if Game.currentTime * 2 >= Hud.MedalSweetIconStart and Game.currentTime * 2 <= Hud.MedalSweetIconEnd and Cfg.HUD_Medal_Sweet_Icon then
         Hud:Shape("sweet", nil, morethantwo)
-        if 9 < Hud.MedalSweet then
+        if Hud.MedalSweet > 9 then
           morethantwo = morethantwo + -94 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
         else
           morethantwo = morethantwo + -68 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
@@ -909,7 +909,7 @@ end
       end
       if Game.currentTime * 2 >= Hud.MedalStylishIconStart and Game.currentTime * 2 <= Hud.MedalStylishIconEnd and Cfg.HUD_Medal_Stylish_Icon then
         Hud:Shape("stylish", nil, morethantwo)
-        if 9 < Hud.MedalStylish then
+        if Hud.MedalStylish > 9 then
           morethantwo = morethantwo + -94 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
         else
           morethantwo = morethantwo + -68 * Cfg.HUD_Medals_Icon_Setting[3] * h / 768
