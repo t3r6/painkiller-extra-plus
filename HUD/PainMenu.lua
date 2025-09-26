@@ -2941,7 +2941,7 @@ function PainMenu:RenderPlayerModel( name )
 		end
 		if INP.Key(Keys.MouseWheelForward) == 1 then
 			PainMenu.wtoplayerb = PainMenu.wtoplayerb - 1
-			if 1 > PainMenu.wtoplayerb then
+			if PainMenu.wtoplayerb < 1 then
 				PainMenu.wtoplayerb = 7
 				PainMenu.wtoplayera = 1
 			end
