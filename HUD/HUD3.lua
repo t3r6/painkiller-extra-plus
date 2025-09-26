@@ -1,95 +1,89 @@
+--=====================================================================================
 function Hud:DrawMOTD()
-  if not Hud or MPCfg.MOTD == nil then
-    return
-  end
-  local w, h = R3D.ScreenSize()
-  local font = "Impact"
-  local fontfactor = h / 600
-  local linespacing = 1.2
-  local mediumfont = 24
-  local line = mediumfont * fontfactor * linespacing
-  local txt = ""
-  local rest = MPCfg.MOTD
-  local linelevel = h * 0.6
-  local pattern = "([^%;]+);([%p%s%w%d]+)"
-  local fade = 1
-  local timeinout = 3
-  if timeinout > Hud._MOTDTime - INP.GetTime() then
-    fade = (Hud._MOTDTime - INP.GetTime()) / timeinout
-  end
-  if timeinout > INP.GetTime() - (Hud._MOTDTime - 10) then
-    fade = (INP.GetTime() - (Hud._MOTDTime - 10)) / timeinout
-  end
-  local poo = math.floor(80 * fade)
-  local pie = math.floor(255 * fade)
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-  txt = string.gsub(rest, pattern, "%1")
-  if txt ~= nil then
-    HUD.PrintXY(w * 0.2, linelevel, txt, font, poo, pie, poo, mediumfont)
-  end
-  rest = string.gsub(rest, pattern, "%2")
-  linelevel = linelevel + line
-end
 
+	if(not Hud or MPCfg.MOTD==nil) then return end
+	local w,h = R3D.ScreenSize()
+	local font = "Impact"
+	local fontfactor = h / 600	
+	local linespacing = 1.2
+	local mediumfont = 24
+	local line = mediumfont*fontfactor*linespacing
+	
+	-- BREAK INTO LINES
+	local txt = ""
+	local rest = MPCfg.MOTD  
+	 
+	local linelevel = h*0.6
+	local pattern = "([^%;]+);([%p%s%w%d]+)"
+	
+	local fade = 1.0
+	local timeinout = 3
+	if(Hud._MOTDTime - INP.GetTime() < timeinout) then fade = (Hud._MOTDTime - INP.GetTime())/timeinout end
+	if(((INP.GetTime() - (Hud._MOTDTime - 10))) < timeinout) then fade = (((INP.GetTime() - (Hud._MOTDTime - 10))))/timeinout end	
+	local poo = math.floor(80*fade)
+	local pie = math.floor(255*fade)
+	
+
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+		txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	
+	txt = string.gsub(rest, pattern , "%1")  
+	if(txt~=nil)then HUD.PrintXY(w*0.2,linelevel,txt,font,poo,pie,poo,mediumfont) end	
+	rest = string.gsub(rest, pattern , "%2")
+	linelevel = linelevel + line
+	  
+	
+	
+end
+--=====================================================================================
 function Hud:DrawScores(clientid)
   local gteam1Score = Game._team1Score
   local gteam2Score = Game._team2Score
@@ -172,45 +166,12 @@ function Hud:DrawScores(clientid)
     end
   elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
     if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-      scoresposxy = {
-        {
-          126,
-          140,
-          0.8
-        },
-        {
-          62,
-          140,
-          0.8
-        }
-      }
+      scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
     else
-      scoresposxy = {
-        {
-          62,
-          140,
-          0.8
-        },
-        {
-          126,
-          140,
-          0.8
-        }
-      }
+      scoresposxy = { {62, 140, 0.8}, {126, 140, 0.8} }
     end
   else
-    scoresposxy = {
-      {
-        126,
-        140,
-        0.8
-      },
-      {
-        62,
-        140,
-        0.8
-      }
-    }
+    scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
   end
   local scsizehud = scoresposxy[1][3]
   if Player and Cfg.PositioningSystem == 1 then
@@ -386,16 +347,8 @@ function Hud:DrawScores(clientid)
     scoresposxy[2][1] - 9 * scsizehud,
     scoresposxy[2][2] + 3
   }
-  local cb = {
-    0,
-    102,
-    255
-  }
-  local cr = {
-    255,
-    0,
-    0
-  }
+  local cb = {0, 102, 255}
+  local cr = {255, 0, 0}
   if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
     cb = {
       Game._ColorTeamB[1],
@@ -412,11 +365,7 @@ function Hud:DrawScores(clientid)
   local gamet2 = gteam2Score
   if playerteam == 0 and MPGameRules[MPCfg.GameMode].Teams then
     markframe = scposxy1
-    cmarframe = {
-      cb[1],
-      cb[2],
-      cb[3]
-    }
+    cmarframe = {cb[1], cb[2], cb[3]}
     if Cfg.HUD_Scores_Frame == 1 then
       alliedteam = "Allied"
     elseif Cfg.HUD_Scores_Frame == 2 then
@@ -424,11 +373,7 @@ function Hud:DrawScores(clientid)
     end
   elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
     markframe = scposxy2
-    cmarframe = {
-      cr[1],
-      cr[2],
-      cr[3]
-    }
+    cmarframe = {cr[1], cr[2], cr[3]}
     if Cfg.HUD_Scores_Frame == 1 then
       alliedteam = "Enemy"
     elseif Cfg.HUD_Scores_Frame == 2 then
@@ -438,11 +383,7 @@ function Hud:DrawScores(clientid)
       gamet2 = gteam1Score
       gamet1 = gteam2Score
       markframe = scposxy1
-      cmarframe = {
-        cb[1],
-        cb[2],
-        cb[3]
-      }
+      cmarframe = {cb[1], cb[2], cb[3]}
       if Cfg.HUD_Scores_Frame == 1 then
         alliedteam = "Allied"
       elseif Cfg.HUD_Scores_Frame == 2 then
@@ -451,11 +392,7 @@ function Hud:DrawScores(clientid)
     end
   else
     markframe = scposxy1
-    cmarframe = {
-      cb[1],
-      cb[2],
-      cb[3]
-    }
+    cmarframe = {cb[1], cb[2], cb[3]}
     if Cfg.HUD_Scores_Frame == 1 then
       alliedteam = "Your"
     elseif Cfg.HUD_Scores_Frame == 2 then
@@ -477,7 +414,7 @@ function Hud:DrawScores(clientid)
     if scplayer1 < 0 then
       Hud:QuadTrans(matminus, (1024 - (scposxy1[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
-    if scplayer2 < 0 or 0 > bestenemyscore then
+    if scplayer2 < 0 or bestenemyscore < 0 then
       Hud:QuadTrans(matminus, (1024 - (scposxy2[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
     Hud:DrawDigitsText1((1024 - scposxy1[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", currentplayerscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
@@ -514,18 +451,21 @@ function Hud:DrawScores(clientid)
   end
 end
 
+--============================================================================
 function Hud:GetCrosshairPlayerName()
-  local b, d, x, y, z, nx, ny, nz, he, e = Player:Trace(100)
-  if b and e then
-    for i, ps in Game.PlayerStats, nil do
-      if ps and ps._Entity and ps._Entity ~= 0 and ps._Entity == e then
-        return ps.ClientID
-      end
+    --ENTITY.RemoveFromIntersectionSolver(pe)
+    local b,d,x,y,z,nx,ny,nz,he,e = Player:Trace(100)
+    --ENTITY.AddToIntersectionSolver(pe)   
+    if b and e then
+	for i,ps in Game.PlayerStats do
+		if(ps and ps._Entity and ps._Entity ~=0)then
+			if(ps._Entity == e)then return ps.ClientID end
+		end 
+	end
     end
-  end
-  return -1
+    return -1
 end
-
+--============================================================================
 function Hud:CrosshairNames()
   local nameshow = self:GetCrosshairPlayerName()
   if nameshow ~= -1 then
@@ -545,141 +485,57 @@ function Hud:CrosshairNames()
     local barsizearmor = varmor / 2
     local barsizehealth = vhealth / 2.5
     if armortype == 0 then
-      colorarwar = {
-        0,
-        0,
-        0
-      }
+      colorarwar = {0, 0, 0}
     elseif armortype == 1 then
-      colorarwar = {
-        169,
-        61,
-        9
-      }
+      colorarwar = {169, 61, 9}
       if Cfg.BrightSkinsArmors then
-        colorarwar = {
-          0,
-          204,
-          0
-        }
+        colorarwar = {0, 204, 0}
       end
     elseif armortype == 2 then
-      colorarwar = {
-        153,
-        153,
-        153
-      }
+      colorarwar = {153, 153, 153}
       if Cfg.BrightSkinsArmors then
-        colorarwar = {
-          255,
-          255,
-          0
-        }
+        colorarwar = {255, 255, 0}
       end
     elseif armortype == 3 then
-      colorarwar = {
-        255,
-        204,
-        0
-      }
+      colorarwar = {255, 204, 0}
       if Cfg.BrightSkinsArmors then
-        colorarwar = {
-          255,
-          0,
-          0
-        }
+        colorarwar = {255, 0, 0}
       end
     end
     if varmor <= Player.ArmorWarning and armortype ~= 0 then
-      colorarwar = {
-        255,
-        0,
-        0
-      }
+      colorarwar = {255, 0, 0}
     end
     if vhealth <= Player.HealthWarning then
-      colorhewar = {
-        255,
-        0,
-        0
-      }
+      colorhewar = {255, 0, 0}
     else
-      colorhewar = {
-        0,
-        vhealth * 1.02,
-        0
-      }
-      if 153 >= colorhewar[2] then
-        colorhewar = {
-          0,
-          153,
-          0
-        }
+      colorhewar = {0, vhealth * 1.02, 0}
+      if colorhewar[2] <= 153 then
+        colorhewar = {0, 153, 0}
       end
     end
     if Game.PlayerStats[nameshow].Team == Player.Team and MPGameRules[MPCfg.GameMode].Teams then
       if Cfg.CrosshairNamesT == "White" then
-        colortxtcnt = {
-          255,
-          255,
-          255
-        }
+        colortxtcnt = {255, 255, 255}
       elseif Cfg.CrosshairNamesT == "Red" then
-        colortxtcnt = {
-          255,
-          0,
-          0
-        }
+        colortxtcnt = {255, 0, 0}
       elseif Cfg.CrosshairNamesT == "Blue" then
-        colortxtcnt = {
-          0,
-          0,
-          255
-        }
+        colortxtcnt = {0, 0, 255}
       elseif Cfg.CrosshairNamesT == "Green" then
-        colortxtcnt = {
-          0,
-          255,
-          0
-        }
+        colortxtcnt = {0, 255, 0}
       elseif Cfg.CrosshairNamesT == "Cyan" then
-        colortxtcnt = {
-          0,
-          255,
-          255
-        }
+        colortxtcnt = {0, 255, 255}
       elseif Cfg.CrosshairNamesT == "Magenta" then
-        colortxtcnt = {
-          255,
-          0,
-          255
-        }
+        colortxtcnt = {255, 0, 255}
       elseif Cfg.CrosshairNamesT == "Yellow" then
-        colortxtcnt = {
-          255,
-          255,
-          0
-        }
+        colortxtcnt = {255, 255, 0}
       elseif Cfg.CrosshairNamesT == "Orange" then
-        colortxtcnt = {
-          255,
-          102,
-          0
-        }
+        colortxtcnt = {255, 102, 0}
       elseif Cfg.CrosshairNamesT == "Pink" then
-        colortxtcnt = {
-          255,
-          0,
-          102
-        }
+        colortxtcnt = {255, 0, 102}
       end
       if Cfg.CrosshairNamesT ~= "None" then
         HUD.SetFont("Impact", fontsize)
-        vsfontcolortxtcnt = {
-          colortxtcnt[1],
-          colortxtcnt[2],
-          colortxtcnt[3]
-        }
+        vsfontcolortxtcnt = {colortxtcnt[1], colortxtcnt[2], colortxtcnt[3]}
         HUD.PrintXY((w - HUD.GetTextWidth(HUD.StripColorInfo(textna))) / 2 + 1, h / 2 + txtposy * h / 768 + 1, HUD.StripColorInfo(textna), "Impact", 15, 15, 15, fontsize)
         HUD.PrintXY((w - HUD.GetTextWidth(HUD.StripColorInfo(textna))) / 2, h / 2 + txtposy * h / 768, HUD.StripColorInfo(textna), "Impact", vsfontcolortxtcnt[1], vsfontcolortxtcnt[2], vsfontcolortxtcnt[3], fontsize)
         if Cfg.CrosshairTeamStatus then
@@ -695,191 +551,145 @@ function Hud:CrosshairNames()
       end
     elseif Game.PlayerStats[nameshow].Team ~= Player.Team or (MPCfg.GameMode ~= "Team Deathmatch" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" and MPCfg.GameMode ~= "Clan Arena") then
       if Cfg.CrosshairNamesE == "White" then
-        colortxtcne = {
-          255,
-          255,
-          255
-        }
+        colortxtcne = {255, 255, 255}
       elseif Cfg.CrosshairNamesE == "Red" then
-        colortxtcne = {
-          255,
-          0,
-          0
-        }
+        colortxtcne = {255, 0, 0}
       elseif Cfg.CrosshairNamesE == "Blue" then
-        colortxtcne = {
-          0,
-          0,
-          255
-        }
+        colortxtcne = {0, 0, 255}
       elseif Cfg.CrosshairNamesE == "Green" then
-        colortxtcne = {
-          0,
-          255,
-          0
-        }
+        colortxtcne = {0, 255, 0}
       elseif Cfg.CrosshairNamesE == "Cyan" then
-        colortxtcne = {
-          0,
-          255,
-          255
-        }
+        colortxtcne = {0, 255, 255}
       elseif Cfg.CrosshairNamesE == "Magenta" then
-        colortxtcne = {
-          255,
-          0,
-          255
-        }
+        colortxtcne = {255, 0, 255}
       elseif Cfg.CrosshairNamesE == "Yellow" then
-        colortxtcne = {
-          255,
-          255,
-          0
-        }
+        colortxtcne = {255, 255, 0}
       elseif Cfg.CrosshairNamesE == "Orange" then
-        colortxtcne = {
-          255,
-          102,
-          0
-        }
+        colortxtcne = {255, 102, 0}
       elseif Cfg.CrosshairNamesE == "Pink" then
-        colortxtcne = {
-          255,
-          0,
-          102
-        }
+        colortxtcne = {255, 0, 102}
       end
       if Cfg.CrosshairNamesE ~= "None" then
         HUD.SetFont("Impact", fontsize)
-        vsfontcolortxtcne = {
-          colortxtcne[1],
-          colortxtcne[2],
-          colortxtcne[3]
-        }
+        vsfontcolortxtcne = {colortxtcne[1], colortxtcne[2], colortxtcne[3]}
         HUD.PrintXY((w - HUD.GetTextWidth(HUD.StripColorInfo(textna))) / 2 + 1, h / 2 + txtposy * h / 768 + 1, HUD.StripColorInfo(textna), "Impact", 15, 15, 15, fontsize)
         HUD.PrintXY((w - HUD.GetTextWidth(HUD.StripColorInfo(textna))) / 2, h / 2 + txtposy * h / 768, HUD.StripColorInfo(textna), "Impact", vsfontcolortxtcne[1], vsfontcolortxtcne[2], vsfontcolortxtcne[3], fontsize)
       end
     end
   end
 end
-
+--============================================================================
 function Hud:DrawTeamOverlay()
-  if not Hud then
-    return
-  end
-  local w, h = R3D.ScreenSize()
-  local font = "Impact"
-  if Cfg.TeamOverlayFontSize == nil then
-    Cfg.TeamOverlayFontSize = 26
-  end
-  local smallfont = Cfg.TeamOverlayFontSize
-  local linespacing = 1
-  if Cfg.TeamOverlayX == nil then
-    Cfg.TeamOverlayX = 0.7
-  end
-  if Cfg.TeamOverlayY == nil then
-    Cfg.TeamOverlayY = 0.71
-  end
-  if Cfg.TeamOverlayW == nil then
-    Cfg.TeamOverlayW = 0.3
-  end
-  local overlaypanel = {
-    x = Cfg.TeamOverlayX,
-    y = Cfg.TeamOverlayY,
-    w = Cfg.TeamOverlayW,
-    d = 0.1
-  }
-  local panelfraction = {
-    status = 0,
-    name = 0.075,
-    location = 0.45
-  }
-  local font = "Impact"
-  local bigfont = "Impact"
-  local fontfactor = h / 600
-  local delta = smallfont * fontfactor
-  local bluescore = 0
-  local redscore = 0
-  local vspace = smallfont * linespacing - smallfont
-  local botcount = 0
-  local playercount = 0
-  local bluecount = 0
-  local redcount = 0
-  local speccount = 0
-  for i, ps in Game.PlayerStats, nil do
-    if ps.Team == 0 and ps.Spectator == 0 then
-      bluecount = bluecount + 1
-    end
-    if ps.Team == 1 and ps.Spectator == 0 then
-      redcount = redcount + 1
-    end
-  end
-  if Player.Team == 0 then
-    overlaypanel.d = (bluecount + 1) * smallfont * fontfactor / h
-  else
-    overlaypanel.d = (redcount + 1) * smallfont * fontfactor / h
-  end
-  HUD.DrawQuadRGBA(Hud._matBluePix, w * overlaypanel.x, h * overlaypanel.y, w * overlaypanel.w, h * overlaypanel.d, 255, 255, 255, 960)
-  HUD.DrawQuadRGBA(Hud._matGreenPix, w * overlaypanel.x, h * overlaypanel.y, w * overlaypanel.w, smallfont * fontfactor, 255, 255, 255, 960)
-  HUD.PrintXY(w * overlaypanel.x + w * panelfraction.name * overlaypanel.w, h * overlaypanel.y + vspace + 2, "Name", font, 255, 255, 255, smallfont)
-  HUD.PrintXY(w * overlaypanel.x + w * panelfraction.location * overlaypanel.w, h * overlaypanel.y + vspace + 2, "Location", font, 255, 255, 255, smallfont)
-  for i, ps in Game.PlayerStats, nil do
-    if ps.Spectator == 0 and Game:IsTeammate(ps.ClientID) then
-      local areaname = Game:GetLocation(ps.ClientID)
-      if areaname == nil then
-        areaname = ""
-      end
-      if Game.GetMyID() == ps.ClientID then
-        HUD.DrawQuadRGBA(Hud._matBluePix, w * overlaypanel.x, h * overlaypanel.y + delta, w * overlaypanel.w, smallfont * fontfactor, 255, 255, 255, 960)
-      end
-      local playerstate = ""
-      for ii, o in Game.Players, nil do
-        if o.ClientID == ID then
-          if o.HasQuad then
-            playerstate = "Q"
-          end
-          if o.HasWeaponModifier then
-            playerstate = "M"
-          end
-          if o.HasPentagram then
-            playerstate = "P"
-          end
-          if o.HasFlag then
-            playerstate = "F"
-          end
-        end
-      end
-      HUD.PrintXY(w * overlaypanel.x + w * panelfraction.status * overlaypanel.w, h * overlaypanel.y + delta + 2, playerstate, font, 255, 255, 255, smallfont)
-      HUD.PrintXY(w * overlaypanel.x + w * panelfraction.name * overlaypanel.w, h * overlaypanel.y + delta + 2, ps.Name, font, 255, 255, 255, smallfont)
-      HUD.PrintXY(w * overlaypanel.x + w * panelfraction.location * overlaypanel.w, h * overlaypanel.y + delta + 2, areaname, font, 255, 255, 255, smallfont)
-      delta = delta + smallfont * fontfactor
-    end
-  end
+	if(not Hud) then return end
+	local w,h = R3D.ScreenSize()
+	local font ="Impact"
+	if(Cfg.TeamOverlayFontSize == nil)then Cfg.TeamOverlayFontSize = 26 end
+	local smallfont = Cfg.TeamOverlayFontSize --math.floor(14 * h / 480)
+	
+	local linespacing = 1.0
+	if(Cfg.TeamOverlayX == nil)then Cfg.TeamOverlayX = 0.7 end
+	if(Cfg.TeamOverlayY == nil)then Cfg.TeamOverlayY = 0.71 end
+	if(Cfg.TeamOverlayW == nil)then Cfg.TeamOverlayW = 0.3 end
+	local overlaypanel = {x = Cfg.TeamOverlayX, y = Cfg.TeamOverlayY, w = Cfg.TeamOverlayW, d = 0.1}
+	local panelfraction = {status  = 0.0, name = 0.075, location = 0.45}
+	-- ADJUSTMENTS FOR LOTS OF PLAYERS
+	local font = "Impact"
+	local bigfont = "Impact"
+	local fontfactor = h / 600
+	local delta = smallfont*fontfactor
+	--local scorepanel = {x = Cfg.TeamOverlayX, y = Cfg.TeamOverlayY, w = 0.1, d = 0.1}
+	local bluescore = 0
+	local redscore = 0
+	local vspace = (smallfont*linespacing - smallfont)
+	
+	local botcount = 0
+	local playercount = 0
+	local bluecount = 0
+	local redcount = 0
+	local speccount = 0	
+	for i,ps in Game.PlayerStats do
+		    	if ps.Team == 0 and ps.Spectator == 0 then
+		    		bluecount = bluecount + 1
+		    	end
+		    	if ps.Team == 1 and ps.Spectator == 0 then
+		    		redcount = redcount + 1
+		    	end
+	end
+		
+	-- RESIZE BASED ON TEAM
+	if(Player.Team==0)then
+		overlaypanel.d = ((bluecount+1) * smallfont*fontfactor) / h
+	else
+		overlaypanel.d = ((redcount+1) * smallfont*fontfactor) / h
+	end
+	
+	HUD.DrawQuadRGBA(Hud._matBluePix,w*overlaypanel.x,h*overlaypanel.y,w*overlaypanel.w,h*overlaypanel.d,255,255,255,960)
+	HUD.DrawQuadRGBA(Hud._matGreenPix,w*overlaypanel.x,h*overlaypanel.y,w*overlaypanel.w,smallfont*fontfactor,255,255,255,960)
+	
+	HUD.PrintXY(	w*overlaypanel.x+w*panelfraction.name*overlaypanel.w,		h*overlaypanel.y+vspace+2,	"Name",font,255,255,255,smallfont)
+	HUD.PrintXY(	w*overlaypanel.x+w*panelfraction.location*overlaypanel.w,	h*overlaypanel.y+vspace+2,	"Location",font,255,255,255,smallfont)
+	
+	for i,ps in Game.PlayerStats do 
+		if ps.Spectator == 0 and Game:IsTeammate(ps.ClientID) then
+			local areaname = Game:GetLocation(ps.ClientID)
+			if(areaname==nil)then areaname="" end
+			--INDICATE ME
+			if(Game.GetMyID()==ps.ClientID)then
+				HUD.DrawQuadRGBA(Hud._matBluePix,w*overlaypanel.x,h*overlaypanel.y+delta,w*overlaypanel.w,smallfont*fontfactor,255,255,255,960)
+			end
+			local playerstate = ""
+			for ii,o in Game.Players do
+				if o.ClientID == ID then 
+						if o.HasQuad then playerstate = "Q" end
+						if o.HasWeaponModifier then playerstate = "M" end
+						if o.HasPentagram then playerstate = "P" end
+						if o.HasFlag then playerstate = "F" end
+				end
+			end
+			HUD.PrintXY(	w*overlaypanel.x+w*panelfraction.status*overlaypanel.w,		h*overlaypanel.y+delta+2,		playerstate,font,255,255,255,smallfont)
+			HUD.PrintXY(	w*overlaypanel.x+w*panelfraction.name*overlaypanel.w,		h*overlaypanel.y+delta+2,		ps.Name,font,255,255,255,smallfont)
+			HUD.PrintXY(	w*overlaypanel.x+w*panelfraction.location*overlaypanel.w,	h*overlaypanel.y+delta+2,		areaname,font,255,255,255,smallfont)	
+			delta = delta + smallfont*fontfactor
+		end
+	end
 end
-
+--============================================================================
 function Hud:DrawBotInfo()
-  if not Hud then
-    return
-  end
-  local w, h = R3D.ScreenSize()
-  local font = "Impact"
-  local smallfont = 11
-  for i, o in Game.Players, nil do
-    if o.ClientID == 6 then
-      local entx, enty, entz, vl = ENTITY.GetVelocity(Game.PlayerStats[7]._Entity)
-      HUD.PrintXY(100, 100, "Entity vels : " .. entx .. " " .. enty .. " " .. entz .. " " .. vl, font, 255, 255, 255, smallfont)
-      HUD.PrintXY(100, 110, "ForwardVector : " .. o.ForwardVector.X .. " " .. o.ForwardVector.Y .. " " .. o.ForwardVector.Z .. " ", font, 255, 255, 255, smallfont)
-      HUD.PrintXY(100, 120, "cplayer vels : " .. o._velocityz .. " " .. o._velocityz .. " " .. o._velocityz .. " " .. o._yaw, font, 255, 255, 255, smallfont)
-      if o:IsOnGround() then
-        HUD.PrintXY(100, 130, "shit : ON GROUND ", font, 255, 255, 255, smallfont)
-      end
-      HUD.PrintXY(100, 140, "ACTION : ON FLOOR " .. tostring(INP.GetActionStatus(Game.PlayerStats[7]._Entity)) .. " " .. tostring(Game.bot[7].state), font, 255, 255, 255, smallfont)
-      HUD.PrintXY(100, 150, "cfdsfdsfdsls : " .. o._velocityz .. " " .. o._velocityz .. " " .. o._velocityz .. " " .. o._yaw, font, 255, 255, 255, smallfont)
-      HUD.PrintXY(100, 90, "BOT", font, 255, 255, 255, smallfont)
-    end
-  end
-end
+	if(not Hud) then return end
+	local w,h = R3D.ScreenSize()
+	--if(Game.PlayerStats[7]==nil)then return end
+	local font ="Impact"
+	local smallfont = 11
+	for i,o in Game.Players do
+		if o.ClientID == 6 then 
+			--ENTITY.SetVelocity(Game.PlayerStats[7]._Entity,Tweak.MultiPlayerMove.PlayerSpeed*0.4*v.X,0,Tweak.MultiPlayerMove.PlayerSpeed*0.4*v.Z)	
+			--ENTITY.SetVelocity(Game.PlayerStats[7]._Entity,vl*entx,vl*enty,vl*entz)	        
+				        
+			--ENTITY.SetOrientation(Game.PlayerStats[7]._Entity, math.pi-self.botangle)
+			--ENTITY.PO_SetMovedByExplosions(Game.PlayerStats[7]._Entity,true)
 
+				
+			--ENTITY.PO_AddAction(Game.PlayerStats[7]._Entity,Actions.Forward)
+			--PLAYER.ExecMultiPlayerAction(self._Entity,Actions.Forward,o.ForwardVector.X,o.ForwardVector.Y,o.ForwardVector.Z,0,0,0) 
+			
+			--_velocityx = 0,
+			--_velocityy = 0,
+			--_velocityz = 0,
+			
+			local entx,enty,entz,vl = ENTITY.GetVelocity(Game.PlayerStats[7]._Entity)
+			HUD.PrintXY(100,100,"Entity vels : "..entx.." "..enty.." "..entz.." "..vl,font,255,255,255,smallfont)	
+			HUD.PrintXY(100,110,"ForwardVector : "..o.ForwardVector.X.." "..o.ForwardVector.Y.." "..o.ForwardVector.Z.." ",font,255,255,255,smallfont)	
+			HUD.PrintXY(100,120,"cplayer vels : "..o._velocityz.." "..o._velocityz.." "..o._velocityz.." "..o._yaw,font,255,255,255,smallfont)
+			if(o:IsOnGround())then HUD.PrintXY(100,130,"shit : ON GROUND ",font,255,255,255,smallfont)end
+			HUD.PrintXY(100,140,"ACTION : ON FLOOR "..tostring(INP.GetActionStatus(Game.PlayerStats[7]._Entity)).." "..tostring(Game.bot[7].state),font,255,255,255,smallfont)
+			--if(ENTITY.PO_IsShocked(Game.PlayerStats[7]._Entity))then HUD.PrintXY(100,150,"shit : SHOCLKED ",font,255,255,255,smallfont)end
+				
+			HUD.PrintXY(100,150,"cfdsfdsfdsls : "..o._velocityz.." "..o._velocityz.." "..o._velocityz.." "..o._yaw,font,255,255,255,smallfont)			
+			HUD.PrintXY(100,90,"BOT",font,255,255,255,smallfont)	
+		end
+	end 
+end
+--============================================================================
 function Hud:IfDefFavHudExist()
   local defaultfile = {
     "Normal_HUD.cfg",
@@ -899,18 +709,8 @@ function Hud:IfDefFavHudExist()
     "Custom 3D",
     "Bar"
   }
-  local check = {
-    true,
-    true,
-    true,
-    true
-  }
-  local style = {
-    0,
-    1,
-    2,
-    3
-  }
+  local check = {true, true, true, true}
+  local style = {0, 1, 2, 3}
   local path = "../Bin/Configs/"
   for i = 1, 4 do
     if check[i] == true then
@@ -977,7 +777,7 @@ function Hud:IfDefFavHudExist()
     end
   end
 end
-
+--============================================================================
 function Hud:DrawQuickOptionsMenu()
   local w, h = R3D.ScreenSize()
   local menu = {
@@ -1019,21 +819,7 @@ function Hud:DrawQuickOptionsMenu()
         "Game Mode"
       }
     }
-    local submenuitemsa = {
-      {},
-      {
-        0,
-        1,
-        2,
-        3,
-        4
-      },
-      {
-        nil,
-        nil,
-        nil
-      }
-    }
+    local submenuitemsa = { {}, {0, 1, 2, 3, 4}, {nil, nil, nil} }
     local submenub = {
       {},
       {"No Players"},
@@ -1170,19 +956,19 @@ function Hud:DrawQuickOptionsMenu()
     if INP.Key(Keys.Num8) == 1 then
       if self.SubMenuAOpen == false then
         self._MenuBright = self._MenuBright - 1
-        if 1 > self._MenuBright then
+        if self._MenuBright < 1 then
           self._MenuBright = table.getn(menu)
         end
         self._DrawQuickOptionsMenu = menu[self._MenuBright]
       elseif self.SubMenuAOpen == true and self.SubMenuBOpen == false then
         self._SubMenuABright = self._SubMenuABright - 1
-        if 1 > self._SubMenuABright then
+        if self._SubMenuABright < 1 then
           self._SubMenuABright = table.getn(textsubma)
         end
         self._DrawQuickOptionsSubMenuA = textsubma[self._SubMenuABright]
       elseif self.SubMenuBOpen == true then
         self._SubMenuBBright = self._SubMenuBBright - 1
-        if 1 > self._SubMenuBBright then
+        if self._SubMenuBBright < 1 then
           self._SubMenuBBright = table.getn(textsubmb)
         end
         self._DrawQuickOptionsSubMenuB = textsubmb[self._SubMenuBBright]
@@ -1361,7 +1147,7 @@ function Hud:DrawQuickOptionsMenu()
     end
   end
 end
-
+--============================================================================
 function Hud:StatsText(statsplayer)
   local txt = ""
   local totaldamage = 0
@@ -1508,7 +1294,7 @@ function Hud:StatsText(statsplayer)
         attacktypetext = " HeaterBomb     "
       end
       local hitspace = "     "
-      if 9 < attack_type.hits then
+      if attack_type.hits > 9 then
         hitspace = "    "
       end
       if attack_type.hits > 99 then
@@ -1521,29 +1307,29 @@ function Hud:StatsText(statsplayer)
         hitspace = " "
       end
       local shotspace = "      "
-      if 9 < attack_type.shots then
+      if attack_type.shots > 9 then
         shotspace = "     "
       end
-      if 99 < attack_type.shots then
+      if attack_type.shots > 99 then
         shotspace = "    "
       end
-      if 999 < attack_type.shots then
+      if attack_type.shots > 999 then
         shotspace = "   "
       end
-      if 9999 < attack_type.shots then
+      if attack_type.shots > 9999 then
         shotspace = "  "
       end
       local damagepace = "       "
-      if 9 < attack_type.damage then
+      if attack_type.damage > 9 then
         damagepace = "      "
       end
-      if 99 < attack_type.damage then
+      if attack_type.damage > 99 then
         damagepace = "     "
       end
-      if 999 < attack_type.damage then
+      if attack_type.damage > 999 then
         damagepace = "    "
       end
-      if 9999 < attack_type.damage then
+      if attack_type.damage > 9999 then
         damagepace = "   "
       end
       if attack_type.damage > 99999 then
@@ -1553,7 +1339,7 @@ function Hud:StatsText(statsplayer)
       if attack_type.shots ~= 0 then
         percentage = attack_type.hits / attack_type.shots * 100
       end
-      if 100 < percentage then
+      if percentage > 100 then
         percentage = 100
       end
       if not failed then
@@ -1571,3 +1357,4 @@ function Hud:StatsText(statsplayer)
   end
   Hud.StatsPos = statsos
 end
+--============================================================================
