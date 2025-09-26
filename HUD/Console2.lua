@@ -1107,7 +1107,7 @@ function Console:Cmd_AUD_HITSOUND_VOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set HitSound volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.HitSoundVolume = val
   end
   CONSOLE_AddMessage("current HitSound volume:  " .. Cfg.HitSoundVolume)
@@ -1137,7 +1137,7 @@ function Console:Cmd_AUD_KILLSOUND_VOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set KillSound volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.KillSoundVolume = val
   end
   CONSOLE_AddMessage("current KillSound volume:  " .. Cfg.KillSoundVolume)
@@ -1267,7 +1267,7 @@ function Console:Cmd_CONSOLEFONTSIZE(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Message font size value maxi 24, mini 16 (sets font size for the messages console)")
-  elseif type(val) == "number" and val < 25 and 16 <= val then
+  elseif type(val) == "number" and val < 25 and val >= 16 then
     Cfg.HUD_ConsoleFontSize = val
     CONSOLE.SetMPMsgFont(Hud.mpMsgFont, Hud.mpMsgFontTex, Cfg.HUD_ConsoleFontSize)
   end
@@ -1280,7 +1280,7 @@ function Console:Cmd_CONSOLEPOSITION(val)
   if val == nil then
     CONSOLE_AddMessage("Message position  (sets position for the messages console, defaut position 0 px, PK++ setting " .. 565 * 768 / h .. " px)")
   elseif type(val) == "number" then
-    if val <= 680 * h / 768 and 0 <= val then
+    if val <= 680 * h / 768 and val >= 0 then
       Cfg.HUD_ConsolePosition = val * 768 / h
       CONSOLE.SetMPMsgPosition(Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition)
     else
@@ -1319,7 +1319,7 @@ function Console:Cmd_HUD_FRAGMESSAGEFONTSIZE(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Frag Message font size value maxi 30, mini 16 (sets font size for the frag message)")
-  elseif type(val) == "number" and val < 31 and 16 <= val then
+  elseif type(val) == "number" and val < 31 and val >= 16 then
     Cfg.HUD_FragMessageFontSize = val
   end
   CONSOLE_AddMessage("current frag message font size:  " .. Cfg.HUD_FragMessageFontSize)
@@ -1329,7 +1329,7 @@ function Console:Cmd_CROSSHAIRNAMESFONTSIZE(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Crosshair Name font size value maxi 24, mini 16 (sets font size for the crosshair name)")
-  elseif type(val) == "number" and val < 25 and 16 <= val then
+  elseif type(val) == "number" and val < 25 and val >= 16 then
     Cfg.CrosshairNamesFontSize = val
   end
   CONSOLE_AddMessage("current Crosshair Name font size:  " .. Cfg.CrosshairNamesFontSize)
@@ -1349,7 +1349,7 @@ function Console:Cmd_HUD_AMMOLIST_MARKER_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Ammolist_Marker_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Ammolist_Marker_Trans)
@@ -1359,7 +1359,7 @@ function Console:Cmd_HUD_BAR_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Bar_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Bar_Trans)
@@ -1373,13 +1373,13 @@ function Console:Cmd_HUD_AMMOLIST_MARKER_RGB(r, g, b)
     CONSOLE_AddMessage("Change RVB colors (0-255)")
     CONSOLE_AddMessage("Syntax: R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.HUD_Ammolist_Marker_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.HUD_Ammolist_Marker_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.HUD_Ammolist_Marker_RGB[3] = b
     end
   end
@@ -1394,13 +1394,13 @@ function Console:Cmd_HUD_AMMOLIST_COUNT_RGB(r, g, b)
     CONSOLE_AddMessage("Change RVB colors (0-255)")
     CONSOLE_AddMessage("Syntax: R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.HUD_Ammolist_Count_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.HUD_Ammolist_Count_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.HUD_Ammolist_Count_RGB[3] = b
     end
   end
@@ -1411,7 +1411,7 @@ function Console:Cmd_HUD_AMMOLIST_COUNT_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency value maxi 255, value mini 0")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Ammolist_Count_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Ammolist_Count_Trans)
@@ -1421,7 +1421,7 @@ function Console:Cmd_HUD_AMMOLIST_ICONS_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Ammolist_Icons_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Ammolist_Icons_Trans)
@@ -1435,13 +1435,13 @@ function Console:Cmd_HUD_COUNT_RGB(r, g, b)
     CONSOLE_AddMessage("Change RVB colors (0-255)")
     CONSOLE_AddMessage("Syntax: R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.HUD_Count_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.HUD_Count_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.HUD_Count_RGB[3] = b
     end
   end
@@ -1452,7 +1452,7 @@ function Console:Cmd_HUD_ICONS_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Icons_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Icons_Trans)
@@ -1462,7 +1462,7 @@ function Console:Cmd_HUD_COUNT_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Count_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Count_Trans)
@@ -1476,13 +1476,13 @@ function Console:Cmd_HUD_SCORES_COUNT_RGB(r, g, b)
     CONSOLE_AddMessage("Change RVB colors (0-255)")
     CONSOLE_AddMessage("Syntax: R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.HUD_Scores_Count_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.HUD_Scores_Count_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.HUD_Scores_Count_RGB[3] = b
     end
   end
@@ -1577,13 +1577,13 @@ function Console:Cmd_TEAMMATEICON_RGB(enable, r, g, b)
     CONSOLE_AddMessage("Change RGB colors (0-255)")
     CONSOLE_AddMessage("Syntax: enable(0/1), R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.TeammateIcon_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.TeammateIcon_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.TeammateIcon_RGB[3] = b
     end
   end
@@ -1892,13 +1892,13 @@ function Console:Cmd_CROSSHAIRHIT_RGB(r, g, b)
     CONSOLE_AddMessage("Change RVB colors (0-255)")
     CONSOLE_AddMessage("Syntax: R: red, G: green, B: blue")
   elseif type(r) == "number" and type(g) == "number" and type(b) == "number" then
-    if r < 256 and 0 <= r then
+    if r < 256 and r >= 0 then
       Cfg.CrosshairHit_RGB[1] = r
     end
-    if g < 256 and 0 <= g then
+    if g < 256 and g >= 0 then
       Cfg.CrosshairHit_RGB[2] = g
     end
-    if b < 256 and 0 <= b then
+    if b < 256 and b >= 0 then
       Cfg.CrosshairHit_RGB[3] = b
     end
   end
@@ -1909,7 +1909,7 @@ function Console:Cmd_CROSSHAIRHIT_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.CrosshairHit_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.CrosshairHit_Trans)
@@ -2109,7 +2109,7 @@ function Console:Cmd_HUD_FLAG_ICON_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Flag_Icon_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Flag_Icon_Trans)
@@ -2139,7 +2139,7 @@ function Console:Cmd_HUD_POWERUP_ICONS_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_PowerUp_Icons_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_PowerUp_Icons_Trans)
@@ -2230,7 +2230,7 @@ function Console:Cmd_HUD_MEDALS_ICONS_TRANS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Change transparency (0-255)")
-  elseif type(val) == "number" and val < 256 and 0 <= val then
+  elseif type(val) == "number" and val < 256 and val >= 0 then
     Cfg.HUD_Medals_Icons_Trans = val
   end
   CONSOLE_AddMessage("current transparency:  " .. Cfg.HUD_Medals_Icons_Trans)
@@ -2450,7 +2450,7 @@ function Console:Cmd_HUD_FRAGMESSAGE_STATUS_TIMING(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set timing (120-480 milliseconds)")
-  elseif type(val) == "number" and val < 481 and 120 <= val then
+  elseif type(val) == "number" and val < 481 and val >= 120 then
     Cfg.HUD_FragMessage_Status_Timing = val
   end
   CONSOLE_AddMessage("current timing:  " .. Cfg.HUD_FragMessage_Status_Timing)
@@ -2461,7 +2461,7 @@ function Console:Cmd_VID_GAMMA(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set gamma (0-5)")
-  elseif type(val) == "number" and val <= 5 and 0 <= val then
+  elseif type(val) == "number" and val <= 5 and val >= 0 then
     Cfg.Gamma = val
     R3D.SetContrastGammaAndBrightness(Cfg.Contrast, val, Cfg.Brightness)
   end
@@ -2472,7 +2472,7 @@ function Console:Cmd_VID_CONTRAST(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set contrast (0-1)")
-  elseif type(val) == "number" and val <= 1 and 0 <= val then
+  elseif type(val) == "number" and val <= 1 and val >= 0 then
     Cfg.Contrast = val
     R3D.SetContrastGammaAndBrightness(val, Cfg.Gamma, Cfg.Brightness)
   end
@@ -2483,7 +2483,7 @@ function Console:Cmd_VID_BRIGHTNESS(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set brightness (0-1)")
-  elseif type(val) == "number" and val <= 1 and 0 <= val then
+  elseif type(val) == "number" and val <= 1 and val >= 0 then
     Cfg.Brightness = val
     R3D.SetContrastGammaAndBrightness(Cfg.Contrast, Cfg.Gamma, val)
   end
@@ -2494,7 +2494,7 @@ function Console:Cmd_AUD_MAINVOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set main volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.MasterVolume = val
     SOUND.ApplySoundSettings(val, 100, Cfg.SfxVolume, Cfg.SpeakersSetup, Cfg.SoundPan, Cfg.ReverseStereo, Cfg.SoundProvider3D)
   end
@@ -2505,7 +2505,7 @@ function Console:Cmd_AUD_SFXVOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set FX volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.SfxVolume = val
     SOUND.ApplySoundSettings(Cfg.MasterVolume, 100, val, Cfg.SpeakersSetup, Cfg.SoundPan, Cfg.ReverseStereo, Cfg.SoundProvider3D)
   end
@@ -2516,7 +2516,7 @@ function Console:Cmd_AUD_MUSICVOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set music volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.MusicVolume = val
     SOUND.StreamSetVolume(1, val)
   end
@@ -2527,7 +2527,7 @@ function Console:Cmd_AUD_AMBIENTVOLUME(val)
   val = tonumber(val)
   if val == nil then
     CONSOLE_AddMessage("Set ambient volume (0-100)")
-  elseif type(val) == "number" and val <= 100 and 0 <= val then
+  elseif type(val) == "number" and val <= 100 and val >= 0 then
     Cfg.AmbientVolume = val
     SOUND.StreamSetVolume(0, val)
   end
