@@ -1,3 +1,4 @@
+--=====================================================================================
 function Hud:LowAmmo()
   LAmmos = {
     {
@@ -54,7 +55,7 @@ function Hud:LowAmmo()
   local w, h = R3D.ScreenSize()
   local cw = Player._CurWeaponIndex
   local j = Player:GetCurWeaponSlotIndex()
-  if 1 < LAmmos[j][1] then
+  if LAmmos[j][1] > 1 then
     cwx = LAmmos[j][1]
     pfire = LAmmos[j][2]
     paltfire = LAmmos[j][3]
@@ -120,7 +121,7 @@ function Hud:LowAmmo()
     Hud.LAmmosPlaySound[j][2] = false
   end
 end
-
+--=====================================================================================
 function Hud:DrawDigit1(x, y, chr, scale, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local n = tonumber(chr)
@@ -134,7 +135,7 @@ function Hud:DrawDigit1(x, y, chr, scale, r, g, b, trans)
     HUD.DrawQuadRGBA(self._matDigitsT[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
   end
 end
-
+--=====================================================================================
 function Hud:DrawDigitRed1(x, y, chr, scale, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local n = tonumber(chr)
@@ -148,12 +149,12 @@ function Hud:DrawDigitRed1(x, y, chr, scale, r, g, b, trans)
     HUD.DrawQuadRGBA(self._matDigitsTRed[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
   end
 end
-
+--=====================================================================================
 function Hud:DrawDigitsText1(x, y, txt, scale, warning, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local l = string.len(txt)
   local mw, mh = MATERIAL.Size(Hud._matDigits[5])
-  if warning == nil or 0 <= warning and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
+  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
     for i = 1, l do
       self:DrawDigit1(x + (i - 1) * (mw - 4) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
     end
@@ -163,7 +164,7 @@ function Hud:DrawDigitsText1(x, y, txt, scale, warning, r, g, b, trans)
     end
   end
 end
-
+--=====================================================================================
 function Hud:SelectBestWeapon(priorityList)
   for i, o in priorityList, nil do
     if o == 0 then
@@ -177,7 +178,7 @@ function Hud:SelectBestWeapon(priorityList)
     end
   end
 end
-
+--=====================================================================================
 function Hud:NoAltFire()
   local action = INP.GetActionStatus(Player._Entity)
   local cw = Player._CurWeaponIndex
@@ -190,10 +191,10 @@ function Hud:NoAltFire()
       if wea1 == "Full" then
         ammonum = 1
       end
-      if Hud._weaponsalt[ns] == false and 0 < ammonum then
+      if Hud._weaponsalt[ns] == false and ammonum > 0 then
         Hud._weaponsalt[ns] = true
       end
-      if Hud._weaponspri[ns] == true and 0 < ammonum then
+      if Hud._weaponspri[ns] == true and ammonum > 0 then
         Hud._prevsoltalt = true
         Hud._weaponspri[ns] = false
       end
@@ -203,10 +204,10 @@ function Hud:NoAltFire()
       if wea1 == "Full" then
         ammonum = 1
       end
-      if Hud._weaponspri[ns] == false and 0 < ammonum then
+      if Hud._weaponspri[ns] == false and ammonum > 0 then
         Hud._weaponspri[ns] = true
       end
-      if Hud._weaponsalt[ns] == true and 0 < ammonum then
+      if Hud._weaponsalt[ns] == true and ammonum > 0 then
         Hud._prevsoltpri = true
         Hud._weaponsalt[ns] = false
       end
@@ -229,10 +230,10 @@ function Hud:NoAltFire()
       if wea1 == "Full" then
         ammonum = 1
       end
-      if Hud._weaponsalt[ns1] == false and 0 < ammonum then
+      if Hud._weaponsalt[ns1] == false and ammonum > 0 then
         Hud._weaponsalt[ns1] = true
       end
-      if Hud._weaponspri[ns1] == true and 0 < ammonum then
+      if Hud._weaponspri[ns1] == true and ammonum > 0 then
         Hud._prevsoltalt1 = true
         Hud._weaponspri[ns1] = false
       end
@@ -242,10 +243,10 @@ function Hud:NoAltFire()
       if wea1 == "Full" then
         ammonum = 1
       end
-      if Hud._weaponspri[ns1] == false and 0 < ammonum then
+      if Hud._weaponspri[ns1] == false and ammonum > 0 then
         Hud._weaponspri[ns1] = true
       end
-      if Hud._weaponsalt[ns1] == true and 0 < ammonum then
+      if Hud._weaponsalt[ns1] == true and ammonum > 0 then
         Hud._prevsoltpri1 = true
         Hud._weaponsalt[ns1] = false
       end
@@ -320,7 +321,7 @@ function Hud:NoAltFire()
     end
   end
 end
-
+--=====================================================================================
 function Hud:AmmoListOriOn()
   local w, h = R3D.ScreenSize()
   local gray = R3D.RGB(120, 120, 70)
@@ -369,80 +370,8 @@ function Hud:AmmoListOriOn()
     textposix = (1019 - 105 * sizem) * w / 1024
     selectpoxix = (1019 - 111 * sizem) * w / 1024
   end
-  local prcolor = {
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    }
-  }
-  local alcolor = {
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    },
-    {
-      255,
-      255,
-      255
-    }
-  }
+  local prcolor = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}
+  local alcolor = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}
   local ammo1 = {
     Hud._matAmmoListShellIcon,
     Hud._matAmmoListKolkiIcon,
@@ -476,80 +405,8 @@ function Hud:AmmoListOriOn()
       Hud._matAmmoListikonaIconSH,
       Hud._matAmmoListKulkiIconSH
     }
-    prcolor = {
-      {
-        0,
-        0,
-        0
-      },
-      {
-        255,
-        102,
-        0
-      },
-      {
-        0,
-        255,
-        0
-      },
-      {
-        255,
-        0,
-        0
-      },
-      {
-        204,
-        0,
-        255
-      },
-      {
-        153,
-        153,
-        153
-      },
-      {
-        0,
-        255,
-        204
-      }
-    }
-    alcolor = {
-      {
-        0,
-        0,
-        0
-      },
-      {
-        0,
-        102,
-        255
-      },
-      {
-        255,
-        0,
-        0
-      },
-      {
-        255,
-        255,
-        0
-      },
-      {
-        255,
-        255,
-        153
-      },
-      {
-        0,
-        0,
-        0
-      },
-      {
-        255,
-        0,
-        153
-      }
-    }
+    prcolor = {{0, 0, 0}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204}}
+    alcolor = {{0, 0, 0}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153}}
   end
   local nextposh = 0
   local nextposhfix = 0
@@ -588,11 +445,7 @@ function Hud:AmmoListOriOn()
   local dsda = dsa - eca
   local dsdb = dsb - eca
   local sizemark = 219 * sizem
-  local comar = {
-    51,
-    51,
-    153
-  }
+  local comar = {51, 51, 153}
   local selectedkey = ""
   Hud:NoAltFire()
   if Cfg.HUD_AmmoList == 3 then
@@ -1084,12 +937,12 @@ function Hud:AmmoListOriOn()
         end
         if Cfg.HUD_AmmoList ~= 3 then
           Cfg.HUD_AmmoList_Position[1] = tonumber(string.format("%01d", posiy + 1))
-          if 216 <= posiy then
+          if posiy >= 216 then
             Cfg.HUD_AmmoList_Position[1] = tonumber(string.format("%01d", 216))
           end
         else
           Cfg.HUD_AmmoList_Position[2] = tonumber(string.format("%01d", posiy + 1))
-          if 768 <= posiy then
+          if posiy >= 768 then
             Cfg.HUD_AmmoList_Position[2] = tonumber(string.format("%01d", 768))
           end
         end
@@ -1116,12 +969,12 @@ function Hud:AmmoListOriOn()
         end
         if Cfg.HUD_AmmoList ~= 3 then
           Cfg.HUD_AmmoList_Size[1] = tonumber(string.format("%.02f", sizem + 0.01))
-          if 1 <= sizem then
+          if sizem >= 1 then
             Cfg.HUD_AmmoList_Size[1] = tonumber(string.format("%01d", 1))
           end
         else
           Cfg.HUD_AmmoList_Size[2] = tonumber(string.format("%.02f", sizem + 0.01))
-          if 0.9 <= sizem then
+          if sizem >= 0.9 then
             Cfg.HUD_AmmoList_Size[2] = tonumber(string.format("%.01f", 0.9))
           end
         end
@@ -1226,7 +1079,7 @@ function Hud:AmmoListOriOn()
       end
       if INP.Key(Keys.Num1) == 1 then
         Cfg.HUD_AmmoList = Cfg.HUD_AmmoList - 1
-        if 1 > Cfg.HUD_AmmoList then
+        if Cfg.HUD_AmmoList < 1 then
           Cfg.HUD_AmmoList = 3
         end
         if Cfg.HUD_AmmoList == 1 then
@@ -1243,7 +1096,7 @@ function Hud:AmmoListOriOn()
     end
   end
 end
-
+--=====================================================================================
 function Hud:HelpKeys()
   local w, h = R3D.ScreenSize()
   if Cfg.Language == "french" then
@@ -1297,7 +1150,7 @@ function Hud:HelpKeys()
     Hud:QuadTrans(matKeysHelpCross, 1024 / 2 * w / 1024, 140 * h / 768, 0.8, true, 255)
   end
 end
-
+--=====================================================================================
 function Hud:KeysSounds()
   if Player and MPCfg.GameMode ~= "Clan Arena" and Cfg.HUD_Scores == true then
     for i = 1, 2 do
@@ -1471,7 +1324,7 @@ function Hud:KeysSounds()
     end
   end
 end
-
+--=====================================================================================
 function Hud:HudBar()
   local w, h = R3D.ScreenSize()
   local hee = Player.Health
@@ -1493,53 +1346,25 @@ function Hud:HudBar()
   HUD.DrawQuadRGBA(nil, (1024 - 999) * w / 1024, 702.5 * h / 768, 400 * w / 1024, 25 * h / 768, 0, 0, 0, 50)
   HUD.DrawQuadRGBA(nil, (1024 - 422.5) * w / 1024, 702.5 * h / 768, 400 * w / 1024, 25 * h / 768, 0, 0, 0, 50)
   if Player.Health <= Player.HealthWarning then
-    barcolorh = {
-      255,
-      0,
-      0
-    }
+    barcolorh = {255, 0, 0}
   else
-    barcolorh = {
-      0,
-      hee * 1.02,
-      0
-    }
+    barcolorh = {0, hee * 1.02, 0}
   end
   if Player.ArmorType == 0 then
-    barcolora = {
-      0,
-      0,
-      0
-    }
+    barcolora = {0, 0, 0}
     alphabar = 0
   elseif Player.ArmorType == 1 then
-    barcolora = {
-      204,
-      102,
-      51
-    }
+    barcolora = {204, 102, 51}
     alphabar = 100
   elseif Player.ArmorType == 2 then
-    barcolora = {
-      153,
-      153,
-      153
-    }
+    barcolora = {153, 153, 153}
     alphabar = 100
   elseif Player.ArmorType == 3 then
-    barcolora = {
-      255,
-      204,
-      0
-    }
+    barcolora = {255, 204, 0}
     alphabar = 100
   end
   if Player.Armor <= Player.ArmorWarning then
-    barcolora = {
-      255,
-      0,
-      0
-    }
+    barcolora = {255, 0, 0}
   end
   local poshudbardigit = {595, 483}
   local hear = {
@@ -1567,7 +1392,7 @@ function Hud:HudBar()
   if Player._CurWeaponIndex == 7 then
     Hud.NoCrosshair = nil
     local cr = Player:GetCurWeapon()
-    if 0 < cr._zoom then
+    if cr._zoom > 0 then
       HUD.DrawQuad(Hud._matZoom, 0, 0, w, h)
       Hud.NoCrosshair = true
     end
@@ -1584,7 +1409,7 @@ function Hud:HudBar()
     self:DrawDigitsText1((1024 - poshudbardigit[2]) * w / 1024, 699 * h / 768, string.sub(string.format("%03d", hee), -3), 0.8, Player.HealthWarning, colord[1], colord[2], colord[3], transco)
   end
 end
-
+--=====================================================================================
 function Hud:DrawDigit2(x, y, chr, scale, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local n = tonumber(chr)
@@ -1594,7 +1419,7 @@ function Hud:DrawDigit2(x, y, chr, scale, r, g, b, trans)
   local mw, mh = MATERIAL.Size(Hud._matDigitsBT[n + 1])
   HUD.DrawQuadRGBA(Hud._matDigitsBT[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
 end
-
+--=====================================================================================
 function Hud:DrawDigitRed2(x, y, chr, scale, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local n = tonumber(chr)
@@ -1604,12 +1429,12 @@ function Hud:DrawDigitRed2(x, y, chr, scale, r, g, b, trans)
   local mw, mh = MATERIAL.Size(Hud._matDigitsBTRed[n + 1])
   HUD.DrawQuadRGBA(Hud._matDigitsBTRed[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
 end
-
+--=====================================================================================
 function Hud:DrawDigitsText2(x, y, txt, scale, warning, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local l = string.len(txt)
   local mw, mh = MATERIAL.Size(Hud._matDigitsBT[5])
-  if warning == nil or 0 <= warning and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
+  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
     for i = 1, l do
       self:DrawDigit2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
     end
@@ -1619,12 +1444,12 @@ function Hud:DrawDigitsText2(x, y, txt, scale, warning, r, g, b, trans)
     end
   end
 end
-
+--=====================================================================================
 function Hud:DrawDigitsText3(x, y, txt, scale, warning, r, g, b, trans)
   local w, h = R3D.ScreenSize()
   local l = string.len(txt)
   local mw, mh = MATERIAL.Size(Hud._matDigitsBT[5])
-  if warning == nil or 0 <= warning and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
+  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
     for i = 1, l do
       self:DrawDigit2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
     end
@@ -1634,7 +1459,7 @@ function Hud:DrawDigitsText3(x, y, txt, scale, warning, r, g, b, trans)
     end
   end
 end
-
+--=====================================================================================
 function Hud:SuperHud()
   local w, h = R3D.ScreenSize()
   local gray = R3D.RGB(120, 120, 70)
@@ -1643,11 +1468,7 @@ function Hud:SuperHud()
   local armorr = Player.Armor
   local showinf = 1
   local spressthiskey = false
-  local colord = {
-    Cfg.HUD_Count_RGB[1],
-    Cfg.HUD_Count_RGB[2],
-    Cfg.HUD_Count_RGB[3]
-  }
+  local colord = {Cfg.HUD_Count_RGB[1], Cfg.HUD_Count_RGB[2], Cfg.HUD_Count_RGB[3]}
   local transic = Cfg.HUD_Icons_Trans
   local transco = Cfg.HUD_Count_Trans
   priammolist3D = {
@@ -1740,15 +1561,7 @@ function Hud:SuperHud()
     Player.s_SubClass.AmmoWarning.FlameThrower,
     Player.s_SubClass.AmmoWarning.HeaterBomb
   }
-  numcharact = {
-    "%03d",
-    "%03d",
-    "%04d",
-    "%03d",
-    "%04d",
-    "%04d",
-    "%04d"
-  }
+  numcharact = {"%03d", "%03d", "%04d", "%03d", "%04d", "%04d", "%04d"}
   qwhuditemsname = {
     "Primary Ammo (Icon) -",
     "Primary Ammo (Number) -",
@@ -1782,84 +1595,14 @@ function Hud:SuperHud()
     Cfg.HUD_Health_Text_Setting_Save,
     Cfg.HUD_CurrentWeapon_Icon_Setting_Save
   }
-  local checkitem = {
-    false,
-    false,
-    false,
-    false,
-    true,
-    true,
-    false,
-    true,
-    false
-  }
-  local defaultpos = {
-    37,
-    87,
-    37,
-    87,
-    987,
-    937,
-    987,
-    937,
-    512
-  }
-  local defaultposa = {
-    66,
-    66,
-    30,
-    30,
-    30,
-    30,
-    66,
-    66,
-    48
-  }
-  local defaultsiz = {
-    0.58,
-    0.55,
-    0.58,
-    0.55,
-    0.58,
-    0.55,
-    0.58,
-    0.55,
-    0.8
-  }
+  local checkitem = {false, false, false, false, true, true, false, true, false}
+  local defaultpos = {37, 87, 37, 87, 987, 937, 987, 937, 512}
+  local defaultposa = {66, 66, 30, 30, 30, 30, 66, 66, 48}
+  local defaultsiz = {0.58, 0.55, 0.58, 0.55, 0.58, 0.55, 0.58, 0.55, 0.8}
   if Cfg.HUD_HudStyle == 2 then
-    defaultpos = {
-      37,
-      90,
-      37,
-      90,
-      987,
-      934,
-      987,
-      934,
-      512
-    }
-    defaultposa = {
-      69,
-      69,
-      30,
-      30,
-      30,
-      30,
-      69,
-      69,
-      48
-    }
-    defaultsiz = {
-      0.72,
-      0.55,
-      0.72,
-      0.55,
-      0.72,
-      0.55,
-      0.72,
-      0.55,
-      0.8
-    }
+    defaultpos = {37, 90, 37, 90, 987, 934, 987, 934, 512}
+    defaultposa = {69, 69, 30, 30, 30, 30, 69, 69, 48}
+    defaultsiz = {0.72, 0.55, 0.72, 0.55, 0.72, 0.55, 0.72, 0.55, 0.8}
   end
   local qwhuditemsfix1 = qwhuditems[1][1]
   local qwhuditemsfix2 = qwhuditems[2][1]
@@ -1903,32 +1646,16 @@ function Hud:SuperHud()
   if Player.FrozenArmor then
     armorr = 0
   end
-  if hee < 1 and 0 < hee then
+  if hee < 1 and hee > 0 then
     hee = 1
   end
-  local colorh = {
-    255,
-    0,
-    0
-  }
-  if 25 < hee and hee <= 50 then
-    colorh = {
-      255,
-      102,
-      0
-    }
-  elseif 50 < hee and hee <= 100 then
-    colorh = {
-      0,
-      204,
-      0
-    }
-  elseif 100 < hee then
-    colorh = {
-      0,
-      204,
-      255
-    }
+  local colorh = {255, 0, 0}
+  if hee > 25 and hee <= 50 then
+    colorh = {255, 102, 0}
+  elseif hee > 50 and hee <= 100 then
+    colorh = {0, 204, 0}
+  elseif hee > 100 then
+    colorh = {0, 204, 255}
   end
   local tm0 = Game.currentTime / 60 / 1.3
   local m0 = math.floor(tm0)
@@ -1970,41 +1697,9 @@ function Hud:SuperHud()
       self:QuadTrans(self._matArmorYellowQW3D[1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
     end
   else
-    local color = {
-      {
-        204,
-        102,
-        0
-      },
-      {
-        204,
-        204,
-        204
-      },
-      {
-        255,
-        204,
-        0
-      }
-    }
+    local color = {{204, 102, 0}, {204, 204, 204}, {255, 204, 0}}
     if Cfg.BrightSkinsArmors then
-      color = {
-        {
-          0,
-          204,
-          0
-        },
-        {
-          255,
-          255,
-          0
-        },
-        {
-          255,
-          0,
-          0
-        }
-      }
+      color = {{0, 204, 0}, {255, 255, 0}, {255, 0, 0}}
     end
     if Player.ArmorType == 0 then
       Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, 0, 0, 0, transic / 2)
@@ -2038,86 +1733,14 @@ function Hud:SuperHud()
   local tm3 = Game.currentTime / 60
   local m3 = math.floor(tm3)
   local s3 = math.floor((tm3 - m3) * 32)
-  local prcolor = {
-    {
-      0,
-      204,
-      255
-    },
-    {
-      255,
-      102,
-      0
-    },
-    {
-      0,
-      255,
-      0
-    },
-    {
-      255,
-      0,
-      0
-    },
-    {
-      204,
-      0,
-      255
-    },
-    {
-      153,
-      153,
-      153
-    },
-    {
-      0,
-      255,
-      204
-    }
-  }
-  local alcolor = {
-    {
-      255,
-      255,
-      255
-    },
-    {
-      0,
-      102,
-      255
-    },
-    {
-      255,
-      0,
-      0
-    },
-    {
-      255,
-      255,
-      0
-    },
-    {
-      255,
-      255,
-      153
-    },
-    {
-      0,
-      0,
-      0
-    },
-    {
-      255,
-      0,
-      153
-    }
-  }
+  local prcolor = {{0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204}}
+  local alcolor = {{255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153}}
   local j = Player:GetCurWeaponSlotIndex()
-  if type(j) == "number" and j <= 7 and 1 <= j and Player._CurWeaponIndex == j then
+  if type(j) == "number" and j <= 7 and j >= 1 and Player._CurWeaponIndex == j then
     if Player._CurWeaponIndex == 7 then
       Hud.NoCrosshair = nil
       local cr = Player:GetCurWeapon()
-      if 0 < cr._zoom then
+      if cr._zoom > 0 then
         HUD.DrawQuad(Hud._matZoom, 0, 0, w, h)
         Hud.NoCrosshair = true
       end
@@ -2227,35 +1850,15 @@ function Hud:SuperHud()
       for i = 1, 9 do
         if not checkitem[Hud.SuperHud_Item] then
           Hud.SuperHud_Item = Hud.SuperHud_Item - nu
-          if 9 < Hud.SuperHud_Item then
+          if Hud.SuperHud_Item > 9 then
             Hud.SuperHud_Item = 1
           end
-          if 1 > Hud.SuperHud_Item then
+          if Hud.SuperHud_Item < 1 then
             Hud.SuperHud_Item = 9
           end
         end
-        local g = {
-          nil,
-          2,
-          nil,
-          4,
-          nil,
-          6,
-          nil,
-          8,
-          nil
-        }
-        local h = {
-          1,
-          nil,
-          3,
-          nil,
-          5,
-          nil,
-          7,
-          nil,
-          nil
-        }
+        local g = {nil, 2, nil, 4, nil, 6, nil, 8, nil}
+        local h = {1, nil, 3, nil, 5, nil, 7, nil, nil}
         if Hud.SuperHud_Item == g[i] then
           qwposmarkerref = 59.5
           sizemarker = 122
@@ -2407,7 +2010,7 @@ function Hud:SuperHud()
     end
   end
 end
-
+--=====================================================================================
 function Hud:Shape(item, enable, morethantwo)
   local w, h = R3D.ScreenSize()
   local it = Hud.Shape_Item
@@ -2425,33 +2028,7 @@ function Hud:Shape(item, enable, morethantwo)
     Cfg.HUD_Rage_Icon_Setting_Save,
     Cfg.HUD_Medals_Icon_Setting_Save
   }
-  local defpos = {
-    {
-      0,
-      -280,
-      0.73
-    },
-    {
-      489,
-      70,
-      0.73
-    },
-    {
-      489,
-      -70,
-      0.73
-    },
-    {
-      489,
-      0,
-      0.73
-    },
-    {
-      0,
-      240,
-      0.73
-    }
-  }
+  local defpos = {{0, -280, 0.73}, {489, 70, 0.73}, {489, -70, 0.73}, {489, 0, 0.73}, {0, 240, 0.73}}
   local itemsname = {
     "Flag Icon",
     "WeaponModifier Icon",
@@ -2526,7 +2103,7 @@ function Hud:Shape(item, enable, morethantwo)
           Hud.movespeedstart = true
         end
         itpos[it][3] = tonumber(string.format("%.02f", itpos[it][3] + 0.01))
-        if 1 < itpos[it][3] then
+        if itpos[it][3] > 1 then
           itpos[it][3] = tonumber(string.format("%d", 1))
         end
       elseif INP.Key(Keys.Num3) == Hud.keypressmode then
@@ -2612,44 +2189,20 @@ function Hud:Shape(item, enable, morethantwo)
   local sizerx, sizery = MATERIAL.Size(Hud._matPlayerHasFlag)
   if item == "flag" or item == "all" then
     if Player.Team == 0 then
-      local cr = {
-        255,
-        0,
-        0
-      }
+      local cr = {255, 0, 0}
       if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-        cr = {
-          Game._ColorTeamR[1],
-          Game._ColorTeamR[2],
-          Game._ColorTeamR[3]
-        }
+        cr = {Game._ColorTeamR[1], Game._ColorTeamR[2], Game._ColorTeamR[3]}
       end
       self:QuadRGBA(Hud._matPlayerHasFlag, w / 2 + itpos[1][1] * w / 1024, h / 2 - itpos[1][2] * h / 768, itpos[1][3], true, cr[1], cr[2], cr[3], ftrans)
     elseif Player.Team == 1 then
-      cb = {
-        0,
-        102,
-        255
-      }
+      cb = {0, 102, 255}
       if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-        cb = {
-          Game._ColorTeamB[1],
-          Game._ColorTeamB[2],
-          Game._ColorTeamB[3]
-        }
+        cb = {Game._ColorTeamB[1], Game._ColorTeamB[2], Game._ColorTeamB[3]}
       end
       if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-        cb = {
-          255,
-          0,
-          0
-        }
+        cb = {255, 0, 0}
         if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
-          cb = {
-            Game._ColorTeamR[1],
-            Game._ColorTeamR[2],
-            Game._ColorTeamR[3]
-          }
+          cb = {Game._ColorTeamR[1], Game._ColorTeamR[2], Game._ColorTeamR[3]}
         end
       end
       self:QuadRGBA(Hud._matPlayerHasFlag, w / 2 + itpos[1][1] * w / 1024, h / 2 - itpos[1][2] * h / 768, itpos[1][3], true, cb[1], cb[2], cb[3], ftrans)
@@ -2766,3 +2319,4 @@ function Hud:Shape(item, enable, morethantwo)
     end
   end
 end
+--=====================================================================================
