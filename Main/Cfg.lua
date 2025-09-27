@@ -637,7 +637,7 @@ Cfg =
     AutoTeamLock = false,
     ImpureClientWarning = false,
 
-    AutoJump = false,
+    AutoJump = true,
 
     ProPlus = false,
     FallingDamage = true,
