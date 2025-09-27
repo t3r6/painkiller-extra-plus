@@ -107,7 +107,7 @@ function Teleport:MovePlayer(entity,x,y,z,a)
         obj:AddTimer(key,0.5) -- deactivate for 500 ms
     end
     if player then        
-        if Game:IsServer() and not MPCfg.ProPlus then player:CheckTeleFrag(x,y,z) end
+        if Game:IsServer() and Cfg.Telefrag then player:CheckTeleFrag(x,y,z) end
         ENTITY.SetPosition(entity,x,y,z)    
         ENTITY.SetOrientation(entity,a)
         local vx,vy,vz,vl = ENTITY.GetVelocity(entity)

@@ -1302,7 +1302,7 @@ function Game:PlayerRespawnRequest(clientID)
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)                 
         
         -- telefrag ?
-        if(not MPCfg.ProPlus) then player:CheckTeleFrag() end
+        if Cfg.Telefrag then player:CheckTeleFrag() end
         
         -- send limits info & current time
         SendNetMethod(Game.SetTimeLimit,clientID, true, true,MPCfg.TimeLimit,Game._TimeLimitOut)
@@ -1555,6 +1555,8 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "fallingdamage" and Cfg.UserFallingDamage then
 		allowed = true
 	elseif cmd == "rocketfix" and Cfg.UserRocketFix then
+		allowed = true
+	elseif cmd == "telefrag" and Cfg.UserTelefrag then
 		allowed = true
 	elseif cmd == "stopmatchonplayersquit" and Cfg.UserStopMatchOnPlayersQuit then
 		allowed = true

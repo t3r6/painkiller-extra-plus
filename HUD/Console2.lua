@@ -2581,11 +2581,11 @@ end
 function Console:Cmd_TOGGLE_BOOL(paramName, enable, description)
   if enable == nil then
     if Cfg[paramName] then
-      CONSOLE_AddMessage("Cfg." .. paramName .. " is 1 (enabled).")
+      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 1 (enabled).")
     else
       CONSOLE_AddMessage("Cfg." .. paramName .. " is 0 (disabled).")
     end
-    CONSOLE_AddMessage(paramName .. " Toggle. " .. (description or ""))
+    CONSOLE_AddMessage("Help: " .. paramName .. " Toggle. " .. (description or ""))
     return
   end
 
@@ -2609,6 +2609,31 @@ function Console:Cmd_TOGGLE_BOOL(paramName, enable, description)
   end
 end
 
+-- generic set function for numerical decimal range
+function Console:Cmd_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, description)
+  if value == nil then
+    CONSOLE_AddMessage("State: Cfg." .. paramName .. " is " .. tostring(Cfg[paramName]) .. ".")
+    CONSOLE_AddMessage("Help: " .. paramName .. " Range [" .. minValue .. "-" .. maxValue .. "]. " .. (description or ""))
+    return
+  end
+
+  local num = tonumber(value)
+  if not num or num < 0 then
+    CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " [" .. minValue .. "-" .. maxValue .. "], only positive numbers allowed.")
+    return
+  end
+
+  num = tonumber(string.format("%.1f", num))  -- trim to 1 decimal
+
+  if num < minValue or num > maxValue then
+    CONSOLE_AddMessage("Error: " .. paramName .. " must be between " .. minValue .. " and " .. maxValue .. ".")
+    return
+  end
+
+  Cfg[paramName] = num
+  CONSOLE_AddMessage("State: " .. paramName .. " set to " .. num .. ".")
+end
+
 --=======================================================================
 --=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
@@ -2621,5 +2646,13 @@ end
 --=======================================================================
 function Console:Cmd_AUTOJUMP(enable)
   self:Cmd_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
+end
+--=======================================================================
+function Console:Cmd_TELEFRAG(enable)
+  self:Cmd_TOGGLE_BOOL("Telefrag", enable, "Enables Telefrags.")
+end
+--=======================================================================
+function Console:Cmd_TELEFRAGRADIUSFACTOR(value)
+  self:Cmd_SET_NUMERIC_DEC("TelefragRadiusFactor", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
 end
 --=======================================================================

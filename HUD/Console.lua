@@ -939,6 +939,8 @@ function Console:CheckVotingParams(cmd,params)
 		return true
 	elseif cmd == "rocketfix" then
 		return true
+	elseif cmd == "telefrag" then
+		return true
 	elseif cmd == "stopmatchonplayersquit" then
 		return true
 	elseif cmd == "stopmatchonteamquit" then

@@ -233,6 +233,7 @@ Cfg =
     UserWarmupDamage = true,
     UserFallingDamage = true,
     UserRocketFix = true,
+    UserTelefrag = true,
 
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
@@ -650,6 +651,9 @@ Cfg =
     --RocketExplosionStrength = 3150,
     --RocketFactor = 0.6,
     --RocketFactorOrder = 1,
+
+    Telefrag = true,
+    TelefragRadiusFactor = 1.8, -- Telefrag radius (0 is off). PK v1.64 default is 1.8; PK++ 1.2 default is 1.2.
 
     StopMatchOnPlayersQuit = true, -- Similar to StopMatchOnTeamQuit for non-team modes. Required for changing to a default map when no players because Painkiller does not have map autodownload. Spectators are considered non-palyers too.
 
