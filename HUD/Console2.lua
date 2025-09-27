@@ -2576,96 +2576,50 @@ end
 --=======================================================================
 -- Extra Plus
 --=======================================================================
-function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
+-- generic toggle function for boolean values
+
+function Console:Cmd_TOGGLE_BOOL(paramName, enable, description)
   if enable == nil then
-    if Cfg.StopMatchOnPlayersQuit then
-      CONSOLE_AddMessage("Cfg.StopMatchOnPlayersQuit is 1 (enabled).")
+    if Cfg[paramName] then
+      CONSOLE_AddMessage("Cfg." .. paramName .. " is 1 (enabled).")
     else
-      CONSOLE_AddMessage("Cfg.StopMatchOnPlayersQuit is 0 (disabled).")
+      CONSOLE_AddMessage("Cfg." .. paramName .. " is 0 (disabled).")
     end
-    CONSOLE_AddMessage("StopMatchOnPlayersQuit Toggle. Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
+    CONSOLE_AddMessage(paramName .. " Toggle. " .. (description or ""))
     return
   end
 
   if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: STOPMATCHONPLAYERSQUIT [1/0]")
+    CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " [1/0]")
     return
   end
 
   if enable == "1" then
-    Cfg.StopMatchOnPlayersQuit = true
-    CONSOLE_AddMessage("StopMatchOnPlayersQuit is now enabled.")
+    Cfg[paramName] = true
+    CONSOLE_AddMessage(paramName .. " is now enabled.")
   elseif enable == "0" then
-    Cfg.StopMatchOnPlayersQuit = false
-    CONSOLE_AddMessage("StopMatchOnPlayersQuit is now disabled.")
+    Cfg[paramName] = false
+    CONSOLE_AddMessage(paramName .. " is now disabled.")
   end
 
-  if Cfg.StopMatchOnPlayersQuit then
-    CONSOLE_AddMessage("State: StopMatchOnPlayersQuit is currently enabled.")
+  if Cfg[paramName] then
+    CONSOLE_AddMessage("State: " .. paramName .. " is currently enabled.")
   else
-    CONSOLE_AddMessage("State: StopMatchOnPlayersQuit is currently disabled.")
+    CONSOLE_AddMessage("State: " .. paramName .. " is currently disabled.")
   end
+end
+
+--=======================================================================
+--=======================================================================
+function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
+  self:Cmd_TOGGLE_BOOL("StopMatchOnPlayersQuit", enable, "Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
 function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
-  if enable == nil then
-    if Cfg.StopMatchOnTeamQuit then
-      CONSOLE_AddMessage("Cfg.StopMatchOnTeamQuit is 1 (enabled).")
-    else
-      CONSOLE_AddMessage("Cfg.StopMatchOnTeamQuit is 0 (disabled).")
-    end
-    CONSOLE_AddMessage("StopMatchOnTeamQuit Toggle. Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
-    return
-  end
-
-  if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: STOPMATCHONTEAMQUIT [1/0]")
-    return
-  end
-
-  if enable == "1" then
-    Cfg.StopMatchOnTeamQuit = true
-    CONSOLE_AddMessage("StopMatchOnTeamQuit is now enabled.")
-  elseif enable == "0" then
-    Cfg.StopMatchOnTeamQuit = false
-    CONSOLE_AddMessage("StopMatchOnTeamQuit is now disabled.")
-  end
-
-  if Cfg.StopMatchOnTeamQuit then
-    CONSOLE_AddMessage("State: StopMatchOnTeamQuit is currently enabled.")
-  else
-    CONSOLE_AddMessage("State: StopMatchOnTeamQuit is currently disabled.")
-  end
+  self:Cmd_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
 function Console:Cmd_AUTOJUMP(enable)
-  if enable == nil then
-    if Cfg.AutoJump then
-      CONSOLE_AddMessage("Cfg.AutoJump is 1 (enabled).")
-    else
-      CONSOLE_AddMessage("Cfg.AutoJump is 0 (disabled).")
-    end
-    CONSOLE_AddMessage("AutoJump Toggle. Enables automatic bunnyhop feature.")
-    return
-  end
-
-  if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: AUTOJUMP [1/0]")
-    return
-  end
-
-  if enable == "1" then
-    Cfg.AutoJump = true
-    CONSOLE_AddMessage("AutoJump is now enabled.")
-  elseif enable == "0" then
-    Cfg.AutoJump = false
-    CONSOLE_AddMessage("AutoJump is now disabled.")
-  end
-
-  if Cfg.AutoJump then
-    CONSOLE_AddMessage("State: AutoJump is currently enabled.")
-  else
-    CONSOLE_AddMessage("State: AutoJump is currently disabled.")
-  end
+  self:Cmd_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
 end
 --=======================================================================
