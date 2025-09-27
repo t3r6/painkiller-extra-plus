@@ -2120,6 +2120,7 @@ Network:RegisterMethod("Game.SayToTeam", NCallOn.Server, NMode.Reliable, "bsi")
 --============================================================================
 -- [NET - ALL CLIENTS] --
 function Game:ConsoleClientMessage(clientID,txt,color)
+    txt = string.sub(txt,1,1023)
     local ps = Game.PlayerStats[clientID]
     
     if clientID == ServerID and not ps then
