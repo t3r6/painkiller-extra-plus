@@ -1660,7 +1660,7 @@ function CPlayer:CheckTeleFrag(x,y,z)
     if not x then x,y,z = ENTITY.GetPosition(self._Entity) end
     for i,o in Game.Players do                        
         local px,py,pz = ENTITY.GetPosition(o._Entity)
-        if ENTITY.PO_IsEnabled(o._Entity)and self ~= o and Dist3D(x,y,z,px,py,pz) < Cfg.TelefragRadiusFactor then -- 1.64 default is 1.8
+        if ENTITY.PO_IsEnabled(o._Entity)and self ~= o and Dist3D(x,y,z,px,py,pz) < Cfg.TelefragRadius then -- 1.64 default is 1.8
             o:OnDamage(o.Health*3,self,AttackTypes.TeleFrag)
         end
     end 

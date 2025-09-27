@@ -2652,7 +2652,7 @@ function Console:Cmd_TELEFRAG(enable)
   self:Cmd_TOGGLE_BOOL("Telefrag", enable, "Enables Telefrags.")
 end
 --=======================================================================
-function Console:Cmd_TELEFRAGRADIUSFACTOR(value)
-  self:Cmd_SET_NUMERIC_DEC("TelefragRadiusFactor", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
+function Console:Cmd_TELEFRAGRADIUS(value)
+  self:Cmd_SET_NUMERIC_DEC("TelefragRadius", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
 end
 --=======================================================================
