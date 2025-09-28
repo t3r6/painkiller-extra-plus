@@ -2578,12 +2578,17 @@ end
 --=======================================================================
 -- generic toggle function for boolean values
 
-function Console:Cmd_TOGGLE_BOOL(paramName, enable, description)
+function Console:Cmd_TEMPLATE_TOGGLE_BOOL(paramName, enable, description)
+  if not paramName then
+    CONSOLE_AddMessage("Error: This is a template function.")
+    return
+  end
+
   if enable == nil then
     if Cfg[paramName] then
       CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 1 (enabled).")
     else
-      CONSOLE_AddMessage("Cfg." .. paramName .. " is 0 (disabled).")
+      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 0 (disabled).")
     end
     CONSOLE_AddMessage("Help: " .. paramName .. " Toggle. " .. (description or ""))
     return
@@ -2610,7 +2615,12 @@ function Console:Cmd_TOGGLE_BOOL(paramName, enable, description)
 end
 
 -- generic set function for numerical decimal range
-function Console:Cmd_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, description)
+function Console:Cmd_TEMPLATE_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, description)
+  if not paramName then
+    CONSOLE_AddMessage("Error: This is a template function.")
+    return
+  end
+
   if value == nil then
     CONSOLE_AddMessage("State: Cfg." .. paramName .. " is " .. tostring(Cfg[paramName]) .. ".")
     CONSOLE_AddMessage("Help: " .. paramName .. " Range [" .. minValue .. "-" .. maxValue .. "]. " .. (description or ""))
@@ -2633,30 +2643,13 @@ function Console:Cmd_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, descr
   Cfg[paramName] = num
   CONSOLE_AddMessage("State: " .. paramName .. " set to " .. num .. ".")
 end
+--=======================================================================
+function Console:Cmd_TEMPLATE_SET_SOULMPCOLOR(paramName, value, description)
+  if not paramName then
+    CONSOLE_AddMessage("Error: This is a template function.")
+    return
+  end
 
---=======================================================================
---=======================================================================
-function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
-  self:Cmd_TOGGLE_BOOL("StopMatchOnPlayersQuit", enable, "Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
-end
---=======================================================================
-function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
-  self:Cmd_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
-end
---=======================================================================
-function Console:Cmd_AUTOJUMP(enable)
-  self:Cmd_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
-end
---=======================================================================
-function Console:Cmd_TELEFRAG(enable)
-  self:Cmd_TOGGLE_BOOL("Telefrag", enable, "Enables Telefrags.")
-end
---=======================================================================
-function Console:Cmd_TELEFRAGRADIUS(value)
-  self:Cmd_SET_NUMERIC_DEC("TelefragRadius", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
-end
---=======================================================================
-function Console:Cmd_SET_SOULMPCOLOR(paramName, value, description)
   if value == nil then
     if Cfg[paramName] then
       CONSOLE_AddMessage("State: Cfg." .. paramName .. " = \"" .. tostring(Cfg[paramName]) .. "\"")
@@ -2682,7 +2675,29 @@ function Console:Cmd_SET_SOULMPCOLOR(paramName, value, description)
   CONSOLE_AddMessage(paramName .. " set to \"" .. normalized .. "\".")
 end
 
+--=======================================================================
+--=======================================================================
+function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnPlayersQuit", enable, "Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
+end
+--=======================================================================
+function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
+end
+--=======================================================================
+function Console:Cmd_AUTOJUMP(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
+end
+--=======================================================================
+function Console:Cmd_TELEFRAG(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Telefrag", enable, "Enables Telefrags.")
+end
+--=======================================================================
+function Console:Cmd_TELEFRAGRADIUS(value)
+  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("TelefragRadius", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
+end
+--=======================================================================
 function Console:Cmd_SOULMPCOLOR(value)
-  self:Cmd_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
+  self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
 end
 --=======================================================================
