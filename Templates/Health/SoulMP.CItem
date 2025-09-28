@@ -125,12 +125,62 @@ function SoulMP:Client_OnCreateEntity(entity)
 	if not Cfg.SimpleItems then 
 	    Log("SoulMP:Client_OnCreateEntity:"..gNrSoul.."\n")
 	    --Log("SoulMP:Client_OnCreateEntity\n")
-	    BindFX(entity,"energy_red",0.2,"e1")
-	    BindFX(entity,"energy_red",0.2,"e2")
-	    BindFX(entity,"energy_red",0.2,"e3")
-	    BindFX(entity,"energy_red",0.2,"e4")
-	    BindFX(entity,"energy_red",0.2,"e5")
-	    BindFX(entity,"energy_red",0.2,"e6") 
+
+        local path = "../../LScripts/Templates/Scripts/Effects/"
+        local Color = Cfg.SoulMPColor
+        if Color == "Random" then
+            Color = ({"White","Yellow","Green","Blue","Cyan","Magenta"})[math.random(1,7)]
+        end
+        if (Color == "White")then
+            BindFX(entity,path.."energy_white",0.2,"e1")
+            BindFX(entity,path.."energy_white",0.2,"e2")
+            BindFX(entity,path.."energy_white",0.2,"e3")
+            BindFX(entity,path.."energy_white",0.2,"e4")
+            BindFX(entity,path.."energy_white",0.2,"e5")
+            BindFX(entity,path.."energy_white",0.2,"e6")
+        elseif(Color == "Yellow")then
+            BindFX(entity,path.."energy_yellow",0.2,"e1")
+            BindFX(entity,path.."energy_yellow",0.2,"e2")
+            BindFX(entity,path.."energy_yellow",0.2,"e3")
+            BindFX(entity,path.."energy_yellow",0.2,"e4")
+            BindFX(entity,path.."energy_yellow",0.2,"e5")
+            BindFX(entity,path.."energy_yellow",0.2,"e6")
+        elseif(Color == "Green")then
+            BindFX(entity,path.."energy_green",0.2,"e1")
+            BindFX(entity,path.."energy_green",0.2,"e2")
+            BindFX(entity,path.."energy_green",0.2,"e3")
+            BindFX(entity,path.."energy_green",0.2,"e4")
+            BindFX(entity,path.."energy_green",0.2,"e5")
+            BindFX(entity,path.."energy_green",0.2,"e6")
+        elseif(Color == "Blue")then
+            BindFX(entity,path.."energy_blue",0.2,"e1")
+            BindFX(entity,path.."energy_blue",0.2,"e2")
+            BindFX(entity,path.."energy_blue",0.2,"e3")
+            BindFX(entity,path.."energy_blue",0.2,"e4")
+            BindFX(entity,path.."energy_blue",0.2,"e5")
+            BindFX(entity,path.."energy_blue",0.2,"e6")
+        elseif(Color == "Cyan")then
+            BindFX(entity,path.."energy_cyan",0.2,"e1")
+            BindFX(entity,path.."energy_cyan",0.2,"e2")
+            BindFX(entity,path.."energy_cyan",0.2,"e3")
+            BindFX(entity,path.."energy_cyan",0.2,"e4")
+            BindFX(entity,path.."energy_cyan",0.2,"e5")
+            BindFX(entity,path.."energy_cyan",0.2,"e6")
+        elseif(Color == "Magenta")then
+            BindFX(entity,path.."energy_magenta",0.2,"e1")
+            BindFX(entity,path.."energy_magenta",0.2,"e2")
+            BindFX(entity,path.."energy_magenta",0.2,"e3")
+            BindFX(entity,path.."energy_magenta",0.2,"e4")
+            BindFX(entity,path.."energy_magenta",0.2,"e5")
+            BindFX(entity,path.."energy_magenta",0.2,"e6")
+        else
+            BindFX(entity,"energy_red",0.2,"e1")
+            BindFX(entity,"energy_red",0.2,"e2")
+            BindFX(entity,"energy_red",0.2,"e3")
+            BindFX(entity,"energy_red",0.2,"e4")
+            BindFX(entity,"energy_red",0.2,"e5")
+            BindFX(entity,"energy_red",0.2,"e6") 
+        end
 	else
 		Log("SoulMP:Client_OnCreateEntity:"..gNrSoul.."\n")
 		local e = ENTITY.Create(ETypes.Billboard,"Script","SoulMP")

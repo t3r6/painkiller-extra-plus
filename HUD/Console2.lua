@@ -2656,3 +2656,33 @@ function Console:Cmd_TELEFRAGRADIUS(value)
   self:Cmd_SET_NUMERIC_DEC("TelefragRadius", value, 0, 5, "Sets the telefrag radius. Default is 1.8 for Black Edition and 1.2 for PK++ 1.2.")
 end
 --=======================================================================
+function Console:Cmd_SET_SOULMPCOLOR(paramName, value, description)
+  if value == nil then
+    if Cfg[paramName] then
+      CONSOLE_AddMessage("State: Cfg." .. paramName .. " = \"" .. tostring(Cfg[paramName]) .. "\"")
+    else
+      CONSOLE_AddMessage("State: Cfg." .. paramName .. " = false")
+    end
+    CONSOLE_AddMessage("Help: " .. paramName .. " (string or 0). " .. (description or ""))
+    return
+  end
+
+  value = tostring(value)
+
+  if value == "0" then
+    Cfg[paramName] = false
+    CONSOLE_AddMessage(paramName .. " is now disabled.")
+    return
+  end
+
+  -- normalize case: first letter uppercase, rest lowercase
+  local normalized = string.upper(string.sub(value, 1, 1)) .. string.lower(string.sub(value, 2))
+
+  Cfg[paramName] = normalized
+  CONSOLE_AddMessage(paramName .. " set to \"" .. normalized .. "\".")
+end
+
+function Console:Cmd_SOULMPCOLOR(value)
+  self:Cmd_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
+end
+--=======================================================================
