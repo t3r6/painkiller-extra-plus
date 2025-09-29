@@ -296,7 +296,7 @@ function Shotgun:FireSFX(pe,range)
         else
             local ps = Game:FindPlayerStatsByEntity(pe)
             if ps and ps._animproc then 
-                local q = Quaternion:New_FromEuler(ps._animproc.Yaw,ENTITY.GetOrientation(pe),0)
+                local q = Quaternion:New_FromEuler(ps._animproc.Pitch,ENTITY.GetOrientation(pe),0)
                 fx,fy,fz = q:InverseTransformVector(0,0,1)                                
                 t:FirePelletsFX(pe,fx,fy,fz,0)
             end
