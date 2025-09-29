@@ -2338,14 +2338,34 @@ function Console:Cmd_HUD_SHOW_SPEEDMETER(enable)
     CONSOLE_AddMessage("Speedmeter text&bar")
     return
   end
-  if enable == "1" then
+  if enable == "4" then
     Cfg.HUD_Show_Speedmeter = 4
     CONSOLE_AddMessage("Speedmeter classic")
     return
   end
-  CONSOLE_AddMessage("Syntax: HUD_SHOWSPEEDMETER [0/1/2]")
+  CONSOLE_AddMessage("Syntax: HUD_SHOWSPEEDMETER [0/1/2/3/4]")
   CONSOLE_AddMessage("Help: Shows Speedmeter.")
   CONSOLE_AddMessage("State: Speedmeter is currently " .. tostring(Cfg.HUD_Show_Speedmeter))
+end
+--=======================================================================
+function Console:Cmd_HUD_SPEEDMETER_QUAKE(enable)
+  if enable == "1" then
+    Cfg.HUD_Speedmeter_Quake = true
+    CONSOLE_AddMessage("Quake Units are now enabled.")
+    return
+  end
+  if enable == "0" then
+    Cfg.HUD_Speedmeter_Quake = false
+    CONSOLE_AddMessage("Quake Units are now disabled.")
+    return
+  end
+  CONSOLE_AddMessage("Syntax: HUD_SPEEDMETER_QUAKE [1/0]")
+  CONSOLE_AddMessage("Help: Shows Quake units on the speedmeter, converting base movement speed into 320 Ups.")
+  if Cfg.HUD_Speedmeter_Quake then
+    CONSOLE_AddMessage("State: Quake Units are currently enabled.")
+  else
+    CONSOLE_AddMessage("State: Quake Units are currently disabled.")
+  end
 end
 --=======================================================================
 function Console:Cmd_HUD_POWERUP_TIMER(enable)

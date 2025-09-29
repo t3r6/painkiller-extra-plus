@@ -1017,7 +1017,11 @@ end
         local hl = Dist2D(0,0,vx,vz)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,100,13,100,100,100)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,hl*2,13,255,0,0)
-        HUD.PrintXY(w/2-10,h-15,string.format("%.02f",hl))
+        if Cfg.HUD_Speedmeter_Quake then
+            HUD.PrintXY(w/2-10,h-15,string.format("%d",hl * 29.14))
+        else
+            HUD.PrintXY(w/2-10,h-15,string.format("%.02f",hl))
+        end
     end
 
   if Player and Cfg.CustomHudSound then
