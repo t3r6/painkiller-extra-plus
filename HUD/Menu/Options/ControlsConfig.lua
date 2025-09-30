@@ -75,50 +75,6 @@ ControlsConfig =
 					action = "",
 				},
 
-				InvertMouse =
-				{
-					type = MenuItemTypes.Checkbox,
-					text = TXT.Menu.InvertMouse,
-					desc = TXT.MenuDesc.InvertMouse,
-					option = "InvertMouse",
-					valueOn = true,
-					valueOff = false,
-					x	 = -1,
-					y	 = 500,
-					align = MenuAlign.Right,
-					action = "",
-				},
-				
-				SmoothMouse =
-				{
-					type = MenuItemTypes.Checkbox,
-					text = TXT.Menu.SmoothMouse,
-					desc = TXT.MenuDesc.SmoothMouse,
-					option = "SmoothMouse",
-					valueOn = true,
-					valueOff = false,
-					x	 = -1,
-					y	 = 540,
-					align = MenuAlign.Right,
-					action = "",
-		--			disabled = 1,
-				},
-				
-				DirectInput =
-				{
-					type = MenuItemTypes.Checkbox,
-					text = "Direct Input",
-					desc = "Use Direct Input",
-					option = "DirectInput",
-					valueOn = true,
-					valueOff = false,
-					x	 = -1,
-					y	 = 580,
-					align = MenuAlign.Right,
-					action = "",
-		--			disabled = 1,
-				},
-
 				MouseSensitivity =
 				{
 					type = MenuItemTypes.Slider,
@@ -129,7 +85,7 @@ ControlsConfig =
 					maxValue = 100,
 					isFloat = true,
 					x	 = 80,
-					y	 = 530,
+					y	 = 515,
 					action = "",
 					sliderWidth = 280,
 					sliderCtrlWidth = 560,
@@ -146,11 +102,70 @@ ControlsConfig =
 					maxValue = 4,
 					isFloat = false,
 					x	 = 80,
-					y	 = 580,
+					y	 = 555,
 					action = "PainMenu:UpdateWheelSensitivity()",
 					sliderWidth = 280,
 					sliderCtrlWidth = 560,
 					align = MenuAlign.None,
+				},
+
+				InvertMouse =
+				{
+					type = MenuItemTypes.Checkbox,
+					text = TXT.Menu.InvertMouse,
+					desc = TXT.MenuDesc.InvertMouse,
+					option = "InvertMouse",
+					valueOn = true,
+					valueOff = false,
+					x	 = 80,
+					y	 = 580,
+					align = MenuAlign.Right,
+					action = "",
+				},
+				
+				SmoothMouse =
+				{
+					type = MenuItemTypes.Checkbox,
+					text = TXT.Menu.SmoothMouse,
+					desc = TXT.MenuDesc.SmoothMouse,
+					option = "SmoothMouse",
+					valueOn = true,
+					valueOff = false,
+					x	 = 290,
+					y	 = 580,
+					align = MenuAlign.Right,
+					action = "",
+		--			disabled = 1,
+				},
+				
+				DirectInput =
+				{
+					type = MenuItemTypes.Checkbox,
+					text = "Direct Input",
+					desc = "Use Direct Input",
+					option = "DirectInput",
+					valueOn = true,
+					valueOff = false,
+					x	 = 515,
+					y	 = 580,
+					align = MenuAlign.Right,
+					action = "",
+		--			disabled = 1,
+				},
+
+				AutoJump =
+				{
+					type = MenuItemTypes.Checkbox,
+					text = "Auto Jump",
+					desc = "Use Auto Jump",
+					option = "AutoJump",
+					valueOn = true,
+					valueOff = false,
+					x	 = -1,
+					y	 = 500,
+					align = MenuAlign.Right,
+					action = "",
+		--			disabled = 1,
 				},
 			},
 		},
