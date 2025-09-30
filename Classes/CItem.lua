@@ -917,11 +917,9 @@ end
 Network:RegisterMethod("CItem.ShowAndPos", NCallOn.ServerAndAllClients, NMode.Reliable, "eBBfff")
 --============================================================================
 function CItem:OnRespawn(entity)
-    if not Cfg.LowQualityMultiplayerSFX then
+    if not Cfg.NoSpawnEffects then
         local x,y,z = ENTITY.GetPosition(entity)
-        if not Cfg.NoSpawnEffects then
-          AddObject("FX_ItemRespawn.CActor",1,Vector:New(x,y,z),nil,true) 
-        end
+        AddObject("FX_ItemRespawn.CActor",1,Vector:New(x,y,z),nil,true) 
     end
 end
 -------------------------------------------------------------------------------
