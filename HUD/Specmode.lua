@@ -97,7 +97,7 @@ function PSpectatorControler:Init()
     Hud.Enabled = false
     MOUSE.Lock(true)
     self._entCam =  ENTITY.Create(ETypes.Mesh,"../Data/Items/granat.dat","polySurfaceShape234",1)   
-    ENTITY.PO_Create(self._entCam,BodyTypes.Sphere,0.3,ECollisionGroups.InsideItems)
+    ENTITY.PO_Create(self._entCam,BodyTypes.Sphere,0.3,ECollisionGroups.Noncolliding)
     ENTITY.PO_EnableGravity(self._entCam,false)
     ENTITY.PO_SetMovedByExplosions(self._entCam, false) 
     ENTITY.PO_HideFromPrediction(self._entCam)
@@ -334,7 +334,8 @@ end
 function PSpectatorControler:Pivot() 
     if not MOUSE.IsLocked() then return end 
     local dx,dy = MOUSE.GetDelta()
-    if Cfg.InvertMouse then dy = - dy end
+    dx = - dx
+    if not Cfg.InvertMouse then dy = - dy end
     local ps = Game.PlayerStats[self.player]
     if ps and ps._Entity and ps._Entity ~=0 and ps.Spectator == 0 and ps._animproc then  
 	self:SetPlayerVisibility(ps._Entity,true,ps._animproc.State)
@@ -530,6 +531,12 @@ function PSpectatorControler:CameraModeSwitch()
                     self.player = self.player
                   end
                 end
+              end
+            end
+            if MPCfg.GameMode ~= "Clan Arena" then
+              if self.mode == CameraStates.Float then
+                self.mode = CameraStates.InEyes
+                self:InEyes()
               end
             end
             if not self.player then self.player = -1 end
