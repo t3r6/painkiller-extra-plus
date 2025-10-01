@@ -1213,7 +1213,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
                     return 
                 end
             end            
-            if MPGameRules[MPCfg.GameMode].Teams and not MPCfg.TeamDamage and killer and MPCfg.GameState == GameStates.Playing then
+            if MPGameRules[MPCfg.GameMode].Teams and not MPCfg.TeamDamage and killer then
                 local ks = Game.PlayerStats[killer.ClientID]
                 local ps = Game.PlayerStats[self.ClientID]
                 if ps ~= ks and ps.Team == ks.Team then
