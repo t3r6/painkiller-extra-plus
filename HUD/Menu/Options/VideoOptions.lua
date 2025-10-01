@@ -211,7 +211,7 @@ VideoOptions =
 					desc = "Set the maximum framerate in game",
 					option = "MaxFpsMP",
 					minValue = 0,
-					maxValue = 125, --maxValue = 250,
+					maxValue = 150, --maxValue = 250,
 					x	 = 160,
 					y	 = 580,
 					action = "",

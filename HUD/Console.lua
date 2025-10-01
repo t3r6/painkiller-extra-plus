@@ -580,7 +580,7 @@ function Console:Cmd_SETMAXFPS(val)
 	val = tonumber(val)
     if val then
         if PainMenu.public then
-            if val <= 125 and val >= 0 then
+            if val <= 150 and val >= 0 then
                 WORLD.SetMaxFPS(val)
             end
         else
@@ -1104,7 +1104,7 @@ function Console:Cmd_SERVERFRAMERATE(cmd)
             CONSOLE_AddMessage( 'Usage: serverframerate (1-1000)' )
             CONSOLE_AddMessage( '    ( the value to set is in frames per second)' )
         elseif PainMenu.public then
-            if cmd <= 60 and cmd >= 0 then
+            if cmd <= 120 and cmd >= 0 then
                 NET.SetServerFramerate(cmd)
             end
         else
