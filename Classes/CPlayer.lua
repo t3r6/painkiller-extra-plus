@@ -2458,32 +2458,32 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
         ENTITY.KillAllChildren(deadEntity,ETypes.Sound)
         ENTITY.KillAllChildrenByName(deadEntity,"fx_weaponmodifier")
         if not Cfg.LowQualityMultiplayerSFX then
-            if gib == 0 then 
-                ENTITY.RecreateRagdollIfNone(deadEntity)
-                MDL.SetRagdollCollisionGroup(deadEntity, ECollisionGroups.Particles)
-                if not IsDedicatedServer() then
-                    MDL.EnableRagdoll(deadEntity,true,ECollisionGroups.Particles)
-                end
-                ENTITY.EnableDraw(deadEntity,true) -- pokazuje ragdolla
-            else    
-                ENTITY.RemoveRagdoll(deadEntity)
-                if not IsDedicatedServer() then
-                    local ge = MDL.MakeGib(deadEntity, ECollisionGroups.Particles)
-                    ENTITY.PO_SetMass(ge,80)
-                    MDL.SetMaterial(ge,"palskinned_bloody")
-                    WORLD.Explosion2(x,y+1,z,3000*FRand(0.8,1.2),2,nil,AttackTypes.Grenade,0)
-                    ENTITY.SetTimeToDie(ge,3)            
-                    local parts = {{"r_l_arm",-1},{"r_p_arm",1},{"n_l_bio",-1},{"n_p_bio",1},{"k_head",-1},{"k_chest",1},{"root",-1}}            
-                    if not Cfg.NoGibs then 
-                    for i,v in parts do
-                        local pfx = AddPFX("FX_gib_blood",0.3)
-                        --if pfx then Game:Print(v[1]) end
-                        ENTITY.RegisterChild(ge,pfx)        
-                        PARTICLE.SetParentOffset(pfx,0,0,0,v[1], nil,nil,nil, 0, 0, math.pi/2 * v[2])
+            if not Cfg.NoGibs then
+                if gib == 0 then 
+                    ENTITY.RecreateRagdollIfNone(deadEntity)
+                    MDL.SetRagdollCollisionGroup(deadEntity, ECollisionGroups.Particles)
+                    if not IsDedicatedServer() then
+                        MDL.EnableRagdoll(deadEntity,true,ECollisionGroups.Particles)
                     end
+                    ENTITY.EnableDraw(deadEntity,true) -- pokazuje ragdolla
+                else    
+                    ENTITY.RemoveRagdoll(deadEntity)
+                    if not IsDedicatedServer() then
+                        local ge = MDL.MakeGib(deadEntity, ECollisionGroups.Particles)
+                        ENTITY.PO_SetMass(ge,80)
+                        MDL.SetMaterial(ge,"palskinned_bloody")
+                        WORLD.Explosion2(x,y+1,z,3000*FRand(0.8,1.2),2,nil,AttackTypes.Grenade,0)
+                        ENTITY.SetTimeToDie(ge,3)            
+                        local parts = {{"r_l_arm",-1},{"r_p_arm",1},{"n_l_bio",-1},{"n_p_bio",1},{"k_head",-1},{"k_chest",1},{"root",-1}}            
+                        for i,v in parts do
+                            local pfx = AddPFX("FX_gib_blood",0.3)
+                            --if pfx then Game:Print(v[1]) end
+                            ENTITY.RegisterChild(ge,pfx)        
+                            PARTICLE.SetParentOffset(pfx,0,0,0,v[1], nil,nil,nil, 0, 0, math.pi/2 * v[2])
+                        end
+                        local x,y,z = MDL.TransformPointByJoint(deadEntity,MDL.GetJointIndex(deadEntity, "k_chest"),0,0,0)
+                        AddPFX("gibExplosion",0.4,Vector:New(x,y,z))                                              
                     end
-                    local x,y,z = MDL.TransformPointByJoint(deadEntity,MDL.GetJointIndex(deadEntity, "k_chest"),0,0,0)
-                    if not Cfg.NoGibs then AddPFX("gibExplosion",0.4,Vector:New(x,y,z)) end                                                 
                 end
             end
         else
