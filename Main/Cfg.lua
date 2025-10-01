@@ -234,6 +234,7 @@ Cfg =
     UserFallingDamage = true,
     UserRocketFix = true,
     UserTelefrag = true,
+    UserShurikensOld = true,
 
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
@@ -656,6 +657,8 @@ Cfg =
     TelefragRadius = 1.8, -- Telefrag radius (0 is off). PK v1.64 default is 1.8; PK++ 1.2 default is 1.2.
 
     SoulMPColor = false, -- Colored souls. String and boolean values: false, "Random", "White", "Yellow", "Green", "Blue", "Cyan", "Magenta"
+
+    ShurikensOld = false, -- Spammy shurikens from PK 1.3.
 
     StopMatchOnPlayersQuit = true, -- Similar to StopMatchOnTeamQuit for non-team modes. Required for changing to a default map when no players because Painkiller does not have map autodownload. Spectators are considered non-palyers too.
 

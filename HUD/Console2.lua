@@ -2701,3 +2701,7 @@ function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
 end
 --=======================================================================
+function Console:Cmd_SHURIKENSOLD(value)
+  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("ShurikensOld", enable, "Enable spammy shurikens from PK 1.3.")
+end
+--=======================================================================
