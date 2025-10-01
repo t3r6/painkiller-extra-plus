@@ -211,6 +211,7 @@ end
 --============================================================================
 function Game:CheckOvertime()
     	if Game:IsServer() and Cfg.Overtime  ~= nil and Cfg.Overtime ~= 0 and Game._TimeLimitOut ~= nil and MPCfg.TimeLimit ~= nil then
+    	    if MPCfg.GameMode == "Team Deathmatch" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "Duel" or MPCfg.GameMode == "ICTF" then
     		if MPCfg.GameState == GameStates.Playing then
 	    		if((MPCfg.TimeLimit*60 - Game._TimeLimitOut) < 2)then
 			    	local p1score = nil
@@ -253,6 +254,7 @@ function Game:CheckOvertime()
 			    	end
 			end
 		end
+	    end
 	end
 end
 --============================================================================
