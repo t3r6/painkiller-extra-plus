@@ -580,7 +580,7 @@ function Console:Cmd_SETMAXFPS(val)
 	val = tonumber(val)
     if val then
         if PainMenu.public then
-            if val <= 150 and val >= 0 then
+            if val <= 200 and val >= 0 then
                 WORLD.SetMaxFPS(val)
             end
         else
