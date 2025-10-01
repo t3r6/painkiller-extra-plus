@@ -189,9 +189,10 @@ if(not Hud) then return end
     if ps then
     	  local pnx = w/2-1.8*HUD.GetTextWidth(HUD.StripColorInfo(ps.Name))/2
     	  local pny = 125*h/768
-        HUD.PrintXY(-1,pny+3,HUD.StripColorInfo(ps.Name),"Impact",0,0,0,60)
-        HUD.PrintXY(-1,pny,ps.Name,"Impact",255,255,255,60)
-        
+        if self.mode ~= CameraStates.Float then
+          HUD.PrintXY(-1,pny+3,HUD.StripColorInfo(ps.Name),"Impact",0,0,0,60)
+          HUD.PrintXY(-1,pny,ps.Name,"Impact",255,255,255,60)
+        end
         if(Cfg.MapView)then
         	self:DrawMapview() 
         end
