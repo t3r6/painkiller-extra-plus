@@ -2702,6 +2702,6 @@ function Console:Cmd_SOULMPCOLOR(value)
 end
 --=======================================================================
 function Console:Cmd_SHURIKENSOLD(value)
-  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("ShurikensOld", enable, "Enable spammy shurikens from PK 1.3.")
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ShurikensOld", enable, "Enable spammy shurikens from PK 1.3.")
 end
 --=======================================================================
