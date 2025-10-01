@@ -2568,7 +2568,8 @@ function PainMenu:StartMultiplayerServer()
 --		SOUND.StreamPause( 1 )
 
 		MOUSE.Show( false )
-        NET.LoadMapOnServer(map)
+		WORLD.SetMaxFPS(Cfg.MaxFpsMP)
+		NET.LoadMapOnServer(map)
 	end
 end
 
