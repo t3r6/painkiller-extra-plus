@@ -1558,6 +1558,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "telefrag" and Cfg.UserTelefrag then
 		allowed = true
+	elseif cmd == "shurikensold" and Cfg.UserShurikensOld then
+		allowed = true
 	elseif cmd == "stopmatchonplayersquit" and Cfg.UserStopMatchOnPlayersQuit then
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then

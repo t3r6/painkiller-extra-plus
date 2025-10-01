@@ -571,6 +571,9 @@ function DriverElectro:FireSFX(pe,se,combo)
     local player = EntityToObject[pe]
 
     local t = Templates["DriverElectro.CWeapon"]
+    if Cfg.ShurikensOld then 
+        t = Templates["DriverElectroOld.CWeapon"]
+    end
     local s = t:GetSubClass()
     local x,y,z = ENTITY.GetPosition(pe)
 
