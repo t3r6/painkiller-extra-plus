@@ -43,8 +43,8 @@ function PSpectatorControler:New()
 end
 --============================================================================
 function PSpectatorControler:SetPlayerVisibility(e,enable,state)
-     
-    ENTITY.EnableDraw(e,enable,true)    
+    local propagate = state ~= 12 and state ~= 13 -- painhead always visible
+    ENTITY.EnableDraw(e,enable,propagate)    
     
     --[[
     MDL.SetMeshVisibility(e,"-all-",true)
