@@ -2348,26 +2348,6 @@ function Console:Cmd_HUD_SHOW_SPEEDMETER(enable)
   CONSOLE_AddMessage("State: Speedmeter is currently " .. tostring(Cfg.HUD_Show_Speedmeter))
 end
 --=======================================================================
-function Console:Cmd_HUD_SPEEDMETER_QUAKE(enable)
-  if enable == "1" then
-    Cfg.HUD_Speedmeter_Quake = true
-    CONSOLE_AddMessage("Quake Units are now enabled.")
-    return
-  end
-  if enable == "0" then
-    Cfg.HUD_Speedmeter_Quake = false
-    CONSOLE_AddMessage("Quake Units are now disabled.")
-    return
-  end
-  CONSOLE_AddMessage("Syntax: HUD_SPEEDMETER_QUAKE [1/0]")
-  CONSOLE_AddMessage("Help: Shows Quake units on the speedmeter, converting base movement speed into 320 Ups.")
-  if Cfg.HUD_Speedmeter_Quake then
-    CONSOLE_AddMessage("State: Quake Units are currently enabled.")
-  else
-    CONSOLE_AddMessage("State: Quake Units are currently disabled.")
-  end
-end
---=======================================================================
 function Console:Cmd_HUD_POWERUP_TIMER(enable)
   if enable == "1" then
     Cfg.HUD_PowerUp_Timer = true
@@ -2719,5 +2699,9 @@ end
 --=======================================================================
 function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
+end
+--=======================================================================
+function Console:Cmd_HUD_SPEEDMETER_QUAKE(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("HUD_Speedmeter_Quake", enable, "Shows Quake units on the speedmeter, converting base movement speed into 320 Ups.")
 end
 --=======================================================================
