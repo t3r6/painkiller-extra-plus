@@ -56,7 +56,7 @@ function CWeapon:SetAnim(anim,loop,speed,blendtime)
 
     --Game:Print(anim)
 --OriOn_Modification=################################################################	
-	if Cfg.WeaponsPositionning or Cfg.ShowWeaponAnim == false then
+	if Cfg.ShowWeaponAnim == false then
 		if not Game.IsDemon then
 			self.s_MPSubClass.Animations.idle = {0,0}
 			self.s_SubClass.Animations.idle = {0,0}
