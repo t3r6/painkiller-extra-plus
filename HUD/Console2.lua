@@ -2701,3 +2701,7 @@ function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
 end
 --=======================================================================
+function Console:Cmd_GRAPPLINGHOOK(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GrapplingHook", enable, "Turn Painkiller's alternative fire into a grappling hook.")
+end
+--=======================================================================

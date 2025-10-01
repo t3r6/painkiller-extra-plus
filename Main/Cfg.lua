@@ -238,6 +238,8 @@ Cfg =
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
 
+    UserGrapplingHook = true,
+
     ViewWeaponModel = true,
     WeaponBob = 0,
     WeaponNormalMap = true,
@@ -661,6 +663,8 @@ Cfg =
 
     WarmupDamage = true,
     WeaponPrediction = true,
+
+    GrapplingHook = false,
 }
 --============================================================================
 --============================================================================

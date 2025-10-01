@@ -945,6 +945,8 @@ function Console:CheckVotingParams(cmd,params)
 		return true
 	elseif cmd == "stopmatchonteamquit" then
 		return true
+	elseif cmd == "grapplinghook" then
+		return true
 	end
 
 	CONSOLE_AddMessage( "Command '"..cmd.."' cannot be used for voting" )
