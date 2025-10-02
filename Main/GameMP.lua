@@ -239,6 +239,9 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
     end
     
+    -- Enforces MaxFpsMP for the local server. Use Cfg.MaxFpsMP = 0 or "/setmaxfps 0" for uncapped FPS.
+    if self.GMode == GModes.MultiplayerServer then WORLD.SetMaxFPS(Cfg.MaxFpsMP) end
+
 --    if (self.GMode == GModes.DedicatedServer and Cfg.LimitServerFPS) or self.GMode == GModes.MultiplayerServer then
 --        WORLD.SetMaxFPS(Cfg.ServerFPS)
 --    end
