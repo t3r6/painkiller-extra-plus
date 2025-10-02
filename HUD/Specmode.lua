@@ -12,6 +12,7 @@ o._lastCamAng = Vector:New(0,0,0)
 o._currentCamAng = Vector:New(0,0,0)
 o._newCamAng = Vector:New(0,0,0)
 o._desiredCamAng = Vector:New(0,0,0)
+o._lastFloatAng = Vector:New(0,0,0)
 o.averagetickcountang = 10
 o.tickcountang = 1
 o.averagetickcountpos = 10
@@ -268,15 +269,15 @@ function PSpectatorControler:Float()
     local dx,dy = MOUSE.GetDelta()
     if Cfg.InvertMouse then dy = - dy end
  
-        local ax,ay,az = CAM.GetAng()
-        ax = ax + dx        
-        ay = ay + dy
+        local ang = self._lastFloatAng
+        ang.X = ang.X + dx
+        ang.Y = ang.Y + dy
         
-        if ay > 80  then  ay = 80 end
-        if ay < -80 then  ay = -80 end
+        if ang.Y > 80  then  ang.Y = 80 end
+        if ang.Y < -80 then  ang.Y = -80 end
     
-        CAM.SetAng(ax,ay,az)
-        self._desiredCamAng:Set(ax,ay,az)
+        CAM.SetAng(ang.X,ang.Y,ang.Z)
+        self._desiredCamAng:Set(ang.X,ang.Y,ang.Z)
         local ox,oy,oz = CAM.GetPos()
         local move = Vector:New(0,0,0)
         -- Camera movement
