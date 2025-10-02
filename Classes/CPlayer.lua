@@ -1556,6 +1556,9 @@ function CPlayer:ResetStatus(weapon)
     elseif MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
       self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
+      if Cfg.GrapplingHook then
+        self.EnabledWeapons = {"PainKiller",nil,"StakeGunGL",nil,nil}
+      end
     else
         self.EnabledWeapons = {"PainKiller"}
         self:AddWeapon(1)
