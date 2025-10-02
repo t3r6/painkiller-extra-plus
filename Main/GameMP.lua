@@ -881,8 +881,10 @@ function Game:OnMultiplayerCommonTick(delta)
         if self._TimeLimitOut >= MPCfg.TimeLimit * 60 then
         
             -- OVERTIME
+          if MPCfg.GameMode == "Team Deathmatch" or MPCfg.GameMode == "Duel" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
             Game:CheckOvertime()
             if(not(self._TimeLimitOut > MPCfg.TimeLimit * 60))then return end
+          end
             -- OVERTIME
         
             if Game:IsServer() then StringToDo = "Game.EndOfMatch()" end
