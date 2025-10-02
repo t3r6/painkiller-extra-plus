@@ -137,7 +137,7 @@ CreateServerMenu =
 					type = MenuItemTypes.NumEdit,
 					text = "Overtime"..":",
 					desc = "Amount of overtime minutes, 0 = disabled",
-					option = "overtime",
+					option = "Overtime",
 					x	 = -1,
 					y	 = 320,
 					action = "",
