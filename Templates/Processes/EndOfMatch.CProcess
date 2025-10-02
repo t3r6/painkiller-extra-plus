@@ -64,11 +64,12 @@ function EndOfMatch:Tick(delta)
  
     self.TimeOut = self.TimeOut + delta     
     if self.TimeOut > 1.5 or self.Mode == 2 then
-        if INP.Action(Actions.Fire) then
+        if INP.Action(Actions.Fire) or INP.Action(Actions.Jump) then
             if self.Mode == 0 then
 				Game.PlayerRespawnRequest(Player.ClientID)
 				INP.RemoveAction(Actions.Fire)
 				INP.RemoveAction(Actions.AltFire)
+				INP.RemoveAction(Actions.Jump)
             elseif self.Mode == 2 then
 				if MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp then
 					local ps = Game.PlayerStats[NET.GetClientID()]
@@ -85,6 +86,7 @@ function EndOfMatch:Tick(delta)
 					Game.PlayerRespawnRequest(Player.ClientID)
 					INP.RemoveAction(Actions.Fire)
 					INP.RemoveAction(Actions.AltFire)
+					INP.RemoveAction(Actions.Jump)
 				end
             else
                 if Game:IsServer() then
