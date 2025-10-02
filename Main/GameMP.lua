@@ -1567,6 +1567,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then
 		allowed = true
+	elseif cmd == "grapplinghook" and Cfg.UserGrapplingHook then
+		allowed = true
 	end
 	return allowed
 end
