@@ -77,18 +77,22 @@ end
 -- FIRE - Painkiller closed (Server Side)
 --============================================================================
 function PainKiller:Fire()
-Game:AddToStats(self.ObjOwner.ClientID, AttackTypes.Painkiller, 0, 1, 0)
-    if self.r_PainHead then 
-        self._ActionState = "Idle"
-        return 
-    end    
+if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
+    Game:AddToStats(self.ObjOwner.ClientID, AttackTypes.Painkiller, 0, 1, 0)
+        if self.r_PainHead then 
+            self._ActionState = "Idle"
+            return 
+        end    
 
-    self.StartFireSFX(self.ObjOwner.ClientID,self.ObjOwner._Entity)
+        self.StartFireSFX(self.ObjOwner.ClientID,self.ObjOwner._Entity)
+    end
 end
 --============================================================================
 function PainKiller:OnFinishFire()
-    if self.r_PainHead then return end    
-    self.FinishFireSFX(self.ObjOwner.ClientID,self.ObjOwner._Entity)
+    if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
+        if self.r_PainHead then return end    
+        self.FinishFireSFX(self.ObjOwner.ClientID,self.ObjOwner._Entity)
+    end
 end
 --============================================================================
 -- ALT FIRE - PainKiller opened (Server Side)
@@ -99,7 +103,9 @@ Game:AddToStats(self.ObjOwner.ClientID, AttackTypes.PainkillerRotor, 0, 1, 0)
     if not first then return end
     
     if not self.r_PainHead and not self.ObjOwner._jammed then       
-        self._spinning = combo
+        if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
+            self._spinning = combo
+        end
         
         -- create rocket object
         local obj = GObjects:Add(TempObjName(),CloneTemplate("PainHead.CItem"))
@@ -147,7 +153,9 @@ Game:AddToStats(self.ObjOwner.ClientID, AttackTypes.PainkillerRotor, 0, 1, 0)
 
         PlayLogicSound("FIRE",self.ObjOwner.Pos.X,self.ObjOwner.Pos.Y,self.ObjOwner.Pos.Z,12,26,self.ObjOwner)           
         local cb = 0
-        if combo then cb = 1 end
+        if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
+            if combo then cb = 1 end
+        end
         self.AltFireSFX(self.ObjOwner._Entity,obj._Entity,cb)    
     else        
         if self.r_PainHead then
@@ -333,7 +341,7 @@ function PainKiller:Render()
         end
         
         if isObj or not b then 
-            R3D.DrawSprite1DOF(px,py,pz,x,y,z,0.1,R3D.RGB(255,255,255),"particles/trailpainkiller") --IcI pour l épaisseur du trail
+            R3D.DrawSprite1DOF(px,py,pz,x,y,z,0.1,R3D.RGB(255,255,255),"particles/trailpainkiller") --IcI pour l ï¿½paisseur du trail
             self:EnableEnergyFX(true)            
             if not SOUND2D.IsPlaying(self._sndElectro) then 
                 SOUND2D.SetLoopCount(self._sndElectro,0)             

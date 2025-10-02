@@ -1553,10 +1553,7 @@ function CPlayer:ResetStatus(weapon)
         self.Armor             = a.ArmorAdd
         self.ArmorType         = a.ArmorType
         self.ArmorRescueFactor = a.RescueFactor
-    elseif MPCfg.GameMode == "Instagib" then
-      self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
-      self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
-    elseif MPCfg.GameMode == "ICTF" then
+    elseif MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
       self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
     else
@@ -1595,6 +1592,10 @@ function CPlayer:ResetStatus(weapon)
       elseif MPCfg.GameMode == "ICTF" or MPCfg.GameMode == "Instagib" then
         self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
         self:AddWeapon(3)
+        if Cfg.GrapplingHook then
+                self.EnabledWeapons = {"PainKiller",nil,"StakeGunGL",nil,nil}
+                self:AddWeapon(1)
+        end
       else
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
         self:AddWeapon(1)
