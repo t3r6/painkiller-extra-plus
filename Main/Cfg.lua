@@ -788,9 +788,6 @@ function Cfg:Load()
   else
     Cfg.Language = Cfg.LanguageNoCD
   end
-  if Cfg.NetcodeServerFramerate == 0 or Cfg.NetcodeServerFramerate > 60 then
-    Cfg.NetcodeServerFramerate = 60
-  end
 
 	if Cfg.Language == "german" then
 		Tweak.GlobalData.DisableGibs = true
@@ -805,9 +802,7 @@ function Cfg:Load()
         Cfg.PlayerModel = 1
     end
 
-    if Cfg.MaxFpsMP == 0 or Cfg.MaxFpsMP > 150 then
-        Cfg.MaxFpsMP = 125
-    end
+  Cfg.MaxFpsMP = math.min(math.max(Cfg.MaxFpsMP, 30), 125)
 
 	if IsMPDemo() then
 		Cfg.Credits = false

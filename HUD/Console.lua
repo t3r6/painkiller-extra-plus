@@ -575,21 +575,17 @@ function Console:Cmd_SETMAXFPS(val)
 	if val == nil then
         CONSOLE_AddMessage( "Give a new value after this command to change maxfps." )
         CONSOLE_AddMessage( "Give a 0 to remove the limit." )
+        CONSOLE_AddMessage("Cfg.MaxFpsMP is currently " .. tostring(Cfg.MaxFpsMP))
         return
     end
 	val = tonumber(val)
     if val then
-        if PainMenu.public then
-            if val <= 125 and val >= 0 then
-                WORLD.SetMaxFPS(val)
-            end
-        else
-            WORLD.SetMaxFPS(val)
+        if Game.GMode == GModes.MultiplayerClient then
+            val = math.min(math.max(val, 30), 125) -- clamp to range [30, 125]
         end
-		if Game.GMode == GModes.MultiplayerClient then
-            Cfg.MaxFpsMP = val
-        end
-	end
+        Cfg.MaxFpsMP = val
+        WORLD.SetMaxFPS(val)
+    end
 end
 --=======================================================================
 function Console:Cmd_POWERUPDROP(enable)
@@ -1100,20 +1096,25 @@ function Console:Cmd_SERVERFRAMERATE(cmd)
         return
     end
 
-    if IsNewNetcode() then
-        cmd = tonumber(cmd)
-        if cmd == nil then
-            CONSOLE_AddMessage( 'Usage: serverframerate (1-1000)' )
-            CONSOLE_AddMessage( '    ( the value to set is in frames per second)' )
-        elseif PainMenu.public then
-            if cmd <= 60 and cmd >= 0 then
-                NET.SetServerFramerate(cmd)
-            end
-        else
-            NET.SetServerFramerate( cmd )
+    if not IsNewNetcode() then
+        CONSOLE_AddMessage('Command not available with old netcode')
+        return
+    end
+
+    cmd = tonumber(cmd)
+    if cmd == nil then
+        CONSOLE_AddMessage('Usage: serverframerate (1-1000)')
+        CONSOLE_AddMessage('    (the value to set is in frames per second)')
+        CONSOLE_AddMessage("Cfg.NetcodeServerFramerate is currently " .. tostring(Cfg.NetcodeServerFramerate))
+        return
+    end
+
+    if cmd then
+        if Game.GMode == GModes.MultiplayerClient then
+            cmd = math.min(math.max(cmd, 10), 60) -- clamp to range [10, 60]
         end
-    else
-        CONSOLE_AddMessage( 'Command not available with old netcode' )
+
+        NET.SetServerFramerate(cmd)
     end
 end
 --=======================================================================

@@ -245,7 +245,12 @@ function Game:AfterWorldSynchronization(mapName,levelName)
 --    if (self.GMode == GModes.DedicatedServer and Cfg.LimitServerFPS) or self.GMode == GModes.MultiplayerServer then
 --        WORLD.SetMaxFPS(Cfg.ServerFPS)
 --    end
-    
+
+    if Game.GMode == GModes.MultiplayerClient then
+        WORLD.SetMaxFPS(math.min(math.max(Cfg.MaxFpsMP, 30), 125))
+        NET.SetServerFramerate(math.min(math.max(Cfg.NetcodeServerFramerate, 10), 60))
+    end
+
     self.VooshTick = 0
     Game.WaitForServer = nil        
     Game.Active = true
