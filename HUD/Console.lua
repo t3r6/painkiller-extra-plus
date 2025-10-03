@@ -581,7 +581,7 @@ function Console:Cmd_SETMAXFPS(val)
 	val = tonumber(val)
     if val then
         if Game.GMode == GModes.MultiplayerClient then
-            val = math.min(math.max(val, 30), 125) -- clamp to range [30, 125]
+            val = math.min(math.max(val, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT) -- clamp to range
         end
         Cfg.MaxFpsMP = val
         WORLD.SetMaxFPS(val)
@@ -1111,7 +1111,7 @@ function Console:Cmd_SERVERFRAMERATE(cmd)
 
     if cmd then
         if Game.GMode == GModes.MultiplayerClient then
-            cmd = math.min(math.max(cmd, 10), 60) -- clamp to range [10, 60]
+            cmd = math.min(math.max(cmd, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT) -- clamp to range
         end
 
         NET.SetServerFramerate(cmd)

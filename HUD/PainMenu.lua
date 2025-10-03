@@ -2266,8 +2266,8 @@ function PainMenu:ApplySettings( all )
 		i,o = next( self.currScreen.items, i )
 	end
 
-	if Cfg.ServerFPS < 30 then Cfg.ServerFPS = 30 end
-	if Cfg.ServerFPS > 120 then Cfg.ServerFPS = 120 end
+	if Cfg.ServerFPS < SERVERFPS_MIN_LIMIT then Cfg.ServerFPS = SERVERFPS_MIN_LIMIT end
+	if Cfg.ServerFPS > SERVERFPS_MAX_LIMIT then Cfg.ServerFPS = SERVERFPS_MAX_LIMIT end
 
 	Cfg:Save()
 end
