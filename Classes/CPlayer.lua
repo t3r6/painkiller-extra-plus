@@ -768,23 +768,28 @@ function CPlayer:InterpretAction(delta)
        
     local prevWeap = self._CurWeaponIndex
     -- weapons 1-5
-    if ENTITY.PO_IsActionState(self._Entity,Actions.ForwardRocketJump) then
+    if ENTITY.PO_IsActionState(self._Entity, Actions.ForwardRocketJump) or ENTITY.PO_IsActionState(self._Entity, Actions.RocketJump) then
         self:TryToChangeWeapon(4)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.RocketJump) then
-        self:TryToChangeWeapon(4)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon1) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon1) then
         self:TryToChangeWeapon(1)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon2) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon2) then
         self:TryToChangeWeapon(2)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon3) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon3) then
         self:TryToChangeWeapon(3)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon4) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon4) then
         self:TryToChangeWeapon(4)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon5) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon5) then
         self:TryToChangeWeapon(5)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon6) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon6) then
         self:TryToChangeWeapon(6)
-    elseif ENTITY.PO_IsActionState(self._Entity,Actions.Weapon7) then
+    end
+    if ENTITY.PO_IsActionState(self._Entity, Actions.Weapon7) then
         self:TryToChangeWeapon(7)
     end
     
