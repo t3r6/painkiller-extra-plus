@@ -238,6 +238,8 @@ Cfg =
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
 
+    UserGrapplingHook = true,
+
     ViewWeaponModel = true,
     WeaponBob = 0,
     WeaponNormalMap = true,
@@ -255,7 +257,7 @@ Cfg =
     CameraInterpolation = true, -- only for MP client
     CameraInterpolatePosition = false, -- PK++
     CameraInterpolateAngle = false, -- PK++
-    MaxFpsMP = 125,  --default "120", 125 FPS was the Quake 3 standard
+    MaxFpsMP = 125,  --default "120"
     NetcodeStatsUpdateDelay = 1000,
     NetcodeStatsNumberToAverageFrom = 1,
     NetcodeServerFramerate = 25,
@@ -661,6 +663,8 @@ Cfg =
 
     WarmupDamage = true,
     WeaponPrediction = true,
+
+    GrapplingHook = false,
 }
 --============================================================================
 --============================================================================
@@ -784,9 +788,6 @@ function Cfg:Load()
   else
     Cfg.Language = Cfg.LanguageNoCD
   end
-  if Cfg.NetcodeServerFramerate == 0 or Cfg.NetcodeServerFramerate > 60 then
-    Cfg.NetcodeServerFramerate = 60
-  end
 
 	if Cfg.Language == "german" then
 		Tweak.GlobalData.DisableGibs = true
@@ -801,9 +802,7 @@ function Cfg:Load()
         Cfg.PlayerModel = 1
     end
 
-    if Cfg.MaxFpsMP == 0 or Cfg.MaxFpsMP > 150 then
-        Cfg.MaxFpsMP = 125
-    end
+  Cfg.MaxFpsMP = math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT)
 
 	if IsMPDemo() then
 		Cfg.Credits = false
@@ -812,11 +811,11 @@ function Cfg:Load()
 
     if Cfg.MaxPlayers < 1 or Cfg.MaxPlayers > 16 then Cfg.MaxPlayers = 8 end
     if Cfg.MaxSpectators < 0 or Cfg.MaxSpectators > 8 then Cfg.MaxSpectators = 0 end
-    if Cfg.ServerFPS < 30 then
-        Cfg.ServerFPS = 30
+    if Cfg.ServerFPS < SERVERFPS_MIN_LIMIT then
+        Cfg.ServerFPS = SERVERFPS_MIN_LIMIT
     end
-    if Cfg.ServerFPS > 120 then
-        Cfg.ServerFPS = 120
+    if Cfg.ServerFPS > SERVERFPS_MAX_LIMIT then
+        Cfg.ServerFPS = SERVERFPS_MAX_LIMIT
     end
     if type(Cfg.BestExplosives[1]) == "string" or table.getn(Cfg.WeaponPriority) < 15 then
 		Cfg.BestExplosives = {0,41,32,}

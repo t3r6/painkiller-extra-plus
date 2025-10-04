@@ -1036,3 +1036,12 @@ FKeys = {
   ["Mouse Wheel Forward"] = 253,
   ["Mouse Wheel Back"] = 254
 }
+--============================================================================
+-- PK Extra Plus
+--============================================================================
+SERVERFPS_MAX_LIMIT = 120
+SERVERFPS_MIN_LIMIT = 30
+MAXFPSMP_MAX_LIMIT = 240
+MAXFPSMP_MIN_LIMIT = 30
+NETCODESERVERFRAMERATE_MAX_LIMIT = 125
+NETCODESERVERFRAMERATE_MIN_LIMIT = 10

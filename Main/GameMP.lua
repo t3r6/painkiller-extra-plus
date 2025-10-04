@@ -239,10 +239,18 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
     end
     
+    -- Enforces MaxFpsMP for the local server. Use Cfg.MaxFpsMP = 0 or "/setmaxfps 0" for uncapped FPS.
+    if self.GMode == GModes.MultiplayerServer then WORLD.SetMaxFPS(Cfg.MaxFpsMP) end
+
 --    if (self.GMode == GModes.DedicatedServer and Cfg.LimitServerFPS) or self.GMode == GModes.MultiplayerServer then
 --        WORLD.SetMaxFPS(Cfg.ServerFPS)
 --    end
-    
+
+    if Game.GMode == GModes.MultiplayerClient then
+        WORLD.SetMaxFPS(math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT))
+        NET.SetServerFramerate(math.min(math.max(Cfg.NetcodeServerFramerate, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT))
+    end
+
     self.VooshTick = 0
     Game.WaitForServer = nil        
     Game.Active = true
@@ -878,8 +886,10 @@ function Game:OnMultiplayerCommonTick(delta)
         if self._TimeLimitOut >= MPCfg.TimeLimit * 60 then
         
             -- OVERTIME
+          if MPCfg.GameMode == "Team Deathmatch" or MPCfg.GameMode == "Duel" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
             Game:CheckOvertime()
             if(not(self._TimeLimitOut > MPCfg.TimeLimit * 60))then return end
+          end
             -- OVERTIME
         
             if Game:IsServer() then StringToDo = "Game.EndOfMatch()" end
@@ -1561,6 +1571,8 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "stopmatchonplayersquit" and Cfg.UserStopMatchOnPlayersQuit then
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then
+		allowed = true
+	elseif cmd == "grapplinghook" and Cfg.UserGrapplingHook then
 		allowed = true
 	end
 	return allowed

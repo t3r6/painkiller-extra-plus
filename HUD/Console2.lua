@@ -529,16 +529,24 @@ end
 --=======================================================================
 --=======================================================================
 function Console:Cmd_EXEC(enable)    
-	if(enable~=nil)then 
-	local temp = CfgFile 
-	CfgFile = enable..".ini" 
-	Cfg:Load() 
-	CfgFile = temp 
-	CONSOLE_AddMessage("Bin\\"..enable..".ini executed.") 
-	return 
-	end
-	CONSOLE_AddMessage("Syntax: exec <filename>")
-	CONSOLE_AddMessage("Help: Executes config file")
+    if enable ~= nil then
+        local filename = enable..".ini"
+
+        if not FS.File_Exist(filename) then
+            CONSOLE_AddMessage("File not found: " .. filename)
+            return
+        end
+
+        local temp = CfgFile
+        CfgFile = enable..".ini"
+        Cfg:Load()
+        CfgFile = temp
+        CONSOLE_AddMessage("Bin\\"..enable..".ini executed.")
+        return
+    end
+
+    CONSOLE_AddMessage("Syntax: exec <filename>")
+    CONSOLE_AddMessage("Help: Executes config file")
 end
 --=======================================================================
 function Console:Cmd_WRITECONFIG(enable)    
@@ -2699,5 +2707,9 @@ end
 --=======================================================================
 function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
+end
+--=======================================================================
+function Console:Cmd_GRAPPLINGHOOK(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GrapplingHook", enable, "Turn Painkiller's alternative fire into a grappling hook.")
 end
 --=======================================================================
