@@ -529,16 +529,24 @@ end
 --=======================================================================
 --=======================================================================
 function Console:Cmd_EXEC(enable)    
-	if(enable~=nil)then 
-	local temp = CfgFile 
-	CfgFile = enable..".ini" 
-	Cfg:Load() 
-	CfgFile = temp 
-	CONSOLE_AddMessage("Bin\\"..enable..".ini executed.") 
-	return 
-	end
-	CONSOLE_AddMessage("Syntax: exec <filename>")
-	CONSOLE_AddMessage("Help: Executes config file")
+    if enable ~= nil then
+        local filename = enable..".ini"
+
+        if not FS.File_Exist(filename) then
+            CONSOLE_AddMessage("File not found: " .. filename)
+            return
+        end
+
+        local temp = CfgFile
+        CfgFile = enable..".ini"
+        Cfg:Load()
+        CfgFile = temp
+        CONSOLE_AddMessage("Bin\\"..enable..".ini executed.")
+        return
+    end
+
+    CONSOLE_AddMessage("Syntax: exec <filename>")
+    CONSOLE_AddMessage("Help: Executes config file")
 end
 --=======================================================================
 function Console:Cmd_WRITECONFIG(enable)    
