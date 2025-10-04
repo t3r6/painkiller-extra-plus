@@ -142,8 +142,10 @@ function PainHead:Tick(delta)
             end
 
             -- zadaje obrazenia
-            if obj.OnDamage then
-                obj:OnDamage(self.Damage,self.ObjOwner,AttackTypes.Painkiller,tx,ty,tz,nx,ny,nz,he)  
+            if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
+                if obj.OnDamage then
+                    obj:OnDamage(self.Damage,self.ObjOwner,AttackTypes.Painkiller,tx,ty,tz,nx,ny,nz,he)  
+                end
             end
    			if not PHYSICS.IsHavokBodyInWorld(he) then
 				he = nil		-- jak sie np. zgibuje to jest robione ragdoll.remove i he moze byc zle
@@ -258,4 +260,5 @@ function PainHead:CL_HitWallSFX(e)
     Templates["PainKiller.CWeapon"]:SndEnt("head_hit_wall",e)
 end
 Network:RegisterMethod("PainHead.CL_HitWallSFX", NCallOn.AllClients, NMode.Unreliable, "e") 
+
 
