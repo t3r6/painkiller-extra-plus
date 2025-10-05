@@ -10,6 +10,7 @@ PlayerOptions =
 	backAction = "PainMenu:ApplySettings(); PainMenu:ActivateScreen(MultiplayerMenu)",
 	applyAction = "PainMenu:ApplySettings(true)",
 
+	
 	items =
 	{
 		PlayerBorder = 
@@ -28,7 +29,7 @@ PlayerOptions =
 			desc = TXT.MenuDesc.Name,
 			option = "PlayerName",
 			x	 = 80,
-			y	 = 100,
+			y	 = 80,
 			action = "",
 			maxLength = 16,
 		},
@@ -42,7 +43,7 @@ PlayerOptions =
 			values = { 0, 1 },
 			visible = { TXT.Menu.Blue, TXT.Menu.Red },
 			x	 = 80,
-			y	 = 142,
+			y	 = 122,
 			action = "",
 		},
 		
@@ -55,10 +56,25 @@ PlayerOptions =
 			values = { 1, 2, 3, 4, 5 },
 			visible = { TXT.Menu.Modem, TXT.Menu.ISDN, TXT.Menu.CableADSL, TXT.Menu.LANT1, TXT.Menu.Custom },
 			x	 = 80,
-			y	 = 184,
+			y	 = 164,
 			action = "",
 		},
 
+		NetcodeServerFramerate =
+		{
+			type = MenuItemTypes.Slider,
+			text = "Custom Netcode FPS:",
+			desc = "Set the frequency at which the client requests status updates from the server",
+			option = "NetcodeServerFramerate",
+			minValue = NETCODESERVERFRAMERATE_MIN_LIMIT,
+			maxValue = NETCODESERVERFRAMERATE_MAX_LIMIT,
+			x	 = 80,
+			y	 = 206,
+			sliderWidth = 200,
+			sliderCtrlWidth = 520,
+			action = "",
+		},
+		
 		CDKey =
 		{
 			type = MenuItemTypes.TextEdit,
@@ -66,7 +82,7 @@ PlayerOptions =
 			desc = TXT.MenuDesc.CDKey,
 			option = "CDKey",
 			x	 = 80,
-			y	 = 226,
+			y	 = 248,
 			action = "",
 			maxLength = 20,
 		},
@@ -89,7 +105,7 @@ PlayerOptions =
 			values = {2},
 			visible = {TXT.Menu.Model2},
 			x	 = 80,
-			y	 = 268,
+			y	 = 290,
 			action = "",
 		},
 --OriOn_Modification=########################################################################
@@ -102,7 +118,7 @@ PlayerOptions =
 			values = { "White", "Red", "Blue", "Green", "Black", "Cyan", "Magenta", "Yellow", "Orange", "Pink", "Purple", "Grey", "Brown" },
 			visible = { "White", "Red", "Blue", "Green", "Black", "Cyan", "Magenta", "Yellow", "Orange", "Pink", "Purple", "Grey", "Brown" },
 			x	 = 80,
-			y	 = 310,
+			y	 = 332,
 			action = "",
 			align = MenuAlign.None,
 			applyRequired = false,
@@ -116,11 +132,13 @@ PlayerOptions =
 			values = { "White", "Red", "Blue", "Green", "Black", "Cyan", "Magenta", "Yellow", "Orange", "Pink", "Purple", "Grey", "Brown" },
 			visible = { "White", "Red", "Blue", "Green", "Black", "Cyan", "Magenta", "Yellow", "Orange", "Pink", "Purple", "Grey", "Brown" },
 			x	 = 80,
-			y	 = 352,
+			y	 = 376,
 			action = "",
 			align = MenuAlign.None,
 			applyRequired = false,
-		},	
+		},
+
+
 		Autorecord =
 		{
 			type = MenuItemTypes.Checkbox,
@@ -139,7 +157,7 @@ PlayerOptions =
 		AutoScreenshot =
 		{
 			type = MenuItemTypes.Checkbox,
-			text = "AutoScreenshot",
+			text = "Auto Screenshot",
 			desc = "Auto Screenshot",
 			option = "AutoScreenshot",
 			valueOn = true,
@@ -243,3 +261,5 @@ PlayerOptions =
 		}
 	}
 }
+
+
