@@ -2713,3 +2713,7 @@ function Console:Cmd_GRAPPLINGHOOK(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("GrapplingHook", enable, "Turn Painkiller's alternative fire into a grappling hook.")
 end
 --=======================================================================
+function Console:Cmd_GLCOLLIDECOMBO(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GLCollideCombo", enable, "Enables stake-grenade combo after grenade collision.")
+end
+--=======================================================================

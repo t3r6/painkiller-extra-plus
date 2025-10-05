@@ -1575,6 +1575,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "grapplinghook" and Cfg.UserGrapplingHook then
 		allowed = true
+	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
+		allowed = true
 	end
 	return allowed
 end

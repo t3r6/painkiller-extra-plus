@@ -239,6 +239,7 @@ Cfg =
     UserStopMatchOnTeamQuit = true,
 
     UserGrapplingHook = true,
+    UserGLCollideCombo = true,
 
     ViewWeaponModel = true,
     WeaponBob = 0,
@@ -665,6 +666,7 @@ Cfg =
     WeaponPrediction = true,
 
     GrapplingHook = false,
+    GLCollideCombo = false,
 }
 --============================================================================
 --============================================================================
