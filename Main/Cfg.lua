@@ -237,6 +237,8 @@ Cfg =
 
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
+    UserBrightAmmo = true,
+    UserBrightSkinsArmors = true,
     UserForceModel = true,
     UserForceModel_Teams = true,
 

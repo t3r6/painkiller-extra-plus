@@ -943,6 +943,10 @@ function Console:CheckVotingParams(cmd,params)
 		return true
 	elseif cmd == "forcemodel" then
 		return true
+	elseif cmd == "brightammo" then
+		return true
+	elseif cmd == "brightskinsarmors" then
+		return true
 	elseif cmd == "forcemodel_teams" then
 		return true
 	elseif cmd == "grapplinghook" then
