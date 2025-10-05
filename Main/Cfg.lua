@@ -802,7 +802,9 @@ function Cfg:Load()
         Cfg.PlayerModel = 1
     end
 
-  Cfg.MaxFpsMP = math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT)
+    if Cfg.MaxFpsMP == 0 or Cfg.MaxFpsMP > MAXFPSMP_MAX_LIMIT then -- This rule is redundant in PK extra plus; kept for legacy.
+        Cfg.MaxFpsMP = MAXFPSMP_MAX_LIMIT
+    end
 
 	if IsMPDemo() then
 		Cfg.Credits = false
