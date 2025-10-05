@@ -247,8 +247,9 @@ function Game:AfterWorldSynchronization(mapName,levelName)
 --    end
 
     if Game.GMode == GModes.MultiplayerClient then
-        WORLD.SetMaxFPS(math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT))
-        NET.SetServerFramerate(math.min(math.max(Cfg.NetcodeServerFramerate, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT))
+        WORLD.SetMaxFPS((Cfg.MaxFpsMP == 0) and MAXFPSMP_MAX_LIMIT or math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT))
+        NET.SetServerFramerate((Cfg.NetcodeServerFramerate == 0) and NETCODESERVERFRAMERATE_MAX_LIMIT 
+          or math.min(math.max(Cfg.NetcodeServerFramerate, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT))
     end
 
     self.VooshTick = 0
