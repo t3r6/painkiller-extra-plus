@@ -1122,7 +1122,7 @@ function Hud:HelpKeys()
     matKeysHelpCross = Hud._matKeysNumDecimal_en
     matKeysHelpInfos = self._matKeysHomeIf_en
   end
-  if Cfg.PositioningSystem == 0 and Cfg.ViewWeaponModel and Cfg.WeaponsPositionning and Cfg.WeaponsPositionning then
+  if Cfg.PositioningSystem == 0 and Cfg.WeaponsPositionning and Cfg.ViewWeaponModel then
     if INP.Key(Keys.PgUp) == 2 then
       Hud:QuadTrans(matKeysHelpW[1], 1024 / 2 * w / 1024, 140 * h / 768, 0.8, true, 255)
     elseif INP.Key(Keys.Home) == 2 then
