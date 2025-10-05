@@ -165,7 +165,7 @@ WeaponsConfig =
 		Secondary3 =
 		{
 			type		= MenuItemTypes.StaticText,
-			text		= TXT.Weapons.GranadeLauncher,
+			text		= TXT.Weapons.GrenadeLauncher,
 			desc		= "",
 			action		= "",
 			x			= 670,

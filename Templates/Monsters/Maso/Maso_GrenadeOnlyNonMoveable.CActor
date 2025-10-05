@@ -5,7 +5,7 @@ o.NeverMove = true
 o.AiParams.alwaysSee = true
 
 o.AiParams.weapon = {
-		name = "granade",
+		name = "grenade",
 		bulletsPerShot = 1,
 		maxDist = 80.0,							-- zasiegi granatu (*0.6..0.8) - balagan do poprawienia
 		minDist = 1.0,
