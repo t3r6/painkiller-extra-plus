@@ -212,6 +212,7 @@ Cfg =
     UserReloadMap = true,
     UserGameMode = true,
     UserMapChange = true,
+    UserMapAnyChange = true,
     UserTimeLimit = true,
     UserFragLimit = true,
     UserStartupWeapon = true,

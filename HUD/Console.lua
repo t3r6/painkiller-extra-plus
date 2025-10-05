@@ -292,6 +292,28 @@ function Console:Cmd_MAP(name)
     CONSOLE_AddMessage("current map:  "..Lev._Name) 
 end
 --=======================================================================
+function Console:Cmd_MAPANY(name)
+	if Game.GMode == GModes.SingleGame then return end
+	if name == nil then
+		CONSOLE_AddMessage('Map "name"')
+	else
+		name = string.lower(name)
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+		if Game:IsServer() then
+			NET.LoadMapOnServer(name)
+		else
+			Game:LoadLevel(name)
+		end
+	end
+end
+--=======================================================================
 function Console:Cmd_MAPLIST() -- 04.10.2004 [Blowfish]    
     local path = "../Data/Levels/"
     local files = FS.FindFiles(path.."*",0,1)
@@ -861,6 +883,28 @@ function Console:CheckVotingParams(cmd,params)
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
+		end
+
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+
+		if not found then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
+		end
+
+		return true
+	elseif cmd == "mapany" then
+		name = string.lower(params)
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
 		end
 
 		local path = "../Data/Levels/"

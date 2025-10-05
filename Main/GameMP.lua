@@ -1523,6 +1523,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "map" and Cfg.UserMapChange then
 		allowed = true
+	elseif cmd == "mapany" and Cfg.UserMapAnyChange then
+		allowed = true
 	elseif cmd == "timelimit" and Cfg.UserTimeLimit then
 		allowed = true
 	elseif cmd == "fraglimit" and Cfg.UserFragLimit then
