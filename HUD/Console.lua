@@ -2719,3 +2719,239 @@ function Console:Cmd_OPENANDREMOVEALLSLABS(thing)
 	end
 end
 --============================================================================
+-- PK++ 1.43
+--============================================================================
+function Console:Cmd_ADDALL(name)
+	Console:Cmd_ADDMONSTER("Alastor")
+	Console:Cmd_ADDMONSTER("AlastorKing")
+	
+	Console:Cmd_ADDMONSTER("Amput_zombie")
+	
+	Console:Cmd_ADDMONSTER("Amputee")
+	--Console:Cmd_ADDMONSTER("Amputee_Agressive")
+	--Console:Cmd_ADDMONSTER("Amputee_AgressiveJumper")
+	--Console:Cmd_ADDMONSTER("Amputee_AgressiveJumperV2")
+	--Console:Cmd_ADDMONSTER("Amputee_ceiling")
+	--Console:Cmd_ADDMONSTER("AmputeeV2")
+	
+	--Console:Cmd_ADDMONSTER("Apoc_M")
+	--Console:Cmd_ADDMONSTER("Apoc_M_Hunt")
+	--Console:Cmd_ADDMONSTER("Apoc_M_Hunt_Sm")
+	Console:Cmd_ADDMONSTER("Apoc_zombie")
+	--Console:Cmd_ADDMONSTER("Apoc_zombie_V2")
+	--Console:Cmd_ADDMONSTER("Apoc_zombie_V2_fastDissapear")
+	
+	Console:Cmd_ADDMONSTER("BagBaby")
+	
+	Console:Cmd_ADDMONSTER("Banshee")
+	--Console:Cmd_ADDMONSTER("Banshee_CemeteryBoss")
+	--Console:Cmd_ADDMONSTER("Banshee_NoMoveScreamer")
+	--Console:Cmd_ADDMONSTER("Banshee_NoScream")
+	--Console:Cmd_ADDMONSTER("Banshee_NoScreamShortSight")
+	
+	Console:Cmd_ADDMONSTER("Bat")
+	--Console:Cmd_ADDMONSTER("Bat_Adrian")
+	--Console:Cmd_ADDMONSTER("Bat_Attacker")
+	
+	Console:Cmd_ADDMONSTER("Beast")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive_NoJump")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive_NoJumpHunter")
+	--Console:Cmd_ADDMONSTER("Beast_V2")
+	
+	Console:Cmd_ADDMONSTER("BlackDemon")
+	Console:Cmd_ADDMONSTER("TemplarBoss")
+	Console:Cmd_ADDMONSTER("WhiteDemon")
+	
+	Console:Cmd_ADDMONSTER("Bones")
+	--Console:Cmd_ADDMONSTER("Bones_Hunter")
+	--Console:Cmd_ADDMONSTER("Bones")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight2")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight_Bigger")
+	
+	Console:Cmd_ADDMONSTER("Boy")
+	--Console:Cmd_ADDMONSTER("BreakBoy")
+	--Console:Cmd_ADDMONSTER("BreakBoyTransformed")
+	
+	Console:Cmd_ADDMONSTER("Clown")
+	
+	Console:Cmd_ADDMONSTER("Corn")
+	--Console:Cmd_ADDMONSTER("Corn_NotMoveable")
+	--Console:Cmd_ADDMONSTER("Corn_ThrowsStraight")
+	
+	Console:Cmd_ADDMONSTER("dead_body")
+	Console:Cmd_ADDMONSTER("Deto")
+	
+	Console:Cmd_ADDMONSTER("DevilMonk")
+	--Console:Cmd_ADDMONSTER("DevilMonk_Adrian")
+	--Console:Cmd_ADDMONSTER("DevilMonk_AdrianRunOnly")
+	--Console:Cmd_ADDMONSTER("DevilMonk_Slowdown")
+	--Console:Cmd_ADDMONSTER("DevilMonkV3")
+	
+	Console:Cmd_ADDMONSTER("DocDeath")
+	Console:Cmd_ADDMONSTER("dzialko")
+	
+	Console:Cmd_ADDMONSTER("EvilMonk")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianDumbPatroler")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianRunOnly")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianRunOnlyBigger")
+	--Console:Cmd_ADDMONSTER("EvilMonk_SmallDumbPatrolerWalk")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDie")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDieShortsighted")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDieUp")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_DumbPatroler")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_RunOnlyBigger")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_ThrowAndDie")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_ThrowAndDieShortsighted")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_WalkOnlyHunter")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_WalkOnlyNoThrow")
+	--Console:Cmd_ADDMONSTER("EvilMonkV3")
+	
+	Console:Cmd_ADDMONSTER("Executioner")
+	--Console:Cmd_ADDMONSTER("Executioner_V3")
+	Console:Cmd_ADDMONSTER("Spider")
+	
+	Console:Cmd_ADDMONSTER("Flying_Nun")
+	--Console:Cmd_ADDMONSTER("Flying_Nun_Fireball")
+	--Console:Cmd_ADDMONSTER("Flying_Nun_NoAttack")
+	
+	Console:Cmd_ADDMONSTER("Ghost")
+	Console:Cmd_ADDMONSTER("Giant")
+	Console:Cmd_ADDMONSTER("Girl")
+	
+	Console:Cmd_ADDMONSTER("Gladiator")
+	Console:Cmd_ADDMONSTER("Gladiator2")
+	Console:Cmd_ADDMONSTER("Gladiator3")
+	Console:Cmd_ADDMONSTER("Gladiator4")
+	
+	Console:Cmd_ADDMONSTER("HellAngel")
+	--Console:Cmd_ADDMONSTER("HellAngel")
+	--Console:Cmd_ADDMONSTER("HellAngel_V2")
+	--Console:Cmd_ADDMONSTER("HellAngel_V3")
+	--Console:Cmd_ADDMONSTER("HellAngel")
+	
+	Console:Cmd_ADDMONSTER("HellBiker")
+	Console:Cmd_ADDMONSTER("Krusty")
+	Console:Cmd_ADDMONSTER("LabCommandos")
+	Console:Cmd_ADDMONSTER("Leper")
+	Console:Cmd_ADDMONSTER("Leper_monk")
+	Console:Cmd_ADDMONSTER("Loki")
+	Console:Cmd_ADDMONSTER("Lucifer")
+	Console:Cmd_ADDMONSTER("Maso")
+	Console:Cmd_ADDMONSTER("Military_base_gun")
+	Console:Cmd_ADDMONSTER("monsterlist.txt")
+	Console:Cmd_ADDMONSTER("MutaNemo")
+	Console:Cmd_ADDMONSTER("Ninja")
+	Console:Cmd_ADDMONSTER("Nun")
+	Console:Cmd_ADDMONSTER("Nurse")
+	Console:Cmd_ADDMONSTER("Officer")
+	Console:Cmd_ADDMONSTER("Panzer_demon")
+	Console:Cmd_ADDMONSTER("Pinokio")
+	Console:Cmd_ADDMONSTER("Pirate")
+	Console:Cmd_ADDMONSTER("Pirat_Zombie")
+	Console:Cmd_ADDMONSTER("Preacher")
+	Console:Cmd_ADDMONSTER("Psycho_elektro")
+	Console:Cmd_ADDMONSTER("Raven")
+	Console:Cmd_ADDMONSTER("Sado")
+	Console:Cmd_ADDMONSTER("Samurai")
+	Console:Cmd_ADDMONSTER("Skeleton_soldier")
+	Console:Cmd_ADDMONSTER("Skull")
+	Console:Cmd_ADDMONSTER("Slave")
+	Console:Cmd_ADDMONSTER("Soldier")
+	Console:Cmd_ADDMONSTER("StoneGolem")
+	Console:Cmd_ADDMONSTER("Swamp")
+	Console:Cmd_ADDMONSTER("Tank")
+	Console:Cmd_ADDMONSTER("Templar")
+	Console:Cmd_ADDMONSTER("Thor")
+	Console:Cmd_ADDMONSTER("Vamp")
+	Console:Cmd_ADDMONSTER("Vamp_Big")
+	Console:Cmd_ADDMONSTER("Vamp_Small")
+	Console:Cmd_ADDMONSTER("Voodoo")
+	Console:Cmd_ADDMONSTER("Winged_Demon")
+	Console:Cmd_ADDMONSTER("Witch")
+	Console:Cmd_ADDMONSTER("Zombie")
+	Console:Cmd_ADDMONSTER("Zombie_Soldier")
+end
+
+
+function Console:Cmd_ADDMONSTER(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CActor"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CActor"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 0
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+			ENTITY.EnableNetworkSynchronization(obj._Entity,true,true,1)
+			ENTITY.PO_Enable(obj._Entity,true)
+			ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end
+--============================================================================
+function Console:Cmd_ADDTHING(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CItem"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CItem"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 0
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+
+			ENTITY.EnableNetworkSynchronization(obj._Entity,true,true)
+			ENTITY.PO_Enable(obj._Entity,true)
+			ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end
+
+function Console:Cmd_ADDPARTICLE(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CParticleFX"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CParticleFX"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 3
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+
+			--ENTITY.EnableNetworkSynchronization(obj._Entity,true,true)
+			--ENTITY.PO_Enable(obj._Entity,true)
+			--ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end
