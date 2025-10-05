@@ -2693,6 +2693,14 @@ function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
+function Console:Cmd_FORCEMODEL(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel", enable, "Overrides players chosen model. Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_FORCEMODEL_TEAMS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel_Teams", enable, "Overrides players chosen model for teams. Requires restart.")
+end
+--=======================================================================
 function Console:Cmd_AUTOJUMP(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
 end

@@ -237,6 +237,8 @@ Cfg =
 
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
+    UserForceModel = true,
+    UserForceModel_Teams = true,
 
     UserGrapplingHook = true,
     UserGLCollideCombo = true,

@@ -1573,6 +1573,10 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then
 		allowed = true
+	elseif cmd == "forcemodel" and Cfg.UserForceModel then
+		allowed = true
+	elseif cmd == "forcemodel_teams" and Cfg.UserForceModel_Teams then
+		allowed = true
 	elseif cmd == "grapplinghook" and Cfg.UserGrapplingHook then
 		allowed = true
 	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
