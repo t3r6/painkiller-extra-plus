@@ -2052,6 +2052,7 @@ function Console:OnCommand(cmd)
     if cmd == "" then return end
 
 	local is_cmd = false
+	if IsDedicatedServer() then is_cmd = true end -- blowfish change
 	if string.find(cmd,"\\",1,true) == 1 or string.find(cmd,"/",1,true) == 1 or string.find(cmd,".",1,true) == 1 then
 		cmd = string.sub(cmd,2)
 		is_cmd = true
@@ -2061,10 +2062,10 @@ function Console:OnCommand(cmd)
     if not i then i = string.len(cmd) + 1 end
 
     if i > 2 and (Game.GMode == GModes.SingleGame or is_cmd == true) then
-        local func = string.sub(cmd,1,i-1)
-        func = string.upper(func)
-        if Console["Cmd_"..func] then
-            
+		local func = string.upper(string.sub(cmd,1,i-1))
+		for commandname,o in self do
+			if type(o) == "function" then
+				if string.lower("Cmd_"..func) == string.lower(commandname) then
             if Game.GMode == GModes.MultiplayerClient and MPCfg.ClientConsoleLockdown then                
                 CONSOLE_AddMessage("Console is locked!")        
                 return
@@ -2098,9 +2099,9 @@ function Console:OnCommand(cmd)
 			end
 
 			if func ~= "CALLVOTE" and func ~= "BIND" then
-				Console["Cmd_"..func](self,unpack(args))
+				Console[commandname](self,unpack(args))
 			else
-				Console["Cmd_"..func](self,params)
+				Console[commandname](self,params)
 			end
 	            Cfg:Save()
 	            return
@@ -2108,6 +2109,59 @@ function Console:OnCommand(cmd)
 	        else
 	        	CONSOLE_AddMessage("This command is disabled.")
 	        end
+	        end
+        end
+    end
+        for settingname, o in Cfg do
+            if type(o) ~= "function" then
+                if string.lower(func) == string.lower(settingname) then
+                    if Game.GMode == GModes.MultiplayerClient and MPCfg.ClientConsoleLockdown then
+                        CONSOLE_AddMessage("Console is locked!")
+                        return
+                    end
+                    --------------------------------------------------------------------------------------------
+                    local params = string.sub(cmd, i + 1)
+        
+                    local semicolon = string.find(params, ";")
+                    if semicolon and func ~= "BIND" then
+                        local part   = string.sub(params, 1, semicolon)
+                        local second = string.sub(params, semicolon + 1)
+                        params       = string.sub(params, 1, semicolon - 1)
+        
+                        Console:OnCommand(func .. " " .. params)
+                        Console:OnCommand(second)
+                        return
+                    end
+
+                    local args = {}
+                    params = Trim(params)
+                    for w in string.gfind(params, "[%w~`!@#$%%^&*()%-\" _=%.%+\\|{}%[%]<>?/]+") do
+                        table.insert(args, w)
+                    end
+        
+                    if func ~= "CALLVOTE" and func ~= "BIND" then
+                        local setting = unpack(args)
+                        if setting ~= nil then
+                            if setting == "false" then setting = false end
+                            if setting == "true"  then setting = true  end
+                            Cfg[settingname] = setting
+                            Cfg:Check()
+                            CONSOLE_AddMessage(settingname .. " is now " .. tostring(Cfg[settingname]))
+                        else
+                            Cfg:Check()
+                            CONSOLE_AddMessage(settingname .. " is currently " .. tostring(Cfg[settingname]))
+                        end
+                    else
+                        Cfg[settingname] = params
+                        Cfg:Check()
+                        CONSOLE_AddMessage(settingname .. " is now " .. Cfg[settingname])
+                    end
+        
+                    Cfg:Save()
+                    return
+                    -------------------------------------------------------------------------------------------
+                end
+            end
         end
     end
     
@@ -2115,13 +2169,14 @@ function Console:OnCommand(cmd)
         if IsDedicatedServer() then
             Console:OnPrompt(cmd)
         else
+           -- TRYING SETTINGS
             CONSOLE_AddMessage("Unknown command: ".. cmd)        
         end
     else        
         cmd = string.sub(cmd,1,200)    
         Game.SayToAll(NET.GetClientID(), cmd) 
     end
-    
+	Cfg:Check()
 end
 --=======================================================================
 function Console:OnPrompt(txt)
@@ -2139,21 +2194,29 @@ function Console:OnPrompt(txt)
     -- searching similary commands
     for a,o in self do
         if type(o) == "function" then
-            local i = string.find(a,"Cmd_",1,true)
-            if i and string.find(a,txt,5,true) == 5 then
+            local i = string.find(string.lower(a),string.lower("Cmd_"),1,true)
+            if i and string.find(string.lower(a),string.lower(txt),5,true) == 5 then
                 table.insert(commandlist,string.lower(string.sub(a,5)))
             end
         end
     end                    
 
+	for a,o in Cfg do
+		if type(o) ~= "function" then
+			if string.find(string.lower(a),string.lower(txt),1,true) == 1 then
+				table.insert(commandlist,a)
+            end
+        end
+    end
+
     if table.getn(commandlist) > 1 then 
         local commonPart = commandlist[1]
         CONSOLE_AddMessage(">"..string.lower(txt)) 
-        table.sort(commandlist,function (a,b) return a < b end)
+        table.sort(commandlist,function (a,b) return string.lower(a) < string.lower(b) end)
         for i,o in commandlist do
             CONSOLE_AddMessage("    "..o) 
             for j=1, string.len(commonPart) do
-                if string.sub(commonPart,j,j) ~= string.sub(o,j,j) then
+                if string.lower(string.sub(commonPart,j,j)) ~= string.lower(string.sub(o,j,j)) then
                     commonPart = string.sub(commonPart,1,j-1)
                     break
                 end
