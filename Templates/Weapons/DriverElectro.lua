@@ -194,7 +194,11 @@ function DriverElectro:Fire()
         end
 
         obj._ExplodeTimer   = s.ShurikenExplodeAfterTime
-        obj.Damage            = s.ShurikenDamage
+        if Cfg.ShurikensOld then
+        	obj.Damage  = 30
+        else
+        	obj.Damage  = s.ShurikenDamage
+        end
         if self.ObjOwner.HasQuad then            
             obj.Damage = math.floor(obj.Damage * 4)
         end
@@ -205,7 +209,11 @@ function DriverElectro:Fire()
         self.FireSFX(self.ObjOwner._Entity,obj._Entity)
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,1)
-        self.ShotTimeOut = s.FireTimeout
+        if Cfg.ShurikensOld then
+        	self.ShotTimeOut = 0.125 * 30
+        else
+        	self.ShotTimeOut = s.FireTimeout
+        end
     end
 end
 --============================================================================
@@ -571,9 +579,6 @@ function DriverElectro:FireSFX(pe,se,combo)
     local player = EntityToObject[pe]
 
     local t = Templates["DriverElectro.CWeapon"]
-    if Cfg.ShurikensOld then 
-        t = Templates["DriverElectroOld.CWeapon"]
-    end
     local s = t:GetSubClass()
     local x,y,z = ENTITY.GetPosition(pe)
 
@@ -585,7 +590,11 @@ function DriverElectro:FireSFX(pe,se,combo)
         if player.Ammo.Shurikens < 0 then player.Ammo.Shurikens = 0 end
         -- set next shot timeout
         local cw = player:GetCurWeapon()
-        cw.ShotTimeOut =  s.FireTimeout
+        if Cfg.ShurikensOld then
+        	cw.ShotTimeOut =  0.125 * 30
+        else
+        	cw.ShotTimeOut =  s.FireTimeout
+        end
         cw._ActionState = "Idle"
         cw:SetAnim("SHshot",true)
     end
