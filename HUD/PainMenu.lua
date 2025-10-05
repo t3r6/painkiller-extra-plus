@@ -3467,11 +3467,11 @@ end
 
 function PainMenu:CfgModif(cfgarg)
   if cfgarg == 1 then
-    if Cfg.WeaponsPositionning == true then
-      Cfg.WeaponsPositionning = false
+    if Cfg.WeaponsPositioning == true then
+      Cfg.WeaponsPositioning = false
       Cfg:Save()
     else
-      Cfg.WeaponsPositionning = true
+      Cfg.WeaponsPositioning = true
       Cfg:Save()
     end
   end

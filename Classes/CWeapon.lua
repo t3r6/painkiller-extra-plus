@@ -313,7 +313,7 @@ function CWeapon:ClientTick2(delta)
     local back = 0
     if Cfg.FOV > 90 then back = -(Cfg.FOV - 90)/150 end
 --OriOn_Modification=################################################################		
-	if Cfg.WeaponsPositionning and Cfg.ViewWeaponModel then 
+	if Cfg.WeaponsPositioning and Cfg.ViewWeaponModel then 
 		local pressthiskey = false
 		weaponscenter = 
 		{

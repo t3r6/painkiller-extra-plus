@@ -555,7 +555,7 @@ Cfg =
     Weapon7_Setting = {0,0,0,0,0,0},
     Weapon7_Setting_Save = {0,0,0,0,0,0},
 
-    WeaponsPositionning = true,
+    WeaponsPositioning = true,
     HUD_FragMessage = true,
 
     FPS = true,

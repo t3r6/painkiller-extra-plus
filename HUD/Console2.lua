@@ -2717,3 +2717,11 @@ function Console:Cmd_GLCOLLIDECOMBO(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("GLCollideCombo", enable, "Enables stake-grenade combo after grenade collision.")
 end
 --=======================================================================
+function Console:Cmd_WEAPONSPOSITIONING(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("WeaponsPositioning", enable, "Press Home to configure weapon positioning.")
+end
+--=======================================================================
+function Console:Cmd_SHOWWEAPONANIM(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ShowWeaponAnim", enable, "Enables weapon bobbing animation.")
+end
+--=======================================================================
