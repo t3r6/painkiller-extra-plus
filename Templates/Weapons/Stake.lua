@@ -89,7 +89,7 @@ function Stake:Tick(delta)
         if not self.combo then
             local s = Templates["StakeGunGL.CWeapon"]:GetSubClass()
             for i,o in GObjects.UpdateListItems do
-                if not o._collided and o.BaseObj == "Grenade.CItem" and Vector:New_FromEntity(o._Entity):Dist(x,y,z) < s.ComboCatchDistance then
+                if (Cfg.GLCollideCombo or not o._collided) and o.BaseObj == "Grenade.CItem" and Vector:New_FromEntity(o._Entity):Dist(x,y,z) < s.ComboCatchDistance then
                     GObjects:ToKill(o)
                     self:Combo()
                 end

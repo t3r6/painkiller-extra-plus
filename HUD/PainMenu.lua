@@ -142,7 +142,7 @@ PainMenu =
 	showStartMovies = true,
 	
 	weapons = { _11 = TXT.Weapons.Pain, _12 = TXT.Weapons.Killer, _21 = TXT.Weapons.Shotgun, _22 = TXT.Weapons.Freezer, _31 = TXT.Weapons.Stakegun,
-				_32 = TXT.Weapons.GranadeLauncher, _41 = TXT.Weapons.RocketLauncher, _42 = TXT.Weapons.Minigun, _51 = TXT.Weapons.Shurikens, _52 = TXT.Weapons.Electro,
+				_32 = TXT.Weapons.GrenadeLauncher, _41 = TXT.Weapons.RocketLauncher, _42 = TXT.Weapons.Minigun, _51 = TXT.Weapons.Shurikens, _52 = TXT.Weapons.Electro,
 				_61 = TXT.Weapons.Rifle, _62 = TXT.Weapons.FlameThrower, _71 = TXT.Weapons.BoltGun, _72 = TXT.Weapons.Heater },
 
 	lastSaveSort = "",
@@ -2500,11 +2500,11 @@ function PainMenu:FixFireSwitchTable()
 	end
 
 	if Cfg.SwitchFire[3] then
-		PMENU.SetItemText( "Primary3", TXT.Weapons.GranadeLauncher )
+		PMENU.SetItemText( "Primary3", TXT.Weapons.GrenadeLauncher )
 		PMENU.SetItemText( "Secondary3", TXT.Weapons.Stakegun )
 	else
 		PMENU.SetItemText( "Primary3", TXT.Weapons.Stakegun )
-		PMENU.SetItemText( "Secondary3", TXT.Weapons.GranadeLauncher )
+		PMENU.SetItemText( "Secondary3", TXT.Weapons.GrenadeLauncher )
 	end
 	
 	if Cfg.SwitchFire[4] then
@@ -3467,11 +3467,11 @@ end
 
 function PainMenu:CfgModif(cfgarg)
   if cfgarg == 1 then
-    if Cfg.WeaponsPositionning == true then
-      Cfg.WeaponsPositionning = false
+    if Cfg.WeaponsPositioning == true then
+      Cfg.WeaponsPositioning = false
       Cfg:Save()
     else
-      Cfg.WeaponsPositionning = true
+      Cfg.WeaponsPositioning = true
       Cfg:Save()
     end
   end

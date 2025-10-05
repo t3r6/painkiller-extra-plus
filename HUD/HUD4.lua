@@ -1122,7 +1122,7 @@ function Hud:HelpKeys()
     matKeysHelpCross = Hud._matKeysNumDecimal_en
     matKeysHelpInfos = self._matKeysHomeIf_en
   end
-  if Cfg.PositioningSystem == 0 and Cfg.ViewWeaponModel and Cfg.WeaponsPositionning and Cfg.WeaponsPositionning then
+  if Cfg.PositioningSystem == 0 and Cfg.WeaponsPositioning and Cfg.ViewWeaponModel then
     if INP.Key(Keys.PgUp) == 2 then
       Hud:QuadTrans(matKeysHelpW[1], 1024 / 2 * w / 1024, 140 * h / 768, 0.8, true, 255)
     elseif INP.Key(Keys.Home) == 2 then
@@ -1181,7 +1181,7 @@ function Hud:KeysSounds()
       end
     end
   end
-  if Cfg.PositioningSystem == 0 and Cfg.WeaponsPositionning and Cfg.ViewWeaponModel then
+  if Cfg.PositioningSystem == 0 and Cfg.WeaponsPositioning and Cfg.ViewWeaponModel then
     if INP.Key(Keys.PgUp) == 2 and (INP.Key(Keys.Num4) == Hud.keypressmode or INP.Key(Keys.Num6) == Hud.keypressmode or INP.Key(Keys.Num8) == Hud.keypressmode or INP.Key(Keys.Num2) == Hud.keypressmode or INP.Key(Keys.Num9) == Hud.keypressmode or INP.Key(Keys.Num3) == Hud.keypressmode) then
       PlaySound2D("../Sounds/move", nil, nil, true)
     end

@@ -2693,6 +2693,22 @@ function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
+function Console:Cmd_BRIGHTAMMO(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightAmmo", enable, "Sets full brightskins for ammo (client/server). Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_BRIGHTSKINSARMORS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightSkinsArmors", enable, "Sets full brightskins for armor (client/server). Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_FORCEMODEL(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel", enable, "Overrides players chosen model. Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_FORCEMODEL_TEAMS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel_Teams", enable, "Overrides players chosen model for teams. Requires restart.")
+end
+--=======================================================================
 function Console:Cmd_AUTOJUMP(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("AutoJump", enable, "Enables automatic bunnyhop feature.")
 end
@@ -2711,5 +2727,17 @@ end
 --=======================================================================
 function Console:Cmd_GRAPPLINGHOOK(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("GrapplingHook", enable, "Turn Painkiller's alternative fire into a grappling hook.")
+end
+--=======================================================================
+function Console:Cmd_GLCOLLIDECOMBO(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GLCollideCombo", enable, "Enables stake-grenade combo after grenade collision.")
+end
+--=======================================================================
+function Console:Cmd_WEAPONSPOSITIONING(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("WeaponsPositioning", enable, "Press Home to configure weapon positioning.")
+end
+--=======================================================================
+function Console:Cmd_SHOWWEAPONANIM(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ShowWeaponAnim", enable, "Enables weapon bobbing animation.")
 end
 --=======================================================================

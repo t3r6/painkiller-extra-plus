@@ -237,8 +237,13 @@ Cfg =
 
     UserStopMatchOnPlayersQuit = true,
     UserStopMatchOnTeamQuit = true,
+    UserBrightAmmo = true,
+    UserBrightSkinsArmors = true,
+    UserForceModel = true,
+    UserForceModel_Teams = true,
 
     UserGrapplingHook = true,
+    UserGLCollideCombo = true,
 
     ViewWeaponModel = true,
     WeaponBob = 0,
@@ -554,7 +559,7 @@ Cfg =
     Weapon7_Setting = {0,0,0,0,0,0},
     Weapon7_Setting_Save = {0,0,0,0,0,0},
 
-    WeaponsPositionning = true,
+    WeaponsPositioning = true,
     HUD_FragMessage = true,
 
     FPS = true,
@@ -665,6 +670,7 @@ Cfg =
     WeaponPrediction = true,
 
     GrapplingHook = false,
+    GLCollideCombo = false,
 }
 --============================================================================
 --============================================================================
