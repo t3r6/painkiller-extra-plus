@@ -2,7 +2,16 @@
 Console = 
 {
 }
-
+--=======================================================================
+function Console:Cmd_DIFFICULTY(enable)
+	enable = tonumber(enable)
+	if enable == nil then
+		CONSOLE_AddMessage("Difficulty is currently "..tostring(Game.Difficulty))
+		return
+	end
+	Game.Difficulty = enable
+end
+--=======================================================================
 function Console:Cmd_SHOWWEAPON(enable)    
     enable = tonumber(enable)    
     if enable == nil then 
@@ -281,6 +290,28 @@ function Console:Cmd_MAP(name)
     end
     
     CONSOLE_AddMessage("current map:  "..Lev._Name) 
+end
+--=======================================================================
+function Console:Cmd_MAPANY(name)
+	if Game.GMode == GModes.SingleGame then return end
+	if name == nil then
+		CONSOLE_AddMessage('Map "name"')
+	else
+		name = string.lower(name)
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+		if Game:IsServer() then
+			NET.LoadMapOnServer(name)
+		else
+			Game:LoadLevel(name)
+		end
+	end
 end
 --=======================================================================
 function Console:Cmd_MAPLIST() -- 04.10.2004 [Blowfish]    
@@ -869,6 +900,28 @@ function Console:CheckVotingParams(cmd,params)
 		end
 
 		return true
+	elseif cmd == "mapany" then
+		name = string.lower(params)
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
+		end
+
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+
+		if not found then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
+		end
+
+		return true
 	elseif cmd == "timelimit" or cmd == "fraglimit" or cmd == "maxplayers" or cmd == "maxspectators" or cmd == "bankickid" or cmd == "kickid" or cmd == "weaponrespawntime" or cmd == "capturelimit" or cmd == "lmslives" or cmd == "startupweapon" then
 		local val = tonumber(params)
 		if not val or type(val) ~= "number" then
@@ -1159,14 +1212,15 @@ function Console:Cmd_ENEMYINTERPOLATION(cmd)
         cmd = tonumber(cmd)
         if cmd == 0 then
             Cfg.NetcodeEnemyPredictionInterpolation = false
-            NET.SetEnemyPredictionInterpolation( false )
+            NET.SetEnemyPredictionInterpolation( Cfg.NetcodeEnemyPredictionInterpolation )
         else
             if cmd == 1 then
                 Cfg.NetcodeEnemyPredictionInterpolation = true
-                NET.SetEnemyPredictionInterpolation( true )
+                NET.SetEnemyPredictionInterpolation( Cfg.NetcodeEnemyPredictionInterpolation )
             else
                 CONSOLE_AddMessage( 'Usage: enemyinterpolation 0/1' )
                 CONSOLE_AddMessage( '    ( interpolates between last two enemy positions )' )
+                CONSOLE_AddMessage("NetcodeEnemyPredictionInterpolation is currently "..tostring(Cfg.NetcodeEnemyPredictionInterpolation))
             end
         end
     else
@@ -1709,12 +1763,11 @@ function Console:Cmd_CROSSHAIR(val)
 		CONSOLE_AddMessage('crosshair value [1-32] (changes crosshair)')
     elseif type(val) == "number" then
 		if val <= 32 and val > 0 then
-			Cfg.Crosshair = val
-			Cfg:Save()
+			Cfg.Crosshair_All = val
 		end
     end
 
-    CONSOLE_AddMessage("current crosshair:  "..Cfg.Crosshair)
+    CONSOLE_AddMessage("current crosshair:  "..Cfg.Crosshair_All)
 end
 --=======================================================================
 function Console:Cmd_HUDSIZE(val)
@@ -1813,6 +1866,16 @@ function Console:Cmd_WEAPONSPECULAR(enable)
     PainMenu:ReloadWeaponsTextures()
 end
 --=======================================================================
+function Console:Cmd_TIMESCALE(speed)
+	if speed then
+		INP.SetTimeMultiplier(tonumber(speed))
+		WORLD.SetWorldSpeed(tonumber(speed))
+		CONSOLE_AddMessage("World speed now x "..tonumber(INP.GetTimeMultiplier()))
+	else
+		CONSOLE_AddMessage("World speed currently x "..tonumber(INP.GetTimeMultiplier()))
+	end
+end
+--============================================================================
 function Console:Cmd_DEMOPLAY(filename)
     if filename == nil then
         CONSOLE_AddMessage("Usage: demoplay <filename_to_play_from>") 
@@ -2113,3 +2176,483 @@ function Console:Cmd_DEMOLIST()
 	end
 end
 --======================================================================
+-- PK++ 1.31
+--======================================================================
+function Console:Cmd_LIST()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Mesh ".."nil")
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(entity))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Sound = 0
+	local ents = WORLD.GetEntityList(ETypes.Sound)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Sound ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Sound "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Sound = Sound + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Region = 0
+	local ents = WORLD.GetEntityList(ETypes.Region)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Region ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Region "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Region = Region + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Billboard = 0
+	local ents = WORLD.GetEntityList(ETypes.Billboard)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Billboard ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Billboard "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Billboard = Billboard + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Environment = 0
+	local ents = WORLD.GetEntityList(ETypes.Environment)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Environment ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Environment "..ENTITY.GetFileName(entity))
+		end
+		Environment = Environment + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Light = 0
+	local ents = WORLD.GetEntityList(ETypes.Light)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Light ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Light "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Light = Light + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local ParticleFX = 0
+	local ents = WORLD.GetEntityList(ETypes.ParticleFX)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.ParticleFX ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.ParticleFX "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		ParticleFX = ParticleFX + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Decal = 0
+	local ents = WORLD.GetEntityList(ETypes.Decal)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Decal ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Decal "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Decal = Decal + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local total = 0
+	CONSOLE_AddMessage(Environment.." Environment")
+	total = total + Environment
+	CONSOLE_AddMessage(Light.." Light")
+	total = total + Light
+	CONSOLE_AddMessage(Region.." Region")
+	total = total + Region
+	CONSOLE_AddMessage(Sound.." Sound")
+	total = total + Sound
+	CONSOLE_AddMessage(Model.." Model")
+	total = total + Model
+	CONSOLE_AddMessage(Trail.." Trail")
+	total = total + Trail
+	CONSOLE_AddMessage(Mesh.." Mesh")
+	total = total + Mesh
+	CONSOLE_AddMessage(Particle.." Particle")
+	total = total + Particle
+	CONSOLE_AddMessage(ParticleFX.." ParticleFX")
+	total = total + ParticleFX
+	CONSOLE_AddMessage(Decal.." Decal")
+	total = total + Decal
+	CONSOLE_AddMessage(total.." entities in total")
+end
+
+function Console:Cmd_LISTMESHES()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			if ENTITY.GetFileName(i) ~= "" then CONSOLE_AddMessage("ETypes.Mesh "..ENTITY.GetFileName(i)) end
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LISTMODELS()
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(i))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+end
+
+function Console:Cmd_LISTPARTICLES()
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LISTTRAILS()
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(i))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LIST()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Mesh ".."nil")
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(entity))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Sound = 0
+	local ents = WORLD.GetEntityList(ETypes.Sound)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Sound ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Sound "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Sound = Sound + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Region = 0
+	local ents = WORLD.GetEntityList(ETypes.Region)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Region ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Region "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Region = Region + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Billboard = 0
+	local ents = WORLD.GetEntityList(ETypes.Billboard)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Billboard ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Billboard "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Billboard = Billboard + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Environment = 0
+	local ents = WORLD.GetEntityList(ETypes.Environment)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Environment ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Environment "..ENTITY.GetFileName(entity))
+		end
+		Environment = Environment + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Light = 0
+	local ents = WORLD.GetEntityList(ETypes.Light)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Light ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Light "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Light = Light + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local ParticleFX = 0
+	local ents = WORLD.GetEntityList(ETypes.ParticleFX)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.ParticleFX ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.ParticleFX "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		ParticleFX = ParticleFX + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Decal = 0
+	local ents = WORLD.GetEntityList(ETypes.Decal)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Decal ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Decal "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Decal = Decal + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local total = 0
+	CONSOLE_AddMessage(Environment.." Environment")
+	total = total + Environment
+	CONSOLE_AddMessage(Light.." Light")
+	total = total + Light
+	CONSOLE_AddMessage(Region.." Region")
+	total = total + Region
+	CONSOLE_AddMessage(Sound.." Sound")
+	total = total + Sound
+	CONSOLE_AddMessage(Model.." Model")
+	total = total + Model
+	CONSOLE_AddMessage(Trail.." Trail")
+	total = total + Trail
+	CONSOLE_AddMessage(Mesh.." Mesh")
+	total = total + Mesh
+	CONSOLE_AddMessage(Particle.." Particle")
+	total = total + Particle
+	CONSOLE_AddMessage(ParticleFX.." ParticleFX")
+	total = total + ParticleFX
+	CONSOLE_AddMessage(Decal.." Decal")
+	total = total + Decal
+	CONSOLE_AddMessage(total.." entities in total")
+end
+--============================================================================
+function Console:Cmd_SCAN()
+	for i,v in GObjects.TickListItems do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListItems: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.TickListActors do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListActors: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.TickListRest do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListRest: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListActors do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListActors: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListItems do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListItems: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListRest do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListRest: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.SynchronizeList do
+		CONSOLE_AddMessage(tostring(i).." ".."SynchronizeList: "..v._Name.." "..v._Class)
+	end
+end
+
+
+function Console:Cmd_SCAN2()
+	local list = ""
+	for i,v in GObjects.TickListItems do
+		list = list .. v._Name.." "..v._Class + ", "
+	end
+	for i,v in GObjects.TickListActors do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.TickListRest do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListActors do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListItems do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListRest do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.SynchronizeList do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	CONSOLE_AddMessage(list)
+end
+
+--============================================================================
+function Console:Cmd_DELETEALL(thing)
+	if not thing then thing = "*" end
+	local allthings,totalcount = GObjects:GetElementsWithFieldValue("_Name",thing.."*")
+	for i,a in allthings do
+		CONSOLE_AddMessage("Deleting "..a._Name)
+		GObjects:ToKill(a)
+	end
+end
+--============================================================================
+function Console:Cmd_OPENANDREMOVEALLSLABS(thing)
+	if not thing then thing = "*" end
+	local allthings,totalcount = GObjects:GetElementsWithFieldValue("_Name","Slab*")
+	for i,a in allthings do
+		--CONSOLE_AddMessage("Opening "..a._Name)
+		if a.Open then a:Open(false) end
+	end
+	for i,a in allthings do
+		--CONSOLE_AddMessage("Opening "..a._Name)
+		a:Delete()
+	end
+end
+--============================================================================
