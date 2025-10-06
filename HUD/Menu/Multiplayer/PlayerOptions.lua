@@ -5,7 +5,6 @@ PlayerOptions =
 	fontBig		= "timesbd",
 	fontSmall	= "timesbd",
 
-
 	fontBigSize = 26,
 	backAction = "PainMenu:ApplySettings(); PainMenu:ActivateScreen(MultiplayerMenu)",
 	applyAction = "PainMenu:ApplySettings(true)",
@@ -66,7 +65,7 @@ PlayerOptions =
 			text = "Custom Netcode FPS:",
 			desc = "Set the frequency at which the client requests status updates from the server",
 			option = "NetcodeServerFramerate",
-			minValue = NETCODESERVERFRAMERATE_MIN_LIMIT,
+			minValue = 0,
 			maxValue = NETCODESERVERFRAMERATE_MAX_LIMIT,
 			x	 = 80,
 			y	 = 206,
@@ -148,7 +147,7 @@ PlayerOptions =
 			valueOn = true,
 			valueOff = false,
 			x	 = 70,
-			y	 = 404,
+			y	 = 414,
 			action = "",
 			fontBigSize = 30,
 			applyRequired = true,
@@ -163,7 +162,7 @@ PlayerOptions =
 			valueOn = true,
 			valueOff = false,
 			x	 = 290,
-			y	 = 404,
+			y	 = 414,
 			action = "",
 			fontBigSize = 30,
 			applyRequired = true,
@@ -261,5 +260,3 @@ PlayerOptions =
 		}
 	}
 }
-
-
