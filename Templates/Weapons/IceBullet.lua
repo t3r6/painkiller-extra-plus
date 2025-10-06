@@ -70,6 +70,7 @@ function IceBullet:OnCollision(x,y,z,nx,ny,nz,e)
         else
             if obj._Class == "CPlayer" then
                 mode = 1
+                obj:OnDamage(0,self.ObjOwner,AttackTypes.Shotgun,lx,ly,lz,nx,ny,nz,he)
             end            
         end
     end
@@ -110,3 +111,4 @@ function IceBullet:CL_OnHit(e,x,y,z,mode)
 end
 Network:RegisterMethod("IceBullet.CL_OnHit", NCallOn.ServerAndAllClients, NMode.Reliable, "efffb") 
 -------------------------------------------------------------------------------
+
