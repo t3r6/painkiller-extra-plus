@@ -1043,3 +1043,92 @@ function Cfg:SetCrosshairSizePerWeapons(val)
     Hud.keypressmode = 1
   end
 end
+--============================================================================
+-- PK++ 1.31
+--============================================================================
+function Cfg:CheckVar(var,vartype,lower,upper)
+
+	if vartype == "n" then
+		if not var then var = lower end
+		var = tonumber(var)
+		if var < lower then var = lower end
+		if var > upper then var = upper end
+		return var
+	end
+	if vartype == "b" then
+		var = toboolean(var)
+		return var
+	end
+end
+--============================================================================
+function Cfg:Check()
+	-- General checking of variables
+	Cfg.TextureQuality = Cfg:CheckVar(Cfg.TextureQuality,"n",0,999)
+	Cfg.TimeLimit = Cfg:CheckVar(Cfg.TimeLimit,"n",0,999)
+	Cfg.FragLimit = Cfg:CheckVar(Cfg.FragLimit,"n",0,999)
+	Cfg.MaxPlayers = Cfg:CheckVar(Cfg.MaxPlayers,"n",1,32)
+	Cfg.MaxSpectators = Cfg:CheckVar(Cfg.MaxSpectators,"n",0,32)
+	Cfg.FragLimit = Cfg:CheckVar(Cfg.FragLimit,"n",0,999)
+	Cfg.PlayerModel = Cfg:CheckVar(Cfg.PlayerModel,"n",1,7)
+	Cfg.MaxFpsMP = Cfg:CheckVar(Cfg.MaxFpsMP,"n",30,120)
+	Cfg.MouseSensitivity = Cfg:CheckVar(Cfg.MouseSensitivity,"n",0,999)
+	Cfg.RenderSky = Cfg:CheckVar(Cfg.RenderSky,"n",0,2)
+	Cfg.GraphicsQuality = Cfg:CheckVar(Cfg.GraphicsQuality,"n",0,6)
+	Cfg.DynamicLights = Cfg:CheckVar(Cfg.DynamicLights,"n",0,2)
+	Cfg.ConnectionSpeed = Cfg:CheckVar(Cfg.ConnectionSpeed,"n",1,5)
+	Cfg.WheelSensitivity = Cfg:CheckVar(Cfg.WheelSensitivity,"n",0,999)
+	Cfg.DecalsStayTime = Cfg:CheckVar(Cfg.DecalsStayTime,"n",0,999)
+	Cfg.CrosshairSize = Cfg:CheckVar(Cfg.CrosshairSize,"n",0,999)
+	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7)
+	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
+	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
+	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)
+	--Cfg.ShowWeaponZ = Cfg:CheckVar(Cfg.ShowWeaponZ,"n",-999,999)
+	--Cfg.Interpolation = Cfg:CheckVar(Cfg.Interpolation,"n",0,1)
+	--Cfg.InterpolationTolerance = Cfg:CheckVar(Cfg.InterpolationTolerance,"n",0,9999)
+	--Cfg.NetcodeServerFrameRate = Cfg:CheckVar(Cfg.NetcodeServerFrameRate,"n",0,999)
+	
+	--Cfg.AddPlayerObjects = Cfg:CheckVar(Cfg.AddPlayerObjects,"b")
+	--Cfg.InterpolationNoSmooth = Cfg:CheckVar(Cfg.InterpolationNoSmooth,"b")
+	-- Cfg.DeferLoadingPlayers = Cfg:CheckVar(Cfg.DeferLoadingPlayers,"b")
+	-- Cfg.DeferLoadingRest = Cfg:CheckVar(Cfg.DeferLoadingRest,"b")
+
+	--Cfg.DrawGraphGamePulses = Cfg:CheckVar(Cfg.DrawGraphGamePulses,"b")
+	--Cfg.DrawGraphFramerate = Cfg:CheckVar(Cfg.DrawGraphFramerate,"b")
+	--Cfg.DrawGraphLatency = Cfg:CheckVar(Cfg.DrawGraphLatency,"b")
+	--Cfg.DrawGraphScriptIn = Cfg:CheckVar(Cfg.DrawGraphScriptIn,"b")
+	--Cfg.DrawGraphScriptOut = Cfg:CheckVar(Cfg.DrawGraphScriptOut,"b")
+	--Cfg.DrawGraphEventIn = Cfg:CheckVar(Cfg.DrawGraphEventIn,"b")
+	--Cfg.DrawGraphEventOut = Cfg:CheckVar(Cfg.DrawGraphEventOut,"b")
+
+
+	-- Specific cases
+	if type(Cfg.BestExplosives[1]) == "string" or table.getn(Cfg.WeaponPriority) < 15 then
+		Cfg.BestExplosives = {0,41,32,}
+		Cfg.BestNonExplosives = {72,71,62,61,51,52,42,31,22,21,12,11,0,}
+		Cfg.BestWeapons1 = {32,0,72,71,62,61,51,52,41,42,31,22,21,12,11,}
+		Cfg.BestWeapons2 = {12,0,72,71,62,61,51,52,41,42,32,31,22,21,11,}
+		Cfg.WeaponPriority = { 72, 71, 62, 61, 51, 52, 41, 42, 32, 31, 22, 21, 12, 11, 0 }
+	end
+	for i=1,table.getn(Cfg.MessagesSayAll) do
+		if Cfg.MessagesSayAll[i] ~= 0 then
+			Cfg.MessagesSayAll[i] = 1
+		end
+	end
+	Cfg.PlayerName = HUD.ColorSubstr(tostring(Cfg.PlayerName),16)
+	-- Removal of obsolete variables from the config.ini
+	Cfg.NewPrediction = nil
+	Cfg.FramerateLock = nil
+	Cfg.UseGamespy = nil
+	Cfg.PushLatency = nil
+	Cfg.PlayerPrediction = nil
+	if not IsPKInstalled() then
+		Cfg.PublicServer = false
+	end
+	if IsBlackEdition() then
+		Cfg.BlackEdition = true
+	else
+		Cfg.BlackEdition = false
+	end
+end
+--============================================================================

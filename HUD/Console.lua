@@ -2119,7 +2119,16 @@ function Console:OnCommand(cmd)
                         CONSOLE_AddMessage("Console is locked!")
                         return
                     end
-                    --------------------------------------------------------------------------------------------
+	dontshowerror = true
+       if not Cfg.TournamentSettings or Cfg.TournamentSettings and 
+       (func == "MAP" or func == "RELOADMAP" or func == "TEAM" or func == "SPECTATOR" 
+       or func == "READY" or func == "NOTREADY" or func == "BREAK" or func == "KICK" 
+       or func == "BANKICK" or func == "KICKID" or func == "BANKICKID" or func == "CALLVOTE" 
+       or func == "VOTE" or func == "DISCONNECT" or func == "RECONNECT" or func == "CONNECT" 
+       or func == "QUIT" or func == "DEMOPLAY" or func == "DEMOSTOP" or func == "DEMORECORD") then
+       
+       
+--------------------------------------------------------------------------------------------
                     local params = string.sub(cmd, i + 1)
         
                     local semicolon = string.find(params, ";")
@@ -2160,6 +2169,9 @@ function Console:OnCommand(cmd)
                     Cfg:Save()
                     return
                     -------------------------------------------------------------------------------------------
+	        else
+	        	CONSOLE_AddMessage("This command is disabled.")
+	        end
                 end
             end
         end
