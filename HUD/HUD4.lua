@@ -1764,8 +1764,13 @@ function Hud:SuperHud()
             Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
             Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
           end
-          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          if Player._CurWeaponIndex == 1 then
+            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+          else
+            Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          end
         else
           if Cfg.HUD_HudStyle == 2 then
             if Cfg.HUD_3DIcon_Anim then
@@ -1779,8 +1784,13 @@ function Hud:SuperHud()
             Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
             Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
           end
-          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd2, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd1, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          if Player._CurWeaponIndex == 1 then
+            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+          else
+            Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          end
         end
       elseif not (not Game.SwitchFire[j] and Cfg.SwitchFire[j]) or not Cfg.SwitchFire[j] and Game.SwitchFire[j] then
         if Cfg.HUD_HudStyle == 2 then
@@ -1795,8 +1805,13 @@ function Hud:SuperHud()
           Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
           Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
         end
-        Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd2, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-        Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd1, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+        if Player._CurWeaponIndex == 1 then
+          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+        else
+          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd2, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd1, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+        end
       else
         if Cfg.HUD_HudStyle == 2 then
           if Cfg.HUD_3DIcon_Anim then
@@ -1810,8 +1825,13 @@ function Hud:SuperHud()
           Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
           Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
         end
-        Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-        Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+        if Player._CurWeaponIndex == 1 then
+          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+        else
+          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+        end
       end
     end
     if Cfg.HUD_Show_CurrentWeapon_Icon then
