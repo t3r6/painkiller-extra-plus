@@ -2617,6 +2617,7 @@ function PainMenu:Disconnect()
     Game:NewLevel('NoName','','',0.3); WORLD.Release()
 	Game.GameInProgress = false
 	Game.LevelStarted = false
+	PainMenu:ActivateScreen(MainMenu)
 	PMENU.DisableItem( "Disconnect" )
 	PMENU.DisableItem( "BackButton" )
 	PMENU.SetItemVisibility( "Disconnect" )
