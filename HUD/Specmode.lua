@@ -668,13 +668,19 @@ function PSpectatorControler:ProHud(he, ar, am1, am2, cwi, art)
   local alcolor = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
 
   local i = cwi
-  if type(i) == "number" and i <= 7 and i >= 1 and cwi == i then
+  if type(i) == "number" and cwi == i then
     Hud:QuadRGBA(cupriammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, prcolor[i][1], prcolor[i][2], prcolor[i][3], 255)
     Hud:QuadRGBA(cualtammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, alcolor[i][1], alcolor[i][2], alcolor[i][3], 255)
-    Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
-    Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
+    if i <= 7 and i >= 2 then
+      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
+      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
+    elseif i == 1 then
+      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+    end
   end
 end
+
 --============================================================================
 function PSpectatorControler:SpectatorHUD() 
 	if(not Hud) then return end
