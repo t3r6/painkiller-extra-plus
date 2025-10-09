@@ -32,6 +32,14 @@ function Game:UpdateSpecs()
 				        		ammo1 = tonumber(ps.Player.Ammo.Electro)
 				        		ammo2 = tonumber(ps.Player.Ammo.Shurikens)
 				        	end
+				        	if(currentweaponindex==6) and ps.Player.Ammo.Rifle~=nil and ps.Player.Ammo.FlameThrower~=nil then
+				        		ammo1 = tonumber(ps.Player.Ammo.Bolt)
+				        		ammo2 = tonumber(ps.Player.Ammo.FlameThrower)
+				        	end
+				        	if(currentweaponindex==7) and ps.Player.Ammo.Bolt~=nil and ps.Player.Ammo.HeaterBomb~=nil then
+				        		ammo1 = tonumber(ps.Player.Ammo.Bolt)
+				        		ammo2 = tonumber(ps.Player.Ammo.HeaterBomb)
+				        	end
 
 				        	if(ps.ClientID~=nil and ps.Player.Health~=nil and ps.Player.Armor~=nil and currentweaponindex~=nil and ammo1~=nil and ammo2~=nil)then
 							local txt = "L33T,"..ps.ClientID..","..ps.Player.Health..","..ps.Player.Armor..","..currentweaponindex..","..ammo1..","..ammo2..","..armortype
@@ -70,6 +78,14 @@ function Game:UpdateSpecs()
 				-- The ammo for ED was mistakingly inverted for the spectator and was fixed on the client side in Specmode.lua.
 				ammo1 = tonumber(ps.Player.Ammo.Electro)
 				ammo2 = tonumber(ps.Player.Ammo.Shurikens)
+			end
+			if(currentweapon==6) and ps.Player.Ammo.Rifle~=nil and ps.Player.Ammo.FlameThrower~=nil then
+				ammo1 = tonumber(ps.Player.Ammo.Bolt)
+				ammo2 = tonumber(ps.Player.Ammo.FlameThrower)
+			end
+			if(currentweapon==7) and ps.Player.Ammo.Bolt~=nil and ps.Player.Ammo.HeaterBomb~=nil then
+				ammo1 = tonumber(ps.Player.Ammo.Bolt)
+				ammo2 = tonumber(ps.Player.Ammo.HeaterBomb)
 			end
 			if(ps.ClientID~=nil and ps.Player.Health~=nil and ps.Player.Armor~=nil and currentweapon~=nil and ammo1~=nil and ammo2~=nil)then
 				--local txt = "L33T,"..ps.ClientID..","..ps.Player.Health..","..ps.Player.Armor..","..Currentweapon..","..ammo1..","..ammo2..","..armortype
