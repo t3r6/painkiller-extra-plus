@@ -70,10 +70,10 @@ function IceBullet:OnCollision(x,y,z,nx,ny,nz,e)
         else
             if obj._Class == "CPlayer" then
                 mode = 1
+                obj:OnDamage(0,self.ObjOwner,AttackTypes.Shotgun,x,y,z,nx,ny,nz)
             end            
         end
     end
-        
     
     self.CL_OnHit(e,x,y,z,mode)
     GObjects:ToKill(self)
