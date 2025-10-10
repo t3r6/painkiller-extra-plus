@@ -64,7 +64,13 @@ DoFile(path.."HUD/Menu/Multiplayer/FavoritesGameMenu.lua")
 DoFile(path.."HUD/Menu/Multiplayer/StartGameMenu.lua")
 DoFile(path.."HUD/Menu/Multiplayer/CreateServerMenu.lua")
 DoFile(path.."HUD/Menu/Options/OptionsMenu.lua")
-DoFile(path.."HUD/Menu/Options/VideoOptions.lua")
+
+if Cfg.Windowed then
+	DoFile(path.."HUD/Menu/Options/VideoOptionsWindowed.lua")
+else
+	DoFile(path.."HUD/Menu/Options/VideoOptions.lua")
+end
+
 DoFile(path.."HUD/Menu/Options/AdvancedVideoOptions.lua")
 DoFile(path.."HUD/Menu/Options/SoundOptions.lua")
 DoFile(path.."HUD/Menu/Options/HUDConfig.lua")
