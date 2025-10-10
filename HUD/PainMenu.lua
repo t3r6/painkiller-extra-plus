@@ -374,12 +374,16 @@ end
 
 --============================================================================
 
+function ApplyWindowedSettings() -- Windowed patch by XDavidXtreme
+	if Cfg.Fullscreen then
+		R3D.SetContrastGammaAndBrightness(0.5, 1.0, 0.5)
+	end
+	R3D.ApplyVideoSettings( Cfg.Resolution, Cfg.Fullscreen, Cfg.Gamma, Cfg.Brightness, Cfg.Contrast, Cfg.Shadows, Cfg.TextureQuality, Cfg.WeatherEffects, Cfg.ViewWeaponModel, Cfg.TextureFiltering, Cfg.DynamicLights, Cfg.Projectors, Cfg.Coronas, Cfg.Decals, Cfg.DecalsStay )
+end
+
 function PainMenu:Draw()
 	if Cfg.Windowed then -- Windowed patch by XDavidXtreme
-		if Cfg.Fullscreen then
-			R3D.SetContrastGammaAndBrightness(0.5, 1.0, 0.5)
-		end
-		R3D.ApplyVideoSettings( Cfg.Resolution, Cfg.Fullscreen, Cfg.Gamma, Cfg.Brightness, Cfg.Contrast, Cfg.Shadows, Cfg.TextureQuality, Cfg.WeatherEffects, Cfg.ViewWeaponModel, Cfg.TextureFiltering, Cfg.DynamicLights, Cfg.Projectors, Cfg.Coronas, Cfg.Decals, Cfg.DecalsStay )
+		ApplyWindowedSettings()
 	end
 
 	if self.showStartMovies then
@@ -2287,10 +2291,7 @@ end
 
 function PainMenu:ApplyVideoSettings()
 	if Cfg.Windowed then -- Windowed patch by XDavidXtreme
-		if Cfg.Fullscreen then
-			R3D.SetContrastGammaAndBrightness(0.5, 1.0, 0.5)
-		end
-		R3D.ApplyVideoSettings( Cfg.Resolution, Cfg.Fullscreen, Cfg.Gamma, Cfg.Brightness, Cfg.Contrast, Cfg.Shadows, Cfg.TextureQuality, Cfg.WeatherEffects, Cfg.ViewWeaponModel, Cfg.TextureFiltering, Cfg.DynamicLights, Cfg.Projectors, Cfg.Coronas, Cfg.Decals, Cfg.DecalsStay )
+		ApplyWindowedSettings()
 	end
 
 	WORLD.SetDrawDynLights( Cfg.DynamicLights )
