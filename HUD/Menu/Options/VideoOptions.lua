@@ -239,7 +239,6 @@ VideoOptions =
 			return t
 		end)(),
 
-			},
 		},
 		
 		AdvancedTab =
