@@ -2686,7 +2686,7 @@ end
 --=======================================================================
 --=======================================================================
 function Console:Cmd_WINDOWED(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("Windowed", enable, "Enables Window mode settings that come with the 4GB RAM patch by XDavidXtreme.")
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Windowed", enable, "Enables Window mode settings that come with the 4GB RAM patch by XDavidXtreme. Requires restart.")
 end
 --=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
