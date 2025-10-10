@@ -40,11 +40,11 @@ VideoOptions =
 					option = "Resolution",
 					values = { "640X480", "800X600", "1024X768", "1152X864", "1280X960", "1600X1200", "1920X1440", "2048X1536" },
 					visible = { "640x480", "800x600", "1024x768", "1152x864", "1280x960", "1600x1200", "1920x1440", "2048x1536" },
-					x = -1,
-					y = 150,
+					x	 = -1,
+					y	 = 150,
 					action = "",
 					applyRequired = true,
-					-- align = MenuAlign.Left,
+					align = MenuAlign.Left,
 				}
 			else
 				t.Resolution = {
@@ -54,11 +54,11 @@ VideoOptions =
 					option = "Resolution",
 					values = { "640X480", "800X600", "1024X768", "1152X864", "1280X960", "1600X1200", "1920X1440", "2048X1536" },
 					visible = { "640x480", "800x600", "1024x768", "1152x864", "1280x960", "1600x1200", "1920x1440", "2048x1536" },
-					x = -1,
-					y = 150,
+					x	 = -1,
+					y	 = 150,
 					action = "",
 					applyRequired = true,
-					align = MenuAlign.Left,
+					-- align = MenuAlign.Left,
 				}
 			end
 
