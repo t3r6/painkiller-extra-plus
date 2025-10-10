@@ -2685,6 +2685,10 @@ end
 
 --=======================================================================
 --=======================================================================
+function Console:Cmd_WINDOWED(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Windowed", enable, "Enables Window mode settings that come with the 4GB RAM patch by XDavidXtreme.")
+end
+--=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnPlayersQuit", enable, "Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
 end
