@@ -75,7 +75,7 @@ VideoOptions =
 					y	 = 152,
 					action = "",
 					applyRequired = true,
-					disabled = 1,
+					-- disabled = 1,
 					align = MenuAlign.Right,
 				}
 			end
