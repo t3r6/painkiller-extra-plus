@@ -29,10 +29,11 @@ VideoOptions =
 			visible = true,
 			align = MenuAlign.Left,
 			
-			items =
-			{
-				Resolution =
-				{
+			items = (function()
+			local t = {}
+
+			if Cfg.Windowed then -- Windowed patch by XDavidXtreme
+				t.Resolution = {
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Resolution,
 					desc = TXT.MenuDesc.Resolution,
@@ -43,10 +44,26 @@ VideoOptions =
 					y	 = 150,
 					action = "",
 					applyRequired = true,
---					align = MenuAlign.Left,
-				},
---[[				
-				Fullscreen =
+					align = MenuAlign.Left,
+				}
+			else
+				t.Resolution = {
+					type = MenuItemTypes.TextButtonEx,
+					text = TXT.Menu.Resolution,
+					desc = TXT.MenuDesc.Resolution,
+					option = "Resolution",
+					values = { "640X480", "800X600", "1024X768", "1152X864", "1280X960", "1600X1200", "1920X1440", "2048X1536" },
+					visible = { "640x480", "800x600", "1024x768", "1152x864", "1280x960", "1600x1200", "1920x1440", "2048x1536" },
+					x	 = -1,
+					y	 = 150,
+					action = "",
+					applyRequired = true,
+					-- align = MenuAlign.Left,
+				}
+			end
+
+			if Cfg.Windowed then
+				t.Fullscreen =
 				{
 					type = MenuItemTypes.Checkbox,
 					text = TXT.Menu.Fullscreen,
@@ -58,11 +75,12 @@ VideoOptions =
 					y	 = 152,
 					action = "",
 					applyRequired = true,
-					disabled = 1,
+					-- disabled = 1,
 					align = MenuAlign.Right,
-				},
-]]--
-				GraphicsQuality =
+				}
+			end
+
+				t.GraphicsQuality =
 				{
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.GraphicsQuality,
@@ -74,9 +92,9 @@ VideoOptions =
 					y	 = 200,
 					action = "",
 					applyRequired = true,
-				},
+				}
 				
-				TextureQuality =
+				t.TextureQuality =
 				{
 					type = MenuItemTypes.StaticText,
 		--			type = MenuItemTypes.TextButtonEx,
@@ -91,9 +109,9 @@ VideoOptions =
 					applyRequired = true,
 		--			disabled = 1,
 		--			align = MenuAlign.Left,
-				},
+				}
 				
-				TextureQualityWeapons =
+				t.TextureQualityWeapons =
 				{
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Weapons,
@@ -107,9 +125,9 @@ VideoOptions =
 					applyRequired = true,
 		--			disabled = 1,
 					align = MenuAlign.Left,
-				},
+				}
 				
-				TextureQualityArchitecture =
+				t.TextureQualityArchitecture =
 				{
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Architecture,
@@ -123,9 +141,9 @@ VideoOptions =
 					applyRequired = true,
 		--			disabled = 1,
 					align = MenuAlign.Left,
-				},
+				}
 				
-				TextureQualityCharacters =
+				t.TextureQualityCharacters =
 				{
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Characters,
@@ -139,9 +157,9 @@ VideoOptions =
 					applyRequired = true,
 		--			disabled = 1,
 					align = MenuAlign.Right,
-				},
+				}
 				
-				TextureQualitySkies =
+				t.TextureQualitySkies =
 				{
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Skies,
@@ -155,9 +173,9 @@ VideoOptions =
 					applyRequired = true,
 		--			disabled = 1,
 					align = MenuAlign.Right,
-				},
+				}
 
-				Gamma =
+				t.Gamma =
 				{
 					type = MenuItemTypes.Slider,
 					text = TXT.Menu.Gamma,
@@ -171,9 +189,9 @@ VideoOptions =
 					action = "PainMenu:VideoChangeGamma()",
 		--			align = MenuAlign.Right,
 		--			fullWidth = true,
-				},
+				}
 
-				Brightness =
+				t.Brightness =
 				{
 					type = MenuItemTypes.Slider,
 					text = TXT.Menu.Brightness,
@@ -187,9 +205,9 @@ VideoOptions =
 					action = "PainMenu:VideoChangeGamma()",
 		--			align = MenuAlign.Right,
 		--			fullWidth = true,
-				},
+				}
 
-				Contrast =
+				t.Contrast =
 				{
 					type = MenuItemTypes.Slider,
 					text = TXT.Menu.Contrast,
@@ -203,8 +221,8 @@ VideoOptions =
 					action = "PainMenu:VideoChangeGamma()",
 		--			align = MenuAlign.Right,
 		--			fullWidth = true,
-				},
-				maxfps =
+				}
+				t.maxfps =
 				{
 					type = MenuItemTypes.Slider,
 					text = "Max FPS",
@@ -216,8 +234,11 @@ VideoOptions =
 					y	 = 580,
 					action = "",
 					applyRequired = false,
-				},
-			},
+				}
+
+			return t
+		end)(),
+
 		},
 		
 		AdvancedTab =

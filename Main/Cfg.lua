@@ -612,6 +612,8 @@ Cfg =
     FlagCarrierSound = true,
     NoChatBeep = false,
 
+    Windowed = false, -- Enables Window mode settings that come with the 4GB RAM patch by XDavidXtreme; otherwise should be false.
+
   -- Logging / Recording
     AutoScreenshot = false,
     Autorecord = false,
