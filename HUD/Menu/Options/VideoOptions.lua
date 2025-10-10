@@ -32,7 +32,7 @@ VideoOptions =
 			items = (function()
 			local t = {}
 
-			if Cfg.Windowed then
+			if Cfg.Windowed then -- Windowed patch by XDavidXtreme
 				t.Resolution = {
 					type = MenuItemTypes.TextButtonEx,
 					text = TXT.Menu.Resolution,
