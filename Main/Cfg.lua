@@ -308,8 +308,8 @@ Cfg =
     --Interpolation = 1,
     --InterpolationNoSmooth = true,
     --InterpolationTolerance = 100,
-    -- DeferLoadingPlayers = false,
-    -- DeferLoadingRest = true,
+    PrecacheDeferLoadingPlayers = false,
+    PrecacheDeferLoadingRest = false,
 
     --DefaultFont = "Courbd",
     --ShowHide = true,
@@ -1022,8 +1022,8 @@ function Cfg:Check()
 	
 	--Cfg.AddPlayerObjects = Cfg:CheckVar(Cfg.AddPlayerObjects,"b")
 	--Cfg.InterpolationNoSmooth = Cfg:CheckVar(Cfg.InterpolationNoSmooth,"b")
-	-- Cfg.DeferLoadingPlayers = Cfg:CheckVar(Cfg.DeferLoadingPlayers,"b")
-	-- Cfg.DeferLoadingRest = Cfg:CheckVar(Cfg.DeferLoadingRest,"b")
+	Cfg.PrecacheDeferLoadingPlayers = Cfg:CheckVar(Cfg.PrecacheDeferLoadingPlayers,"b")
+	Cfg.PrecacheDeferLoadingRest = Cfg:CheckVar(Cfg.PrecacheDeferLoadingRest,"b")
 
 	--Cfg.DrawGraphGamePulses = Cfg:CheckVar(Cfg.DrawGraphGamePulses,"b")
 	--Cfg.DrawGraphFramerate = Cfg:CheckVar(Cfg.DrawGraphFramerate,"b")
