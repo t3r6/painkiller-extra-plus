@@ -900,7 +900,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 709: PAUSED
 
-710: Press 'Fire' to start
+710: Press 'Fire' or 'Jump' to start
 711: FINAL RESULTS
 
 # electro
@@ -1017,11 +1017,11 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # BOOH cards descriptions
 793: Call Weapon Modifier
-794: Haste doesn’t affect weapons
+794: Haste doesn't affect weapons
 795: Slow but strong, all enemies\nfocus on it
 796: Fast but weak, enemies\nignore it
 797: Medium, 50% of the enemies\nignore it
-798: 2.5% of the damage to the\nenemy goes to player’s health
+798: 2.5% of the damage to the\nenemy goes to player's health
 799: Health starts regeneratating\n10 seconds after the last damage
 800: Armor starts regeneratating\n10 seconds after the last damage
 801: All enemies have 90%\nof initial HP

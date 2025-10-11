@@ -71,7 +71,7 @@ function EndOfMatch:Tick(delta)
 				INP.RemoveAction(Actions.AltFire)
 				INP.RemoveAction(Actions.Jump)
             elseif self.Mode == 2 then
-				if MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp then
+				if MPGameRules[MPCfg.GameMode].StartState == GameStates.WarmUp and not INP.Action(Actions.Jump) then
 					local ps = Game.PlayerStats[NET.GetClientID()]
 					if ps.State == 1 then -- ready
 						Console:Cmd_NOTREADY()
