@@ -170,7 +170,7 @@ Cfg =
     ServerMapsDUE = {"DM_Sacred","DM_Fragenstein","DM_Unseen","DM_Fallen2"},
     ServerMapsLMS = {"DM_Factory","DM_Trainstation","DM_Cursed","DM_Illuminati"},
     ServerMapsCLA = {"DM_Factory","DM_Trainstation","DM_Cursed","DM_Illuminati"}, -- PK++ gamemode
-    ServerName = "Painkiller",
+    ServerName = "Painkiller++",
     ServerPassword = "",
     ServerPort = 3455,
     SfxVolume = 100,
@@ -296,11 +296,24 @@ Cfg =
   -- PK++ config params
 
   -- PK++ Admin additional settings
+    Password = "",
     RefPass = "",
     RconPass = "",
     MOTD = " ;Enjoy your stay;Have fun!; ",
     PitabotEnabled = false,
     PiTaBOT = 1,
+
+  -- PK++ 1.31
+    --AddPlayerObjects = true,
+    --Interpolation = 1,
+    --InterpolationNoSmooth = true,
+    --InterpolationTolerance = 100,
+    -- DeferLoadingPlayers = false,
+    -- DeferLoadingRest = true,
+
+    --DefaultFont = "Courbd",
+    --ShowHide = true,
+    --ShowHidePrint = false,
 
   -- Visual/FX
     NoExplosions = false,
@@ -728,173 +741,11 @@ function Cfg:Save()
 end
 --============================================================================
 function Cfg:Load()
-	local label = GetCDLabel()
-	local lang = Cfg.Language
-
-
-		if label then label = string.lower(label) end
-		if label == "pk_fr_1" then
-			lang = "french"
-		elseif label == "pk_de_1" then
-			lang = "german"
-		elseif label == "pk_it_1" then
-			lang = "italian"
-		elseif label == "pk_sp_1" then
-			lang = "spanish"
-		elseif label == "pk_pl_1" then
-			lang = "polish"
-		elseif label == "pk_ru_1" then
-			lang = "russian"
-		elseif label == "pk_cz_1" then
-			lang = "czech"
-		elseif label == "pk_1" then
-			lang = "english"
-		end
-
-	if lang == "french" then
-		Cfg.KeyPrimaryStrafeLeft = "Q"
-		Cfg.KeyPrimaryMoveForward = "Z"
-	end
-
-	if IsMPDemo() then
-		Cfg.ServerName = "Painkiller Demo"
-	end
-
-	if not IsPKInstalled() then
-		Cfg.ServerMapsFFA = {"DM_Factory","DM_Trainstation","DM_Fallen1"}
-		Cfg.ServerMapsTDM = {"DM_Mine","DM_Trainstation"}
-		Cfg.ServerMapsTLB = {"DM_Fallen1"}
-		Cfg.ServerMapsPCF = {}
-		Cfg.ServerMapsVSH = {"DM_Fallen2"}
-		Cfg.ServerMapsCTF = {"CTF_Forbidden","CTF_Chaos","CTF_Trainstation"}
-		Cfg.ServerMapsDUE = {"DM_Fragenstein","DM_Fallen2"}
-		Cfg.ServerMapsLMS = {"DM_Factory","DM_Trainstation"}
-		Cfg.ServerMapsCLA = {"DM_Sacred","DM_Cursed","DM_Factory","DM_Trainstation","DM_Fallen1"}
-	end
-
-    DoFile(CfgFile,false)
-    if type(Cfg.TextureQuality) == "string" then Cfg.TextureQuality = 0 end
-    if type(Cfg.TimeLimit) == "string" then Cfg.TimeLimit = 10 end
-    if type(Cfg.FragLimit) == "string" then Cfg.FragLimit = 15 end
-    if type(Cfg.MaxPlayers) == "string" then 
-        Cfg.MaxPlayers = 8 
-        Cfg.MaxSpectators = 0
-    end
-
-  local findlan = {"french","german","italian","spanish","polish","russian","czech"}
-  for i = 1, 7 do
-    local languagefile = FS.File_Exist("../Bin/" .. findlan[i] .. ".lan")
-    if languagefile then
-      if Cfg.LanguageNoCD == findlan[i] then
-        os.remove("./" .. findlan[i] .. ".lan")
-      end
-      Cfg.LanguageNoCD = findlan[i]
-    end
-  end
-  if label then
-    Cfg.Language = lang
-  --	Cfg.Language = "polish"
-  else
-    Cfg.Language = Cfg.LanguageNoCD
-  end
-
-	if Cfg.Language == "german" then
-		Tweak.GlobalData.DisableGibs = true
-		Tweak.GlobalData.GermanVersion = true
-	end
-
-	if type(Cfg.PlayerModel) == "string" then
-		Cfg.PlayerModel = Cfg:FindMPModel(Cfg.PlayerModel)
-	end
-    
-    if Cfg.PlayerModel < 1 or Cfg.PlayerModel > 7 then
-        Cfg.PlayerModel = 1
-    end
-
-    -- if Cfg.MaxFpsMP == 0 or Cfg.MaxFpsMP > MAXFPSMP_MAX_LIMIT then
-    --     Cfg.MaxFpsMP = MAXFPSMP_MAX_LIMIT
-    -- end
-
-	if IsMPDemo() then
-		Cfg.Credits = false
-		if Cfg.PlayerModel > 4 then Cfg.PlayerModel = 1 end
-	end
-
-    if Cfg.MaxPlayers < 1 or Cfg.MaxPlayers > 16 then Cfg.MaxPlayers = 8 end
-    if Cfg.MaxSpectators < 0 or Cfg.MaxSpectators > 8 then Cfg.MaxSpectators = 0 end
-    if Cfg.ServerFPS < SERVERFPS_MIN_LIMIT then
-        Cfg.ServerFPS = SERVERFPS_MIN_LIMIT
-    end
-    if Cfg.ServerFPS > SERVERFPS_MAX_LIMIT then
-        Cfg.ServerFPS = SERVERFPS_MAX_LIMIT
-    end
-    if type(Cfg.BestExplosives[1]) == "string" or table.getn(Cfg.WeaponPriority) < 15 then
-		Cfg.BestExplosives = {0,41,32,}
-		Cfg.BestNonExplosives = {72,71,62,61,51,52,42,31,22,21,12,11,0,}
-		Cfg.BestWeapons1 = {32,0,72,71,62,61,51,52,41,42,31,22,21,12,11,}
-		Cfg.BestWeapons2 = {12,0,72,71,62,61,51,52,41,42,32,31,22,21,11,}
-		Cfg.WeaponPriority = { 72, 71, 62, 61, 51, 52, 41, 42, 32, 31, 22, 21, 12, 11, 0 }
-    end
-
-	if type(Cfg.ConnectionSpeed) == "string" then Cfg.ConnectionSpeed = 5 end
-	if Cfg.ConnectionSpeed < 1 or Cfg.ConnectionSpeed > 5 then Cfg.ConnectionSpeed = 5 end
-
-	if Cfg.WheelSensitivity < 0 then Cfg.WheelSensitivity = 0 end
-	if Cfg.WheelSensitivity > 4 then Cfg.WheelSensitivity = 4 end
-
-	if Cfg.MouseSensitivity < 1 then Cfg.MouseSensitivity = Cfg.MouseSensitivity * 400 end
-	
-	--if Cfg.DecalsStayTime > 1 then Cfg.DecalsStayTime = 2 end
-	
-	if type(Cfg.RenderSky) == "boolean" then
-		Cfg.RenderSky = 2
-	end
-	
-	for i=1,table.getn(Cfg.MessagesSayAll) do
-		if Cfg.MessagesSayAll[i] ~= 0 then
-			Cfg.MessagesSayAll[i] = 1
-		end
-	end
-	
-	if Cfg.GraphicsQuality > 6 then
-		Cfg.GraphicsQuality = 6
-	elseif Cfg.GraphicsQuality < 0 then
-		Cfg.GraphicsQuality = 0
-	end
-
-	Cfg.PlayerName = HUD.ColorSubstr(tostring(Cfg.PlayerName),16)
-
-	if Cfg.CrosshairSize > 3 then Cfg.CrosshairSize = 3 end
-	if Cfg.CrosshairSize < 0.2 then Cfg.CrosshairSize = 0.2 end
-
---	Cfg.Shadows = 0
-
-	-- Removal of obsolete variables from the config.ini
-	Cfg.NewPrediction = nil
-	Cfg.FramerateLock = nil
-	Cfg.UseGamespy = nil
-	Cfg.PushLatency = nil
-	Cfg.PlayerPrediction = nil
-
-	if Cfg.DynamicLights == false then
-		Cfg.DynamicLights = 0
-	elseif Cfg.DynamicLights == true then
-		Cfg.DynamicLights = 2
-	end
-	
-	if not IsPKInstalled() then
-		Cfg.PublicServer = false
-	end
-	
-	if IsBlackEdition() then
-		Cfg.BlackEdition = true
-	else
-		Cfg.BlackEdition = false
-	end
-	
-	if Cfg.StartupWeapon < 0 or Cfg.StartupWeapon > 7 then
-		Cfg.StartupWeapon = 0
-	end
+	Cfg:CheckLanguage()
+	Cfg:CheckLimitations()
+	DoFile(CfgFile,false)
+	Cfg:Check()
+	Cfg:Save()
 end
 --============================================================================
 function Cfg:FindMPModel(name)
@@ -925,7 +776,7 @@ function Cfg_ClearKeyBinding( key )
 		Cfg["Bind_"..string.upper(short)] = nil
 	end
 	
-	Cfg:Save()
+	-- Cfg:Save()
 end
 --============================================================================
 function Cfg_BindKeyCommands()
@@ -1048,47 +899,126 @@ end
 --============================================================================
 -- PK++ 1.31
 --============================================================================
-function Cfg:CheckVar(var,vartype,lower,upper)
-
+function toboolean(statement)
+	if (statement==true or statement=="true" or statement==1) then
+		return true
+	else
+		return false
+	end
+end
+--============================================================================
+function Cfg:CheckVar(var, vartype, lower, upper, default)
 	if vartype == "n" then
-		if not var then var = lower end
-		var = tonumber(var)
+		if type(var) == "string" then
+			var = tonumber(var)
+		end
+		
+		if type(var) ~= "number" then
+			var = default or lower
+		end
+
 		if var < lower then var = lower end
 		if var > upper then var = upper end
 		return var
-	end
-	if vartype == "b" then
+	elseif vartype == "b" then
 		var = toboolean(var)
 		return var
 	end
 end
 --============================================================================
+function Cfg:CheckLanguage()
+	local label = GetCDLabel()
+	local lang = Cfg.Language
+
+
+		if label then label = string.lower(label) end
+		if label == "pk_fr_1" then
+			lang = "french"
+		elseif label == "pk_de_1" then
+			lang = "german"
+		elseif label == "pk_it_1" then
+			lang = "italian"
+		elseif label == "pk_sp_1" then
+			lang = "spanish"
+		elseif label == "pk_pl_1" then
+			lang = "polish"
+		elseif label == "pk_ru_1" then
+			lang = "russian"
+		elseif label == "pk_cz_1" then
+			lang = "czech"
+		elseif label == "pk_1" then
+			lang = "english"
+		end
+
+	if lang == "french" then
+		Cfg.KeyPrimaryStrafeLeft = "Q"
+		Cfg.KeyPrimaryMoveForward = "Z"
+	end
+
+  local findlan = {"french","german","italian","spanish","polish","russian","czech"}
+  for i = 1, 7 do
+    local languagefile = FS.File_Exist("../Bin/" .. findlan[i] .. ".lan")
+    if languagefile then
+      if Cfg.LanguageNoCD == findlan[i] then
+        os.remove("./" .. findlan[i] .. ".lan")
+      end
+      Cfg.LanguageNoCD = findlan[i]
+    end
+  end
+  if label then
+    Cfg.Language = lang
+  --	Cfg.Language = "polish"
+  else
+    Cfg.Language = Cfg.LanguageNoCD
+  end
+
+	if Cfg.Language == "german" then
+		Tweak.GlobalData.DisableGibs = true
+		Tweak.GlobalData.GermanVersion = true
+	end
+end
+--============================================================================
+function Cfg:CheckLimitations()
+	if IsMPDemo() then
+		Cfg.ServerName = "Painkiller Demo"
+	end
+
+	if not IsPKInstalled() then
+		Cfg.ServerMapsFFA = {"DM_Factory","DM_Trainstation","DM_Fallen1"}
+		Cfg.ServerMapsTDM = {"DM_Mine","DM_Trainstation"}
+		Cfg.ServerMapsTLB = {"DM_Fallen1"}
+		Cfg.ServerMapsPCF = {}
+		Cfg.ServerMapsVSH = {"DM_Fallen2"}
+		Cfg.ServerMapsCTF = {"CTF_Forbidden","CTF_Chaos","CTF_Trainstation"}
+		Cfg.ServerMapsDUE = {"DM_Fragenstein","DM_Fallen2"}
+		Cfg.ServerMapsLMS = {"DM_Factory","DM_Trainstation"}
+		Cfg.ServerMapsCLA = {"DM_Sacred","DM_Cursed","DM_Factory","DM_Trainstation","DM_Fallen1"}
+	end
+end
+--============================================================================
 function Cfg:Check()
 	-- General checking of variables
-	Cfg.TextureQuality = Cfg:CheckVar(Cfg.TextureQuality,"n",0,999)
-	Cfg.TimeLimit = Cfg:CheckVar(Cfg.TimeLimit,"n",0,999)
-	Cfg.FragLimit = Cfg:CheckVar(Cfg.FragLimit,"n",0,999)
-	Cfg.MaxPlayers = Cfg:CheckVar(Cfg.MaxPlayers,"n",1,32)
-	Cfg.MaxSpectators = Cfg:CheckVar(Cfg.MaxSpectators,"n",0,32)
-	Cfg.FragLimit = Cfg:CheckVar(Cfg.FragLimit,"n",0,999)
-	Cfg.PlayerModel = Cfg:CheckVar(Cfg.PlayerModel,"n",1,7)
-	-- Cfg.MaxFpsMP = Cfg:CheckVar(Cfg.MaxFpsMP,"n",30,120)
-	Cfg.MouseSensitivity = Cfg:CheckVar(Cfg.MouseSensitivity,"n",0,999)
-	Cfg.RenderSky = Cfg:CheckVar(Cfg.RenderSky,"n",0,2)
-	Cfg.GraphicsQuality = Cfg:CheckVar(Cfg.GraphicsQuality,"n",0,6)
-	Cfg.DynamicLights = Cfg:CheckVar(Cfg.DynamicLights,"n",0,2)
-	Cfg.ConnectionSpeed = Cfg:CheckVar(Cfg.ConnectionSpeed,"n",1,5)
-	Cfg.WheelSensitivity = Cfg:CheckVar(Cfg.WheelSensitivity,"n",0,999)
-	Cfg.DecalsStayTime = Cfg:CheckVar(Cfg.DecalsStayTime,"n",0,999)
-	Cfg.CrosshairSize = Cfg:CheckVar(Cfg.CrosshairSize,"n",0,999)
-	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7)
+	Cfg.TextureQuality = Cfg:CheckVar(Cfg.TextureQuality,"n",0,3,0)
+	Cfg.TimeLimit = Cfg:CheckVar(Cfg.TimeLimit,"n",0,999,10)
+	Cfg.FragLimit = Cfg:CheckVar(Cfg.FragLimit,"n",0,999,15)
+	Cfg.MaxPlayers = Cfg:CheckVar(Cfg.MaxPlayers,"n",1,16,8)
+	Cfg.MaxSpectators = Cfg:CheckVar(Cfg.MaxSpectators,"n",0,8,0)
+	-- Cfg.MaxFpsMP = Cfg:CheckVar(Cfg.MaxFpsMP,"n",0,MAXFPSMP_MAX_LIMIT)
+	Cfg.ConnectionSpeed = Cfg:CheckVar(Cfg.ConnectionSpeed,"n",1,5,5)
+	Cfg.WheelSensitivity = Cfg:CheckVar(Cfg.WheelSensitivity,"n",0,4,3)
+	Cfg.RenderSky = Cfg:CheckVar(Cfg.RenderSky,"n",0,2,2)
+	Cfg.GraphicsQuality = Cfg:CheckVar(Cfg.GraphicsQuality,"n",0,6,0)
+	Cfg.DynamicLights = Cfg:CheckVar(Cfg.DynamicLights,"n",0,2,1)
+	-- Cfg.DecalsStayTime = Cfg:CheckVar(Cfg.DecalsStayTime,"n",0,2,2)
+	Cfg.CrosshairSize = Cfg:CheckVar(Cfg.CrosshairSize,"n",0.2,3,1)
+	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7,0)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)
 	--Cfg.ShowWeaponZ = Cfg:CheckVar(Cfg.ShowWeaponZ,"n",-999,999)
 	--Cfg.Interpolation = Cfg:CheckVar(Cfg.Interpolation,"n",0,1)
 	--Cfg.InterpolationTolerance = Cfg:CheckVar(Cfg.InterpolationTolerance,"n",0,9999)
-	--Cfg.NetcodeServerFrameRate = Cfg:CheckVar(Cfg.NetcodeServerFrameRate,"n",0,999)
+	--Cfg.NetcodeServerFrameRate = Cfg:CheckVar(Cfg.NetcodeServerFrameRate,"n",0,1000)
 	
 	--Cfg.AddPlayerObjects = Cfg:CheckVar(Cfg.AddPlayerObjects,"b")
 	--Cfg.InterpolationNoSmooth = Cfg:CheckVar(Cfg.InterpolationNoSmooth,"b")
@@ -1105,6 +1035,26 @@ function Cfg:Check()
 
 
 	-- Specific cases
+	if type(Cfg.PlayerModel) == "string" then
+		Cfg.PlayerModel = Cfg:FindMPModel(Cfg.PlayerModel)
+	end
+
+	if Cfg.PlayerModel < 1 or Cfg.PlayerModel > 7 then
+			Cfg.PlayerModel = 1
+	end
+
+	if IsMPDemo() then
+		Cfg.Credits = false
+		if Cfg.PlayerModel > 4 then Cfg.PlayerModel = 1 end
+	end
+
+	if Cfg.ServerFPS < SERVERFPS_MIN_LIMIT then
+			Cfg.ServerFPS = SERVERFPS_MIN_LIMIT
+	end
+	if Cfg.ServerFPS > SERVERFPS_MAX_LIMIT then
+			Cfg.ServerFPS = SERVERFPS_MAX_LIMIT
+	end
+
 	if type(Cfg.BestExplosives[1]) == "string" or table.getn(Cfg.WeaponPriority) < 15 then
 		Cfg.BestExplosives = {0,41,32,}
 		Cfg.BestNonExplosives = {72,71,62,61,51,52,42,31,22,21,12,11,0,}
@@ -1112,18 +1062,23 @@ function Cfg:Check()
 		Cfg.BestWeapons2 = {12,0,72,71,62,61,51,52,41,42,32,31,22,21,11,}
 		Cfg.WeaponPriority = { 72, 71, 62, 61, 51, 52, 41, 42, 32, 31, 22, 21, 12, 11, 0 }
 	end
+
+	if Cfg.MouseSensitivity < 1 then Cfg.MouseSensitivity = Cfg.MouseSensitivity * 400 end
+
 	for i=1,table.getn(Cfg.MessagesSayAll) do
 		if Cfg.MessagesSayAll[i] ~= 0 then
 			Cfg.MessagesSayAll[i] = 1
 		end
 	end
 	Cfg.PlayerName = HUD.ColorSubstr(tostring(Cfg.PlayerName),16)
+
 	-- Removal of obsolete variables from the config.ini
 	Cfg.NewPrediction = nil
 	Cfg.FramerateLock = nil
 	Cfg.UseGamespy = nil
 	Cfg.PushLatency = nil
 	Cfg.PlayerPrediction = nil
+
 	if not IsPKInstalled() then
 		Cfg.PublicServer = false
 	end
