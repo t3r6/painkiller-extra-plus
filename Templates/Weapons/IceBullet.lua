@@ -69,8 +69,8 @@ function IceBullet:OnCollision(x,y,z,nx,ny,nz,e)
             end
         else
             if obj._Class == "CPlayer" then
+                obj:OnDamage(0,self.ObjOwner,255)
                 mode = 1
-                obj:OnDamage(0,self.ObjOwner,AttackTypes.Shotgun,x,y,z,nx,ny,nz)
             end            
         end
     end
@@ -85,10 +85,12 @@ function IceBullet:CL_OnHit(e,x,y,z,mode)
         local obj = EntityToObject[e]
         if obj then 
         
-	            local action = {
-	                {"L:p.FrozenArmor = true"},
-	                {"Wait:5"},
-	                {"L:p.FrozenArmor = false"},
+            local action = {
+                {"L:p.FrozenArmor = true"},
+                {"L:CObject.SndEnt(Templates['FrozenObject.CProcess'],'freeze',"..e..")"},
+                {"Wait:5"},
+                {"L:if p.FrozenArmor then CObject.SndEnt(Templates['FrozenObject.CProcess'],'unfreeze',"..e..") end"},
+                {"L:p.FrozenArmor = false"},
 	            }	
 	            AddAction(action,obj,"p._died")      
 	            	end   
