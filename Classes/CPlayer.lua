@@ -542,7 +542,7 @@ function CPlayer:ClientTick(delta)
         local fire = nil
         if IsBitFlag(action,Actions.Fire)    then fire = 1 end
         if IsBitFlag(action,Actions.AltFire) then fire = 2 end        
-        if fire then
+        if fire and not IsBitFlag(action,tonumber('1100000000011111110000000000',2)) then -- Weapon switch fix
             nextSlot = self:TryToSelectNextWeaponWithAmmo(self._CurWeaponIndex,fire)
         end
     end
