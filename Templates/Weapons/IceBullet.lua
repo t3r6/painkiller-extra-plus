@@ -69,8 +69,8 @@ function IceBullet:OnCollision(x,y,z,nx,ny,nz,e)
             end
         else
             if obj._Class == "CPlayer" then
+                obj:OnDamage(0,self.ObjOwner,255)
                 mode = 1
-                obj:OnDamage(0,self.ObjOwner,AttackTypes.Shotgun,x,y,z,nx,ny,nz)
             end            
         end
     end
@@ -84,11 +84,13 @@ function IceBullet:CL_OnHit(e,x,y,z,mode)
     if mode == 1 then
         local obj = EntityToObject[e]
         if obj then 
-        
-	            local action = {
-	                {"L:p.FrozenArmor = true"},
-	                {"Wait:5"},
-	                {"L:p.FrozenArmor = false"},
+            local snd = tostring(obj == Player)
+            local action = {
+                {"L:p.FrozenArmor = true"},
+                {"L:if "..snd.." then CObject.SndEnt(Templates['FrozenObject.CProcess'],'freeze',"..e..") end"},
+                {"Wait:5"},
+                {"L:if p.FrozenArmor and "..snd.." then CObject.SndEnt(Templates['FrozenObject.CProcess'],'unfreeze',"..e..") end"},
+                {"L:p.FrozenArmor = false"},
 	            }	
 	            AddAction(action,obj,"p._died")      
 	            	end   
@@ -98,7 +100,9 @@ function IceBullet:CL_OnHit(e,x,y,z,mode)
             ENTITY.RegisterChild(e,fx)
             PARTICLE.SetParentOffset(fx,0,0,0,"k_chest",0.8,0.8,0.8)                 
             local action = {
+                -- {"L:CObject.SndEnt(Templates['FrozenObject.CProcess'],'freeze',"..e..")"}, -- Freezer sound is broken on the server because the freezer timer code runs in parallel.
                 {"Wait:5"},
+                -- {"L:CObject.SndEnt(Templates['FrozenObject.CProcess'],'unfreeze',"..e..")"},
                 {"L:ENTITY.KillAllChildrenByName("..e..",'bones_glow')"},
             }
             AddAction(action)

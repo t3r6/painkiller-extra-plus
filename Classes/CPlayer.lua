@@ -2043,8 +2043,8 @@ function CPlayer:Client_OnDamage(entity,health,armor,attack_type,damage,killerID
     end
     
     -- dzwieki i fx w MP
-    if Game.GMode ~= GModes.SingleGame then 
-        
+    local atype = function() for k,v in pairs(AttackTypes) do if v == attack_type then return k end end end
+    if Game.GMode ~= GModes.SingleGame and atype() then 
         local fx = true
         if Cfg.LowQualityMultiplayerSFX then
             fx = false
