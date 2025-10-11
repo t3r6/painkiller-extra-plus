@@ -498,7 +498,11 @@ end
 
 	CONSOLE.SetMPMsgColor( self.mpMsgColor[1], self.mpMsgColor[2], self.mpMsgColor[3] )
 	CONSOLE.SetMPMsgPosition( self.mpMsgPosition[1], Cfg.HUD_ConsolePosition )
-	CONSOLE.SetMPMsgFont( self.mpMsgFont, self.mpMsgFontTex, Cfg.HUD_ConsoleFontSize )
+	if Cfg.HUD_ConsoleFont then
+		CONSOLE.SetMPMsgFont( "timesbd", self.mpMsgFontTex, Cfg.HUD_ConsoleFontSize )
+	else
+		CONSOLE.SetMPMsgFont( self.mpMsgFont, self.mpMsgFontTex, Cfg.HUD_ConsoleFontSize )
+	end
 
 	self.CrossScale = Cfg.CrosshairSize
 
