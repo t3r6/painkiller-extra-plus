@@ -69,23 +69,24 @@ end
 --============================================================================
 function Flag:OnTake(player)
     
-    if player.Team ~= self.Team and not player.HasFlag then
-        self.TakeFX(player._Entity,1,self.Team)
-        self._blockedBy = player
-        self._captured = true
-        self._ReturnTime = nil
-        return false
+    if MPCfg.GameState ~= GameStates.WarmUp then
+        if player.Team ~= self.Team and not player.HasFlag then
+            self.TakeFX(player._Entity,1,self.Team)
+            self._blockedBy = player
+            self._captured = true
+            self._ReturnTime = nil
+            return false
+        end
+        
+        if player.Team == self.Team and self._captured then 
+            self._ReturnTime = nil
+            self._captured = false
+            self:TryToRespawn(true)
+            local x,y,z = ENTITY.GetPosition(self._Entity)
+            self.OnFinishFX(player._Entity,2,self.Team,x,y,z)
+        end  
     end
-    
-    if player.Team == self.Team and self._captured then 
-        self._ReturnTime = nil
-        self._captured = false
-        self:TryToRespawn(true)
-        local x,y,z = ENTITY.GetPosition(self._Entity)
-        self.OnFinishFX(player._Entity,2,self.Team,x,y,z)
-    end  
-
-    return true
+        return true
 end
 --============================================================================
 function Flag:UnbindItem(delivered)
