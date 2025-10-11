@@ -900,7 +900,7 @@ end
 -- PK++ 1.31
 --============================================================================
 function toboolean(statement)
-	if (statement==true or statement=="true" or statement==1) then
+	if statement == true or statement == "true" or statement == 1 or statement == "1" then
 		return true
 	else
 		return false
