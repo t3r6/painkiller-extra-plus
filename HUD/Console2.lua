@@ -2701,3 +2701,7 @@ function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
 end
 --=======================================================================
+function Console:Cmd_CAMMODETIMEOUT(value)
+  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("Cammode_Timeout", value, 0, 1800, "Set how many seconds it takes for the spectator cammode title to disappear.")
+end
+--=======================================================================

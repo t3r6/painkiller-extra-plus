@@ -339,6 +339,7 @@ Cfg =
     LanguageNoCD = "english",
     ColouredIcons = false,
     DisableHud = false,
+    Cammode_Timeout = 1800,
     TeamOverlay = true,
     ShowPing = false,
     TeamOverlayX = 0.7,
@@ -356,6 +357,7 @@ Cfg =
     CrosshairHit_RGB = {255,0,0},
     CrosshairHit_Trans = 255,
     CrosshairHit = false,
+
 
     HUD_AmmoList = 2,
     HUD_AmmoList_Size = {0.8, 0.8},
