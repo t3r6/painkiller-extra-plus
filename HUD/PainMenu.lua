@@ -657,6 +657,14 @@ function PainMenu:AddItem( i, o )
 			skip = false
 		end
 
+		if spectator == 1 and itemName == "Spectate" then
+			skip = true
+		end
+
+		if spectator == 0 and itemName == "Join" then
+			skip = true
+		end
+
 		if (Game.GMode == GModes.SingleGame or Game:IsServer()) and itemName == "Disconnect" then
 			skip = true
 		end

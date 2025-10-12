@@ -17,15 +17,39 @@ MainMenu =
 	items		=
 	{
 
-		
+		Spectate =
+		{
+			text = TXT.Menu.Spectate,
+			desc = TXT.MenuDesc.Spectate,
+			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
+			x	 = -1,
+			y	 = 50,
+			fontBigSize = 36,
+			inGameOnly = 1,
+			action = "Console:Cmd_SPECTATOR(1); PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )", 
+			useItemBG = false,
+		},
+
+		Join =
+		{
+			text = TXT.Menu.Spectate,
+			desc = TXT.MenuDesc.Spectate,
+			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
+			x	 = -1,
+			y	 = 50,
+			fontBigSize = 36,
+			inGameOnly = 1,
+			action = "Console:Cmd_SPECTATOR(0); PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )", 
+			useItemBG = false,
+		},
+
 		modcredits =
 		{
 			text = "PK++ Mod Credits",
 			desc = "PK++ Developers and Contributions",
-			x	 = 500,
+			x	 = -1,
 			y	 = 740,
 			action = "PainMenu:ActivateScreen(PKpluscredits);PMENU.PlaySound( 'menu/painkiller-stats-loop', true )", 
-			align = MenuAlign.Center,
 			sndLightOn = "menu/menu/option-light-on_main4",
 			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
 			fontBigSize = 26,
