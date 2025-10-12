@@ -493,7 +493,9 @@ function Hud:AmmoListOriOn()
       Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.Shotgun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shotgun, colord[1], colord[2], colord[3], transco)
       Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.IceBullets), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.IceBullets, colord[1], colord[2], colord[3], transco)
       ecafix = 0
-      ecart = ecart + eca * 2 - ecafix
+      if Player.EnabledWeapons[3] == StakeGunGL then ecart = ecart + eca - ecafix
+        else ecart = ecart + eca * 2 - ecafix
+      end
     end
     if Player._CurWeaponIndex == 3 then
       if Cfg.HUD_Ammolist_Marker_Primary then
@@ -573,8 +575,10 @@ function Hud:AmmoListOriOn()
     end
     if Player.EnabledWeapons[3] ~= StakeGunGL then
       Hud:QuadRGBA(ammo1[2], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[3][1], prcolor[3][2], prcolor[3][3], transic)
-      Hud:QuadRGBA(ammo2[2], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
       Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Stakes), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Stakes, colord[1], colord[2], colord[3], transco)
+    end
+    if Player.EnabledWeapons[3] ~= StakeGunGL or Player.EnabledWeapons[4] ~= MiniGunRL then
+      Hud:QuadRGBA(ammo2[2], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
       Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Grenades), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Grenades, colord[1], colord[2], colord[3], transco)
       ecafix = 0
       ecart = ecart + eca * 2 - ecafix
@@ -731,7 +735,9 @@ function Hud:AmmoListOriOn()
       Hud:DrawDigitsText1(textposix, (768 - (posiy * 2 + (centhfix - 3) * sizem)) * cent, string.sub(string.format("%03d", Player.Ammo.Shotgun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shotgun, colord[1], colord[2], colord[3], transco)
       Hud:DrawDigitsText1(textposix, (768 - (posiy * 2 - (87 - centhfix) * sizem)) * cent, string.sub(string.format("%03d", Player.Ammo.IceBullets), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.IceBullets, colord[1], colord[2], colord[3], transco)
       nextposhfix = 0
-      nextposh = nextposh + 168 + nextposhfix
+      if Player.EnabledWeapons[3] == StakeGunGL then nextposh = nextposh + 84 + nextposhfix
+        else nextposh = nextposh + 168 + nextposhfix
+      end
     end
     if Player._CurWeaponIndex == 3 then
       if Cfg.HUD_Ammolist_Marker_Primary then
@@ -811,8 +817,10 @@ function Hud:AmmoListOriOn()
     end
     if Player.EnabledWeapons[3] ~= StakeGunGL then
       Hud:QuadRGBA(ammo1[2], icoposix, (768 - (posiy * 2 + (centhfix - nextposh) * sizem)) * cent, sizem, false, prcolor[3][1], prcolor[3][2], prcolor[3][3], transic)
-      Hud:QuadRGBA(ammo2[2], icoposix, (768 - (posiy * 2 - (84 - centhfix + nextposh) * sizem)) * cent, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
       Hud:DrawDigitsText1(textposix, (768 - (posiy * 2 + (centhfix - 3 - nextposh) * sizem)) * cent, string.sub(string.format("%04d", Player.Ammo.Stakes), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Stakes, colord[1], colord[2], colord[3], transco)
+    end
+    if Player.EnabledWeapons[3] ~= StakeGunGL or Player.EnabledWeapons[4] ~= MiniGunRL then
+      Hud:QuadRGBA(ammo2[2], icoposix, (768 - (posiy * 2 - (84 - centhfix + nextposh) * sizem)) * cent, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
       Hud:DrawDigitsText1(textposix, (768 - (posiy * 2 - (87 - centhfix + nextposh) * sizem)) * cent, string.sub(string.format("%04d", Player.Ammo.Grenades), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Grenades, colord[1], colord[2], colord[3], transco)
       nextposhfix = 0
       nextposh = nextposh + 168 + nextposhfix
