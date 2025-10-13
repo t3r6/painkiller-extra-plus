@@ -538,7 +538,7 @@ function Console:Cmd_EXEC(enable)
         end
 
         local temp = CfgFile
-        CfgFile = enable..".ini"
+        if( enable ~= "autoexec" ) then CfgFile = enable..".ini" end -- autoexec fix [ THRESHER ]
         Cfg:Load()
         CfgFile = temp
         CONSOLE_AddMessage("Bin\\"..enable..".ini executed.")

@@ -1,4 +1,5 @@
 CfgFile = "config.ini"
+CfgAuto = "autoexec.ini"
 --============================================================================
 -- Configuration
 --============================================================================
@@ -706,6 +707,14 @@ function Cfg:Save()
     table.sort(sorted,function (a,b) return a[1] < b[1] end)
           
               
+    -- Autoexec FIX [ THRESHER ]
+    if( CfgFile == "config.ini" ) then 
+      f:write( "------------------------------------------------\n" )
+      f:write( "--***********DO NOT EDIT************--\n" )
+      f:write( "--  Make All Changes in Autoexec.ini  --\n" )
+      f:write( "------------------------------------------------\n" )
+    end
+
     for i,v in sorted do
         if string.sub(v[1],1,1) ~= '_' and (type(v[2]) == "string" or type(v[2]) == "number" or type(v[2]) == "boolean") then                
             local val = v[2]
@@ -745,6 +754,8 @@ function Cfg:Load()
 	Cfg:CheckLimitations()
 	DoFile(CfgFile,false)
 	Cfg:Check()
+	if( CfgFile == "config.ini" ) then Cfg:Save() end -- if it's not config.ini, then don't save over it [ THRESHER ]
+	-- Autoexec.ini [ THRESHER ]
 	Cfg:Save()
 end
 --============================================================================
