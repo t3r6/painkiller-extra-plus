@@ -836,8 +836,13 @@ function Console:Cmd_GAMEMODE(mode)
 		Cfg.GameMode = "Last Man Standing"
 		newMap = "DM_Factory"
 		mapsTable = Cfg.ServerMapsLMS
+	elseif mode == "race" then
+	    if Cfg.GameMode == "Race" then return end
+		Cfg.GameMode = "Race"
+		newMap = "RACE_Psycho"
+		mapsTable = Cfg.ServerMapsRAC
 	else
-		CONSOLE_AddMessage("Available modes: ffa, tdm, voosh, tlb, pcf, ctf, duel, lms, ig, ictf, ca")
+		CONSOLE_AddMessage("Available modes: ffa, tdm, voosh, tlb, pcf, ctf, duel, lms, ig, ictf, ca, race")
 		return
 	end
 	Cfg.ServerMaps = {}
@@ -865,7 +870,7 @@ Console.Cmd_MODE = Console.Cmd_GAMEMODE
 function Console:CheckVotingParams(cmd,params)
 	if cmd == "map" then
 		name = string.lower(params)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" and string.sub(name,1,4) ~= "race" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return false
 		end
