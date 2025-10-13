@@ -200,6 +200,18 @@ Network:RegisterMethod("Flag.TakeFX", NCallOn.ServerAndAllClients, NMode.Reliabl
 function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
     local x,y,z = ENTITY.GetPosition(pe)        
     local player = EntityToObject[pe]    
+    local ps = Game:FindPlayerStatsByEntity(pe)
+    
+    if mode == 0 and not player then
+        for j, _ps in Game.PlayerStats, nil do
+            for i, o in Game.Players, nil do
+                if o.ClientID == _ps.ClientID then
+                    player = o
+                    ps = _ps
+                end
+            end
+        end
+    end
 
     if mode == 0 or mode == 1 then
         ENTITY.KillAllChildrenByName(pe,"multiplayer/ctf/flag-loop-mono")
@@ -212,7 +224,6 @@ function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
     end
     
     local txt = nil
-    local ps = Game:FindPlayerStatsByEntity(pe)
     if ps then         
         if mode == 0 then 
             Templates["Flag.CItem"]:SndEnt("drop",fx,fy,fz) 
