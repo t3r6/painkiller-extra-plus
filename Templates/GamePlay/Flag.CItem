@@ -74,6 +74,7 @@ function Flag:OnTake(player)
         self._blockedBy = player
         self._captured = true
         self._ReturnTime = nil
+        self._Return = nil
         return false
     end
     
@@ -137,6 +138,11 @@ function Flag:Tick(delta)
             local x,y,z = ENTITY.GetPosition(self._Entity)
             self.OnFinishFX(nil,3,self.Team,x,y,z)
         end
+    end
+    if MPCfg.GameState == GameStates.WarmUp then
+        self._Return = true
+    elseif self._Return and self._ReturnTime then
+        self._ReturnTime = 0
     end
 end
 --============================================================================
@@ -255,7 +261,7 @@ end
 --OriOn_Modification=######################################################################
 --============================================================================
 function Flag:Client_OnCreateSimpleItems(entity,param)
-	ENTITY.KillAllChildrenByName(entity,"Flag") -- Pas frocément utile mais par sécuruté
+	ENTITY.KillAllChildrenByName(entity,"Flag") -- Not necessarily useful, but for safety.
 	local e = ENTITY.Create(ETypes.Billboard,"Script","Flag")
 	local tex = "SIicon/flag"
 	local color = Color:New(0,102,255)
