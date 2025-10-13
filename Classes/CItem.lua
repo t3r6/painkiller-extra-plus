@@ -62,6 +62,9 @@ CItem =
         PartsNoncollidableWithSelf = false,
     },    
 
+	_raceStartTime = nil, -- Race Additions [ THRESHER ]
+	_raceEndTime = nil,
+
 	s_SubClass = {
 	},
 }
