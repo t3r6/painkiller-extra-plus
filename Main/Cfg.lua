@@ -746,7 +746,7 @@ function Cfg:Load()
 	Cfg:CheckLimitations()
 	DoFile(CfgFile,false)
 	DoFile(CfgAuto,false)	-- Autoexec.ini [ THRESHER ]
-  Cfg:Check()
+	Cfg:Check()
 end
 --============================================================================
 function Cfg:FindMPModel(name)
