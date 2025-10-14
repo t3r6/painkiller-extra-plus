@@ -74,7 +74,6 @@ function Flag:OnTake(player)
         self._blockedBy = player
         self._captured = true
         self._ReturnTime = nil
-        self._Return = nil
         return false
     end
     
@@ -141,8 +140,17 @@ function Flag:Tick(delta)
     end
     if MPCfg.GameState == GameStates.WarmUp then
         self._Return = true
-    elseif self._Return and self._ReturnTime then
-        self._ReturnTime = 0
+    elseif self._Return or MPCfg.GameState == GameStates.Finished then
+        if self._captured then
+            local owner = self._blockedBy
+            self._blockedBy = nil
+            self._captured = false
+            self._ReturnTime = nil
+            self:TryToRespawn(true)
+            local x,y,z = ENTITY.GetPosition(self._Entity)
+            self.OnFinishFX(owner and owner._Entity,0,self.Team,x,y,z)
+        end
+        self._Return = false
     end
 end
 --============================================================================
@@ -202,12 +210,14 @@ function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
     local player = EntityToObject[pe]    
     local ps = Game:FindPlayerStatsByEntity(pe)
     
-    if mode == 0 and not player then
+    if not player then
         for j, _ps in Game.PlayerStats, nil do
             for i, o in Game.Players, nil do
                 if o.ClientID == _ps.ClientID then
-                    player = o
-                    ps = _ps
+                    if _ps.Team ~= fteam and o.HasFlag then
+                        player = o
+                        ps = _ps
+                    end
                 end
             end
         end
