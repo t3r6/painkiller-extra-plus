@@ -756,6 +756,7 @@ function Cfg:Load()
 	Cfg:Check()
 	if( CfgFile == "config.ini" ) then Cfg:Save() end -- if it's not config.ini, then don't save over it [ THRESHER ]
 	-- Autoexec.ini [ THRESHER ]
+  DoFile(CfgAuto,false)
 	Cfg:Save()
 end
 --============================================================================
