@@ -2826,7 +2826,7 @@ function Console:Cmd_WINDOWED(enable)
 end
 --=======================================================================
 function Console:Cmd_AUTOEXEC(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("Autoexec", enable, "Allows executing config autoexec.ini files.")
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Autoexec", enable, "Allows executing autoexec.ini file at the game start.")
 end
 --=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
