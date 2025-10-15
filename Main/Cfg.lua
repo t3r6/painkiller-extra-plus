@@ -403,6 +403,7 @@ Cfg =
     HUD_Timer_Setting = {0,718,40},
     HUD_Timer_Setting_Save = {0,0,0},
     HUD_ConsolePosition = 565,
+    HUD_ConsoleFont = "courbd",
     HUD_ConsoleFontSize = 20,
     HUD_Scores = true,
     HUD_Scores_Frame = 1,

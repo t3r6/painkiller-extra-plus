@@ -1271,6 +1271,29 @@ function Console:Cmd_AUD_NOCHATBEEP(enable)
   end
 end
 --=======================================================================
+function Console:Cmd_CONSOLEFONT(enable)
+  if enable == "0" then
+    Cfg.HUD_ConsoleFont = "courbd"
+    CONSOLE.SetMPMsgFont(Cfg.HUD_ConsoleFont, Hud.mpMsgFontTex, Cfg.HUD_ConsoleFontSize)
+    CONSOLE_AddMessage("The font is now Courier.")
+    return
+  end
+  if enable == "1" then
+    Cfg.HUD_ConsoleFont = "timesbd"
+    CONSOLE.SetMPMsgFont(Cfg.HUD_ConsoleFont, Hud.mpMsgFontTex, Cfg.HUD_ConsoleFontSize)
+    CONSOLE_AddMessage("The font is now Times New Roman.")
+    return
+  end
+  if enable == "2" then
+    Cfg.HUD_ConsoleFont = "impact"
+    CONSOLE.SetMPMsgFont(Cfg.HUD_ConsoleFont, Hud.mpMsgFontTex, Cfg.HUD_ConsoleFontSize)
+    CONSOLE_AddMessage("The font is now Impact.")
+    return
+  end
+  CONSOLE_AddMessage("Syntax: Font [0/1/2]")
+  CONSOLE_AddMessage("Help: Changes the console message font.")
+end
+--=======================================================================
 function Console:Cmd_CONSOLEFONTSIZE(val)
   val = tonumber(val)
   if val == nil then
