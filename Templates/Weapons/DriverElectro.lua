@@ -754,8 +754,10 @@ function DriverElectro:Render(delta)
             self.TipPoint,
         }
     end
-    self:DrawBezierLine(points,15,11,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
-    self:DrawBezierLine(points,15,12,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+    if not Cfg.NoShaft then
+        self:DrawBezierLine(points,15,11,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+        self:DrawBezierLine(points,15,12,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+    end
     if Game.GMode == GModes.SingleGame then
         points =
         {
@@ -765,8 +767,10 @@ function DriverElectro:Render(delta)
             self.TipPoint,
         }
     end
-    self:DrawBezierLine(points,15,11,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
-    self:DrawBezierLine(points,15,12,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+    if not Cfg.NoShaft then
+        self:DrawBezierLine(points,15,11,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+        self:DrawBezierLine(points,15,12,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
+    end
 
     if self._nearObj then
         local d = Templates["ElectroDisk.CItem"]

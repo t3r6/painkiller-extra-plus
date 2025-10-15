@@ -321,6 +321,7 @@ Cfg =
     NoBlood = false,
     NoGibs = false,
     NoSmoke = false,
+    NoShaft = false,
     NoImpactFX = false,
     NoTrailStake = false,
     NoTrailFreezer = false,

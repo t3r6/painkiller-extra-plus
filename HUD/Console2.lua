@@ -2885,3 +2885,7 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("ShowWeaponAnim", enable, "Enables weapon bobbing animation.")
 end
 --=======================================================================
+function Console:Cmd_NOSHAFT(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("NoShaft", enable, "Enables Electro beam rendering.")
+end
+--=======================================================================
