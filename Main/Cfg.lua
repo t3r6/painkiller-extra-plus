@@ -631,6 +631,7 @@ Cfg =
   -- Logging / Recording
     AutoScreenshot = false,
     Autorecord = false,
+    Autoexec = true,
     LogfileDaily = true,
     Logging = true,
     Logfile = "GameLog",
@@ -745,7 +746,9 @@ function Cfg:Load()
 	Cfg:CheckLanguage()
 	Cfg:CheckLimitations()
 	DoFile(CfgFile,false)
-	DoFile(CfgAuto,false)	-- Autoexec.ini [ THRESHER ]
+	if Cfg.Autoexec then
+		DoFile(CfgAuto,false)	-- Autoexec.ini [ THRESHER ]
+	end
 	Cfg:Check()
 end
 --============================================================================
