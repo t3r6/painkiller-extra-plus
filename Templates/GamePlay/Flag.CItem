@@ -190,15 +190,16 @@ function Flag:TakeFX(pe,sound)
     
     local ps = Game:FindPlayerStatsByEntity(pe)
     if ps then 
-        -- Race Additions [ THRESHER ]
+    -- Race Additions [ THRESHER & XDavidXtreme fix ]
+        local txt
         if MPCfg.GameMode == "Race" then
-            local txt = string.gsub("$PLAYER starts race","$PLAYER",ps.Name)
+            txt = string.gsub("$PLAYER starts race","$PLAYER",ps.Name)
             if( not ps._isRacing ) then
                 ps._isRacing = true
                 ps._raceStartTime = INP.GetTime()
             end
         else
-            local txt = string.gsub(Languages.Texts[770],"$PLAYER",ps.Name)
+            txt = string.gsub(Languages.Texts[770],"$PLAYER",ps.Name)
         end
         local color = Languages.Texts[769]
 		--Hud.playerHasFlag = 1
