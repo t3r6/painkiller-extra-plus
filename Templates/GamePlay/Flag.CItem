@@ -192,11 +192,11 @@ function Flag:TakeFX(pe,sound)
     if ps then 
         -- Race Additions [ THRESHER ]
         if MPCfg.GameMode == "Race" then
-                local txt = string.gsub("$PLAYER starts race","$PLAYER",ps.Name)
-                if( not ps._isRacing ) then
-                    ps._isRacing = true
-                    ps._raceStartTime = INP.GetTime()
-                end
+            local txt = string.gsub("$PLAYER starts race","$PLAYER",ps.Name)
+            if( not ps._isRacing ) then
+                ps._isRacing = true
+                ps._raceStartTime = INP.GetTime()
+            end
         else
             local txt = string.gsub(Languages.Texts[770],"$PLAYER",ps.Name)
         end
