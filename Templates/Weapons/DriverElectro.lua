@@ -754,7 +754,7 @@ function DriverElectro:Render(delta)
             self.TipPoint,
         }
     end
-    if not Cfg.NoShaft then
+    if not Cfg.NoShaftFX then
         self:DrawBezierLine(points,15,11,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
         self:DrawBezierLine(points,15,12,FRand(0.08,0.1),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
     end
@@ -767,7 +767,7 @@ function DriverElectro:Render(delta)
             self.TipPoint,
         }
     end
-    if not Cfg.NoShaft then
+    if not Cfg.NoShaftFX then
         self:DrawBezierLine(points,15,11,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
         self:DrawBezierLine(points,15,12,FRand(0.03,0.05),R3D.RGB(FRand(65,90),FRand(75,115),FRand(200,250)))
     end

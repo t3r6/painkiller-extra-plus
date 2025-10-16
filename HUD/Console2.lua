@@ -2886,6 +2886,6 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
 end
 --=======================================================================
 function Console:Cmd_NOSHAFT(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("NoShaft", enable, "Enables Electro beam rendering.")
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("NoShaftFX", enable, "Enables Electro beam rendering.")
 end
 --=======================================================================
