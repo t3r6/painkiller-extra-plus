@@ -59,6 +59,12 @@ CPlayer =
     _healthDecCnt = 0,
     _Class = "CPlayer",
     
+-- for Race [ THRESHER ]	
+	_raceStartTime = 0,
+	_raceFinishTime = 0,
+	_raceBestTime = 0,
+	_isRacing = false,
+
 -- for logic
 	_slowDown = nil,
 	_velocity = 0,
@@ -1158,6 +1164,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
     if((not Cfg.FallingDamage) and MPCfg.GameState == GameStates.Playing and attack_type == AttackTypes.HitGround) then return end 
     if not Cfg.WarmupDamage and MPCfg.GameState ~= GameStates.Playing and attack_type ~= AttackTypes.ConsoleKill then return end
     -- if MPCfg.GameState == GameStates.WarmUp and MPCfg.GameMode == "Clan Arena" and attack_type ~= AttackTypes.ConsoleKill then return end
+    if MPCfg.GameMode == "Race" and attack_type ~= AttackTypes.ConsoleKill then return end -- Race Additions [ THRESHER ]
     if(killer~=nil)then if(self.ClientID~=killer.ClientID)then
       if MPGameRules[MPCfg.GameMode].Teams then
         if Game.PlayerStats[self.ClientID].Team ~= Game.PlayerStats[killer.ClientID].Team then
@@ -1409,6 +1416,11 @@ function CPlayer:FindFreeRespawnPoint(last,always)
             end
         end
         areas = na
+    end
+
+    -- Race Additions [ THRESHER ]
+    if MPCfg.GameMode == "Race" then
+        -- respawn code
     end
     
     if cnt == 1 then last = nil end
