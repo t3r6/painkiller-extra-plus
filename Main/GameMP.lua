@@ -2110,9 +2110,9 @@ Network:RegisterMethod("Game.PlayerPingInfo", NCallOn.ServerAndAllClients, NMode
 function Game:SayToAll(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
     if not ps and not (clientID == ServerID and IsDedicatedServer()) then return end -- juz wyszedl
-
+    
     if(Game:Client2ServerRead(clientID, txt))then return end
-
+    
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
