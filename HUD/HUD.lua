@@ -616,6 +616,9 @@ function Hud:Render(delta)
 		local currentvote = "Vote("..string.format("%02d",Game._voteTimeLeft).."): '"..Game._voteCmd.." "..Game._voteParams.."'  yes("..yesVotes..") no("..noVotes..")"
 		HUD.PrintXY(-1,h/6.2,currentvote,"Impact",200,200,200,26)
 	end
+
+	Hud:DrawRaceTimer()
+
     if not self.Enabled then return end
 
 	local CrosshairWeapon = {
@@ -1650,7 +1653,10 @@ end
 function Hud_OnSayToTeam(txt,color)
 	if Game.GMode == GModes.SingleGame then return end
 	txt = string.sub(txt,1,200)
-    if Player then
+
+	local ps = Game.PlayerStats[clientID]
+
+    if Player or ps.Spectator == 1 then
 		if not color then color = R3D.RGB(0,255,0) end
         Game.SayToTeam(NET.GetClientID(), txt, color)
     end
