@@ -267,6 +267,11 @@ function Console:Cmd_MAP(name)
 			return
 		end
 
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
 		local path = "../Data/Levels/"
 		local files = FS.FindFiles(path.."*",0,1)
 		local found = false
@@ -886,6 +891,11 @@ function Console:CheckVotingParams(cmd,params)
 		end
 		
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end

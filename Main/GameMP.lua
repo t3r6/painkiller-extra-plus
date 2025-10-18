@@ -72,18 +72,21 @@ MPGameRules =
         Teams = false,
         PlayerLimit = 2,
     },
-    ["Clan Arena"] = {
+    ["Clan Arena"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = false,
       ResetStatusAfterCountdown = true,
       Teams = true,
     },
-    ["Instagib"] = {
+    ["Instagib"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = false,
     },
-    ["ICTF"] = {
+    ["ICTF"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = true,
