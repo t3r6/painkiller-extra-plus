@@ -131,6 +131,7 @@ PainMenu =
 	mapsOnServerDUE = {},
 	mapsOnServerLMS = {},
 	mapsOnServerCLA = {},
+	mapsOnServerRAC = {},
 	lastMPMode = "",
 
 	playerModel = nil,
@@ -1707,6 +1708,11 @@ function PainMenu:AddMapTable( name, item )
 		self.mapsOnServerLMS[i] = Cfg.ServerMapsLMS[i]
 	end
 
+	self.mapsOnServerRAC = {}
+	for i=1,table.getn(Cfg.ServerMapsRAC) do
+		self.mapsOnServerRAC[i] = Cfg.ServerMapsRAC[i]
+	end
+
 	for i=1,table.getn(self.mapsOnServer) do
 		PMENU.AddMapToServer( name, self.mapsOnServer[i] )
     end
@@ -2779,6 +2785,9 @@ function PainMenu:UpdateMapTable(name,mode)
 	elseif self.lastMPMode == "Last Man Standing" then
 		self.mapsOnServerLMS = {}
 		Cfg.ServerMapsLMS = {}
+	elseif self.lastMPMode == "Race" then
+		self.mapsOnServerRAC = {}
+		Cfg.ServerMapsRAC = {}
 	end
 
 	local tmp_tab = PMENU.GetMapsOnServer()
@@ -2817,12 +2826,17 @@ function PainMenu:UpdateMapTable(name,mode)
 		elseif self.lastMPMode == "Last Man Standing" then
 			self.mapsOnServerLMS[i] = val
 			Cfg.ServerMapsLMS[i] = val
+		elseif self.lastMPMode == "Race" then
+			self.mapsOnServerRAC[i] = val
+			Cfg.ServerMapsRAC[i] = val
 		end
     end
 
 	if mode == "ICTF" then
 		PMENU.UpdateMapTable(name,"Capture The Flag")
-  else
+	elseif mode == "Race" then
+		PMENU.UpdateMapTable(name, "Race")
+	else
 		PMENU.UpdateMapTable(name,mode)
 	end
 
@@ -2853,6 +2867,8 @@ function PainMenu:UpdateMapTable(name,mode)
 		tmp_tab = self.mapsOnServerFFA
 	elseif mode == "ICTF" then
 		tmp_tab = self.mapsOnServerCTF
+	elseif mode == "Race" then
+	    tmp_tab = self.mapsOnServerRAC
 	end
 
 	self.mapsOnServer = {}
