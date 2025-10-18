@@ -2111,41 +2111,6 @@ function Game:SayToAll(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
     if not ps and not (clientID == ServerID and IsDedicatedServer()) then return end -- juz wyszedl
     
-    if(Game:Client2ServerRead(clientID, txt))then return end
-    
-    --[[ THRESHER''s Cmd_COINTOSS script is called ( Console2.lua ) ]]--
-    if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
-      txt = string.gsub(  txt, "!cointoss", "" )
-      txt = string.gsub ( txt, " ", "" )
-      Console:Cmd_COINTOSS(clientID, txt)
-      return
-    end
-    
-    --[[
-    if( string.find( txt, "!spec" ) == 1 ) then
-      txt = string.sub(txt, 6)
-      if( txt == "" or txt == nil) then return end -- no text
-      Console:Cmd_SPECTALK( clientID, txt )
-      return
-    end
-    ]]--
-    
-    --[[
-    if( ps.Spectator == 1 and MPCfg.GameState ~= GameStates.WarmUp ) then  -- spec chat ftw
-        for i,o in Game.PlayerStats do
-            if o.Spectator == 1 then 
-                if o.ClientID == ServerID then
-                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
-                else
-                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
-                end
-            end
-        end
-        
-        return
-      end
-    ]]--
-
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
