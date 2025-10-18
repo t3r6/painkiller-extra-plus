@@ -171,6 +171,7 @@ Cfg =
     ServerMapsDUE = {"DM_Sacred","DM_Fragenstein","DM_Unseen","DM_Fallen2"},
     ServerMapsLMS = {"DM_Factory","DM_Trainstation","DM_Cursed","DM_Illuminati"},
     ServerMapsCLA = {"DM_Factory","DM_Trainstation","DM_Cursed","DM_Illuminati"}, -- PK++ gamemode
+    ServerMapsRAC = {"RACE_Psycho"},
     ServerName = "Painkiller++",
     ServerPassword = "",
     ServerPort = 3455,
@@ -653,6 +654,11 @@ Cfg =
 
   -- Other
     DirectInput = true,
+
+    RaceTimeX = 400,
+    RaceTimeY = 255,
+    RaceTimeSize = 25,
+    HUDShowItemTimers = false,
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,

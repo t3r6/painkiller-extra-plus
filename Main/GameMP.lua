@@ -9,7 +9,7 @@ GameStates =
 
 MPCfg = 
 {
-    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF"
+    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF", "Race"
     GameState        = GameStates.Finished, -- "Counting", "Playing", "Finished"
     TeamDamage       = true,
     AllowBrightskins = true,
@@ -72,22 +72,31 @@ MPGameRules =
         Teams = false,
         PlayerLimit = 2,
     },
-    ["Clan Arena"] = {
+    ["Clan Arena"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = false,
       ResetStatusAfterCountdown = true,
       Teams = true,
     },
-    ["Instagib"] = {
+    ["Instagib"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = false,
     },
-    ["ICTF"] = {
+    ["ICTF"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = true,
-    }
+    },
+    ["Race"] =
+    {
+      StartState = GameStates.WarmUp,
+      AutoRespawnAfterCountdown = false,
+      Teams = false, -- changed from TRUE in last version, any bugs? :) [ THRESHER ]
+    },
 }
 
 MPCfgBackup = {}
@@ -1298,6 +1307,7 @@ function Game:PlayerRespawnRequest(clientID)
         ENTITY.SetSynchroString(player._Entity,"CPlayer") -- for ENTITY_CREATE callback
         ENTITY.EnableDeathZoneTest(player._Entity,true) 
         ENTITY.PO_SetMovedByExplosions(player._Entity,true)
+        if( MPCfg.GameMode == "Race") then ENTITY.PO_SetCollisionGroup(player._Entity, ECollisionGroups.InsideItems) end -- Race Additions [ THRESHER ]
         ENTITY.EnableNetworkSynchronization(player._Entity,true,false,0,clientID,3)
         
         player:Respawn(x,y,z,a)

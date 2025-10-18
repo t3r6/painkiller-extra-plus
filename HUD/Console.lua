@@ -247,7 +247,7 @@ function Console:Cmd_MAP(name)
         CONSOLE_AddMessage('map "name"  (loads map)') 
     else
 		name = string.lower(name)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" and string.sub(name,1,4) ~= "race" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return
 		end
@@ -263,6 +263,11 @@ function Console:Cmd_MAP(name)
 		end
 		
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end
@@ -886,6 +891,11 @@ function Console:CheckVotingParams(cmd,params)
 		end
 		
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end
