@@ -9,7 +9,7 @@ GameStates =
 
 MPCfg = 
 {
-    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF"
+    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF", "Race"
     GameState        = GameStates.Finished, -- "Counting", "Playing", "Finished"
     TeamDamage       = true,
     AllowBrightskins = true,
@@ -87,7 +87,13 @@ MPGameRules =
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = true,
-    }
+    },
+    ["Race"] =
+    {
+      StartState = GameStates.WarmUp,
+      AutoRespawnAfterCountdown = false,
+      Teams = false, -- changed from TRUE in last version, any bugs? :) [ THRESHER ]
+    },
 }
 
 MPCfgBackup = {}
@@ -1298,6 +1304,7 @@ function Game:PlayerRespawnRequest(clientID)
         ENTITY.SetSynchroString(player._Entity,"CPlayer") -- for ENTITY_CREATE callback
         ENTITY.EnableDeathZoneTest(player._Entity,true) 
         ENTITY.PO_SetMovedByExplosions(player._Entity,true)
+        if( MPCfg.GameMode == "Race") then ENTITY.PO_SetCollisionGroup(player._Entity, ECollisionGroups.InsideItems) end -- Race Additions [ THRESHER ]
         ENTITY.EnableNetworkSynchronization(player._Entity,true,false,0,clientID,3)
         
         player:Respawn(x,y,z,a)
@@ -2103,6 +2110,39 @@ function Game:SayToAll(clientID,txt,color)
     
     if(Game:Client2ServerRead(clientID, txt))then return end
     
+    --[[ THRESHER''s Cmd_COINTOSS script is called ( Console2.lua ) ]]--
+    if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
+      txt = string.gsub(  txt, "!cointoss", "" )
+      txt = string.gsub ( txt, " ", "" )
+      Console:Cmd_COINTOSS(clientID, txt)
+      return
+    end
+    
+    --[[
+    if( string.find( txt, "!spec" ) == 1 ) then
+      txt = string.sub(txt, 6)
+      if( txt == "" or txt == nil) then return end -- no text
+      Console:Cmd_SPECTALK( clientID, txt )
+      return
+    end
+    ]]--
+    
+    --[[
+    if( ps.Spectator == 1 and MPCfg.GameState ~= GameStates.WarmUp ) then  -- spec chat ftw
+        for i,o in Game.PlayerStats do
+            if o.Spectator == 1 then 
+                if o.ClientID == ServerID then
+                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
+                else
+                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
+                end
+            end
+        end
+        
+        return
+      end
+    ]]--
+
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
@@ -2129,8 +2169,22 @@ Network:RegisterMethod("Game.SayToAll", NCallOn.Server, NMode.Reliable, "bsi")
 --============================================================================
 function Game:SayToTeam(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
-    if not ps or ps.Spectator == 1 then return end
+    if not ps --[[or ps.Spectator == 1--]] then return end
             
+    if ps.Spectator == 1 then  -- spec chat ftw [ THRESHER ]
+        for i,o in Game.PlayerStats do
+            if o.Spectator == 1 then 
+                if o.ClientID == ServerID then
+                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
+                else
+                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
+                end
+            end
+        end
+
+      return
+    end
+
     for i,o in Game.PlayerStats do
         if o.Team == ps.Team then 
             if o.ClientID == ServerID then
