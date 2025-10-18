@@ -900,17 +900,17 @@ function Hud:DrawQuickOptionsMenu()
           submenub[1][g + 1] = string.lower(files[f])
           g = g + 1
         end
-      elseif string.find(string.lower(files[f]), "dm_") or string.find(string.lower(files[f]), "pro_") then
-        submenub[1][1] = "Reload Map"
-        submenub[1][g + 1] = string.lower(files[f])
-        g = g + 1
-      end
       elseif MPCfg.GameMode == "Race" then
         if string.find(string.lower(files[f]), "race_") then
           submenub[1][1] = "Reload Map"
           submenub[1][g + 1] = string.lower(files[f])
           g = g + 1
         end
+      elseif string.find(string.lower(files[f]), "dm_") or string.find(string.lower(files[f]), "pro_") then
+        submenub[1][1] = "Reload Map"
+        submenub[1][g + 1] = string.lower(files[f])
+        g = g + 1
+      end
     end
     local hu = 1
     if self._DrawQuickOptionsMenu == menu[1] then
