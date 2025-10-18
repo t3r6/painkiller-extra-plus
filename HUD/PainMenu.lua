@@ -2834,8 +2834,6 @@ function PainMenu:UpdateMapTable(name,mode)
 
 	if mode == "ICTF" then
 		PMENU.UpdateMapTable(name,"Capture The Flag")
-	elseif mode == "Race" then
-		PMENU.UpdateMapTable(name, "Race")
 	else
 		PMENU.UpdateMapTable(name,mode)
 	end
