@@ -220,6 +220,7 @@ function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
     local player = EntityToObject[pe]    
     local ps = Game:FindPlayerStatsByEntity(pe)
     
+    local returned = nil
     if not player then
         for j, _ps in Game.PlayerStats, nil do
             for i, o in Game.Players, nil do
@@ -227,6 +228,7 @@ function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
                     if _ps.Team ~= fteam and o.HasFlag then
                         player = o
                         ps = _ps
+                        returned = true
                     end
                 end
             end
@@ -343,7 +345,7 @@ function Flag:OnFinishFX(pe,mode,fteam,fx,fy,fz)
         Game:Print("nie ma playera!!!")
     end
     
-    if mode== 3 then         
+    if mode== 3 or returned then         
         Templates["Flag.CItem"]:Snd3D("returned",fx,fy,fz)
         Templates["Flag.CItem"]:Snd3D("appear",fx,fy,fz)
         txt = Languages.Texts[772] --$COLOR flag returned
