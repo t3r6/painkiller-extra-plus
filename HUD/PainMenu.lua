@@ -2583,6 +2583,17 @@ function PainMenu:StopServerList()
 end
 
 function PainMenu:StartMultiplayerServer()
+--	by XDavidXtreme
+	local maps = self.mapsOnServer
+	for i=1,table.getn(maps) do
+		local path = "../Data/Levels/"..maps[i].."/"
+		local files = FS.FindFiles(path.."*.CLevel",1,0)
+		if table.getn(files)<=0 then
+			CONSOLE.AddMessage("Level '"..maps[i].."' not found")
+			return
+		end
+	end
+
 	local playerName = Cfg["PlayerName"]
 	local passwd = ""
 	local map = PMENU.GetSelectedMap( "MapSelect" )
