@@ -2605,7 +2605,7 @@ function Console:Cmd_COINTOSS(clientID, coin)
 
     if not coin then
         CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
-        CONSOLE_AddMessage("Alternative SayToAll Syntax: !cointoss <heads|tails>")
+        CONSOLE_AddMessage("SayToAll Syntax: !cointoss <heads|tails>")
         CONSOLE_AddMessage("Help: simulates a cointoss for online games")
         return
     end
