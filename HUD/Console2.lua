@@ -2648,29 +2648,29 @@ function Console:Cmd_TEMPLATE_TOGGLE_BOOL(paramName, enable, description)
   end
 
   if enable == nil then
-    if Cfg[paramName] then
-      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 1 (enabled).")
-    else
-      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 0 (disabled).")
-    end
-    CONSOLE_AddMessage("Help: " .. paramName .. " Toggle. " .. (description or ""))
+    local state = (Cfg[paramName] and "enabled" or "disabled")
+    CONSOLE_AddMessage("State: Cfg." .. paramName .. " is " .. state .. ".")
+    CONSOLE_AddMessage("Help: " .. paramName .. " toggle. " .. (description or ""))
     return
   end
 
-  if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " [1/0]")
+  if type(enable) == "string" then
+    enable = string.lower(enable)
+  end
+
+  local newState
+  if enable == true or enable == "true" or enable == "1" or enable == 1 then
+    newState = true
+  elseif enable == false or enable == "false" or enable == "0" or enable == 0 then
+    newState = false
+  else
+    CONSOLE_AddMessage("Syntax: " .. string.upper(paramName) .. " [true/false | 1/0]")
     return
   end
 
-  if enable == "1" then
-    Cfg[paramName] = true
-    CONSOLE_AddMessage(paramName .. " is now enabled.")
-  elseif enable == "0" then
-    Cfg[paramName] = false
-    CONSOLE_AddMessage(paramName .. " is now disabled.")
-  end
+  Cfg[paramName] = newState
 
-  if Cfg[paramName] then
+  if newState then
     CONSOLE_AddMessage("State: " .. paramName .. " is currently enabled.")
   else
     CONSOLE_AddMessage("State: " .. paramName .. " is currently disabled.")
