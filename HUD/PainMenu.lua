@@ -2910,6 +2910,7 @@ function PainMenu:BackToLastScreen()
 end
 
 function PainMenu_MultiplayerErrorCallback( mtype, desc )
+	local _url = "\"http://pkzone.org/category/downloads/maps/\"" -- Used to send people who don't have the map to proper websites for maps [ THRESHER ]
     if IsDedicatedServer() then 
         if mtype ~= MultiplayerErrorTypes.Information then MsgBox(desc) end
         Game.LevelStarted = false
@@ -2918,10 +2919,22 @@ function PainMenu_MultiplayerErrorCallback( mtype, desc )
 	if mtype == MultiplayerErrorTypes.Information then
 		CONSOLE.Print( desc )
 	elseif mtype == MultiplayerErrorTypes.Disconnected then
+		-- [ THRESHER ]
+		-- Fixes confusion about player not having map
+		if( string.find( string.lower( desc ), "net error: the map we are trying to load" ) ) then
+		    desc = "You most likely don't have the required map that is on the server, by clicking OK, you will be directed to the map repository."
+			PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL( ".._url.." )" , "PainMenu:BackToLastScreen()" )
+			Game:NewLevel('NoName','','',0.3); WORLD.Release()
+			Game.LevelStarted = false
+			PMENU.ShowMenu()
+		else
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
 		PMENU.ShowMenu()
 		PainMenu:ShowInfo( desc, "PainMenu:BackToLastScreen()" )
+		-- [ THRESHER ] 
+		--PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL( ".._url.." )" , "PainMenu:BackToLastScreen()" )
+		end
 	elseif mtype == MultiplayerErrorTypes.BadCDKey then
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
