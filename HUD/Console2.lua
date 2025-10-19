@@ -2588,80 +2588,52 @@ function Console:Cmd_GETPLAYERSETTINGS()
 	CONSOLE_AddMessage(PKPLUSPLUS_VERSION) -- needs to send something like this, so that all clients send their info at once [ THRESHER ]
 end
 --=======================================================================
---[[ legacy THRESHER
-function Console:Cmd_COINTOSS(coin)  
-	if( coin ~= nil ) then
-	
-		coin = tostring(coin)
-		
-		if( coin == "heads" or coin == "tails" ) then
-			coin = tostring(coin)
-			rnd  = FRand(1,1001)
-			result = "WON"
-				if( rnd <= 500 and coin == "tails" ) then result = "LOST"
-				elseif( rnd > 500 and coin == "tails" ) then result = "WON"
-				elseif( rnd > 500 and coin == "heads" ) then result = "LOST"
-				end
-				
-			if( rnd <= 500 ) then
-				Game.ConsoleMessageAll("COINTOSS "..string.upper(coin)..": It was HEADS! "..Cfg.PlayerName.." tossed a coin and "..result)
-			elseif( rnd > 500 ) then
-				Game.ConsoleMessageAll("COINTOSS "..string.upper(coin)..": It was TAILS! "..Cfg.PlayerName.." tossed a coin and "..result)
-			end
-		else
-			CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
-			CONSOLE_AddMessage("Help: simulates a cointoss for online games")
-		end
-	else
-		CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
-		CONSOLE_AddMessage("Help: simulates a cointoss for online games")
-	end
-end
-]]--
+function Console:Cmd_COINTOSS(clientID, coin)
+    if MPCfg.GameState ~= GameStates.WarmUp then
+        CONSOLE_AddMessage("This command is only allowed in WarmUp.")
+        return
+    end
 
-function Console:Cmd_COINTOSS(clientID, coin)  
-	
-	if(clientID == ServerID and IsDedicatedServer()) then return end
-	
-	if( coin ~= nil and ( coin == "heads" or coin == "tails" ) ) then
-	
-		coin = tostring(coin)
-		
-		--if( coin == "heads" or coin == "tails" ) then
-			coin = tostring(coin)
-			rnd  = FRand(1,1001)
-			result = "WON"
-				if( rnd <= 500 and coin == "tails" ) then result = "LOST"
-				elseif( rnd > 500 and coin == "tails" ) then result = "WON"
-				elseif( rnd > 500 and coin == "heads" ) then result = "LOST"
-				end
-				
-			--[[
-			if( MPCfg.GameState ~= GameStates.WarmUp ) then
-				if( rnd <= 500 ) then
-				CONSOLE_AddMessage("COINTOSS "..string.upper(coin)..": It was HEADS! You tossed a coin and "..result)
-				elseif( rnd > 500 ) then
-				CONSOLE_ConsoleMessageAll("COINTOSS "..string.upper(coin)..": It was TAILS! You tossed a coin and "..result)
-				end
-			]]--
-			
-			--elseif( MPCfg.GameState == GameStates.WarmUp ) then
-			if( MPCfg.GameState == GameStates.WarmUp ) then
-				if( rnd <= 500 ) then
-					Game.ConsoleMessageAll("COINTOSS "..string.upper(coin)..": It was HEADS! "..Game.PlayerStats[clientID].Name.." tossed a coin and "..result)
-				elseif( rnd > 500 ) then
-					Game.ConsoleMessageAll("COINTOSS "..string.upper(coin)..": It was TAILS! "..Game.PlayerStats[clientID].Name.." tossed a coin and "..result)
-				end
-			end
-		--else
-			--CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
-			--CONSOLE_AddMessage("Help: simulates a cointoss for online games")
-		--end
-	else
-		--[[ THRESHER -- save this for a client update ]]--
-		--Game.ConsoleClientMessage(clientID,"Syntax: !cointoss <heads|tails>",R3D.RGB(255,0,0))
-		--Game.ConsoleClientMessage(clientID,"Help: simulates a cointoss for online games",R3D.RGB(255,0,0))
-	end
+    if type(clientID) ~= "number" then
+        coin = clientID
+        if Game and Game.GetMyID then
+            clientID = Game:GetMyID()
+        else
+            clientID = 0
+        end
+    end
+
+    if not coin then
+        CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
+        CONSOLE_AddMessage("SayToAll Syntax: !cointoss <heads|tails>")
+        CONSOLE_AddMessage("Help: simulates a cointoss for online games")
+        return
+    end
+
+    coin = string.lower(coin)
+    if coin ~= "heads" and coin ~= "tails" then
+        CONSOLE_AddMessage("Please choose 'heads' or 'tails'.")
+        return
+    end
+
+    local toss
+    if FRand(0, 1) < 0.5 then
+        toss = "heads"
+    else
+        toss = "tails"
+    end
+
+    local result = (coin == toss) and "WON" or "LOST"
+
+    local playerName = "Unnamed"
+    if Game.PlayerStats[clientID] then
+        playerName = Game.PlayerStats[clientID].Name
+    end
+
+    Game.ConsoleMessageAll(
+        "COINTOSS " .. string.upper(coin) .. ": It was " .. string.upper(toss) .. "! " ..
+        playerName .. " tossed a coin and " .. result
+    )
 end
 
 function Console:Cmd_SPECTALK(clientID, txt) 
