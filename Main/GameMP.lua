@@ -2123,31 +2123,6 @@ function Game:SayToAll(clientID,txt,color)
       end
     end
 
-    --[[
-    if( string.find( txt, "!spec" ) == 1 ) then
-      txt = string.sub(txt, 6)
-      if( txt == "" or txt == nil) then return end -- no text
-      Console:Cmd_SPECTALK( clientID, txt )
-      return
-    end
-    ]]--
-
-    --[[
-    if( ps.Spectator == 1 and MPCfg.GameState ~= GameStates.WarmUp ) then  -- spec chat ftw
-        for i,o in Game.PlayerStats do
-            if o.Spectator == 1 then 
-                if o.ClientID == ServerID then
-                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
-                else
-                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
-                end
-            end
-        end
-        
-        return
-      end
-    ]]--
-
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
@@ -2176,7 +2151,7 @@ function Game:SayToTeam(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
     if not ps --[[or ps.Spectator == 1--]] then return end
 
-    if ps.Spectator == 1 then  -- spec chat ftw [ THRESHER ]
+    if ps.Spectator == 1 then  -- spec chat [ THRESHER ]
         for i,o in Game.PlayerStats do
             if o.Spectator == 1 then 
                 if o.ClientID == ServerID then
