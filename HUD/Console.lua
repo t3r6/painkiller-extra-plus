@@ -1562,7 +1562,7 @@ function Console:Cmd_CONNECT(ip)
 
 		for h,p in string.gfind( ip, "(.+):(.+)" ) do
 			host = h
-			port = p
+			port = tonumber(p)
 		end
 
 		if host == nil and port == nil then
@@ -2113,7 +2113,7 @@ function Console:OnCommand(cmd)
 				table.insert(args,w)
 			end
 
-			if func ~= "CALLVOTE" and func ~= "BIND" then
+			if func ~= "CALLVOTE" and func ~= "BIND" and func ~="CONNECT" then
 				Console[commandname](self,unpack(args))
 			else
 				Console[commandname](self,params)
@@ -2163,7 +2163,7 @@ function Console:OnCommand(cmd)
                         table.insert(args, w)
                     end
         
-                    if func ~= "CALLVOTE" and func ~= "BIND" then
+                    if func ~= "CALLVOTE" and func ~= "BIND" and func ~="CONNECT" then
                         local setting = unpack(args)
                         if setting ~= nil then
                             if setting == "false" then setting = false end
