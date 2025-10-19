@@ -2123,7 +2123,6 @@ function Game:SayToAll(clientID,txt,color)
       end
     end
 
-<<<<<<< HEAD
     --[[
     if( string.find( txt, "!spec" ) == 1 ) then
       txt = string.sub(txt, 6)
@@ -2149,8 +2148,6 @@ function Game:SayToAll(clientID,txt,color)
       end
     ]]--
 
-=======
->>>>>>> main
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
