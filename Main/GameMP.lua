@@ -2113,7 +2113,7 @@ function Game:SayToAll(clientID,txt,color)
     
     if(Game:Client2ServerRead(clientID, txt))then return end
     
-    --[[ THRESHER''s Cmd_COINTOSS script is called ( Console2.lua ) ]]--
+    --[[ THRESHER's Cmd_COINTOSS script is called ( Console2.lua ) ]]--
     if MPCfg.GameState == GameStates.WarmUp then
       if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
         txt = string.gsub(  txt, "!cointoss", "" )
@@ -2123,6 +2123,7 @@ function Game:SayToAll(clientID,txt,color)
       end
     end
 
+<<<<<<< HEAD
     --[[
     if( string.find( txt, "!spec" ) == 1 ) then
       txt = string.sub(txt, 6)
@@ -2148,6 +2149,8 @@ function Game:SayToAll(clientID,txt,color)
       end
     ]]--
 
+=======
+>>>>>>> main
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
