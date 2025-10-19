@@ -2149,8 +2149,22 @@ Network:RegisterMethod("Game.SayToAll", NCallOn.Server, NMode.Reliable, "bsi")
 --============================================================================
 function Game:SayToTeam(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
-    if not ps or ps.Spectator == 1 then return end
-            
+    if not ps --[[or ps.Spectator == 1--]] then return end
+
+    if ps.Spectator == 1 then  -- spec chat [ THRESHER ]
+        for i,o in Game.PlayerStats do
+            if o.Spectator == 1 then 
+                if o.ClientID == ServerID then
+                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
+                else
+                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
+                end
+            end
+        end
+
+      return
+    end
+
     for i,o in Game.PlayerStats do
         if o.Team == ps.Team then 
             if o.ClientID == ServerID then

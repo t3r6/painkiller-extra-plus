@@ -1654,9 +1654,10 @@ function Hud_OnSayToTeam(txt,color)
 	if Game.GMode == GModes.SingleGame then return end
 	txt = string.sub(txt,1,200)
 
-	local ps = Game.PlayerStats[clientID]
+	local ps = Game.PlayerStats[NET.GetClientID()]
+	local spectator = ps and ps.Spectator or 0
 
-    if Player or ps.Spectator == 1 then
+    if Player or spectator == 1 then
 		if not color then color = R3D.RGB(0,255,0) end
         Game.SayToTeam(NET.GetClientID(), txt, color)
     end
