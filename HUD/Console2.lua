@@ -2638,7 +2638,6 @@ function Console:Cmd_COINTOSS(clientID, coin)
     )
 end
 
-
 function Console:Cmd_SPECTALK(clientID, txt) 
 
 	local ps = Game.PlayerStats[clientID]
