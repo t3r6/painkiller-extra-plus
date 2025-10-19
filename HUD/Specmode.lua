@@ -1001,15 +1001,11 @@ function PSpectatorControler:DrawItemTimers()
 
 		-- search for armor and mega health items and store them into tables
 
-		local fntStyle = "Impact"
 		local w,h = R3D.ScreenSize()
 		local armPos = 0
 		
 		local armorInfos = nil
-			--table.insert( armorInfos, GObjects:GetElementsWithFieldValue( "_Name", "Armor*" ) )
 			armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "Armor*" )
-			--armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "ArmorMedium*" )
-			--armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "ArmorWeak*" )
 		local armorTimerSize = table.getn( armorInfos )	
 		
 		-- BUBBLE SORT
@@ -1031,27 +1027,39 @@ function PSpectatorControler:DrawItemTimers()
 			for i = 1, armorTimerSize, 1 do
 				-- need to make this so that if there are two of the same armors, they won't stack on top of eachother		
 				if( armorInfos[ i ].BaseObj == "ArmorStrong.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-					
-					Hud:QuadTrans( Hud._matArmorRed, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 255 ) 
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
+					ai = math.ceil( armorInfos[ i ]._Rst - INP.GetTime() )
+
+					if Cfg.HUD_HudStyle == 0 then
+						Hud:QuadTrans( Hud._matArmorRed, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 255 ) 
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					else
+						Hud:QuadRGBA( Hud._matArmorBH, (003)*w/1024, ( (100) + armPos )*h/768, 0.25, false, 255, 204, 0, 255 )
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText1((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					end
 				end
 				
 				if( armorInfos[ i ].BaseObj == "ArmorMedium.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-				
-					Hud:QuadTrans(Hud._matArmorYellow, (003)*w/1024,( (100) + armPos )*h/768,1,false,255)
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
+					ai = math.ceil( armorInfos[ i ]._Rst - INP.GetTime() )
+
+					if Cfg.HUD_HudStyle == 0 then
+						Hud:QuadTrans(Hud._matArmorYellow, (003)*w/1024,( (100) + armPos )*h/768,1,false,255)
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					else
+						Hud:QuadRGBA( Hud._matArmorBH, (003)*w/1024, ( (100) + armPos )*h/768, 0.25, false, 204, 204, 204, 255 )
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText1((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					end
 				end
 				
 				if( armorInfos[ i ].BaseObj == "ArmorWeak.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-				
-					Hud:QuadTrans(Hud._matArmorGreen, (003)*w/1024,( (100) + armPos )*h/768,1,false,255) 
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
+					ai = math.ceil( armorInfos[ i ]._Rst - INP.GetTime() )
+
+					if Cfg.HUD_HudStyle == 0 then
+						Hud:QuadTrans(Hud._matArmorGreen, (003)*w/1024,( (100) + armPos )*h/768,1,false,255) 
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					else
+						Hud:QuadRGBA( Hud._matArmorBH, (003)*w/1024, ( (100) + armPos )*h/768, 0.25, false, 204, 102, 0, 255 )
+						if armorInfos[ i ]._Rst > 0 then Hud:DrawDigitsText1((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", ai), 0), 0.6, 3) end
+					end
 				end
 				
 				armPos = armPos + 50
@@ -1062,10 +1070,16 @@ function PSpectatorControler:DrawItemTimers()
 		
 		if  table.getn( megaInfos ) > 0 and table.getn( megaInfos ) ~= nil then
 			for i = 1, table.getn( megaInfos ), 1 do
-			
-				Hud:QuadRGBA( Hud._matHealth, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 0, 144, 200, 255 )
-				if megaInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( megaInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
-			
+				mi = math.ceil( megaInfos[ i ]._Rst - INP.GetTime() )
+
+				if Cfg.HUD_HudStyle == 0 then
+					Hud:QuadRGBA( Hud._matHealth, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 0, 144, 200, 255 )
+					if megaInfos[ i ]._Rst > 0 then Hud:DrawDigitsText((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", mi), 0), 0.6, 3) end
+				else
+					Hud:QuadRGBA( Hud._matHealthQW, (003)*w/1024, ( (100) + armPos )*h/768, 0.25, false, 0, 204, 255, 255 )
+					if megaInfos[ i ]._Rst > 0 then Hud:DrawDigitsText1((048)*w/1024, ( (105) + armPos )*h/768, string.sub(string.format("%02d", mi), 0), 0.6, 3) end
+				end
+				
 				armPos = armPos + 50
 			end
 		end
