@@ -658,7 +658,7 @@ Cfg =
     RaceTimeX = 400,
     RaceTimeY = 255,
     RaceTimeSize = 25,
-    HUDShowItemTimers = false,
+    HUD_Show_Spec_Item_Timers = false,
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,

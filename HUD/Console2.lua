@@ -2804,3 +2804,7 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("ShowWeaponAnim", enable, "Enables weapon bobbing animation.")
 end
 --=======================================================================
+function Console:Cmd_SHOWSPECITEMTIMERS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator.")
+end
+--=======================================================================
