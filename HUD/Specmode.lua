@@ -202,7 +202,7 @@ if(not Hud) then return end
         
     end
 
-    if( Cfg.HUDShowItemTimers )then
+    if( Cfg.HUD_Show_Spec_Item_Timers )then
       self:DrawItemTimers()
     end
 
