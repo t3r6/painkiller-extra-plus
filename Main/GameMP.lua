@@ -2114,11 +2114,13 @@ function Game:SayToAll(clientID,txt,color)
     if(Game:Client2ServerRead(clientID, txt))then return end
     
     --[[ THRESHER''s Cmd_COINTOSS script is called ( Console2.lua ) ]]--
-    if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
-      txt = string.gsub(  txt, "!cointoss", "" )
-      txt = string.gsub ( txt, " ", "" )
-      Console:Cmd_COINTOSS(clientID, txt)
-      return
+    if MPCfg.GameState == GameStates.WarmUp then
+      if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
+        txt = string.gsub(  txt, "!cointoss", "" )
+        txt = string.gsub ( txt, " ", "" )
+        Console:Cmd_COINTOSS(clientID, txt)
+        return
+      end
     end
 
     --[[
