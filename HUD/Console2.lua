@@ -2589,8 +2589,6 @@ function Console:Cmd_GETPLAYERSETTINGS()
 end
 --=======================================================================
 function Console:Cmd_COINTOSS(clientID, coin)
-    if clientID == ServerID and IsDedicatedServer() then return end
-
     if MPCfg.GameState ~= GameStates.WarmUp then
         CONSOLE_AddMessage("This command is only allowed in WarmUp.")
         return
