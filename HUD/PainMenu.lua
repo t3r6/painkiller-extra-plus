@@ -2918,10 +2918,21 @@ function PainMenu_MultiplayerErrorCallback( mtype, desc )
 	if mtype == MultiplayerErrorTypes.Information then
 		CONSOLE.Print( desc )
 	elseif mtype == MultiplayerErrorTypes.Disconnected then
+		-- [ THRESHER & XDavidXtreme ]
+		-- Fixes confusion about player not having map
+		if( string.find( desc, "Net Error: the map we are trying to load is different than the map on the server!" ) ) then
+			desc = "Net Error: the map we are trying to load is missing or different from the map on the server! Click Yes to visit the map download page."
+			local _url = "https://www.moddb.com/games/painkiller/addons/painkiller-multiplayer-deadzone-mappack" -- Used to send people who don't have the map to proper websites for maps [ THRESHER ]
+			Game:NewLevel('NoName','','',0.3); WORLD.Release()
+			Game.LevelStarted = false
+			PMENU.ShowMenu()
+			PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL('".._url.."')" , "PainMenu:BackToLastScreen()" )
+		else
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
 		PMENU.ShowMenu()
 		PainMenu:ShowInfo( desc, "PainMenu:BackToLastScreen()" )
+		end
 	elseif mtype == MultiplayerErrorTypes.BadCDKey then
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
