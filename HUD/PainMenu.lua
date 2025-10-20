@@ -2910,7 +2910,6 @@ function PainMenu:BackToLastScreen()
 end
 
 function PainMenu_MultiplayerErrorCallback( mtype, desc )
-	local _url = "\"http://pkzone.org/category/downloads/maps/\"" -- Used to send people who don't have the map to proper websites for maps [ THRESHER ]
     if IsDedicatedServer() then 
         if mtype ~= MultiplayerErrorTypes.Information then MsgBox(desc) end
         Game.LevelStarted = false
@@ -2919,21 +2918,20 @@ function PainMenu_MultiplayerErrorCallback( mtype, desc )
 	if mtype == MultiplayerErrorTypes.Information then
 		CONSOLE.Print( desc )
 	elseif mtype == MultiplayerErrorTypes.Disconnected then
-		-- [ THRESHER ]
+		-- [ THRESHER & XDavidXtreme ]
 		-- Fixes confusion about player not having map
-		if( string.find( string.lower( desc ), "net error: the map we are trying to load" ) ) then
-		    desc = "You most likely don't have the required map that is on the server, by clicking OK, you will be directed to the map repository."
-			PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL( ".._url.." )" , "PainMenu:BackToLastScreen()" )
+		if( string.find( desc, "Net Error: the map we are trying to load is different than the map on the server!" ) ) then
+			desc = "Net Error: the map we are trying to load is missing or different than the map on the server! Click Yes to visit the map download page."
+			local _url = "https://www.moddb.com/games/painkiller/addons/painkiller-multiplayer-deadzone-mappack" -- Used to send people who don't have the map to proper websites for maps [ THRESHER ]
 			Game:NewLevel('NoName','','',0.3); WORLD.Release()
 			Game.LevelStarted = false
 			PMENU.ShowMenu()
+			PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL('".._url.."')" , "PainMenu:BackToLastScreen()" )
 		else
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
 		PMENU.ShowMenu()
 		PainMenu:ShowInfo( desc, "PainMenu:BackToLastScreen()" )
-		-- [ THRESHER ] 
-		--PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL( ".._url.." )" , "PainMenu:BackToLastScreen()" )
 		end
 	elseif mtype == MultiplayerErrorTypes.BadCDKey then
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
