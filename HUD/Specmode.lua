@@ -202,8 +202,8 @@ if(not Hud) then return end
         
     end
 
-    if( Cfg.HUD_Show_Spec_Item_Timers )then
-      self:DrawItemTimers()
+    if Cfg.HUD_Show_Spec_Item_Timers and Cfg.HUD_Show_Spec_Item_Timers ~= 0 then
+        self:DrawItemTimers()
     end
 
   if Cfg.HUD_FragMessage and fragmessagestart < Game.currentTime and fragmessageend > Game.currentTime and fragmessageend > Game.currentTime then
@@ -990,86 +990,31 @@ function PSpectatorControler:MapViewConfigure()
     Mapview:Save(Lev.Map)  
 end
 --============================================================================
--- PK++ THRESHER
---============================================================================
 function PSpectatorControler:DrawItemTimers()
-		-- [ THRESHER ]
-		-- BEGIN ITEM TIMERS
-		--local armorsWeak    = GObjects:GetElementsWithFieldValue( "_Name", "ArmorWeak*" )
-		--local armorsMedium = GObjects:GetElementsWithFieldValue( "_Name", "ArmorMedium*" )
-		--local armorsStrong   = GObjects:GetElementsWithFieldValue( "_Name", "ArmorStrong*" )
+    local font = "Impact"
+    local w,h = R3D.ScreenSize()
+    local pos = 0
+    local types = {'Strong','Medium','Weak','MegaHealth','MegaPack','Pentagram','Quad','WeaponModifier'}
 
-		-- search for armor and mega health items and store them into tables
+    local filter = {}
+    if Cfg.HUD_Show_Spec_Item_Timers = 1 then
+        filter = { true, true, false, true, false, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers = 2 then
+        filter = { true, true, true, true, false, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers = 3 then
+        filter = { true, true, true, true, true, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers = 4 then
+        filter = { true, true, true, true, true, true, true, true }
+    end
 
-		local fntStyle = "Impact"
-		local w,h = R3D.ScreenSize()
-		local armPos = 0
-		
-		local armorInfos = nil
-			--table.insert( armorInfos, GObjects:GetElementsWithFieldValue( "_Name", "Armor*" ) )
-			armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "Armor*" )
-			--armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "ArmorMedium*" )
-			--armorInfos = GObjects:GetElementsWithFieldValue( "_Name", "ArmorWeak*" )
-		local armorTimerSize = table.getn( armorInfos )	
-		
-		-- BUBBLE SORT
-		for a in armorInfos do 
-			for b in armorInfos do 
-				if(armorInfos[a].RescueFactor > armorInfos[b].RescueFactor)then
-					local temp = armorInfos[a]
-					armorInfos[a] = armorInfos[b]
-					armorInfos[b] = temp
-				end
-			end
-		end
-		
-		local megaInfos = nil
-			megaInfos = GObjects:GetElementsWithFieldValue( "_Name", "MegaHealth*" )
-				
-		if armorTimerSize > 0 and armorTimerSize ~= nil then
-			
-			for i = 1, armorTimerSize, 1 do
-				-- need to make this so that if there are two of the same armors, they won't stack on top of eachother		
-				if( armorInfos[ i ].BaseObj == "ArmorStrong.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-					
-					Hud:QuadTrans( Hud._matArmorRed, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 255 ) 
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
-				end
-				
-				if( armorInfos[ i ].BaseObj == "ArmorMedium.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-				
-					Hud:QuadTrans(Hud._matArmorYellow, (003)*w/1024,( (100) + armPos )*h/768,1,false,255)
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
-				end
-				
-				if( armorInfos[ i ].BaseObj == "ArmorWeak.CItem" ) then 
-				
-					--table.insert( itemTimerTable, armorInfos[ i ] )
-				
-					Hud:QuadTrans(Hud._matArmorGreen, (003)*w/1024,( (100) + armPos )*h/768,1,false,255) 
-					if armorInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( armorInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
-				end
-				
-				armPos = armPos + 50
-				
-			end
-
-		end
-		
-		if  table.getn( megaInfos ) > 0 and table.getn( megaInfos ) ~= nil then
-			for i = 1, table.getn( megaInfos ), 1 do
-			
-				Hud:QuadRGBA( Hud._matHealth, (003)*w/1024, ( (100) + armPos )*h/768, 1, false, 0, 144, 200, 255 )
-				if megaInfos[ i ]._Rst > 0 then HUD.PrintXY( (048)*w/1024, ( (105) + armPos )*h/768, math.ceil( megaInfos[ i ]._Rst - INP.GetTime() ), fntStyle, 255, 255, 255, 25 ) end
-			
-				armPos = armPos + 50
-			end
-		end
+    for i,o in GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" ), nil do
+        if filter[o._type] then
+          -- if o._timeleft > 0 then
+            local txt = types[o._type]..' '..(o._timeleft > 0 and o._timeleft or '')
+            HUD.PrintXY(48*w/1024,(105+pos)*h/768,txt,font,255,255,255,25)
+            -- end
+            pos = pos + 30
+        end
+    end
 end
---[[ END ITEM TIMERS ]]--
-
 --============================================================================

@@ -658,7 +658,7 @@ Cfg =
     RaceTimeX = 400,
     RaceTimeY = 255,
     RaceTimeSize = 25,
-    HUD_Show_Spec_Item_Timers = false,
+    HUD_Show_Spec_Item_Timers = 0,
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,
@@ -1022,6 +1022,7 @@ function Cfg:Check()
 	-- Cfg.DecalsStayTime = Cfg:CheckVar(Cfg.DecalsStayTime,"n",0,2,2)
 	Cfg.CrosshairSize = Cfg:CheckVar(Cfg.CrosshairSize,"n",0.2,3,1)
 	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7,0)
+	Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,4,1)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)
