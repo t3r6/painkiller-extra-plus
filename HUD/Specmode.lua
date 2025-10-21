@@ -997,11 +997,11 @@ function PSpectatorControler:DrawItemTimers()
     local types = {'Strong','Medium','Weak','MegaHealth','MegaPack','Pentagram','Quad','WeaponModifier'}
 
     local filter = {}
-    if Cfg.HUD_Show_Spec_Item_Timers = 1 then
+    if Cfg.HUD_Show_Spec_Item_Timers == 1 then
         filter = { true, true, false, true, false, false, false, false }
-    elseif Cfg.HUD_Show_Spec_Item_Timers = 2 then
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 2 then
         filter = { true, true, true, true, false, false, false, false }
-    elseif Cfg.HUD_Show_Spec_Item_Timers = 3 then
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 3 then
         filter = { true, true, true, true, true, false, false, false }
     elseif Cfg.HUD_Show_Spec_Item_Timers >= 4 then
         filter = { true, true, true, true, true, true, true, true }
