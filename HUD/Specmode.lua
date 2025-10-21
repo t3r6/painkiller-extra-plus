@@ -213,7 +213,7 @@ if(not Hud) then return end
 		self:SpectatorHUD()
 	end
 	if self.player ~= -1 and self.mode == CameraStates.InEyes or self.player ~= -1 and self.mode == CameraStates.Auto and self.autoineyes == 1 or MPCfg.GameMode == "Clan Arena" then
-		Hud:QuadRGBA(Hud._matCrosshair,w/2,h/2,Hud.CrossScale,true,255,255,255,Cfg.CrosshairTrans/100.0*96)
+		Hud:QuadRGBA(Hud._matCrosshair,w/2,h/2,Hud.CrossScale,true,Cfg.CrosshairR,Cfg.CrosshairG,Cfg.CrosshairB,Cfg.CrosshairTrans/100*255)
 		self:SpectatorHUD()
 	end
 end
