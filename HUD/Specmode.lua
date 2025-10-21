@@ -1003,7 +1003,7 @@ function PSpectatorControler:DrawItemTimers()
         filter = { true, true, true, true, false, false, false, false }
     elseif Cfg.HUD_Show_Spec_Item_Timers = 3 then
         filter = { true, true, true, true, true, false, false, false }
-    elseif Cfg.HUD_Show_Spec_Item_Timers = 4 then
+    elseif Cfg.HUD_Show_Spec_Item_Timers >= 4 then
         filter = { true, true, true, true, true, true, true, true }
     end
 

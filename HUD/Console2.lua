@@ -2695,13 +2695,13 @@ function Console:Cmd_TEMPLATE_SET_INTEGER(paramName, value, description)
 
     if not num or num ~= math.floor(num) then
         CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " <integer>")
-        CONSOLE_AddMessage("Error: Value must be a whole number (e.g., 0, 1, 2, 3).")
+        CONSOLE_AddMessage("Error: Value must be a whole number (e.g., 0, 1, 2, 3, ...).")
         return
     end
 
     Cfg[paramName] = num
     Cfg:Check()
-    CONSOLE_AddMessage(paramName .. " is now set to " .. num .. ".")
+    CONSOLE_AddMessage("State: " .. paramName .. " is now set to " .. num .. ".")
 end
 --=======================================================================
 -- generic set function for numerical decimal range
