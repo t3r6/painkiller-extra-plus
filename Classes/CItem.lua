@@ -331,7 +331,8 @@ end
 --============================================================================
 -- Spectator Item Respawn Timers
 function CItem:RstInfo()
-    if not self._wait_ then
+    if not self._wait_ or self._wait_ <= INP.GetTime() then
+        self._wait_ = INP.GetTime() + 1
         local objs = {
             ['ArmorStrong.CItem']    = 1,
             ['ArmorMedium.CItem']    = 2,
@@ -342,40 +343,20 @@ function CItem:RstInfo()
             ['Quad.CItem']           = 7,
             ['WeaponModifier.CItem'] = 8,
             }
-        local tab = {}
-        for i,o in GObjects.Elements do 
-            if objs[o.BaseObj] then
-                table.insert(tab,o)
+        if objs[self.BaseObj] then
+            local val = math.floor(Cfg.ItemRespawnFix and self._Rst - INP.GetTime() or self._Rst/30)
+            for i, ps in Game.PlayerStats, nil do
+                if ps.Spectator == 1 then
+                    NET.SendVariable(ps.ClientID, 'I73m3s7', self._Entity..","..objs[self.BaseObj]..","..val)
+                end
             end
         end
-        for i,o in tab, nil do
-            -- if o._Rst > 0 or o._zerotime_ then
-                -- o._zerotime_ = o._Rst ~= 0
-                for j, ps in Game.PlayerStats, nil do
-                    if ps.ClientID ~= nil and ps.Spectator == 1 then
-                        -- o._Entity - just to give a unique short name
-                        NET.SendVariable(ps.ClientID,'I73m3s7',o._Entity..","..objs[o.BaseObj]..","..math.ceil(o._Rst/30))
-                    end
-                end
-            -- end
-        end
-    end
-    
-    -- for i,o in GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" ), nil do
-        -- if o._timeleft == 0 then GObjects:ToKill(o) end
-    -- end
-    
-    local _current = INP.GetTime()
-    if not self._wait_ then
-        self._wait_ = _current + 1 -- send data once per sec
-    elseif self._wait_ <= _current then
-        self._wait_ = nil
     end
 end
 --============================================================================
 function CItem:Update()
 
-    CItem:RstInfo()
+    self:RstInfo()
 
     if self.OnUpdate then self:OnUpdate() end
     
