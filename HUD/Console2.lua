@@ -2678,7 +2678,7 @@ function Console:Cmd_TEMPLATE_TOGGLE_BOOL(paramName, enable, description)
 end
 --=======================================================================
 -- generic set function for numerical range
-function Console:Cmd_TEMPLATE_SET_INTEGER(paramName, value, description)
+function Console:Cmd_TEMPLATE_SET_INT(paramName, value, description)
     if not paramName then
         CONSOLE_AddMessage("Error: This is a template function.")
         return
@@ -2832,6 +2832,6 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
 end
 --=======================================================================
 function Console:Cmd_SHOWSPECITEMTIMERS(enable)
-  self:Cmd_TEMPLATE_SET_INTEGER("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-4).")
+  self:Cmd_TEMPLATE_SET_INT("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-6).")
 end
 --=======================================================================
