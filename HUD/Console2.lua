@@ -2832,6 +2832,6 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
 end
 --=======================================================================
 function Console:Cmd_SHOWSPECITEMTIMERS(enable)
-  self:Cmd_TEMPLATE_SET_INTEGER("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator.")
+  self:Cmd_TEMPLATE_SET_INTEGER("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-4).")
 end
 --=======================================================================
