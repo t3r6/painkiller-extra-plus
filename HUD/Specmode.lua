@@ -993,7 +993,7 @@ end
 function PSpectatorControler:DrawItemTimers()
     local font = "impact"
     local w,h  = R3D.ScreenSize()
-    local posX,posY = 15,80
+    local posX,posY = 15,110
     local offset  = 0
 
     local types = {}
@@ -1045,7 +1045,7 @@ function PSpectatorControler:DrawItemTimers()
             local mat = types[o._type][1]
             local mw,mh = 35,35 -- MATERIAL.Size(mat)
             local r,g,b = unpack(types[o._type][2])
-            HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/12)*h/768,mw,mh,r,g,b)
+            HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
             local txt = (o._timeleft > 0 and o._timeleft or '')
             HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
             offset = offset + mh
