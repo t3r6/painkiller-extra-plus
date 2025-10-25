@@ -67,6 +67,7 @@ if test3 then
 end
 --================================================================
  
+FS.RegisterPack("../Data/".."PKPlusData1.pak","../Data/Textures/") -- PK Extra Plus
 FS.RegisterPack("../Data/".."PKPlusData.pak","../Data/Textures/")
 FS.RegisterPack("../Data/".."Locs.pak","../Data/Locs/")
 FS.RegisterPack("../Data/".."Mapview.pak","../Data/Mapview/")
