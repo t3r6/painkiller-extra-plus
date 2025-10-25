@@ -991,10 +991,37 @@ function PSpectatorControler:MapViewConfigure()
 end
 --============================================================================
 function PSpectatorControler:DrawItemTimers()
-    local font = "Impact"
-    local w,h = R3D.ScreenSize()
-    local pos = 0
-    local types = {'SA','MA','WA','MH','MP','Penta','Quad','WM'}
+    local font = "impact"
+    local w,h  = R3D.ScreenSize()
+    local posX,posY = 15,80
+    local offset  = 0
+
+    local types = {}
+    if Cfg.HUD_HudStyle == 0 then
+      types = {
+          {Hud._matArmorRed,{nil,nil,nil}},
+          {Hud._matArmorYellow,{nil,nil,nil}},
+          {Hud._matArmorGreen,{nil,nil,nil}},
+          {Hud._matHealth,{nil,nil,nil}},
+          
+          {MATERIAL.Create("Miscellaneous/pk/exp/HUD/megapack_classic", TextureFlags.NoLOD + TextureFlags.NoMipMaps),{nil,nil,nil}},
+          {MATERIAL.Create("Miscellaneous/pk/chainsmod/Textures/0.5/icons/penticon", TextureFlags.NoLOD + TextureFlags.NoMipMaps),{nil,nil,nil}},
+          {MATERIAL.Create("Miscellaneous/pk/chainsmod/Textures/0.5/icons/quadicon", TextureFlags.NoLOD + TextureFlags.NoMipMaps),{nil,nil,nil}},
+          {MATERIAL.Create("Miscellaneous/pk/chainsmod/Textures/0.5/icons/wmicon", TextureFlags.NoLOD + TextureFlags.NoMipMaps),{nil,nil,nil}},
+      }
+    else
+      types = {
+          {Hud._matArmorYellowSH,{nil,nil,nil}},
+          {Hud._matArmorSilverSH,{nil,nil,nil}},
+          {Hud._matArmorBronzeSH,{nil,nil,nil}},
+          {Hud._matHealthQW,{0,204,0}},
+          
+          {MATERIAL.Create("Miscellaneous/pk/exp/HUD/megapack_s_white", TextureFlags.NoLOD + TextureFlags.NoMipMaps),{181,230,029}},
+          {Hud._matPlayerHasPowerUp,{255,0,0}},
+          {Hud._matPlayerHasPowerUp,{0,255,255}},
+          {Hud._matPlayerHasPowerUp,{255,102,0}},
+      }
+    end
 
     local filter = {}
     if Cfg.HUD_Show_Spec_Item_Timers == 1 then
@@ -1010,14 +1037,18 @@ function PSpectatorControler:DrawItemTimers()
     elseif Cfg.HUD_Show_Spec_Item_Timers >= 6 then
         filter = { true, true, true, true, true, true, true, true }
     end
-
-    for i,o in GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" ), nil do
+    
+    local tbl = GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" )
+    table.sort(tbl, function(a, b) return a._type < b._type end)
+    for i,o in tbl, nil do
         if filter[o._type] then
-          -- if o._timeleft > 0 then
-            local txt = types[o._type]..' '..(o._timeleft > 0 and o._timeleft or '')
-            HUD.PrintXY(48*w/1024,(105+pos)*h/768,txt,font,255,255,255,25)
-            -- end
-            pos = pos + 30
+            local mat = types[o._type][1]
+            local mw,mh = 35,35 -- MATERIAL.Size(mat)
+            local r,g,b = unpack(types[o._type][2])
+            HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/12)*h/768,mw,mh,r,g,b)
+            local txt = (o._timeleft > 0 and o._timeleft or '')
+            HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
+            offset = offset + mh
         end
     end
 end
