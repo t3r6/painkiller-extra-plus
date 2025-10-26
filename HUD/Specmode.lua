@@ -14,6 +14,7 @@ o._newCamAng = Vector:New(0,0,0)
 o._desiredCamAng = Vector:New(0,0,0)
 o._lastFloatAng = Vector:New(0,0,0)
 o._timer = 0
+o._lastTime = 0
 o.averagetickcountang = 10
 o.tickcountang = 1
 o.averagetickcountpos = 10
@@ -168,14 +169,14 @@ if(not Hud) then return end
         local cameramode = ""
         if MPCfg.GameMode == "Clan Arena" then
           cameramode = "EYECAM"
-          self._timer = 0
+          self._lastTime = INP.GetTime()
         else
-        if(self.mode==0 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "FLOATCAM" end
-        if(self.mode==1 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "EYECAM" end
-        if(self.mode==2 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "PIVOTCAM" end
-        if(self.mode==3 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "STATICCAM" end
-        if(self.mode==4 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "FOLLOWCAM" end
-        if(self.mode==5 and self._timer <= Cfg.Cammode_Timeout)then cameramode = "AUTOCAM" end
+        if(self.mode==0 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "FLOATCAM" end
+        if(self.mode==1 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "EYECAM" end
+        if(self.mode==2 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "PIVOTCAM" end
+        if(self.mode==3 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "STATICCAM" end
+        if(self.mode==4 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "FOLLOWCAM" end
+        if(self.mode==5 and (self._timer - self._lastTime) <= Cfg.Cammode_Timeout)then cameramode = "AUTOCAM" end
         end
         
         local cmy = h-28*h/480
@@ -519,7 +520,8 @@ function PSpectatorControler:Tick3(delta)
     	self:MapViewConfigure()
     end
 
-    self._timer = self._timer + delta
+    self._timer = INP.GetTime()
+    if self._lastTime == 0 then self._lastTime = self._timer end
 end
 --============================================================================
 function PSpectatorControler:CameraModeSwitch()
@@ -540,7 +542,7 @@ function PSpectatorControler:CameraModeSwitch()
             end
             if MPCfg.GameMode ~= "Clan Arena" then
               if self.mode == CameraStates.Float then
-                self._timer = 0
+                self._lastTime = INP.GetTime()
                 self.mode = CameraStates.InEyes
                 self:InEyes()
               end
@@ -555,7 +557,7 @@ function PSpectatorControler:CameraModeSwitch()
   if MPCfg.GameMode ~= "Clan Arena" then
     if INP.Action(Actions.AltFire) then
         if not self._altfire then
-            self._timer = 0
+            self._lastTime = INP.GetTime()
             self.mode = CameraStates.Float
         end
         self._altfire = true
@@ -569,7 +571,7 @@ function PSpectatorControler:CameraModeSwitch()
     
     if INP.Action(Actions.NextWeapon) then
 	self.mode = self.mode + 1
-	self._timer = 0
+	self._lastTime = INP.GetTime()
 	GObjects:ToKill(Game._procStats) 
 	Game._procStats = nil
 	MPSTATS.Hide()
@@ -578,7 +580,7 @@ function PSpectatorControler:CameraModeSwitch()
     
     if INP.Action(Actions.PrevWeapon) then
 	self.mode = self.mode - 1
-	self._timer = 0
+	self._lastTime = INP.GetTime()
 	GObjects:ToKill(Game._procStats) 
 	Game._procStats = nil
 	MPSTATS.Hide()

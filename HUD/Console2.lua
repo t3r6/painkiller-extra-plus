@@ -2702,6 +2702,6 @@ function Console:Cmd_SOULMPCOLOR(value)
 end
 --=======================================================================
 function Console:Cmd_CAMMODETIMEOUT(value)
-  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("Cammode_Timeout", value, 0, 1800, "Set how many seconds it takes for the spectator cammode title to disappear.")
+  self:Cmd_TEMPLATE_SET_NUMERIC_DEC("Cammode_Timeout", value, 0, 3600, "Set how many seconds it takes for the spectator cammode title to disappear.")
 end
 --=======================================================================
