@@ -1774,7 +1774,7 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
         },
     }
 
-    local tbl = (hudpreset and hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[1][0]
+    local tbl = (hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[1][0]
     self.TimerMats = {}
     for i, o in tbl do
         local item = {MATERIAL.Create(o[1], TextureFlags.NoLOD + TextureFlags.NoMipMaps), o[2]}
@@ -1784,12 +1784,8 @@ end
 --============================================================================
 function Hud:DrawItemTimers()
 
-    local font = {}
-    if Cfg.HUD_HudStyle == 0 then
-      font = "timesbd"
-    else
-      font = "impact"
-    end
+    local font = "impact"
+    if Cfg.HUD_HudStyle == 0 then font = "timesbd"  end
 
     local w,h  = R3D.ScreenSize()
     local posX, posY = 15,Cfg.HUD_Spec_Item_Timers_PosY or 120
