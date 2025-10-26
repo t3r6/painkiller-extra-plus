@@ -3716,6 +3716,7 @@ function PainMenu:IfDefFavHudExist()
   PainMenu:HideTabGroup(PainMenu.currScreen.items.GeneralTab, "GeneralTab")
   PainMenu:ShowTabGroup(PainMenu.currScreen.items.AdvancedTab, "AdvancedTab")
   PainMenu:CheckItems()
+  Hud:SetTimerMatTypes(Cfg.HUD_HudStyle,Cfg.BrightSkinsArmors)
 end
 
 function PainMenu:DelFavoriteHud()

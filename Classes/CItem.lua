@@ -329,7 +329,35 @@ function CItem:TryToRespawn(force)
     end
 end
 --============================================================================
+-- Spectator Item Respawn Timers
+function CItem:RstInfo()
+    if not self._wait_ or self._wait_ <= INP.GetTime() then
+        self._wait_ = INP.GetTime() + 1
+        local objs = {
+            ['ArmorStrong.CItem']    = 1,
+            ['ArmorMedium.CItem']    = 2,
+            ['ArmorWeak.CItem']      = 3,
+            ['MegaHealth.CItem']     = 4,
+            ['MegaPack.CItem']       = 5,
+            ['pentagram.CItem']      = 6,
+            ['Quad.CItem']           = 7,
+            ['WeaponModifier.CItem'] = 8,
+            }
+        if objs[self.BaseObj] then
+            local val = math.floor(Cfg.ItemRespawnFix and self._Rst - INP.GetTime() or self._Rst/30)
+            for i, ps in Game.PlayerStats, nil do
+                if ps.Spectator == 1 then
+                    NET.SendVariable(ps.ClientID, 'I73m3s7', self._Entity..","..objs[self.BaseObj]..","..val)
+                end
+            end
+        end
+    end
+end
+--============================================================================
 function CItem:Update()
+
+    self:RstInfo()
+
     if self.OnUpdate then self:OnUpdate() end
     
     if self.OnTake and self.Place == 0 then 
