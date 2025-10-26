@@ -2835,7 +2835,7 @@ function Console:Cmd_SHOWSPECITEMTIMERS(enable)
   self:Cmd_TEMPLATE_SET_INT("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-6).")
 end
 --=======================================================================
-function Console:Cmd_SPECITEMTIMERSPOSITION(enable)
+function Console:Cmd_HUD_SPECITEMTIMERSPOSITION(enable)
   self:Cmd_TEMPLATE_SET_INT("HUD_Spec_Item_Timers_PosX", enable, "Set item timers position left/right in spectator (0-1).")
 end
 --=======================================================================
