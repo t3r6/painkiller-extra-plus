@@ -3867,6 +3867,7 @@ function PainMenu:LoadFavoriteHud()
   PainMenu:ShowTabGroup(PainMenu.currScreen.items.AdvancedTab, "AdvancedTab")
   PainMenu:ActivateScreen(FavoriteHud)
   PainMenu:CheckItems()
+  Hud:SetTimerMatTypes(Cfg.HUD_HudStyle,Cfg.BrightSkinsArmors)
 end
 
 function PainMenu:BrightSkin(entity, enable, team)

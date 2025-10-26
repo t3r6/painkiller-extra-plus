@@ -776,7 +776,6 @@ function Hud:IfDefFavHudExist()
       check[i] = false
     end
   end
-  Hud:SetTimerMatTypes(Cfg.HUD_HudStyle,Cfg.BrightSkinsArmors)
 end
 --============================================================================
 function Hud:DrawQuickOptionsMenu()
