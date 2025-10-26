@@ -1821,7 +1821,7 @@ function Hud:DrawItemTimers()
 
             local r,g,b = unpack(Hud.TimerMats[o._type][2])
             -- HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/5)*h/768,mw,mh,r,g,b)            
-            HUD.DrawQuadRGBA(mat,w - (posX*w/1024 + mw),(posY+offset-mh*1/5)*h/768,mw,mh,r,g,b)
+            HUD.DrawQuadRGBA(mat,w - (posX*w/1024 + mw),(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
                         
             local bearer = Game.PlayerStats[o._bearerId]
             local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
