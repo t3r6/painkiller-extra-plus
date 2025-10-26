@@ -1774,7 +1774,7 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
         },
     }
 
-    local tbl = (hudpreset[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[0][0]
+    local tbl = (hudpreset and hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[0][0]
     self.TimerMats = {}
     for i, o in tbl do
         local item = {MATERIAL.Create(o[1], TextureFlags.NoLOD + TextureFlags.NoMipMaps), o[2]}
