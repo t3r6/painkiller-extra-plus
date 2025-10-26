@@ -660,7 +660,8 @@ Cfg =
     RaceTimeSize = 25,
     HUD_Show_Spec_Item_Timers = 1,
     HUD_Spec_Item_Timers_Size = 35,
-    HUD_Spec_Item_Timers_Position = 1, -- left/right
+    HUD_Spec_Item_Timers_PosX = 1, -- left/right
+    HUD_Spec_Item_Timers_PosY = 120, -- up/down
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,
@@ -1027,7 +1028,8 @@ function Cfg:Check()
 	Cfg.WarmUpTime = Cfg:CheckVar(Cfg.WarmUpTime,"n",0,999,14.99)
 	Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,6,1)
 	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,35)
-	Cfg.HUD_Spec_Item_Timers_Position = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Position,"n",0,1,1)
+	Cfg.HUD_Spec_Item_Timers_PosX = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosX,"n",0,1,1)
+	Cfg.HUD_Spec_Item_Timers_PosY = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosY,"n",0,999,120)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)

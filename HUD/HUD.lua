@@ -1774,7 +1774,7 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
         },
     }
 
-    local tbl = (hudpreset and hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[0][0]
+    local tbl = (hudpreset and hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[1][0]
     self.TimerMats = {}
     for i, o in tbl do
         local item = {MATERIAL.Create(o[1], TextureFlags.NoLOD + TextureFlags.NoMipMaps), o[2]}
@@ -1792,7 +1792,7 @@ function Hud:DrawItemTimers()
     end
 
     local w,h  = R3D.ScreenSize()
-    local posX, posY = 15,120
+    local posX, posY = 15,Cfg.HUD_Spec_Item_Timers_PosY or 120
     local offset  = 0
 
     local filter = {}
@@ -1812,6 +1812,9 @@ function Hud:DrawItemTimers()
 
     local tbl = GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" )
     table.sort(tbl, function(a, b) return a._type < b._type end)
+
+    local side = (tonumber(Cfg.HUD_Spec_Item_Timers_PosX) or 1) == 0 -- Item side position
+
     for i,o in tbl, nil do
         if filter[o._type] then
             local mat = Hud.TimerMats[o._type][1]
@@ -1820,15 +1823,26 @@ function Hud:DrawItemTimers()
             local mw, mh = size, size -- MATERIAL.Size(mat)
 
             local r,g,b = unpack(Hud.TimerMats[o._type][2])
-            -- HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/5)*h/768,mw,mh,r,g,b)            
-            HUD.DrawQuadRGBA(mat,w - (posX*w/1024 + mw),(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
-                        
+            if side then
+                HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+            else
+                HUD.DrawQuadRGBA(mat,w-(posX*w/1024 + mw),(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+            end
+
+            r, g, b = 255, 255, 255
+            if Cfg.HUD_HudStyle == 0 then
+                r, g, b = 255, 186, 122
+            end
+
             local bearer = Game.PlayerStats[o._bearerId]
             local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
-            -- HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r or 255,g or 186,b or 122,mh*5/6)            
-            HUD.SetFont(font,mh*5/6)
-            local width = HUD.GetTextWidth(txt)
-            HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r or 255,g or 186,b or 122,mh*5/6)
+            if side then
+                HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
+            else
+                HUD.SetFont(font,mh*5/6)
+                local width = HUD.GetTextWidth(txt)
+                HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
+            end
             offset = offset + mh
         end
     end
