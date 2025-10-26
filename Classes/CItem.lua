@@ -345,9 +345,10 @@ function CItem:RstInfo()
             }
         if objs[self.BaseObj] then
             local val = math.floor(Cfg.ItemRespawnFix and self._Rst - INP.GetTime() or self._Rst/30)
+            local bearerId = self._blockedBy and EntityToObject[self._blockedBy._Entity].ClientID or -1
             for i, ps in Game.PlayerStats, nil do
                 if ps.Spectator == 1 then
-                    NET.SendVariable(ps.ClientID, 'I73m3s7', self._Entity..","..objs[self.BaseObj]..","..val)
+                    NET.SendVariable(ps.ClientID, 'I73m3s7', self._Entity..","..objs[self.BaseObj]..","..val..","..bearerId)
                 end
             end
         end
