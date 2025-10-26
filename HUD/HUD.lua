@@ -1752,9 +1752,9 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
         },
         [1] = {
             [0] = {
-                {"BHud/armor",{255,0,0}},
-                {"BHud/armor",{255,255,0}},
-                {"BHud/armor",{0,204,0}},
+                {"BHud/armor",{255,204,0}},
+                {"BHud/armor",{204,204,204}},
+                {"BHud/armor",{204,102,0}},
                 {"BHud/energia",{0,204,255}},
                 {"SIicon/Ammo/megapack",{0,204,255}},
                 {"Pickup/PowerUp/PowerUp",{255,0,0}},
@@ -1762,9 +1762,9 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
                 {"Pickup/PowerUp/PowerUp",{255,102,0}},
             },
             [1] = {
-                {"BHud/armor",{255,204,0}},
-                {"BHud/armor",{204,204,204}},
-                {"BHud/armor",{204,102,0}},
+                {"BHud/armor",{255,0,0}},
+                {"BHud/armor",{255,255,0}},
+                {"BHud/armor",{0,204,0}},
                 {"BHud/energia",{0,204,255}},
                 {"SIicon/Ammo/megapack",{0,204,255}},
                 {"Pickup/PowerUp/PowerUp",{255,0,0}},
