@@ -1271,6 +1271,8 @@ function Game:PlayerSpectatorRequest(clientID,spectator)
     
     if can then -- and ps and not ps.Bot
     	--MsgBox("disconnectiung a client")
+        local player = Game:FindPlayerByClientID(clientID)
+        if player then player:FreeBlockedObjects() end
         Game:AfterClientDisconnected(clientID)
         Game.PlayerSpectatorConfirmation(clientID,spectator)    
     else -- (ps and not ps.Bot)
