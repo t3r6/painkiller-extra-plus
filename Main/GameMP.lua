@@ -427,6 +427,20 @@ function Game_InterpretVariable(name,value)
 			}
 		end
 	end
+
+	if name == "I73m3s7" then -- ItemRst
+		local pattern = "([^,]+),([^,]+),([^,]+),([^,]+)"
+		local __name__ = name..'_'..string.gsub(value, pattern, "%1")
+		local __type__ = string.gsub(value, pattern, "%2")
+		local timeleft = string.gsub(value, pattern, "%3")
+		local bearerId = string.gsub(value, pattern, "%4")
+		local obj = _G[__name__]
+		if not obj then obj = GObjects:Add(__name__,Clone(getfenv()['CObject'])) end
+		obj._type = tonumber(__type__)
+		obj._timeleft = tonumber(timeleft)
+		obj._bearerId = tonumber(bearerId)
+	end
+
 end
 --============================================================================
 -- [ENGINE - SERVER ONLY] --
