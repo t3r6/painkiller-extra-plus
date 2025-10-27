@@ -1832,12 +1832,13 @@ function Hud:DrawItemTimers()
 
             local bearer = Game.PlayerStats[o._bearerId]
             local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
+            local textSize = (mh*5/6<=35) and (mh*5/6) or 35
             if side then
-                HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
+                HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,textSize)
             else
                 HUD.SetFont(font,mh*5/6)
                 local width = HUD.GetTextWidth(txt)
-                HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,mh*5/6)
+                HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,textSize)
             end
             offset = offset + mh
         end
