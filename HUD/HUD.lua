@@ -1837,11 +1837,7 @@ function Hud:DrawItemTimers()
             local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
             local textSize = (mh*5/6<=35) and (mh*5/6) or 35
             if txt == o._timeleft then
-              if Cfg.HUD_HudStyle == 0 then
-                  self:DrawDigitsText(dw, (posY+offset)*h/768, string.sub(string.format("%02d", txt), 0), textSize/50, 3)
-              else
-                  self:DrawDigitsText1(dw, (posY+offset)*h/768, string.sub(string.format("%02d", txt), 0), textSize/50, 3)
-              end
+              self:DrawDigitsText1(dw, (posY+offset)*h/768, string.sub(string.format("%02d", txt), 0), textSize/50, 3)
             else
               if side then
                   HUD.PrintXY(posX*w/1024 + mw + 3,1+(posY+offset)*h/768,txt,font,0,0,0,textSize)
