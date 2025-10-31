@@ -130,9 +130,9 @@ function Hud:DrawDigit1(x, y, chr, scale, r, g, b, trans)
   end
   local mw, mh = MATERIAL.Size(self._matDigits[n + 1])
   if Cfg.HUD_HudStyle == 0 then
-    HUD.DrawQuad(self._matDigits[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768)
+    self:Quad(self._matDigits[n + 1], x, y, scale, false)
   else
-    HUD.DrawQuadRGBA(self._matDigitsT[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
+    self:QuadRGBA(self._matDigitsT[n + 1], x, y, scale, false, r, g, b, trans)
   end
 end
 --=====================================================================================
@@ -144,25 +144,30 @@ function Hud:DrawDigitRed1(x, y, chr, scale, r, g, b, trans)
   end
   local mw, mh = MATERIAL.Size(self._matDigitsRed[n + 1])
   if Cfg.HUD_HudStyle == 0 then
-    HUD.DrawQuad(self._matDigitsRed[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768)
+    self:Quad(self._matDigitsRed[n + 1], x, y, scale, false)
   else
-    HUD.DrawQuadRGBA(self._matDigitsTRed[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
+    self:QuadRGBA(self._matDigitsTRed[n + 1], x, y, scale, false, r, g, b, trans)
   end
 end
 --=====================================================================================
-function Hud:DrawDigitsText1(x, y, txt, scale, warning, r, g, b, trans)
-  local w, h = R3D.ScreenSize()
-  local l = string.len(txt)
-  local mw, mh = MATERIAL.Size(Hud._matDigits[5])
-  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
-    for i = 1, l do
-      self:DrawDigit1(x + (i - 1) * (mw - 4) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
-    end
-  else
-    for i = 1, l do
-      self:DrawDigitRed1(x + (i - 1) * (mw - 4) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, nil, nil, nil, trans)
-    end
-  end
+function Hud:DrawDigitsText1(x, y, txt, scale, warning)
+	local l = string.len(txt)
+	local mw, mh = MATERIAL.Size(self._matDigits[5])
+	local w,h = R3D.ScreenSize()
+	local aspect = w / h
+	local nextposh = (mw - 4) * scale * h / 768
+
+	if warning == nil or (warning >= 0 and warning < tonumber(txt)) or (warning < 0 and -warning > tonumber(txt)) then
+		for i = 1, l do
+			self:DrawDigit1(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	else
+		for i = 1, l do
+			self:DrawDigitRed1(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	end
 end
 --=====================================================================================
 function Hud:SelectBestWeapon(priorityList)
@@ -360,15 +365,15 @@ function Hud:AmmoListOriOn()
     settingloaded = "Vos param\232tres personnalis\233s ont \233t\233 charg\233s."
     settingnoloaded = "C'est le param\233trage par d\233faut, aucun param\232tres charg\233s."
   end
-  local icoposix = 5 * w / 1024
-  local textposix = icoposix + 42 * sizem * w / 1024
-  local selectpoxix = 4 * w / 1024
-  local textposix1 = (1019 - 113 * sizem) * w / 1024
-  local textposix2 = icoposix + 1 * sizem * w / 1024
+  local icoposix = 5 * h / 768
+  local textposix = icoposix + 42 * sizem * h / 768
+  local selectpoxix = 4 * h / 768
+  local textposix1 = w - 5 - ((113 * sizem) * h / 768)
+  local textposix2 = icoposix + 1 * sizem * h / 768
   if Cfg.HUD_AmmoList == 1 then
-    icoposix = (1019 - 40 * sizem) * w / 1024
-    textposix = (1019 - 105 * sizem) * w / 1024
-    selectpoxix = (1019 - 111 * sizem) * w / 1024
+    icoposix = w - 5 - ((40 * sizem) * h / 768)
+    textposix = w - 5 - ((105 * sizem) * h / 768)
+    selectpoxix = w - 5 - ((111 * sizem) * h / 768)
   end
   local prcolor = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}
   local alcolor = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}}
@@ -454,44 +459,44 @@ function Hud:AmmoListOriOn()
         if not INP.IsFireSwitched() then
           if not (not Game.SwitchFire[2] and Cfg.SwitchFire[2]) or not Cfg.SwitchFire[2] and Game.SwitchFire[2] then
             if Hud._weaponspri[2] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponsalt[2] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           else
             if Hud._weaponsalt[2] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponspri[2] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           end
         elseif not (not Game.SwitchFire[2] and Cfg.SwitchFire[2]) or not Cfg.SwitchFire[2] and Game.SwitchFire[2] then
           if Hud._weaponsalt[2] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponspri[2] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         else
           if Hud._weaponspri[2] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponsalt[2] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         end
       else
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
       end
     end
     if Player.EnabledWeapons[2] ~= Shotgun then
-      Hud:QuadRGBA(ammo1[1], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[2][1], prcolor[2][2], prcolor[2][3], transic)
-      Hud:QuadRGBA(ammo2[1], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[2][1], alcolor[2][2], alcolor[2][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.Shotgun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shotgun, colord[1], colord[2], colord[3], transco)
-      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.IceBullets), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.IceBullets, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[1], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, prcolor[2][1], prcolor[2][2], prcolor[2][3], transic)
+      Hud:QuadRGBA(ammo2[1], w / 2 + (dsa + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, alcolor[2][1], alcolor[2][2], alcolor[2][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.Shotgun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shotgun, colord[1], colord[2], colord[3], transco)
+      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.IceBullets), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.IceBullets, colord[1], colord[2], colord[3], transco)
       ecafix = 0
       ecart = ecart + eca * 2 - ecafix
     end
@@ -500,37 +505,37 @@ function Hud:AmmoListOriOn()
         if not INP.IsFireSwitched() then
           if not (not Game.SwitchFire[3] and Cfg.SwitchFire[3]) or not Cfg.SwitchFire[3] and Game.SwitchFire[3] then
             if Hud._weaponspri[3] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponsalt[3] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           else
             if Hud._weaponsalt[3] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponspri[3] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           end
         elseif not (not Game.SwitchFire[3] and Cfg.SwitchFire[3]) or not Cfg.SwitchFire[3] and Game.SwitchFire[3] then
           if Hud._weaponsalt[3] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponspri[3] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         else
           if Hud._weaponspri[3] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponsalt[3] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         end
       else
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
       end
     end
     if Player._CurWeaponIndex == 4 then
@@ -538,50 +543,50 @@ function Hud:AmmoListOriOn()
         if not INP.IsFireSwitched() then
           if not (not Game.SwitchFire[4] and Cfg.SwitchFire[4]) or not Cfg.SwitchFire[4] and Game.SwitchFire[4] then
             if Hud._weaponspri[4] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponsalt[4] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           else
             if Hud._weaponsalt[4] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponspri[4] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           end
         elseif not (not Game.SwitchFire[4] and Cfg.SwitchFire[4]) or not Cfg.SwitchFire[4] and Game.SwitchFire[4] then
           if Hud._weaponsalt[4] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponspri[4] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         else
           if Hud._weaponspri[4] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponsalt[4] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         end
       else
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart + 109) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
       end
     end
     if Player.EnabledWeapons[3] ~= StakeGunGL then
-      Hud:QuadRGBA(ammo1[2], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[3][1], prcolor[3][2], prcolor[3][3], transic)
-      Hud:QuadRGBA(ammo2[2], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Stakes), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Stakes, colord[1], colord[2], colord[3], transco)
-      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Grenades), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Grenades, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[2], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, prcolor[3][1], prcolor[3][2], prcolor[3][3], transic)
+      Hud:QuadRGBA(ammo2[2], w / 2 + (dsa + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, alcolor[3][1], alcolor[3][2], alcolor[3][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Stakes), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Stakes, colord[1], colord[2], colord[3], transco)
+      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Grenades), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Grenades, colord[1], colord[2], colord[3], transco)
       ecafix = 0
       ecart = ecart + eca * 2 - ecafix
     end
     if Player.EnabledWeapons[4] ~= MiniGunRL then
-      Hud:QuadRGBA(ammo1[3], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[4][1], alcolor[4][2], alcolor[4][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.MiniGun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.MiniGun, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[3], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, alcolor[4][1], alcolor[4][2], alcolor[4][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%03d", Player.Ammo.MiniGun), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.MiniGun, colord[1], colord[2], colord[3], transco)
       ecafix = eca
       ecart = ecart + eca * 2 - ecafix
     end
@@ -590,53 +595,53 @@ function Hud:AmmoListOriOn()
         if not INP.IsFireSwitched() then
           if not (not Game.SwitchFire[5] and Cfg.SwitchFire[5]) or not Cfg.SwitchFire[5] and Game.SwitchFire[5] then
             if Hud._weaponspri[5] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponsalt[5] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           else
             if Hud._weaponsalt[5] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponspri[5] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           end
         elseif not (not Game.SwitchFire[5] and Cfg.SwitchFire[5]) or not Cfg.SwitchFire[5] and Game.SwitchFire[5] then
           if Hud._weaponsalt[5] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponspri[5] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         else
           if Hud._weaponspri[5] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponsalt[5] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         end
       else
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
       end
     end
     if Player.EnabledWeapons[5] ~= DriverElectro then
-      Hud:QuadRGBA(ammo1[4], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[5][1], prcolor[5][2], prcolor[5][3], transic)
-      Hud:QuadRGBA(ammo2[4], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[5][1], alcolor[5][2], alcolor[5][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Shurikens), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shurikens, colord[1], colord[2], colord[3], transco)
-      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Electro), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Electro, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[4], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, prcolor[5][1], prcolor[5][2], prcolor[5][3], transic)
+      Hud:QuadRGBA(ammo2[4], w / 2 + (dsa + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, alcolor[5][1], alcolor[5][2], alcolor[5][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Shurikens), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Shurikens, colord[1], colord[2], colord[3], transco)
+      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Electro), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Electro, colord[1], colord[2], colord[3], transco)
       ecafix = 0
       ecart = ecart + eca * 2 - ecafix
     end
     if Player._CurWeaponIndex == 6 then
-      Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+      Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
     end
     if Player.EnabledWeapons[6] ~= RifleFlameThrower then
-      Hud:QuadRGBA(ammo1[5], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[6][1], prcolor[6][2], prcolor[6][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Rifle), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Rifle, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[5], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, prcolor[6][1], prcolor[6][2], prcolor[6][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Rifle), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Rifle, colord[1], colord[2], colord[3], transco)
       ecafix = eca
       ecart = ecart + eca * 2 - ecafix
     end
@@ -645,44 +650,44 @@ function Hud:AmmoListOriOn()
         if not INP.IsFireSwitched() then
           if not (not Game.SwitchFire[7] and Cfg.SwitchFire[7]) or not Cfg.SwitchFire[7] and Game.SwitchFire[7] then
             if Hud._weaponspri[7] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponsalt[7] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           else
             if Hud._weaponsalt[7] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
             if Hud._weaponspri[7] then
-              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+              Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
             end
           end
         elseif not (not Game.SwitchFire[7] and Cfg.SwitchFire[7]) or not Cfg.SwitchFire[7] and Game.SwitchFire[7] then
           if Hud._weaponsalt[7] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponspri[7] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         else
           if Hud._weaponspri[7] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
           if Hud._weaponsalt[7] then
-            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+            Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
           end
         end
       else
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
-        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * w / 1024, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsda + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
+        Hud:QuadRGBA(self._matSelectFrame, w / 2 + (dsa + ecart - 2) * sizem * h / 768, (768 - (posiy + 1)) * h / 768, sizem, false, color[1], color[2], color[3], trans)
       end
     end
     if Player.EnabledWeapons[7] ~= BoltGunHeater then
-      Hud:QuadRGBA(ammo1[6], w / 2 + (dsda + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, prcolor[7][1], prcolor[7][2], prcolor[7][3], transic)
-      Hud:QuadRGBA(ammo2[6], w / 2 + (dsa + ecart) * sizem * w / 1024, (768 - posiy) * h / 768, sizem, false, alcolor[7][1], alcolor[7][2], alcolor[7][3], transic)
-      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Bolt), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Bolt, colord[1], colord[2], colord[3], transco)
-      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * w / 1024, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.HeaterBomb), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.HeaterBomb, colord[1], colord[2], colord[3], transco)
+      Hud:QuadRGBA(ammo1[6], w / 2 + (dsda + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, prcolor[7][1], prcolor[7][2], prcolor[7][3], transic)
+      Hud:QuadRGBA(ammo2[6], w / 2 + (dsa + ecart) * sizem * h / 768, (768 - posiy) * h / 768, sizem, false, alcolor[7][1], alcolor[7][2], alcolor[7][3], transic)
+      Hud:DrawDigitsText1(w / 2 + (dsdb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.Bolt), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.Bolt, colord[1], colord[2], colord[3], transco)
+      Hud:DrawDigitsText1(w / 2 + (dsb + ecart) * sizem * h / 768, (768 - (posiy - 2 * sizem)) * h / 768, string.sub(string.format("%04d", Player.Ammo.HeaterBomb), -3), showinfi * sizem, Player.s_SubClass.AmmoWarning.HeaterBomb, colord[1], colord[2], colord[3], transco)
       ecafix = 0
       ecart = ecart + eca * 2 - ecafix
     end
@@ -1417,7 +1422,7 @@ function Hud:DrawDigit2(x, y, chr, scale, r, g, b, trans)
     return
   end
   local mw, mh = MATERIAL.Size(Hud._matDigitsBT[n + 1])
-  HUD.DrawQuadRGBA(Hud._matDigitsBT[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
+  self:QuadRGBA(self._matDigitsBT[n + 1], x, y, scale, false, r, g, b, trans)
 end
 --=====================================================================================
 function Hud:DrawDigitRed2(x, y, chr, scale, r, g, b, trans)
@@ -1427,37 +1432,45 @@ function Hud:DrawDigitRed2(x, y, chr, scale, r, g, b, trans)
     return
   end
   local mw, mh = MATERIAL.Size(Hud._matDigitsBTRed[n + 1])
-  HUD.DrawQuadRGBA(Hud._matDigitsBTRed[n + 1], x, y, mw * scale * w / 1024, mh * scale * h / 768, r, g, b, trans)
+  self:QuadRGBA(self._matDigitsBTRed[n + 1], x, y, scale, false, r, g, b, trans)
 end
 --=====================================================================================
 function Hud:DrawDigitsText2(x, y, txt, scale, warning, r, g, b, trans)
-  local w, h = R3D.ScreenSize()
-  local l = string.len(txt)
-  local mw, mh = MATERIAL.Size(Hud._matDigitsBT[5])
-  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
-    for i = 1, l do
-      self:DrawDigit2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
-    end
-  else
-    for i = 1, l do
-      self:DrawDigitRed2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, nil, nil, nil, trans)
-    end
-  end
+	local l = string.len(txt)
+	local mw, mh = MATERIAL.Size(self._matDigitsBT[5])
+	local w,h = R3D.ScreenSize()
+	local nextposh = (mw - 8) * scale * h / 768
+
+	if warning == nil or (warning >= 0 and warning < tonumber(txt)) or (warning < 0 and -warning > tonumber(txt)) then
+		for i = 1, l do
+			self:DrawDigit2(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	else
+		for i = 1, l do
+			self:DrawDigitRed2(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	end
 end
 --=====================================================================================
-function Hud:DrawDigitsText3(x, y, txt, scale, warning, r, g, b, trans)
-  local w, h = R3D.ScreenSize()
-  local l = string.len(txt)
-  local mw, mh = MATERIAL.Size(Hud._matDigitsBT[5])
-  if warning == nil or warning >= 0 and warning < tonumber(txt) or warning < 0 and -warning > tonumber(txt) then
-    for i = 1, l do
-      self:DrawDigit2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, r, g, b, trans)
-    end
-  else
-    for i = 1, l do
-      self:DrawDigitRed2(x + (i - 1) * (mw - 5) * (w / 1024) * scale, y, string.sub(txt, i, i), scale, nil, nil, nil, trans)
-    end
-  end
+function Hud:DrawDigitsText3(x, y, txt, scale, warning, r, g, b, trans) -- this is redundant
+	local l = string.len(txt)
+	local mw, _ = MATERIAL.Size(self._matDigitsBT[5])
+	local w,h = R3D.ScreenSize()
+	local nextposh = (mw - 8) * scale * h / 768
+
+	if warning == nil or (warning >= 0 and warning < tonumber(txt)) or (warning < 0 and -warning > tonumber(txt)) then
+		for i = 1, l do
+			self:DrawDigit2(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	else
+		for i = 1, l do
+			self:DrawDigitRed2(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
+		end
+	end
 end
 --=====================================================================================
 function Hud:SuperHud()
@@ -1664,37 +1677,37 @@ function Hud:SuperHud()
     checkitem[7] = true
     if Cfg.HUD_HudStyle == 2 then
       if Cfg.HUD_3DIcon_Anim then
-        self:QuadTrans(self._matHealthQW3D[s0 + 1], (1024 - qwhudposhe) * w / 1024, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, transic)
+        self:QuadTrans(self._matHealthQW3D[s0 + 1], (1024 - qwhudposhe) * h / 768, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, transic)
       else
-        self:QuadTrans(self._matHealthQW3D[61], (1024 - qwhudposhe) * w / 1024, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, transic)
+        self:QuadTrans(self._matHealthQW3D[61], (1024 - qwhudposhe) * h / 768, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, transic)
       end
     else
-      Hud:QuadRGBA(self._matHealthQW, (1024 - qwhudposhe) * w / 1024, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, colorh[1], colorh[2], colorh[3], transic)
+      Hud:QuadRGBA(self._matHealthQW, (1024 - qwhudposhe) * h / 768, (768 - qwhudposhhe) * h / 768, qwhudsizeh / 2, true, colorh[1], colorh[2], colorh[3], transic)
     end
   end
-  self:DrawDigitsText2((1024 - qwhudposhed - 122 * qwhudsizehd / 2) * w / 1024, (768 - qwhudposhhed - 64 * qwhudsizehd / 2) * h / 768, string.sub(string.format("%03d", hee), -3), showinf * qwhudsizehd, Player.HealthWarning, colord[1], colord[2], colord[3], transco)
+  self:DrawDigitsText2((1024 - qwhudposhed - 122 * qwhudsizehd / 2) * h / 768, (768 - qwhudposhhed - 64 * qwhudsizehd / 2) * h / 768, string.sub(string.format("%03d", hee), -3), showinf * qwhudsizehd, Player.HealthWarning, colord[1], colord[2], colord[3], transco)
   local tm1 = Game.currentTime / 60 / 2
   local m1 = math.floor(tm1)
   local s1 = math.floor((tm1 - m1) * 64)
   if Cfg.HUD_HudStyle == 2 then
     if Cfg.HUD_3DIcon_Anim then
       if Player.ArmorType == 0 then
-        self:QuadTrans(self._matArmorNormalQW3D[s1 + 1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic / 2)
+        self:QuadTrans(self._matArmorNormalQW3D[s1 + 1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic / 2)
       elseif Player.ArmorType == 1 then
-        self:QuadTrans(self._matArmorBronzeQW3D[s1 + 1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+        self:QuadTrans(self._matArmorBronzeQW3D[s1 + 1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
       elseif Player.ArmorType == 2 then
-        self:QuadTrans(self._matArmorSilverQW3D[s1 + 1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+        self:QuadTrans(self._matArmorSilverQW3D[s1 + 1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
       elseif Player.ArmorType == 3 then
-        self:QuadTrans(self._matArmorYellowQW3D[s1 + 1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+        self:QuadTrans(self._matArmorYellowQW3D[s1 + 1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
       end
     elseif Player.ArmorType == 0 then
-      self:QuadTrans(self._matArmorNormalQW3D[1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic / 2)
+      self:QuadTrans(self._matArmorNormalQW3D[1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic / 2)
     elseif Player.ArmorType == 1 then
-      self:QuadTrans(self._matArmorBronzeQW3D[1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+      self:QuadTrans(self._matArmorBronzeQW3D[1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
     elseif Player.ArmorType == 2 then
-      self:QuadTrans(self._matArmorSilverQW3D[1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+      self:QuadTrans(self._matArmorSilverQW3D[1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
     elseif Player.ArmorType == 3 then
-      self:QuadTrans(self._matArmorYellowQW3D[1], (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
+      self:QuadTrans(self._matArmorYellowQW3D[1], (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, transic)
     end
   else
     local color = {{204, 102, 0}, {204, 204, 204}, {255, 204, 0}}
@@ -1702,16 +1715,16 @@ function Hud:SuperHud()
       color = {{0, 204, 0}, {255, 255, 0}, {255, 0, 0}}
     end
     if Player.ArmorType == 0 then
-      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, 0, 0, 0, transic / 2)
+      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, 0, 0, 0, transic / 2)
     elseif Player.ArmorType == 1 then
-      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[1][1], color[1][2], color[1][3], transic)
+      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[1][1], color[1][2], color[1][3], transic)
     elseif Player.ArmorType == 2 then
-      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[2][1], color[2][2], color[2][3], transic)
+      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[2][1], color[2][2], color[2][3], transic)
     elseif Player.ArmorType == 3 then
-      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * w / 1024, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[3][1], color[3][2], color[3][3], transic)
+      Hud:QuadRGBA(self._matArmorBH, (1024 - qwhudposar) * h / 768, (768 - qwhudposhar) * h / 768, qwhudsizea / 2, true, color[3][1], color[3][2], color[3][3], transic)
     end
   end
-  self:DrawDigitsText2((1024 - qwhudposard - 122 * qwhudsizead / 2) * w / 1024, (768 - qwhudposhard - 64 * qwhudsizead / 2) * h / 768, string.sub(string.format("%03d", armorr), -3), showinf * qwhudsizead, Player.ArmorWarning, colord[1], colord[2], colord[3], transco)
+  self:DrawDigitsText2((1024 - qwhudposard - 122 * qwhudsizead / 2) * h / 768, (768 - qwhudposhard - 64 * qwhudsizead / 2) * h / 768, string.sub(string.format("%03d", armorr), -3), showinf * qwhudsizead, Player.ArmorWarning, colord[1], colord[2], colord[3], transco)
   local amt = Game.currentTime / 60
   local amm = math.floor(amt)
   local ams = math.floor((amt - amm) * 16)
@@ -1754,83 +1767,83 @@ function Hud:SuperHud()
         if not (not Game.SwitchFire[j] and Cfg.SwitchFire[j]) or not Cfg.SwitchFire[j] and Game.SwitchFire[j] then
           if Cfg.HUD_HudStyle == 2 then
             if Cfg.HUD_3DIcon_Anim then
-              Hud:QuadTrans(priammolist3D[j][s2 + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
-              Hud:QuadTrans(altammolist3D[j][ams + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+              Hud:QuadTrans(priammolist3D[j][s2 + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+              Hud:QuadTrans(altammolist3D[j][ams + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
             else
-              Hud:QuadTrans(priammolist3D[j][0 + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
-              Hud:QuadTrans(altammolist3D[j][fix + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+              Hud:QuadTrans(priammolist3D[j][0 + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+              Hud:QuadTrans(altammolist3D[j][fix + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
             end
           else
-            Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
-            Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
+            Hud:QuadRGBA(priammolist[j], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
+            Hud:QuadRGBA(altammolist[j], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
           end
           if Player._CurWeaponIndex == 1 then
-            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
-            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, w - ((posInf - qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, w - ((posInff - qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
           else
-            Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-            Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3(w - ((posInf + 122 * qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3(w - ((posInff + 122 * qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
           end
         else
           if Cfg.HUD_HudStyle == 2 then
             if Cfg.HUD_3DIcon_Anim then
-              Hud:QuadTrans(priammolist3D[j][s2 + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
-              Hud:QuadTrans(altammolist3D[j][ams + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+              Hud:QuadTrans(priammolist3D[j][s2 + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+              Hud:QuadTrans(altammolist3D[j][ams + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
             else
-              Hud:QuadTrans(priammolist3D[j][0 + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
-              Hud:QuadTrans(altammolist3D[j][fix + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+              Hud:QuadTrans(priammolist3D[j][0 + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+              Hud:QuadTrans(altammolist3D[j][fix + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
             end
           else
-            Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
-            Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
+            Hud:QuadRGBA(priammolist[j], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
+            Hud:QuadRGBA(altammolist[j], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
           end
           if Player._CurWeaponIndex == 1 then
-            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
-            Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, w - ((posInf - qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+            Hud:QuadTrans(Hud._matInfinityQW, w - ((posInff - qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
           else
-            Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-            Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3(w - ((posInf + 122 * qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+            Hud:DrawDigitsText3(w - ((posInff + 122 * qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
           end
         end
       elseif not (not Game.SwitchFire[j] and Cfg.SwitchFire[j]) or not Cfg.SwitchFire[j] and Game.SwitchFire[j] then
         if Cfg.HUD_HudStyle == 2 then
           if Cfg.HUD_3DIcon_Anim then
-            Hud:QuadTrans(priammolist3D[j][s2 + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
-            Hud:QuadTrans(altammolist3D[j][ams + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+            Hud:QuadTrans(priammolist3D[j][s2 + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+            Hud:QuadTrans(altammolist3D[j][ams + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
           else
-            Hud:QuadTrans(priammolist3D[j][0 + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
-            Hud:QuadTrans(altammolist3D[j][fix + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+            Hud:QuadTrans(priammolist3D[j][0 + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+            Hud:QuadTrans(altammolist3D[j][fix + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
           end
         else
-          Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
-          Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
+          Hud:QuadRGBA(priammolist[j], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
+          Hud:QuadRGBA(altammolist[j], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
         end
         if Player._CurWeaponIndex == 1 then
-          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
-          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, (w - posInff - qwhudsizewd2 / 2), (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, (w - posInf - qwhudsizewd1 / 2), (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
         else
-          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd2, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd1, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3((w - posInff - 122 * qwhudsizewd2 / 2), (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd2, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3((w - posInf - 122 * qwhudsizewd1 / 2), (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd1, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
         end
       else
         if Cfg.HUD_HudStyle == 2 then
           if Cfg.HUD_3DIcon_Anim then
-            Hud:QuadTrans(priammolist3D[j][s2 + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
-            Hud:QuadTrans(altammolist3D[j][ams + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+            Hud:QuadTrans(priammolist3D[j][s2 + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+            Hud:QuadTrans(altammolist3D[j][ams + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
           else
-            Hud:QuadTrans(priammolist3D[j][0 + 1], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
-            Hud:QuadTrans(altammolist3D[j][fix + 1], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
+            Hud:QuadTrans(priammolist3D[j][0 + 1], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, transic)
+            Hud:QuadTrans(altammolist3D[j][fix + 1], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, transic)
           end
         else
-          Hud:QuadRGBA(priammolist[j], (1024 - qwhuditemsfix1) * w / 1024, (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
-          Hud:QuadRGBA(altammolist[j], (1024 - qwhuditemsfix3) * w / 1024, (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
+          Hud:QuadRGBA(priammolist[j], w - (qwhuditemsfix1 * h / 768), (768 - qwhudposhw1) * h / 768, qwhudsizew1 / 2, true, prcolor[j][1], prcolor[j][2], prcolor[j][3], transic)
+          Hud:QuadRGBA(altammolist[j], w - (qwhuditemsfix3 * h / 768), (768 - qwhudposhw2) * h / 768, qwhudsizew2 / 2, true, alcolor[j][1], alcolor[j][2], alcolor[j][3], transic)
         end
         if Player._CurWeaponIndex == 1 then
-          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInff - qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
-          Hud:QuadTrans(Hud._matInfinityQW, (1024 - posInf - qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, w - ((posInff - qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw2d - qwhudsizewd2 / 2) * h / 768, showinf * qwhudsizewd2, transco)
+          Hud:QuadTrans(Hud._matInfinityQW, w - ((posInf - qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw1d - qwhudsizewd1 / 2) * h / 768, showinf * qwhudsizewd1, transco)
         else
-          Hud:DrawDigitsText3((1024 - posInf - 122 * qwhudsizewd1 / 2) * w / 1024, (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
-          Hud:DrawDigitsText3((1024 - posInff - 122 * qwhudsizewd2 / 2) * w / 1024, (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3(w - ((posInf + 122 * qwhudsizewd1 / 2) * h / 768), (768 - qwhudposhw1d - 64 * qwhudsizewd1 / 2) * h / 768, string.sub(string.format(numcharact[j], priammolistnum[j]), -3), showinf * qwhudsizewd1, priammolistnumwar[j], colord[1], colord[2], colord[3], transco)
+          Hud:DrawDigitsText3(w - ((posInff + 122 * qwhudsizewd2 / 2) * h / 768), (768 - qwhudposhw2d - 64 * qwhudsizewd2 / 2) * h / 768, string.sub(string.format(numcharact[j], altammolistnum[j]), -3), showinf * qwhudsizewd2, altammolistnumwar[j], colord[1], colord[2], colord[3], transco)
         end
       end
     end

@@ -753,7 +753,7 @@ function Hud:Render(delta)
 	self:QuadTrans(self._matHUDRight,(1024-Cfg.HUDSize*sizex)*w/1024,(768-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false,trans)
 end
 	if Cfg.HUD_HudStyle == 0 then
-	self:Quad(self._matHealth,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*14)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	self:Quad(self._matHealth,(Cfg.HUDSize * 17) * h / 768,((768+Cfg.HUDSize*14)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 	end
 end
     if Player then
@@ -838,24 +838,24 @@ end
 
 	if Cfg.HUD_HudStyle == 0 then 
         if Player.ArmorType == 0 then
-            self:Quad(self._matArmorNormal,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            self:Quad(self._matArmorNormal,(Cfg.HUDSize * 17) * h / 768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif Player.ArmorType == 1 then
-            self:Quad(self._matArmorGreen,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            self:Quad(self._matArmorGreen,(Cfg.HUDSize * 17) * h / 768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif Player.ArmorType == 2 then
-            self:Quad(self._matArmorYellow,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            self:Quad(self._matArmorYellow,(Cfg.HUDSize * 17) * h / 768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif Player.ArmorType == 3 then
-            self:Quad(self._matArmorRed,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            self:Quad(self._matArmorRed,(Cfg.HUDSize * 17) * h / 768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         end
 
         if Cfg.BrightSkinsArmors then
           if Player.ArmorType == 0 then
-            self:Quad(self._matArmorNormal, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
+            self:Quad(self._matArmorNormal, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
           elseif Player.ArmorType == 1 then
-            self:Quad(self._matArmorGreenNEw, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
+            self:Quad(self._matArmorGreenNEw, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
           elseif Player.ArmorType == 2 then
-            self:Quad(self._matArmorYellowNEw, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
+            self:Quad(self._matArmorYellowNEw, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
           elseif Player.ArmorType == 3 then
-            self:Quad(self._matArmorRedNEw, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
+            self:Quad(self._matArmorRedNEw, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 49 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false)
           end
         end
       end
@@ -931,14 +931,14 @@ end
 
     if MPCfg.GameMode ~= "Instagib" and MPCfg.GameMode ~= "ICTF" then
       if Cfg.HUD_HudStyle == 0 then
-        self:DrawDigitsText1(Cfg.HUDSize * 52 * w / 1024, (768 + Cfg.HUDSize * 16 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", he), -3), 0.9 * Cfg.HUDSize, Player.HealthWarning)
+        self:DrawDigitsText1((Cfg.HUDSize * 52) * h / 768, (768 + Cfg.HUDSize * 16 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", he), -3), 0.9 * Cfg.HUDSize, Player.HealthWarning)
       end
       local armor = Player.Armor
       if Player.FrozenArmor then
         armor = 0
       end
       if Cfg.HUD_HudStyle == 0 then
-        self:DrawDigitsText1(Cfg.HUDSize * 52 * w / 1024, (768 + Cfg.HUDSize * 50 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", armor), -3), 0.9 * Cfg.HUDSize, Player.ArmorWarning)
+        self:DrawDigitsText1((Cfg.HUDSize * 52) *  h/ 768, (768 + Cfg.HUDSize * 50 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", armor), -3), 0.9 * Cfg.HUDSize, Player.ArmorWarning)
       end
     end
   end
@@ -1474,82 +1474,90 @@ end
 
 --============================================================================
 function Hud:Quad(mat,x,y,size,center)
-    local mw,mh = MATERIAL.Size(mat)
-    if mw == -1 then
-        Game:Print('Hud:Quad - material: '.. mat.." not found!")
-        return
-    end
-    local w,h = R3D.ScreenSize()
-    mw = mw * size * w / 1024
-    mh = mh * size * h / 768
-    if center then
-        x = x - mw/2
-        y = y - mh/2
-    end
-    HUD.DrawQuad(mat,x,y,mw,mh)
+	local mw, mh = MATERIAL.Size(mat)
+	if mw == -1 then
+		Game:Print('Hud:Quad - material: '.. mat.." not found!")
+		return
+	end
+	local w,h = R3D.ScreenSize()
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
+	if center then
+		x = x - mw/2
+		y = y - mh/2
+	end
+	HUD.DrawQuad(mat, x, y, mw, mh)
 end
 --============================================================================
 function Hud:QuadUV(mat,x,y,size,center,u,v,u1,v1)
-    local mw,mh = MATERIAL.Size(mat)
-    local w,h = R3D.ScreenSize()
-    mw = mw * size * w / 1024
-    mh = mh * size * h / 768
-    if center then
-        x = x - mw/2
-        y = y - mh/2
-    end
-    HUD.DrawQuad(mat,x,y,mw,mh,R3D.RGB(255,255,255),u,v,u1,v1)
+	local mw,mh = MATERIAL.Size(mat)
+	local w,h = R3D.ScreenSize()
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
+	if center then
+		x = x - mw/2
+		y = y - mh/2
+	end
+	HUD.DrawQuad(mat,x,y,mw,mh,R3D.RGB(255,255,255),u,v,u1,v1)
 end
+
 --============================================================================
 function Hud:QuadTrans(mat,x,y,size,center,trans)
-    local mw,mh = MATERIAL.Size(mat)
-    local w,h = R3D.ScreenSize()
-    mw = mw * size * w /1024
-    mh = mh * size * h / 768
-    if center then
-        x = x - mw/2
-        y = y - mh/2
-    end
-    HUD.DrawQuadRGBA(mat,x,y,mw,mh,255,255,255,trans)
+	local mw,mh = MATERIAL.Size(mat)
+	local w,h = R3D.ScreenSize()
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
+	if center then
+		x = x - mw/2
+		y = y - mh/2
+	end
+	HUD.DrawQuadRGBA(mat,x,y,mw,mh,255,255,255,trans)
 end
 --============================================================================
 function Hud:QuadTransUV(mat,x,y,size,center,trans,u,v,u1,v1)
-    local mw,mh = MATERIAL.Size(mat)
-    local w,h = R3D.ScreenSize()
-    mw = mw * size * w /1024
-    mh = mh * size * h / 768
-    if center then
-        x = x - mw/2
-        y = y - mh/2
-    end
-    HUD.DrawQuadRGBA(mat,x,y,mw,mh,255,255,255,trans,u,v,u1,v1)
+	local mw,mh = MATERIAL.Size(mat)
+	local w,h = R3D.ScreenSize()
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
+	if center then
+		x = x - mw/2
+		y = y - mh/2
+	end
+	HUD.DrawQuadRGBA(mat,x,y,mw,mh,255,255,255,trans,u,v,u1,v1)
 end
 --============================================================================
 function Hud:QuadRGBA(mat,x,y,size,center,r,g,b,a)
-    local mw,mh = MATERIAL.Size(mat)
-    local w,h = R3D.ScreenSize()
-    mw = mw * size * w /1024
-    mh = mh * size * h / 768
-    if center then
-        x = x - mw/2
-        y = y - mh/2
-    end
-    HUD.DrawQuadRGBA(mat,x,y,mw,mh,r,g,b,a)
+	local mw,mh = MATERIAL.Size(mat)
+	local w,h = R3D.ScreenSize()
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
+	if center then
+		x = x - mw/2
+		y = y - mh/2
+	end
+	HUD.DrawQuadRGBA(mat,x,y,mw,mh,r,g,b,a)
 end
 --============================================================================
 function Hud:QuadRot(mat,x,y,size,angle,rotx,roty)
 	local mw,mh = MATERIAL.Size(mat)
 	local w,h = R3D.ScreenSize()
-	mw = mw * size * w / 1024
-	mh = mh * size * h / 768
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
 	HUD.DrawQuadRotated(mat,x,y,mw,mh,angle,rotx,roty)
 end
 --============================================================================
 function Hud:QuadRotTrans(mat,x,y,size,angle,rotx,roty,trans)
 	local mw,mh = MATERIAL.Size(mat)
 	local w,h = R3D.ScreenSize()
-	mw = mw * size * w / 1024
-	mh = mh * size * h / 768
+	local s = size * h / 768
+	mw = mw * s
+	mh = mh * s
 	HUD.DrawQuadRotated(mat,x,y,mw,mh,angle,rotx,roty,255,255,255,trans)
 end
 --============================================================================
@@ -1573,33 +1581,32 @@ function Hud:DrawText(x,y,txt,color,size)
 end
 --============================================================================
 function Hud:DrawDigit(x,y,chr,scale)
-	local w,h = R3D.ScreenSize()
 	local n = tonumber(chr)
-    if not n then return end
-    local mw,mh = MATERIAL.Size(self._matDigits[n+1])
-    HUD.DrawQuad(self._matDigits[n+1],x,y,mw*scale*w/1024,mh*scale*h/768)
+	if not n then return end
+	self:Quad(self._matDigits[n+1],x,y,scale,false)
 end
 --============================================================================
 function Hud:DrawDigitRed(x,y,chr,scale)
-	local w,h = R3D.ScreenSize()
 	local n = tonumber(chr)
-    if not n then return end
-    local mw,mh = MATERIAL.Size(self._matDigitsRed[n+1])
-    HUD.DrawQuad(self._matDigitsRed[n+1],x,y,mw*scale*w/1024,mh*scale*h/768)
+	if not n then return end
+	self:Quad(self._matDigitsRed[n+1],x,y,scale,false)
 end
 --============================================================================
-function Hud:DrawDigitsText(x,y,txt,scale,warning)
+function Hud:DrawDigitsText(x, y, txt, scale, warning)
+	local l = string.len(txt)
+	local mw, mh = MATERIAL.Size(self._matDigits[5])
 	local w,h = R3D.ScreenSize()
-    local l = string.len(txt)
-    local mw,mh = MATERIAL.Size(self._matDigits[5])
+	local nextposh = (mw - 4) * scale * h / 768
 
-	if warning == nil or ( warning >= 0 and warning < tonumber(txt) ) or ( warning < 0 and -warning > tonumber(txt) ) then
-		for i=1,l do
-			self:DrawDigit(x+(i-1)*(mw-4)*(w/1024)*scale,y,string.sub(txt,i,i),scale)
+	if warning == nil or (warning >= 0 and warning < tonumber(txt)) or (warning < 0 and -warning > tonumber(txt)) then
+		for i = 1, l do
+			self:DrawDigit(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
 		end
 	else
-		for i=1,l do
-			self:DrawDigitRed(x+(i-1)*(mw-4)*(w/1024)*scale,y,string.sub(txt,i,i),scale)
+		for i = 1, l do
+			self:DrawDigitRed(x, y, string.sub(txt, i, i), scale)
+			x = x + nextposh
 		end
 	end
 end
