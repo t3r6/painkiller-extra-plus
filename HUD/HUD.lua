@@ -427,8 +427,8 @@ end
 	        Hud._matBluePix            = MATERIAL.Create("Textures/bluepix.tga", TextureFlags.NoLOD + TextureFlags.NoMipMaps)
         end
         
-
-
+	-- Spectator item timers
+	Hud:SetTimerMatTypes(Cfg.HUD_HudStyle,Cfg.BrightSkinsArmors)
 
 	if Cfg.Crosshair then
 		if Cfg.Crosshair == 0 then Cfg.Crosshair = 1 end
@@ -1719,5 +1719,129 @@ function Hud:OnConsoleTab(cmd)
 		end
 	end
     --]]
+end
+--============================================================================
+-- PK Extra Plus
+--============================================================================
+function Hud:SetTimerMatTypes(hudpreset, armorstyle)
+
+    armorstyle = armorstyle and 1 or 0
+
+    local hudpresets = {
+        [0] = {
+            [0] = {
+                {"HUD/armor_czerwony",{nil,nil,nil}},
+                {"HUD/armor_zolty",{nil,nil,nil}},
+                {"HUD/armor_zielony",{nil,nil,nil}},
+                {"HUD/energia",{nil,nil,nil}},
+                {"Miscellaneous/pk/exp/HUD/megapack_classic",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/penticon",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/quadicon",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/wmicon",{nil,nil,nil}},
+            },
+            [1] = {
+                {"SHud/armor_classic_strong",{nil,nil,nil}},
+                {"SHud/armor_classic_medium",{nil,nil,nil}},
+                {"SHud/armor_classic_weak",{nil,nil,nil}},
+                {"HUD/energia",{nil,nil,nil}},
+                {"Miscellaneous/pk/exp/HUD/megapack_classic",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/penticon",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/quadicon",{nil,nil,nil}},
+                {"Miscellaneous/pk/chainsmod/HUD/0.5/icons/wmicon",{nil,nil,nil}},
+            },
+        },
+        [1] = {
+            [0] = {
+                {"BHud/armor",{255,204,0}},
+                {"BHud/armor",{204,204,204}},
+                {"BHud/armor",{204,102,0}},
+                {"BHud/energia",{0,204,255}},
+                {"SIicon/Ammo/megapack",{0,204,255}},
+                {"Pickup/PowerUp/PowerUp",{255,0,0}},
+                {"Pickup/PowerUp/PowerUp",{0,255,255}},
+                {"Pickup/PowerUp/PowerUp",{255,102,0}},
+            },
+            [1] = {
+                {"BHud/armor",{255,0,0}},
+                {"BHud/armor",{255,255,0}},
+                {"BHud/armor",{0,204,0}},
+                {"BHud/energia",{0,204,255}},
+                {"SIicon/Ammo/megapack",{0,204,255}},
+                {"Pickup/PowerUp/PowerUp",{255,0,0}},
+                {"Pickup/PowerUp/PowerUp",{0,255,255}},
+                {"Pickup/PowerUp/PowerUp",{255,102,0}},
+            },
+        },
+    }
+
+    local tbl = (hudpresets[hudpreset] and hudpresets[hudpreset][armorstyle]) or hudpresets[1][0]
+    self.TimerMats = {}
+    for i, o in tbl do
+        local item = {MATERIAL.Create(o[1], TextureFlags.NoLOD + TextureFlags.NoMipMaps), o[2]}
+        table.insert(self.TimerMats, item)
+    end
+end
+--============================================================================
+function Hud:DrawItemTimers()
+
+    local font = "impact"
+    if Cfg.HUD_HudStyle == 0 then font = "timesbd"  end
+
+    local w,h  = R3D.ScreenSize()
+    local posX, posY = 15,Cfg.HUD_Spec_Item_Timers_PosY or 120
+    local offset  = 0
+
+    local filter = {}
+    if Cfg.HUD_Show_Spec_Item_Timers == 1 then
+        filter = { true, true, false, true, false, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 2 then
+        filter = { true, true, true, true, false, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 3 then
+        filter = { true, true, true, true, true, false, false, false }
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 4 then
+        filter = { true, true, false, true, false, true, true, true }
+    elseif Cfg.HUD_Show_Spec_Item_Timers == 5 then
+        filter = { true, true, true, true, false, true, true, true }
+    elseif Cfg.HUD_Show_Spec_Item_Timers >= 6 then
+        filter = { true, true, true, true, true, true, true, true }
+    end
+
+    local tbl = GObjects:GetElementsWithFieldValue( "_Name", "I73m3s7*" )
+    table.sort(tbl, function(a, b) return a._type < b._type end)
+
+    local side = (tonumber(Cfg.HUD_Spec_Item_Timers_PosX) or 1) == 0 -- Item side position
+
+    for i,o in tbl, nil do
+        if filter[o._type] then
+            local mat = Hud.TimerMats[o._type][1]
+
+            local size = (Cfg.HUD_Spec_Item_Timers_Size or 0) > 0 and Cfg.HUD_Spec_Item_Timers_Size or 35
+            local mw, mh = size, size -- MATERIAL.Size(mat)
+
+            local r,g,b = unpack(Hud.TimerMats[o._type][2])
+            if side then
+                HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+            else
+                HUD.DrawQuadRGBA(mat,w-(posX*w/1024 + mw),(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+            end
+
+            r, g, b = 255, 255, 255
+            if Cfg.HUD_HudStyle == 0 then
+                r, g, b = 255, 186, 122
+            end
+
+            local bearer = Game.PlayerStats[o._bearerId]
+            local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
+            local textSize = (mh*5/6<=35) and (mh*5/6) or 35
+            if side then
+                HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,textSize)
+            else
+                HUD.SetFont(font,mh*5/6)
+                local width = HUD.GetTextWidth(txt)
+                HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,textSize)
+            end
+            offset = offset + mh
+        end
+    end
 end
 --============================================================================

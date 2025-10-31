@@ -410,6 +410,10 @@ function Console:Cmd_SPECTATOR(nr)
                         end
                         NET.SetSpectator(NET.GetClientID(),nr)
                     else
+                        if Player and Player._procDemonFX then
+                            GObjects:ToKill(Player._procDemonFX)
+                            Player._procDemonFX = nil
+                        end
                         Game.PlayerSpectatorRequest(NET.GetClientID(),nr)
                     end
                 end

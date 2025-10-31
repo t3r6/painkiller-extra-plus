@@ -526,7 +526,7 @@ function CPlayer:ClientTick(delta)
     local cw = self:GetCurWeapon()
        
     -- next/prev weapon
-    if not (cw and cw._zoom and cw._zoom>0) and (INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon)) then
+    if not (cw and cw._zoom and cw._zoom>0 or self._wheeltime) and (INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon)) then
         -- find current weapon
         local slot = self._CurWeaponIndex            
         if INP.Action(Actions.NextWeapon) then                                 
@@ -542,6 +542,15 @@ function CPlayer:ClientTick(delta)
             until self.EnabledWeapons[slot]
             nextSlot = slot
         end                    
+        self._wheelaction = AddBitFlag(action,Slot2Action[nextSlot])
+        self._wheeltime = INP.GetTime() + 1/15
+    end
+
+    if self._wheeltime and self._wheeltime > INP.GetTime() then
+        action = self._wheelaction
+        nextSlot = -1
+    else
+        self._wheeltime = nil
     end     
         
     if Game.GMode ~= GModes.SingleGame and Cfg.NoAmmoSwitch and nextSlot == -1 then

@@ -2676,7 +2676,34 @@ function Console:Cmd_TEMPLATE_TOGGLE_BOOL(paramName, enable, description)
     CONSOLE_AddMessage("State: " .. paramName .. " is currently disabled.")
   end
 end
+--=======================================================================
+-- generic set function for numerical range
+function Console:Cmd_TEMPLATE_SET_INT(paramName, value, description)
+    if not paramName then
+        CONSOLE_AddMessage("Error: This is a template function.")
+        return
+    end
 
+    if value == nil then
+        local current = Cfg[paramName]
+        CONSOLE_AddMessage("State: Cfg." .. paramName .. " = " .. tostring(current or "nil"))
+        CONSOLE_AddMessage("Help: " .. paramName .. " must be a whole number. " .. (description or ""))
+        return
+    end
+
+    local num = tonumber(value)
+
+    if not num or num ~= math.floor(num) then
+        CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " <integer>")
+        CONSOLE_AddMessage("Error: Value must be a whole number (e.g., 0, 1, 2, 3, ...).")
+        return
+    end
+
+    Cfg[paramName] = num
+    Cfg:Check()
+    CONSOLE_AddMessage("State: " .. paramName .. " is now set to " .. num .. ".")
+end
+--=======================================================================
 -- generic set function for numerical decimal range
 function Console:Cmd_TEMPLATE_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, description)
   if not paramName then
@@ -2805,6 +2832,10 @@ function Console:Cmd_SHOWWEAPONANIM(enable)
 end
 --=======================================================================
 function Console:Cmd_SHOWSPECITEMTIMERS(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator.")
+  self:Cmd_TEMPLATE_SET_INT("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-6).")
+end
+--=======================================================================
+function Console:Cmd_HUD_SPECITEMTIMERSPOSITION(enable)
+  self:Cmd_TEMPLATE_SET_INT("HUD_Spec_Item_Timers_PosX", enable, "Set item timers position left/right in spectator (0-1).")
 end
 --=======================================================================
