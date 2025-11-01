@@ -578,11 +578,11 @@ function Hud:Tick(delta)
 	end
 end
 --============================================================================
-local function Hud:ApplySpeedUnitScale(vx,vz)
-    local unitScale1 = 29.091
-    if Cfg.HUD_Speedmeter_Quake then
-        vx = vx * unitScale1
-        vz = vz * unitScale1
+local function Hud:ApplySpeedUnitHScale(vx,vz)
+    local unitScaleQuake = 29.091
+    if Cfg.HUD_Speedmeter_UnitType == 1 then
+        vx = vx * unitScaleQuake
+        vz = vz * unitScaleQuake
     end
     return vx, vz
 end
@@ -1027,7 +1027,7 @@ end
     if  Cfg.HUD_Show_Speedmeter == 4  and Player and Player._Entity then
         local vx,vy,vz,vl = ENTITY.GetVelocity(Player._Entity)
 
-        vx, vz = ApplySpeedUnitScale(vx, vz)
+        vx, vz = self.ApplySpeedUnitHScale(vx, vz)
 
         local hl = Dist2D(0,0,vx,vz)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,100,13,100,100,100)
