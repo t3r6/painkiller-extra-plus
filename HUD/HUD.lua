@@ -1027,7 +1027,7 @@ end
     if  Cfg.HUD_Show_Speedmeter == 4  and Player and Player._Entity then
         local vx,vy,vz,vl = ENTITY.GetVelocity(Player._Entity)
 
-        vx, vz = self.ApplySpeedUnitHScale(vx, vz)
+        vx, vz = self:ApplySpeedUnitHScale(vx, vz)
 
         local hl = Dist2D(0,0,vx,vz)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,100,13,100,100,100)
