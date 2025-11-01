@@ -108,15 +108,15 @@ function RifleFlameThrower:DrawHUD(delta)
     local sizex, sizey = MATERIAL.Size(Hud._matHUDLeft)
 
     if not (INP.IsFireSwitched() or (not Game.SwitchFire[6] and Cfg.SwitchFire[6]) or (not Cfg.SwitchFire[6] and Game.SwitchFire[6])) then
-		Hud:Quad(self._matAmmoIcon,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoElectroIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Rifle),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Rifle)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.FlameThrower),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.FlameThrower)
+		Hud:Quad(self._matAmmoIcon,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoElectroIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Rifle),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Rifle)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.FlameThrower),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.FlameThrower)
 	else
-		Hud:Quad(self._matAmmoElectroIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*13)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoIcon,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.FlameThrower),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.FlameThrower)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Rifle),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Rifle)
+		Hud:Quad(self._matAmmoElectroIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*13)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoIcon,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.FlameThrower),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.FlameThrower)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Rifle),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Rifle)
 	end
 end
 --============================================================================
