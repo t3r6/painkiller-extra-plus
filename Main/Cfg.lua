@@ -335,7 +335,7 @@ Cfg =
     NoDamageFX = false,
     NoPowerUpFX = false,
     PicmipFX = false,
-    ThinShaft = false,
+    ShaftFX = 0,
     NoSpawnEffects = false,
     NoFlames = false,
 
@@ -1030,6 +1030,7 @@ function Cfg:Check()
 	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,35)
 	Cfg.HUD_Spec_Item_Timers_PosX = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosX,"n",0,1,1)
 	Cfg.HUD_Spec_Item_Timers_PosY = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosY,"n",0,999,120)
+	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)
