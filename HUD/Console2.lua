@@ -2844,6 +2844,6 @@ function Console:Cmd_SHAFTFX(value)
 end
 --=======================================================================
 function Console:Cmd_HUD_SPEEDMETER_UNITTYPE(value)
-  self:Cmd_TEMPLATE_SET_INT("HUD_Speedmeter_UnitType", value, "Converts speed units (e.g., PK 11 Ups to Quake 320 Ups).")
+  self:Cmd_TEMPLATE_SET_INT("HUD_Speedmeter_UnitType", value, "Converts speed units (e.g., PK 11 Ups to Quake 320 Ups). Default is 0.")
 end
 --=======================================================================
