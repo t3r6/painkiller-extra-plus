@@ -131,6 +131,7 @@ PainMenu =
 	mapsOnServerDUE = {},
 	mapsOnServerLMS = {},
 	mapsOnServerCLA = {},
+	mapsOnServerRAC = {},
 	lastMPMode = "",
 
 	playerModel = nil,
@@ -142,7 +143,7 @@ PainMenu =
 	showStartMovies = true,
 	
 	weapons = { _11 = TXT.Weapons.Pain, _12 = TXT.Weapons.Killer, _21 = TXT.Weapons.Shotgun, _22 = TXT.Weapons.Freezer, _31 = TXT.Weapons.Stakegun,
-				_32 = TXT.Weapons.GranadeLauncher, _41 = TXT.Weapons.RocketLauncher, _42 = TXT.Weapons.Minigun, _51 = TXT.Weapons.Shurikens, _52 = TXT.Weapons.Electro,
+				_32 = TXT.Weapons.GrenadeLauncher, _41 = TXT.Weapons.RocketLauncher, _42 = TXT.Weapons.Minigun, _51 = TXT.Weapons.Shurikens, _52 = TXT.Weapons.Electro,
 				_61 = TXT.Weapons.Rifle, _62 = TXT.Weapons.FlameThrower, _71 = TXT.Weapons.BoltGun, _72 = TXT.Weapons.Heater },
 
 	lastSaveSort = "",
@@ -368,7 +369,18 @@ end
 
 --============================================================================
 
+function ApplyWindowedSettings() -- Windowed patch by XDavidXtreme
+	if Cfg.Fullscreen then
+		R3D.SetContrastGammaAndBrightness(0.5, 1.0, 0.5)
+	end
+	R3D.ApplyVideoSettings( Cfg.Resolution, Cfg.Fullscreen, Cfg.Gamma, Cfg.Brightness, Cfg.Contrast, Cfg.Shadows, Cfg.TextureQuality, Cfg.WeatherEffects, Cfg.ViewWeaponModel, Cfg.TextureFiltering, Cfg.DynamicLights, Cfg.Projectors, Cfg.Coronas, Cfg.Decals, Cfg.DecalsStay )
+end
+
 function PainMenu:Draw()
+	if Cfg.Windowed then -- Windowed patch by XDavidXtreme
+		ApplyWindowedSettings()
+	end
+
 	if self.showStartMovies then
 		if IsFinalBuild() then
 			--PMENU.PlayMovie('../Data/Movies/logo-dreamcatcher.bik');
@@ -642,8 +654,23 @@ function PainMenu:AddItem( i, o )
 			skip = true
 		end
 
-		if Game.GameInProgress == true and itemName == "BackToMap" then
-			skip = false
+		if Game.GameInProgress == true then
+			if itemName == "BackToMap" then
+				skip = false
+			elseif itemName == "Spectate" or itemName == "Join" then
+				skip = true
+			end
+		end
+
+		local ps = Game.PlayerStats[NET.GetClientID()]
+		local spectator = ps and ps.Spectator or 0
+
+		if spectator == 1 and itemName == "Spectate" then
+			skip = true
+		end
+
+		if spectator == 0 and itemName == "Join" then
+			skip = true
 		end
 
 		if (Game.GMode == GModes.SingleGame or Game:IsServer()) and itemName == "Disconnect" then
@@ -1681,6 +1708,11 @@ function PainMenu:AddMapTable( name, item )
 		self.mapsOnServerLMS[i] = Cfg.ServerMapsLMS[i]
 	end
 
+	self.mapsOnServerRAC = {}
+	for i=1,table.getn(Cfg.ServerMapsRAC) do
+		self.mapsOnServerRAC[i] = Cfg.ServerMapsRAC[i]
+	end
+
 	for i=1,table.getn(self.mapsOnServer) do
 		PMENU.AddMapToServer( name, self.mapsOnServer[i] )
     end
@@ -2266,13 +2298,17 @@ function PainMenu:ApplySettings( all )
 		i,o = next( self.currScreen.items, i )
 	end
 
-	if Cfg.ServerFPS < 30 then Cfg.ServerFPS = 30 end
-	if Cfg.ServerFPS > 120 then Cfg.ServerFPS = 120 end
+	if Cfg.ServerFPS < SERVERFPS_MIN_LIMIT then Cfg.ServerFPS = SERVERFPS_MIN_LIMIT end
+	if Cfg.ServerFPS > SERVERFPS_MAX_LIMIT then Cfg.ServerFPS = SERVERFPS_MAX_LIMIT end
 
 	Cfg:Save()
 end
 
 function PainMenu:ApplyVideoSettings()
+	if Cfg.Windowed then -- Windowed patch by XDavidXtreme
+		ApplyWindowedSettings()
+	end
+
 	WORLD.SetDrawDynLights( Cfg.DynamicLights )
 	R3D.ApplyVideoSettings( Cfg.Resolution, Cfg.Fullscreen , Cfg.Gamma, Cfg.Brightness, Cfg.Contrast, Cfg.Shadows, Cfg.TextureQuality, Cfg.WeatherEffects, Cfg.ViewWeaponModel, Cfg.TextureFiltering, Cfg.DynamicLights, Cfg.Projectors, Cfg.Coronas, Cfg.Decals, Cfg.DecalsStay )
 	if Lev ~= nil then
@@ -2500,11 +2536,11 @@ function PainMenu:FixFireSwitchTable()
 	end
 
 	if Cfg.SwitchFire[3] then
-		PMENU.SetItemText( "Primary3", TXT.Weapons.GranadeLauncher )
+		PMENU.SetItemText( "Primary3", TXT.Weapons.GrenadeLauncher )
 		PMENU.SetItemText( "Secondary3", TXT.Weapons.Stakegun )
 	else
 		PMENU.SetItemText( "Primary3", TXT.Weapons.Stakegun )
-		PMENU.SetItemText( "Secondary3", TXT.Weapons.GranadeLauncher )
+		PMENU.SetItemText( "Secondary3", TXT.Weapons.GrenadeLauncher )
 	end
 	
 	if Cfg.SwitchFire[4] then
@@ -2553,6 +2589,17 @@ function PainMenu:StopServerList()
 end
 
 function PainMenu:StartMultiplayerServer()
+--	by XDavidXtreme
+	local maps = self.mapsOnServer
+	for i=1,table.getn(maps) do
+		local path = "../Data/Levels/"..maps[i].."/"
+		local files = FS.FindFiles(path.."*.CLevel",1,0)
+		if table.getn(files)<=0 then
+			CONSOLE.AddMessage("Level '"..maps[i].."' not found")
+			return
+		end
+	end
+
 	local playerName = Cfg["PlayerName"]
 	local passwd = ""
 	local map = PMENU.GetSelectedMap( "MapSelect" )
@@ -2617,6 +2664,7 @@ function PainMenu:Disconnect()
     Game:NewLevel('NoName','','',0.3); WORLD.Release()
 	Game.GameInProgress = false
 	Game.LevelStarted = false
+	PainMenu:ActivateScreen(MainMenu)
 	PMENU.DisableItem( "Disconnect" )
 	PMENU.DisableItem( "BackButton" )
 	PMENU.SetItemVisibility( "Disconnect" )
@@ -2748,6 +2796,9 @@ function PainMenu:UpdateMapTable(name,mode)
 	elseif self.lastMPMode == "Last Man Standing" then
 		self.mapsOnServerLMS = {}
 		Cfg.ServerMapsLMS = {}
+	elseif self.lastMPMode == "Race" then
+		self.mapsOnServerRAC = {}
+		Cfg.ServerMapsRAC = {}
 	end
 
 	local tmp_tab = PMENU.GetMapsOnServer()
@@ -2786,12 +2837,15 @@ function PainMenu:UpdateMapTable(name,mode)
 		elseif self.lastMPMode == "Last Man Standing" then
 			self.mapsOnServerLMS[i] = val
 			Cfg.ServerMapsLMS[i] = val
+		elseif self.lastMPMode == "Race" then
+			self.mapsOnServerRAC[i] = val
+			Cfg.ServerMapsRAC[i] = val
 		end
     end
 
 	if mode == "ICTF" then
 		PMENU.UpdateMapTable(name,"Capture The Flag")
-  else
+	else
 		PMENU.UpdateMapTable(name,mode)
 	end
 
@@ -2822,6 +2876,8 @@ function PainMenu:UpdateMapTable(name,mode)
 		tmp_tab = self.mapsOnServerFFA
 	elseif mode == "ICTF" then
 		tmp_tab = self.mapsOnServerCTF
+	elseif mode == "Race" then
+	    tmp_tab = self.mapsOnServerRAC
 	end
 
 	self.mapsOnServer = {}
@@ -2862,10 +2918,21 @@ function PainMenu_MultiplayerErrorCallback( mtype, desc )
 	if mtype == MultiplayerErrorTypes.Information then
 		CONSOLE.Print( desc )
 	elseif mtype == MultiplayerErrorTypes.Disconnected then
+		-- [ THRESHER & XDavidXtreme ]
+		-- Fixes confusion about player not having map
+		if( string.find( desc, "Net Error: the map we are trying to load is different than the map on the server!" ) ) then
+			desc = "Net Error: the map we are trying to load is missing or different from the map on the server! Click Yes to visit the map download page."
+			local _url = "https://www.moddb.com/games/painkiller/addons/painkiller-multiplayer-deadzone-mappack" -- Used to send people who don't have the map to proper websites for maps [ THRESHER ]
+			Game:NewLevel('NoName','','',0.3); WORLD.Release()
+			Game.LevelStarted = false
+			PMENU.ShowMenu()
+			PainMenu:AskYesNo( desc, "PainMenu:BackToLastScreen() PMENU.LaunchURL('".._url.."')" , "PainMenu:BackToLastScreen()" )
+		else
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
 		PMENU.ShowMenu()
 		PainMenu:ShowInfo( desc, "PainMenu:BackToLastScreen()" )
+		end
 	elseif mtype == MultiplayerErrorTypes.BadCDKey then
 		Game:NewLevel('NoName','','',0.3); WORLD.Release()
 		Game.LevelStarted = false
@@ -3467,11 +3534,11 @@ end
 
 function PainMenu:CfgModif(cfgarg)
   if cfgarg == 1 then
-    if Cfg.WeaponsPositionning == true then
-      Cfg.WeaponsPositionning = false
+    if Cfg.WeaponsPositioning == true then
+      Cfg.WeaponsPositioning = false
       Cfg:Save()
     else
-      Cfg.WeaponsPositionning = true
+      Cfg.WeaponsPositioning = true
       Cfg:Save()
     end
   end
@@ -3800,6 +3867,7 @@ function PainMenu:LoadFavoriteHud()
   PainMenu:ShowTabGroup(PainMenu.currScreen.items.AdvancedTab, "AdvancedTab")
   PainMenu:ActivateScreen(FavoriteHud)
   PainMenu:CheckItems()
+  Hud:SetTimerMatTypes(Cfg.HUD_HudStyle,Cfg.BrightSkinsArmors)
 end
 
 function PainMenu:BrightSkin(entity, enable, team)

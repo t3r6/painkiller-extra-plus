@@ -339,17 +339,16 @@ function BoltGunHeater:FireSFX(pe)
         cw._ActionState = "Idle"
         cw:ForceAnim("stickshot",false)                           
         cw._stakeTime = 1.1         
-        
-        local action = {            
-            {"L:p:SndEnt('bolt_shot',"..pe..")"},
-            {"Wait:0.1"},
-            {"L:p:SndEnt('bolt_shot',"..pe..")"},
-            {"Wait:0.1"},
-            {"L:p:SndEnt('bolt_shot',"..pe..")"},
-            
-        }
-        AddAction(action,t)
     end
+
+    local action = {            
+        {"L:p:SndEnt('bolt_shot',"..pe..")"},
+        {"Wait:0.1"},
+        {"L:p:SndEnt('bolt_shot',"..pe..")"},
+        {"Wait:0.1"},
+        {"L:p:SndEnt('bolt_shot',"..pe..")"},
+    }
+    AddAction(action,t)
 
     QuadSound(pe)                
 end

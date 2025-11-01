@@ -4,7 +4,7 @@ o.AiParams.aiGoals = {"idle","FarAttack", "hunt", "hear","flee"}
 o.AiParams.FarAttacks = {"atak_granat"}
 
 o.AiParams.weapon = {
-		name = "granade",
+		name = "grenade",
 		bulletsPerShot = 1,
 		maxDist = 28.0,							-- zasiegi granatu (*0.6..0.8) - balagan do poprawienia
 		minDist = 9.0,

@@ -30,7 +30,7 @@ function DemonFX:OnToKill()
         if Player then Player.EnabledWeapons[10] = nil end
     end
 
-    if Cfg.ViewWeaponModel then
+    if Cfg.ViewWeaponModel and Player then
         ENTITY.EnableDraw(Player:GetCurWeapon()._Entity, true)
     end
     
@@ -119,7 +119,7 @@ function DemonFX:Tick(delta)
 		self.TickCount = self.TickCount + delta / INP.GetTimeMultiplier()
     end
     local IsDemon
-    if Cfg.ViewWeaponModel then
+    if Cfg.ViewWeaponModel and Player then
         ENTITY.EnableDraw(Player:GetCurWeapon()._Entity, self._DrawWeapon)
     end
     
@@ -142,7 +142,7 @@ function DemonFX:Tick(delta)
                 RawCallMethod(CPlayer.WeaponChangeConfirmation,Player._Entity,self.prevSlot) 
                 self.prevSlot = nil
             end
-            if Cfg.ViewWeaponModel then
+            if Cfg.ViewWeaponModel and Player then
                 ENTITY.EnableDraw(Player:GetCurWeapon()._Entity, true)            
             end
             IsDemon = false

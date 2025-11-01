@@ -529,16 +529,24 @@ end
 --=======================================================================
 --=======================================================================
 function Console:Cmd_EXEC(enable)    
-	if(enable~=nil)then 
-	local temp = CfgFile 
-	CfgFile = enable..".ini" 
-	Cfg:Load() 
-	CfgFile = temp 
-	CONSOLE_AddMessage("Bin\\"..enable..".ini executed.") 
-	return 
-	end
-	CONSOLE_AddMessage("Syntax: exec <filename>")
-	CONSOLE_AddMessage("Help: Executes config file")
+    if enable ~= nil then
+        local filename = enable..".ini"
+
+        if not FS.File_Exist(filename) then
+            CONSOLE_AddMessage("File not found: " .. filename)
+            return
+        end
+
+        local temp = CfgFile
+        CfgFile = enable..".ini"
+        Cfg:Load()
+        CfgFile = temp
+        CONSOLE_AddMessage("Bin\\"..enable..".ini executed.")
+        return
+    end
+
+    CONSOLE_AddMessage("Syntax: exec <filename>")
+    CONSOLE_AddMessage("Help: Executes config file")
 end
 --=======================================================================
 function Console:Cmd_WRITECONFIG(enable)    
@@ -2574,6 +2582,61 @@ function Console:Cmd_HUD_TEAMCHATONLY(enable)
   end
 end
 --=======================================================================
+-- PK++ THRESHER
+--=======================================================================
+function Console:Cmd_GETPLAYERSETTINGS()
+	CONSOLE_AddMessage(PKPLUSPLUS_VERSION) -- needs to send something like this, so that all clients send their info at once [ THRESHER ]
+end
+--=======================================================================
+function Console:Cmd_COINTOSS(clientID, coin)
+    if MPCfg.GameState ~= GameStates.WarmUp then
+        CONSOLE_AddMessage("This command is only allowed in WarmUp.")
+        return
+    end
+
+    if type(clientID) ~= "number" then
+        coin = clientID
+        if Game and Game.GetMyID then
+            clientID = Game:GetMyID()
+        else
+            clientID = 0
+        end
+    end
+
+    if not coin then
+        CONSOLE_AddMessage("Syntax: cointoss <heads|tails>")
+        CONSOLE_AddMessage("SayToAll Syntax: !cointoss <heads|tails>")
+        CONSOLE_AddMessage("Help: simulates a cointoss for online games")
+        return
+    end
+
+    coin = string.lower(coin)
+    if coin ~= "heads" and coin ~= "tails" then
+        CONSOLE_AddMessage("Please choose 'heads' or 'tails'.")
+        return
+    end
+
+    local toss
+    if FRand(0, 1) < 0.5 then
+        toss = "heads"
+    else
+        toss = "tails"
+    end
+
+    local result = (coin == toss) and "WON" or "LOST"
+
+    local playerName = "Unnamed"
+    if Game.PlayerStats[clientID] then
+        playerName = Game.PlayerStats[clientID].Name
+    end
+
+    Game.ConsoleMessageAll(
+        "COINTOSS " .. string.upper(coin) .. ": It was " .. string.upper(toss) .. "! " ..
+        playerName .. " tossed a coin and " .. result
+    )
+end
+
+--=======================================================================
 -- Extra Plus
 --=======================================================================
 -- generic toggle function for boolean values
@@ -2585,35 +2648,62 @@ function Console:Cmd_TEMPLATE_TOGGLE_BOOL(paramName, enable, description)
   end
 
   if enable == nil then
-    if Cfg[paramName] then
-      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 1 (enabled).")
-    else
-      CONSOLE_AddMessage("State: Cfg." .. paramName .. " is 0 (disabled).")
-    end
-    CONSOLE_AddMessage("Help: " .. paramName .. " Toggle. " .. (description or ""))
+    local state = (Cfg[paramName] and "enabled" or "disabled")
+    CONSOLE_AddMessage("State: Cfg." .. paramName .. " is " .. state .. ".")
+    CONSOLE_AddMessage("Help: " .. paramName .. " toggle. " .. (description or ""))
     return
   end
 
-  if enable ~= "1" and enable ~= "0" then
-    CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " [1/0]")
+  if type(enable) == "string" then
+    enable = string.lower(enable)
+  end
+
+  local newState
+  if enable == true or enable == "true" or enable == "1" or enable == 1 then
+    newState = true
+  elseif enable == false or enable == "false" or enable == "0" or enable == 0 then
+    newState = false
+  else
+    CONSOLE_AddMessage("Syntax: " .. string.upper(paramName) .. " [true/false | 1/0]")
     return
   end
 
-  if enable == "1" then
-    Cfg[paramName] = true
-    CONSOLE_AddMessage(paramName .. " is now enabled.")
-  elseif enable == "0" then
-    Cfg[paramName] = false
-    CONSOLE_AddMessage(paramName .. " is now disabled.")
-  end
+  Cfg[paramName] = newState
 
-  if Cfg[paramName] then
+  if newState then
     CONSOLE_AddMessage("State: " .. paramName .. " is currently enabled.")
   else
     CONSOLE_AddMessage("State: " .. paramName .. " is currently disabled.")
   end
 end
+--=======================================================================
+-- generic set function for numerical range
+function Console:Cmd_TEMPLATE_SET_INT(paramName, value, description)
+    if not paramName then
+        CONSOLE_AddMessage("Error: This is a template function.")
+        return
+    end
 
+    if value == nil then
+        local current = Cfg[paramName]
+        CONSOLE_AddMessage("State: Cfg." .. paramName .. " = " .. tostring(current or "nil"))
+        CONSOLE_AddMessage("Help: " .. paramName .. " must be a whole number. " .. (description or ""))
+        return
+    end
+
+    local num = tonumber(value)
+
+    if not num or num ~= math.floor(num) then
+        CONSOLE_AddMessage("Syntax: " .. paramName:upper() .. " <integer>")
+        CONSOLE_AddMessage("Error: Value must be a whole number (e.g., 0, 1, 2, 3, ...).")
+        return
+    end
+
+    Cfg[paramName] = num
+    Cfg:Check()
+    CONSOLE_AddMessage("State: " .. paramName .. " is now set to " .. num .. ".")
+end
+--=======================================================================
 -- generic set function for numerical decimal range
 function Console:Cmd_TEMPLATE_SET_NUMERIC_DEC(paramName, value, minValue, maxValue, description)
   if not paramName then
@@ -2677,12 +2767,36 @@ end
 
 --=======================================================================
 --=======================================================================
+function Console:Cmd_WINDOWED(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Windowed", enable, "Enables Window mode settings that come with the 4GB RAM patch by XDavidXtreme. Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_AUTOEXEC(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("Autoexec", enable, "Allows executing autoexec.ini file at the game start.")
+end
+--=======================================================================
 function Console:Cmd_STOPMATCHONPLAYERSQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnPlayersQuit", enable, "Stops match when all the players are left for non-team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
 function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
+end
+--=======================================================================
+function Console:Cmd_BRIGHTAMMO(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightAmmo", enable, "Sets full brightskins for ammo (client/server). Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_BRIGHTSKINSARMORS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightSkinsArmors", enable, "Sets full brightskins for armor (client/server). Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_FORCEMODEL(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel", enable, "Overrides players chosen model. Requires restart.")
+end
+--=======================================================================
+function Console:Cmd_FORCEMODEL_TEAMS(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel_Teams", enable, "Overrides players chosen model for teams. Requires restart.")
 end
 --=======================================================================
 function Console:Cmd_AUTOJUMP(enable)
@@ -2701,7 +2815,35 @@ function Console:Cmd_SOULMPCOLOR(value)
   self:Cmd_TEMPLATE_SET_SOULMPCOLOR("SoulMPColor", value, "Sets a custom color for a soul. Use 0 to set default red. Available colors: Random, White, Yellow, Green, Blue, Cyan, Magenta")
 end
 --=======================================================================
-function Console:Cmd_HUD_SPEEDMETER_QUAKE(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("HUD_Speedmeter_Quake", enable, "Shows Quake units on the speedmeter, converting base movement speed into 320 Ups.")
+function Console:Cmd_GRAPPLINGHOOK(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GrapplingHook", enable, "Turn Painkiller's alternative fire into a grappling hook.")
+end
+--=======================================================================
+function Console:Cmd_GLCOLLIDECOMBO(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("GLCollideCombo", enable, "Enables stake-grenade combo after grenade collision.")
+end
+--=======================================================================
+function Console:Cmd_WEAPONSPOSITIONING(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("WeaponsPositioning", enable, "Press Home to configure weapon positioning.")
+end
+--=======================================================================
+function Console:Cmd_SHOWWEAPONANIM(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("ShowWeaponAnim", enable, "Enables weapon bobbing animation.")
+end
+--=======================================================================
+function Console:Cmd_SHOWSPECITEMTIMERS(enable)
+  self:Cmd_TEMPLATE_SET_INT("HUD_Show_Spec_Item_Timers", enable, "Enables item timers in spectator (0-6).")
+end
+--=======================================================================
+function Console:Cmd_HUD_SPECITEMTIMERSPOSITION(enable)
+  self:Cmd_TEMPLATE_SET_INT("HUD_Spec_Item_Timers_PosX", enable, "Set item timers position left/right in spectator (0-1).")
+end
+--=======================================================================
+function Console:Cmd_SHAFTFX(value)
+  self:Cmd_TEMPLATE_SET_INT("ShaftFX", value, "Sets the DriverElectro shaft style (0-2). Default is 0.")
+end
+--=======================================================================
+function Console:Cmd_HUD_SPEEDMETER_QUAKE(value)
+  self:Cmd_TEMPLATE_SET_INT("HUD_Speedmeter_Quake", value, "Shows Quake units on the speedmeter, converting base movement speed into 320 Ups.")
 end
 --=======================================================================

@@ -2,7 +2,16 @@
 Console = 
 {
 }
-
+--=======================================================================
+function Console:Cmd_DIFFICULTY(enable)
+	enable = tonumber(enable)
+	if enable == nil then
+		CONSOLE_AddMessage("Difficulty is currently "..tostring(Game.Difficulty))
+		return
+	end
+	Game.Difficulty = enable
+end
+--=======================================================================
 function Console:Cmd_SHOWWEAPON(enable)    
     enable = tonumber(enable)    
     if enable == nil then 
@@ -238,7 +247,7 @@ function Console:Cmd_MAP(name)
         CONSOLE_AddMessage('map "name"  (loads map)') 
     else
 		name = string.lower(name)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" and string.sub(name,1,4) ~= "race" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return
 		end
@@ -254,6 +263,11 @@ function Console:Cmd_MAP(name)
 		end
 		
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
 		end
@@ -281,6 +295,28 @@ function Console:Cmd_MAP(name)
     end
     
     CONSOLE_AddMessage("current map:  "..Lev._Name) 
+end
+--=======================================================================
+function Console:Cmd_MAPANY(name)
+	if Game.GMode == GModes.SingleGame then return end
+	if name == nil then
+		CONSOLE_AddMessage('Map "name"')
+	else
+		name = string.lower(name)
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+		if Game:IsServer() then
+			NET.LoadMapOnServer(name)
+		else
+			Game:LoadLevel(name)
+		end
+	end
 end
 --=======================================================================
 function Console:Cmd_MAPLIST() -- 04.10.2004 [Blowfish]    
@@ -374,6 +410,10 @@ function Console:Cmd_SPECTATOR(nr)
                         end
                         NET.SetSpectator(NET.GetClientID(),nr)
                     else
+                        if Player and Player._procDemonFX then
+                            GObjects:ToKill(Player._procDemonFX)
+                            Player._procDemonFX = nil
+                        end
                         Game.PlayerSpectatorRequest(NET.GetClientID(),nr)
                     end
                 end
@@ -575,21 +615,17 @@ function Console:Cmd_SETMAXFPS(val)
 	if val == nil then
         CONSOLE_AddMessage( "Give a new value after this command to change maxfps." )
         CONSOLE_AddMessage( "Give a 0 to remove the limit." )
+        CONSOLE_AddMessage("Cfg.MaxFpsMP is currently " .. tostring(Cfg.MaxFpsMP))
         return
     end
 	val = tonumber(val)
     if val then
-        if PainMenu.public then
-            if val <= 125 and val >= 0 then
-                WORLD.SetMaxFPS(val)
-            end
-        else
-            WORLD.SetMaxFPS(val)
+        if Game.GMode == GModes.MultiplayerClient then
+            val = (val == 0) and MAXFPSMP_MAX_LIMIT or math.min(math.max(val, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT) -- clamp to range
         end
-		if Game.GMode == GModes.MultiplayerClient then
-            Cfg.MaxFpsMP = val
-        end
-	end
+        Cfg.MaxFpsMP = val
+        WORLD.SetMaxFPS(val)
+    end
 end
 --=======================================================================
 function Console:Cmd_POWERUPDROP(enable)
@@ -809,8 +845,13 @@ function Console:Cmd_GAMEMODE(mode)
 		Cfg.GameMode = "Last Man Standing"
 		newMap = "DM_Factory"
 		mapsTable = Cfg.ServerMapsLMS
+	elseif mode == "race" then
+	    if Cfg.GameMode == "Race" then return end
+		Cfg.GameMode = "Race"
+		newMap = "RACE_Psycho"
+		mapsTable = Cfg.ServerMapsRAC
 	else
-		CONSOLE_AddMessage("Available modes: ffa, tdm, voosh, tlb, pcf, ctf, duel, lms, ig, ictf, ca")
+		CONSOLE_AddMessage("Available modes: ffa, tdm, voosh, tlb, pcf, ctf, duel, lms, ig, ictf, ca, race")
 		return
 	end
 	Cfg.ServerMaps = {}
@@ -838,7 +879,7 @@ Console.Cmd_MODE = Console.Cmd_GAMEMODE
 function Console:CheckVotingParams(cmd,params)
 	if cmd == "map" then
 		name = string.lower(params)
-		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" and string.sub(name,1,4) ~= "race" then
 			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
 			return false
 		end
@@ -856,6 +897,33 @@ function Console:CheckVotingParams(cmd,params)
 		if string.sub(name,1,3) == "ctf" and MPCfg.GameMode ~= "Capture The Flag" and MPCfg.GameMode ~= "ICTF" then
 			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
 			return
+		end
+
+		if string.sub(name,1,4) == "race" and MPCfg.GameMode ~= "Race" then
+			CONSOLE_AddMessage( "Map not available in "..MPCfg.GameMode.." mode" )
+			return
+		end
+
+		local path = "../Data/Levels/"
+		local files = FS.FindFiles(path.."*",0,1)
+		local found = false
+		for i=1,table.getn(files) do
+			if string.lower(files[i]) == name then
+				found = true
+			end
+		end
+
+		if not found then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
+		end
+
+		return true
+	elseif cmd == "mapany" then
+		name = string.lower(params)
+		if string.sub(name,1,2) ~= "dm" and string.sub(name,1,3) ~= "ctf" and string.sub(name,1,3) ~= "pro" then
+			CONSOLE_AddMessage( "Bad map name '"..name.."'" )
+			return false
 		end
 
 		local path = "../Data/Levels/"
@@ -944,6 +1012,18 @@ function Console:CheckVotingParams(cmd,params)
 	elseif cmd == "stopmatchonplayersquit" then
 		return true
 	elseif cmd == "stopmatchonteamquit" then
+		return true
+	elseif cmd == "forcemodel" then
+		return true
+	elseif cmd == "brightammo" then
+		return true
+	elseif cmd == "brightskinsarmors" then
+		return true
+	elseif cmd == "forcemodel_teams" then
+		return true
+	elseif cmd == "grapplinghook" then
+		return true
+	elseif cmd == "glcollidecombo" then
 		return true
 	end
 
@@ -1098,20 +1178,26 @@ function Console:Cmd_SERVERFRAMERATE(cmd)
         return
     end
 
-    if IsNewNetcode() then
-        cmd = tonumber(cmd)
-        if cmd == nil then
-            CONSOLE_AddMessage( 'Usage: serverframerate (1-1000)' )
-            CONSOLE_AddMessage( '    ( the value to set is in frames per second)' )
-        elseif PainMenu.public then
-            if cmd <= 60 and cmd >= 0 then
-                NET.SetServerFramerate(cmd)
-            end
-        else
-            NET.SetServerFramerate( cmd )
+    if not IsNewNetcode() then
+        CONSOLE_AddMessage('Command not available with old netcode')
+        return
+    end
+
+    cmd = tonumber(cmd)
+    if cmd == nil then
+        CONSOLE_AddMessage('Usage: serverframerate (1-1000)')
+        CONSOLE_AddMessage('    (the value to set is in frames per second)')
+        CONSOLE_AddMessage("Cfg.NetcodeServerFramerate is currently " .. tostring(Cfg.NetcodeServerFramerate))
+        return
+    end
+
+    if cmd then
+        if Game.GMode == GModes.MultiplayerClient then
+            cmd = (cmd == 0) and NETCODESERVERFRAMERATE_MAX_LIMIT 
+              or math.min(math.max(cmd, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT) -- clamp to range
         end
-    else
-        CONSOLE_AddMessage( 'Command not available with old netcode' )
+        Cfg.NetcodeServerFramerate = cmd
+        NET.SetServerFramerate(Cfg.NetcodeServerFramerate)
     end
 end
 --=======================================================================
@@ -1145,14 +1231,15 @@ function Console:Cmd_ENEMYINTERPOLATION(cmd)
         cmd = tonumber(cmd)
         if cmd == 0 then
             Cfg.NetcodeEnemyPredictionInterpolation = false
-            NET.SetEnemyPredictionInterpolation( false )
+            NET.SetEnemyPredictionInterpolation( Cfg.NetcodeEnemyPredictionInterpolation )
         else
             if cmd == 1 then
                 Cfg.NetcodeEnemyPredictionInterpolation = true
-                NET.SetEnemyPredictionInterpolation( true )
+                NET.SetEnemyPredictionInterpolation( Cfg.NetcodeEnemyPredictionInterpolation )
             else
                 CONSOLE_AddMessage( 'Usage: enemyinterpolation 0/1' )
                 CONSOLE_AddMessage( '    ( interpolates between last two enemy positions )' )
+                CONSOLE_AddMessage("NetcodeEnemyPredictionInterpolation is currently "..tostring(Cfg.NetcodeEnemyPredictionInterpolation))
             end
         end
     else
@@ -1479,7 +1566,7 @@ function Console:Cmd_CONNECT(ip)
 
 		for h,p in string.gfind( ip, "(.+):(.+)" ) do
 			host = h
-			port = p
+			port = tonumber(p)
 		end
 
 		if host == nil and port == nil then
@@ -1695,12 +1782,11 @@ function Console:Cmd_CROSSHAIR(val)
 		CONSOLE_AddMessage('crosshair value [1-32] (changes crosshair)')
     elseif type(val) == "number" then
 		if val <= 32 and val > 0 then
-			Cfg.Crosshair = val
-			Cfg:Save()
+			Cfg.Crosshair_All = val
 		end
     end
 
-    CONSOLE_AddMessage("current crosshair:  "..Cfg.Crosshair)
+    CONSOLE_AddMessage("current crosshair:  "..Cfg.Crosshair_All)
 end
 --=======================================================================
 function Console:Cmd_HUDSIZE(val)
@@ -1799,6 +1885,16 @@ function Console:Cmd_WEAPONSPECULAR(enable)
     PainMenu:ReloadWeaponsTextures()
 end
 --=======================================================================
+function Console:Cmd_TIMESCALE(speed)
+	if speed then
+		INP.SetTimeMultiplier(tonumber(speed))
+		WORLD.SetWorldSpeed(tonumber(speed))
+		CONSOLE_AddMessage("World speed now x "..tonumber(INP.GetTimeMultiplier()))
+	else
+		CONSOLE_AddMessage("World speed currently x "..tonumber(INP.GetTimeMultiplier()))
+	end
+end
+--============================================================================
 function Console:Cmd_DEMOPLAY(filename)
     if filename == nil then
         CONSOLE_AddMessage("Usage: demoplay <filename_to_play_from>") 
@@ -1975,6 +2071,7 @@ function Console:OnCommand(cmd)
     if cmd == "" then return end
 
 	local is_cmd = false
+	if IsDedicatedServer() then is_cmd = true end -- blowfish change
 	if string.find(cmd,"\\",1,true) == 1 or string.find(cmd,"/",1,true) == 1 or string.find(cmd,".",1,true) == 1 then
 		cmd = string.sub(cmd,2)
 		is_cmd = true
@@ -1984,10 +2081,10 @@ function Console:OnCommand(cmd)
     if not i then i = string.len(cmd) + 1 end
 
     if i > 2 and (Game.GMode == GModes.SingleGame or is_cmd == true) then
-        local func = string.sub(cmd,1,i-1)
-        func = string.upper(func)
-        if Console["Cmd_"..func] then
-            
+		local func = string.upper(string.sub(cmd,1,i-1))
+		for commandname,o in self do
+			if type(o) == "function" then
+				if string.lower("Cmd_"..func) == string.lower(commandname) then
             if Game.GMode == GModes.MultiplayerClient and MPCfg.ClientConsoleLockdown then                
                 CONSOLE_AddMessage("Console is locked!")        
                 return
@@ -2020,10 +2117,10 @@ function Console:OnCommand(cmd)
 				table.insert(args,w)
 			end
 
-			if func ~= "CALLVOTE" and func ~= "BIND" then
-				Console["Cmd_"..func](self,unpack(args))
+			if func ~= "CALLVOTE" and func ~= "BIND" and func ~="CONNECT" then
+				Console[commandname](self,unpack(args))
 			else
-				Console["Cmd_"..func](self,params)
+				Console[commandname](self,params)
 			end
 	            Cfg:Save()
 	            return
@@ -2031,6 +2128,71 @@ function Console:OnCommand(cmd)
 	        else
 	        	CONSOLE_AddMessage("This command is disabled.")
 	        end
+	        end
+        end
+    end
+        for settingname, o in Cfg do
+            if type(o) ~= "function" then
+                if string.lower(func) == string.lower(settingname) then
+                    if Game.GMode == GModes.MultiplayerClient and MPCfg.ClientConsoleLockdown then
+                        CONSOLE_AddMessage("Console is locked!")
+                        return
+                    end
+	dontshowerror = true
+       if not Cfg.TournamentSettings or Cfg.TournamentSettings and 
+       (func == "MAP" or func == "RELOADMAP" or func == "TEAM" or func == "SPECTATOR" 
+       or func == "READY" or func == "NOTREADY" or func == "BREAK" or func == "KICK" 
+       or func == "BANKICK" or func == "KICKID" or func == "BANKICKID" or func == "CALLVOTE" 
+       or func == "VOTE" or func == "DISCONNECT" or func == "RECONNECT" or func == "CONNECT" 
+       or func == "QUIT" or func == "DEMOPLAY" or func == "DEMOSTOP" or func == "DEMORECORD") then
+       
+       
+--------------------------------------------------------------------------------------------
+                    local params = string.sub(cmd, i + 1)
+        
+                    local semicolon = string.find(params, ";")
+                    if semicolon and func ~= "BIND" then
+                        local part   = string.sub(params, 1, semicolon)
+                        local second = string.sub(params, semicolon + 1)
+                        params       = string.sub(params, 1, semicolon - 1)
+        
+                        Console:OnCommand(func .. " " .. params)
+                        Console:OnCommand(second)
+                        return
+                    end
+
+                    local args = {}
+                    params = Trim(params)
+                    for w in string.gfind(params, "[%w~`!@#$%%^&*()%-\" _=%.%+\\|{}%[%]<>?/]+") do
+                        table.insert(args, w)
+                    end
+        
+                    if func ~= "CALLVOTE" and func ~= "BIND" and func ~="CONNECT" then
+                        local setting = unpack(args)
+                        if setting ~= nil then
+                            if setting == "false" then setting = false end
+                            if setting == "true"  then setting = true  end
+                            Cfg[settingname] = setting
+                            Cfg:Check()
+                            CONSOLE_AddMessage(settingname .. " is now " .. tostring(Cfg[settingname]))
+                        else
+                            Cfg:Check()
+                            CONSOLE_AddMessage(settingname .. " is currently " .. tostring(Cfg[settingname]))
+                        end
+                    else
+                        Cfg[settingname] = params
+                        Cfg:Check()
+                        CONSOLE_AddMessage(settingname .. " is now " .. Cfg[settingname])
+                    end
+        
+                    Cfg:Save()
+                    return
+                    -------------------------------------------------------------------------------------------
+	        else
+	        	CONSOLE_AddMessage("This command is disabled.")
+	        end
+                end
+            end
         end
     end
     
@@ -2038,13 +2200,14 @@ function Console:OnCommand(cmd)
         if IsDedicatedServer() then
             Console:OnPrompt(cmd)
         else
+           -- TRYING SETTINGS
             CONSOLE_AddMessage("Unknown command: ".. cmd)        
         end
     else        
         cmd = string.sub(cmd,1,200)    
         Game.SayToAll(NET.GetClientID(), cmd) 
     end
-    
+	Cfg:Check()
 end
 --=======================================================================
 function Console:OnPrompt(txt)
@@ -2062,21 +2225,29 @@ function Console:OnPrompt(txt)
     -- searching similary commands
     for a,o in self do
         if type(o) == "function" then
-            local i = string.find(a,"Cmd_",1,true)
-            if i and string.find(a,txt,5,true) == 5 then
+            local i = string.find(string.lower(a),string.lower("Cmd_"),1,true)
+            if i and string.find(string.lower(a),string.lower(txt),5,true) == 5 then
                 table.insert(commandlist,string.lower(string.sub(a,5)))
             end
         end
     end                    
 
+	for a,o in Cfg do
+		if type(o) ~= "function" then
+			if string.find(string.lower(a),string.lower(txt),1,true) == 1 then
+				table.insert(commandlist,a)
+            end
+        end
+    end
+
     if table.getn(commandlist) > 1 then 
         local commonPart = commandlist[1]
         CONSOLE_AddMessage(">"..string.lower(txt)) 
-        table.sort(commandlist,function (a,b) return a < b end)
+        table.sort(commandlist,function (a,b) return string.lower(a) < string.lower(b) end)
         for i,o in commandlist do
             CONSOLE_AddMessage("    "..o) 
             for j=1, string.len(commonPart) do
-                if string.sub(commonPart,j,j) ~= string.sub(o,j,j) then
+                if string.lower(string.sub(commonPart,j,j)) ~= string.lower(string.sub(o,j,j)) then
                     commonPart = string.sub(commonPart,1,j-1)
                     break
                 end
@@ -2099,3 +2270,719 @@ function Console:Cmd_DEMOLIST()
 	end
 end
 --======================================================================
+-- PK++ 1.31
+--======================================================================
+function Console:Cmd_LIST()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Mesh ".."nil")
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(entity))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Sound = 0
+	local ents = WORLD.GetEntityList(ETypes.Sound)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Sound ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Sound "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Sound = Sound + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Region = 0
+	local ents = WORLD.GetEntityList(ETypes.Region)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Region ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Region "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Region = Region + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Billboard = 0
+	local ents = WORLD.GetEntityList(ETypes.Billboard)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Billboard ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Billboard "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Billboard = Billboard + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Environment = 0
+	local ents = WORLD.GetEntityList(ETypes.Environment)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Environment ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Environment "..ENTITY.GetFileName(entity))
+		end
+		Environment = Environment + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Light = 0
+	local ents = WORLD.GetEntityList(ETypes.Light)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Light ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Light "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Light = Light + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local ParticleFX = 0
+	local ents = WORLD.GetEntityList(ETypes.ParticleFX)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.ParticleFX ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.ParticleFX "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		ParticleFX = ParticleFX + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Decal = 0
+	local ents = WORLD.GetEntityList(ETypes.Decal)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Decal ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Decal "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Decal = Decal + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local total = 0
+	CONSOLE_AddMessage(Environment.." Environment")
+	total = total + Environment
+	CONSOLE_AddMessage(Light.." Light")
+	total = total + Light
+	CONSOLE_AddMessage(Region.." Region")
+	total = total + Region
+	CONSOLE_AddMessage(Sound.." Sound")
+	total = total + Sound
+	CONSOLE_AddMessage(Model.." Model")
+	total = total + Model
+	CONSOLE_AddMessage(Trail.." Trail")
+	total = total + Trail
+	CONSOLE_AddMessage(Mesh.." Mesh")
+	total = total + Mesh
+	CONSOLE_AddMessage(Particle.." Particle")
+	total = total + Particle
+	CONSOLE_AddMessage(ParticleFX.." ParticleFX")
+	total = total + ParticleFX
+	CONSOLE_AddMessage(Decal.." Decal")
+	total = total + Decal
+	CONSOLE_AddMessage(total.." entities in total")
+end
+
+function Console:Cmd_LISTMESHES()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			if ENTITY.GetFileName(i) ~= "" then CONSOLE_AddMessage("ETypes.Mesh "..ENTITY.GetFileName(i)) end
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LISTMODELS()
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(i))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+end
+
+function Console:Cmd_LISTPARTICLES()
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LISTTRAILS()
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(i))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+end
+
+function Console:Cmd_LIST()
+	local ents = WORLD.GetEntityList(ETypes.Mesh)
+	local Mesh = 0
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Mesh "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Mesh ".."nil")
+			--WORLD.RemoveEntity(i)
+		end
+		Mesh = Mesh + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Model = 0
+	local ents = WORLD.GetEntityList(ETypes.Model)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Model "..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Model "..ENTITY.GetFileName(entity))
+			--WORLD.RemoveEntity(i)
+			--ENTITY.Release(i)
+		end
+		Model = Model + 1
+	end
+	local Particle = 0
+	local ents = WORLD.GetEntityList(ETypes.Particle)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Particle ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Particle "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Particle = Particle + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Trail = 0
+	local ents = WORLD.GetEntityList(ETypes.Trail)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Trail ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Trail "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Trail = Trail + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Sound = 0
+	local ents = WORLD.GetEntityList(ETypes.Sound)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Sound ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Sound "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Sound = Sound + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Region = 0
+	local ents = WORLD.GetEntityList(ETypes.Region)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Region ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Region "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Region = Region + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Billboard = 0
+	local ents = WORLD.GetEntityList(ETypes.Billboard)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Billboard ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Billboard "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Billboard = Billboard + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Environment = 0
+	local ents = WORLD.GetEntityList(ETypes.Environment)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Environment ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Environment "..ENTITY.GetFileName(entity))
+		end
+		Environment = Environment + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Light = 0
+	local ents = WORLD.GetEntityList(ETypes.Light)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Light ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Light "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Light = Light + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local ParticleFX = 0
+	local ents = WORLD.GetEntityList(ETypes.ParticleFX)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.ParticleFX ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.ParticleFX "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		ParticleFX = ParticleFX + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local Decal = 0
+	local ents = WORLD.GetEntityList(ETypes.Decal)
+	for i,v in ents do
+		local obj = EntityToObject[i]
+		if obj~=nil then
+			CONSOLE_AddMessage("ETypes.Decal ".."OBJECT"..obj._Name)
+		else
+			CONSOLE_AddMessage("ETypes.Decal "..ENTITY.GetFileName(entity))
+			WORLD.RemoveEntity(i)
+		end
+		Decal = Decal + 1
+		--ENTITY.EnableNetworkSynchronization(i,false,false)
+	end
+	local total = 0
+	CONSOLE_AddMessage(Environment.." Environment")
+	total = total + Environment
+	CONSOLE_AddMessage(Light.." Light")
+	total = total + Light
+	CONSOLE_AddMessage(Region.." Region")
+	total = total + Region
+	CONSOLE_AddMessage(Sound.." Sound")
+	total = total + Sound
+	CONSOLE_AddMessage(Model.." Model")
+	total = total + Model
+	CONSOLE_AddMessage(Trail.." Trail")
+	total = total + Trail
+	CONSOLE_AddMessage(Mesh.." Mesh")
+	total = total + Mesh
+	CONSOLE_AddMessage(Particle.." Particle")
+	total = total + Particle
+	CONSOLE_AddMessage(ParticleFX.." ParticleFX")
+	total = total + ParticleFX
+	CONSOLE_AddMessage(Decal.." Decal")
+	total = total + Decal
+	CONSOLE_AddMessage(total.." entities in total")
+end
+--============================================================================
+function Console:Cmd_SCAN()
+	for i,v in GObjects.TickListItems do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListItems: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.TickListActors do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListActors: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.TickListRest do
+		CONSOLE_AddMessage(tostring(i).." ".."TickListRest: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListActors do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListActors: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListItems do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListItems: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.UpdateListRest do
+		CONSOLE_AddMessage(tostring(i).." ".."UpdateListRest: "..v._Name.." "..v._Class)
+	end
+	CONSOLE_AddMessage("------------------------------------------")
+	for i,v in GObjects.SynchronizeList do
+		CONSOLE_AddMessage(tostring(i).." ".."SynchronizeList: "..v._Name.." "..v._Class)
+	end
+end
+
+
+function Console:Cmd_SCAN2()
+	local list = ""
+	for i,v in GObjects.TickListItems do
+		list = list .. v._Name.." "..v._Class + ", "
+	end
+	for i,v in GObjects.TickListActors do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.TickListRest do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListActors do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListItems do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.UpdateListRest do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	for i,v in GObjects.SynchronizeList do
+		list = list .. v._Name.." "..v._Class .. ", "
+	end
+	CONSOLE_AddMessage(list)
+end
+
+--============================================================================
+function Console:Cmd_DELETEALL(thing)
+	if not thing then thing = "*" end
+	local allthings,totalcount = GObjects:GetElementsWithFieldValue("_Name",thing.."*")
+	for i,a in allthings do
+		CONSOLE_AddMessage("Deleting "..a._Name)
+		GObjects:ToKill(a)
+	end
+end
+--============================================================================
+function Console:Cmd_OPENANDREMOVEALLSLABS(thing)
+	if not thing then thing = "*" end
+	local allthings,totalcount = GObjects:GetElementsWithFieldValue("_Name","Slab*")
+	for i,a in allthings do
+		--CONSOLE_AddMessage("Opening "..a._Name)
+		if a.Open then a:Open(false) end
+	end
+	for i,a in allthings do
+		--CONSOLE_AddMessage("Opening "..a._Name)
+		a:Delete()
+	end
+end
+--============================================================================
+-- PK++ 1.43
+--============================================================================
+function Console:Cmd_ADDALL(name)
+	Console:Cmd_ADDMONSTER("Alastor")
+	Console:Cmd_ADDMONSTER("AlastorKing")
+	
+	Console:Cmd_ADDMONSTER("Amput_zombie")
+	
+	Console:Cmd_ADDMONSTER("Amputee")
+	--Console:Cmd_ADDMONSTER("Amputee_Agressive")
+	--Console:Cmd_ADDMONSTER("Amputee_AgressiveJumper")
+	--Console:Cmd_ADDMONSTER("Amputee_AgressiveJumperV2")
+	--Console:Cmd_ADDMONSTER("Amputee_ceiling")
+	--Console:Cmd_ADDMONSTER("AmputeeV2")
+	
+	--Console:Cmd_ADDMONSTER("Apoc_M")
+	--Console:Cmd_ADDMONSTER("Apoc_M_Hunt")
+	--Console:Cmd_ADDMONSTER("Apoc_M_Hunt_Sm")
+	Console:Cmd_ADDMONSTER("Apoc_zombie")
+	--Console:Cmd_ADDMONSTER("Apoc_zombie_V2")
+	--Console:Cmd_ADDMONSTER("Apoc_zombie_V2_fastDissapear")
+	
+	Console:Cmd_ADDMONSTER("BagBaby")
+	
+	Console:Cmd_ADDMONSTER("Banshee")
+	--Console:Cmd_ADDMONSTER("Banshee_CemeteryBoss")
+	--Console:Cmd_ADDMONSTER("Banshee_NoMoveScreamer")
+	--Console:Cmd_ADDMONSTER("Banshee_NoScream")
+	--Console:Cmd_ADDMONSTER("Banshee_NoScreamShortSight")
+	
+	Console:Cmd_ADDMONSTER("Bat")
+	--Console:Cmd_ADDMONSTER("Bat_Adrian")
+	--Console:Cmd_ADDMONSTER("Bat_Attacker")
+	
+	Console:Cmd_ADDMONSTER("Beast")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive_NoJump")
+	--Console:Cmd_ADDMONSTER("Beast_agrresive_NoJumpHunter")
+	--Console:Cmd_ADDMONSTER("Beast_V2")
+	
+	Console:Cmd_ADDMONSTER("BlackDemon")
+	Console:Cmd_ADDMONSTER("TemplarBoss")
+	Console:Cmd_ADDMONSTER("WhiteDemon")
+	
+	Console:Cmd_ADDMONSTER("Bones")
+	--Console:Cmd_ADDMONSTER("Bones_Hunter")
+	--Console:Cmd_ADDMONSTER("Bones")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight2")
+	--Console:Cmd_ADDMONSTER("Bones_OnSight_Bigger")
+	
+	Console:Cmd_ADDMONSTER("Boy")
+	--Console:Cmd_ADDMONSTER("BreakBoy")
+	--Console:Cmd_ADDMONSTER("BreakBoyTransformed")
+	
+	Console:Cmd_ADDMONSTER("Clown")
+	
+	Console:Cmd_ADDMONSTER("Corn")
+	--Console:Cmd_ADDMONSTER("Corn_NotMoveable")
+	--Console:Cmd_ADDMONSTER("Corn_ThrowsStraight")
+	
+	Console:Cmd_ADDMONSTER("dead_body")
+	Console:Cmd_ADDMONSTER("Deto")
+	
+	Console:Cmd_ADDMONSTER("DevilMonk")
+	--Console:Cmd_ADDMONSTER("DevilMonk_Adrian")
+	--Console:Cmd_ADDMONSTER("DevilMonk_AdrianRunOnly")
+	--Console:Cmd_ADDMONSTER("DevilMonk_Slowdown")
+	--Console:Cmd_ADDMONSTER("DevilMonkV3")
+	
+	Console:Cmd_ADDMONSTER("DocDeath")
+	Console:Cmd_ADDMONSTER("dzialko")
+	
+	Console:Cmd_ADDMONSTER("EvilMonk")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianDumbPatroler")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianRunOnly")
+	--Console:Cmd_ADDMONSTER("EvilMonk_AdrianRunOnlyBigger")
+	--Console:Cmd_ADDMONSTER("EvilMonk_SmallDumbPatrolerWalk")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDie")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDieShortsighted")
+	--Console:Cmd_ADDMONSTER("EvilMonk_ThrowAndDieUp")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_DumbPatroler")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_RunOnlyBigger")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_ThrowAndDie")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_ThrowAndDieShortsighted")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_WalkOnlyHunter")
+	--Console:Cmd_ADDMONSTER("EvilMonkV2_WalkOnlyNoThrow")
+	--Console:Cmd_ADDMONSTER("EvilMonkV3")
+	
+	Console:Cmd_ADDMONSTER("Executioner")
+	--Console:Cmd_ADDMONSTER("Executioner_V3")
+	Console:Cmd_ADDMONSTER("Spider")
+	
+	Console:Cmd_ADDMONSTER("Flying_Nun")
+	--Console:Cmd_ADDMONSTER("Flying_Nun_Fireball")
+	--Console:Cmd_ADDMONSTER("Flying_Nun_NoAttack")
+	
+	Console:Cmd_ADDMONSTER("Ghost")
+	Console:Cmd_ADDMONSTER("Giant")
+	Console:Cmd_ADDMONSTER("Girl")
+	
+	Console:Cmd_ADDMONSTER("Gladiator")
+	Console:Cmd_ADDMONSTER("Gladiator2")
+	Console:Cmd_ADDMONSTER("Gladiator3")
+	Console:Cmd_ADDMONSTER("Gladiator4")
+	
+	Console:Cmd_ADDMONSTER("HellAngel")
+	--Console:Cmd_ADDMONSTER("HellAngel")
+	--Console:Cmd_ADDMONSTER("HellAngel_V2")
+	--Console:Cmd_ADDMONSTER("HellAngel_V3")
+	--Console:Cmd_ADDMONSTER("HellAngel")
+	
+	Console:Cmd_ADDMONSTER("HellBiker")
+	Console:Cmd_ADDMONSTER("Krusty")
+	Console:Cmd_ADDMONSTER("LabCommandos")
+	Console:Cmd_ADDMONSTER("Leper")
+	Console:Cmd_ADDMONSTER("Leper_monk")
+	Console:Cmd_ADDMONSTER("Loki")
+	Console:Cmd_ADDMONSTER("Lucifer")
+	Console:Cmd_ADDMONSTER("Maso")
+	Console:Cmd_ADDMONSTER("Military_base_gun")
+	Console:Cmd_ADDMONSTER("monsterlist.txt")
+	Console:Cmd_ADDMONSTER("MutaNemo")
+	Console:Cmd_ADDMONSTER("Ninja")
+	Console:Cmd_ADDMONSTER("Nun")
+	Console:Cmd_ADDMONSTER("Nurse")
+	Console:Cmd_ADDMONSTER("Officer")
+	Console:Cmd_ADDMONSTER("Panzer_demon")
+	Console:Cmd_ADDMONSTER("Pinokio")
+	Console:Cmd_ADDMONSTER("Pirate")
+	Console:Cmd_ADDMONSTER("Pirat_Zombie")
+	Console:Cmd_ADDMONSTER("Preacher")
+	Console:Cmd_ADDMONSTER("Psycho_elektro")
+	Console:Cmd_ADDMONSTER("Raven")
+	Console:Cmd_ADDMONSTER("Sado")
+	Console:Cmd_ADDMONSTER("Samurai")
+	Console:Cmd_ADDMONSTER("Skeleton_soldier")
+	Console:Cmd_ADDMONSTER("Skull")
+	Console:Cmd_ADDMONSTER("Slave")
+	Console:Cmd_ADDMONSTER("Soldier")
+	Console:Cmd_ADDMONSTER("StoneGolem")
+	Console:Cmd_ADDMONSTER("Swamp")
+	Console:Cmd_ADDMONSTER("Tank")
+	Console:Cmd_ADDMONSTER("Templar")
+	Console:Cmd_ADDMONSTER("Thor")
+	Console:Cmd_ADDMONSTER("Vamp")
+	Console:Cmd_ADDMONSTER("Vamp_Big")
+	Console:Cmd_ADDMONSTER("Vamp_Small")
+	Console:Cmd_ADDMONSTER("Voodoo")
+	Console:Cmd_ADDMONSTER("Winged_Demon")
+	Console:Cmd_ADDMONSTER("Witch")
+	Console:Cmd_ADDMONSTER("Zombie")
+	Console:Cmd_ADDMONSTER("Zombie_Soldier")
+end
+
+
+function Console:Cmd_ADDMONSTER(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CActor"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CActor"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 0
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+			ENTITY.EnableNetworkSynchronization(obj._Entity,true,true,1)
+			ENTITY.PO_Enable(obj._Entity,true)
+			ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end
+--============================================================================
+function Console:Cmd_ADDTHING(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CItem"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CItem"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 0
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+
+			ENTITY.EnableNetworkSynchronization(obj._Entity,true,true)
+			ENTITY.PO_Enable(obj._Entity,true)
+			ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end
+
+function Console:Cmd_ADDPARTICLE(name,count,scale)
+	if name == nil then return end
+	if count == nil then count = 1 end
+	while count do
+		count = count - 1
+		if count==0 then count = nil end
+		if (Game:IsServer())then
+			if not Templates then CONSOLE_AddMessage( "Cannot find anything to create!?" ) return end
+			if Templates and not Templates[tostring(name)..".CParticleFX"] then  CONSOLE_AddMessage( "Cannot create "..name ) return end
+			obj = GObjects:Add(tostring(name)..TempObjName(),CloneTemplate(tostring(name)..".CParticleFX"))
+			local b,x,y,z = CPlayer:FindFreeRespawnPoint()
+			local tolerance = 3
+			local precision = 10000
+			if scale then obj.Scale = scale end
+			obj.Pos = Vector:New(x+math.random(-precision,precision)/precision*tolerance,y+math.random(-precision,precision)/precision*tolerance,z+math.random(-precision,precision)/precision*tolerance)
+			obj:Apply()
+			CONSOLE_AddMessage( "Added "..obj._Name )
+
+			--ENTITY.EnableNetworkSynchronization(obj._Entity,true,true)
+			--ENTITY.PO_Enable(obj._Entity,true)
+			--ENTITY.PO_SetMovedByExplosions(obj._Entity, true)
+		else
+			CONSOLE_AddMessage( "Server command only!" )
+		end
+	end
+end

@@ -56,7 +56,7 @@ function CWeapon:SetAnim(anim,loop,speed,blendtime)
 
     --Game:Print(anim)
 --OriOn_Modification=################################################################	
-	if Cfg.WeaponsPositionning or Cfg.ShowWeaponAnim == false then
+	if not Cfg.ShowWeaponAnim then
 		if not Game.IsDemon then
 			self.s_MPSubClass.Animations.idle = {0,0}
 			self.s_SubClass.Animations.idle = {0,0}
@@ -313,7 +313,7 @@ function CWeapon:ClientTick2(delta)
     local back = 0
     if Cfg.FOV > 90 then back = -(Cfg.FOV - 90)/150 end
 --OriOn_Modification=################################################################		
-	if Cfg.WeaponsPositionning and Cfg.ViewWeaponModel then 
+	if Cfg.WeaponsPositioning and Cfg.ViewWeaponModel then 
 		local pressthiskey = false
 		weaponscenter = 
 		{
@@ -334,10 +334,10 @@ function CWeapon:ClientTick2(delta)
 		local settingloaded = "Your custom settings have been loaded."
 		local settingnoloaded = "This is the default settings, none settings loaded"
 		if Cfg.Language == "french" then
-			settingsave = "Vos paramètres personnalisés ont été enregistrés."
-			settingnosave = "C'est le paramétrage par défaut, aucun paramètres enregistrés."
-			settingloaded = "Vos paramètres personnalisés ont été chargés."
-			settingnoloaded = "C'est le paramétrage par défaut, aucun paramètres chargés."
+			settingsave = "Vos paramÃ¨tres personnalisÃ©s ont Ã©tÃ© enregistrÃ©s."
+			settingnosave = "C'est le paramÃ©trage par dÃ©faut, aucun paramÃ¨tre enregistrÃ©."
+			settingloaded = "Vos paramÃ¨tres personnalisÃ©s ont Ã©tÃ© chargÃ©s."
+			settingnoloaded = "C'est le paramÃ©trage par dÃ©faut, aucun paramÃ¨tre chargÃ©."
 		end
 
 		for i=1,7 do

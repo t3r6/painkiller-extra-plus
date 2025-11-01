@@ -128,7 +128,14 @@ function Rocket:OnCollision(x,y,z,nx,ny,nz,e,h_me,h_other,vx,vy,vz,vl)
     local obj = EntityToObject[e]
     if obj and not obj._ToKill --[[and not obj._died--]] and obj.OnDamage then 
         --Game:Print("*** INSTANT_DAMAGE: "..obj._Name.." ["..self.Damage.."]")
-        obj:OnDamage(self.Damage,self.ObjOwner,AttackTypes.Rocket,x,y,z)                                    
+
+        -- Race Additions [ THRESHER ]
+        if( MPCfg.GameMode == "Race" and obj._Class == "CPlayer" ) then
+            obj.bulletsFliesThru = true 
+        else
+            obj:OnDamage(self.Damage,self.ObjOwner,AttackTypes.Rocket,x,y,z)
+        end
+
         if obj.bulletsFliesThru then
 			--Game:Print("fly through")
             return

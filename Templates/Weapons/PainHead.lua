@@ -153,6 +153,13 @@ function PainHead:Tick(delta)
         if not self._spinning then
             -- przesuwam srodek w punkt, w ktory sie wbil
             ENTITY.SetPosition(self._Entity,tx,ty,tz)        
+            
+            if Cfg.GrapplingHook then
+            	local x,y,z = ENTITY.PO_GetPawnHeadPos(self.ObjOwner._Entity)
+            	ENTITY.PO_SetFlying(self.ObjOwner._Entity,true)
+            	ENTITY.SetVelocity(self.ObjOwner._Entity,(-x+tx)*1.5,(-y+ty)*1.5,(-z+tz)*1.5)
+            end
+            
             -- wylaczam fizyke
             ENTITY.PO_Remove(self._Entity)
             -- nadaje impuls trafionemu entity       

@@ -59,6 +59,12 @@ CPlayer =
     _healthDecCnt = 0,
     _Class = "CPlayer",
     
+-- for Race [ THRESHER ]	
+	_raceStartTime = 0,
+	_raceFinishTime = 0,
+	_raceBestTime = 0,
+	_isRacing = false,
+
 -- for logic
 	_slowDown = nil,
 	_velocity = 0,
@@ -520,7 +526,7 @@ function CPlayer:ClientTick(delta)
     local cw = self:GetCurWeapon()
        
     -- next/prev weapon
-    if not (cw and cw._zoom and cw._zoom>0) and (INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon)) then
+    if not (cw and cw._zoom and cw._zoom>0 or self._wheeltime) and (INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon)) then
         -- find current weapon
         local slot = self._CurWeaponIndex            
         if INP.Action(Actions.NextWeapon) then                                 
@@ -536,13 +542,22 @@ function CPlayer:ClientTick(delta)
             until self.EnabledWeapons[slot]
             nextSlot = slot
         end                    
+        self._wheelaction = AddBitFlag(action,Slot2Action[nextSlot])
+        self._wheeltime = INP.GetTime() + 1/15
+    end
+
+    if self._wheeltime and self._wheeltime > INP.GetTime() then
+        action = self._wheelaction
+        nextSlot = -1
+    else
+        self._wheeltime = nil
     end     
         
     if Game.GMode ~= GModes.SingleGame and Cfg.NoAmmoSwitch and nextSlot == -1 then
         local fire = nil
         if IsBitFlag(action,Actions.Fire)    then fire = 1 end
         if IsBitFlag(action,Actions.AltFire) then fire = 2 end        
-        if fire then
+        if fire and not IsBitFlag(action,tonumber('1100000000011111110000000000',2)) then -- Weapon switch fix
             nextSlot = self:TryToSelectNextWeaponWithAmmo(self._CurWeaponIndex,fire)
         end
     end
@@ -1158,6 +1173,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
     if((not Cfg.FallingDamage) and MPCfg.GameState == GameStates.Playing and attack_type == AttackTypes.HitGround) then return end 
     if not Cfg.WarmupDamage and MPCfg.GameState ~= GameStates.Playing and attack_type ~= AttackTypes.ConsoleKill then return end
     -- if MPCfg.GameState == GameStates.WarmUp and MPCfg.GameMode == "Clan Arena" and attack_type ~= AttackTypes.ConsoleKill then return end
+    if MPCfg.GameMode == "Race" and attack_type ~= AttackTypes.ConsoleKill then return end -- Race Additions [ THRESHER ]
     if(killer~=nil)then if(self.ClientID~=killer.ClientID)then
       if MPGameRules[MPCfg.GameMode].Teams then
         if Game.PlayerStats[self.ClientID].Team ~= Game.PlayerStats[killer.ClientID].Team then
@@ -1213,7 +1229,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
                     return 
                 end
             end            
-            if MPGameRules[MPCfg.GameMode].Teams and not MPCfg.TeamDamage and killer and MPCfg.GameState == GameStates.Playing then
+            if MPGameRules[MPCfg.GameMode].Teams and not MPCfg.TeamDamage and killer and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.WarmUp) then
                 local ks = Game.PlayerStats[killer.ClientID]
                 local ps = Game.PlayerStats[self.ClientID]
                 if ps ~= ks and ps.Team == ks.Team then
@@ -1410,6 +1426,11 @@ function CPlayer:FindFreeRespawnPoint(last,always)
         end
         areas = na
     end
+
+    -- Race Additions [ THRESHER ]
+    if MPCfg.GameMode == "Race" then
+        -- respawn code
+    end
     
     if cnt == 1 then last = nil end
     if cnt > 0 then
@@ -1553,12 +1574,9 @@ function CPlayer:ResetStatus(weapon)
         self.Armor             = a.ArmorAdd
         self.ArmorType         = a.ArmorType
         self.ArmorRescueFactor = a.RescueFactor
-    elseif MPCfg.GameMode == "Instagib" then
-      self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
-      self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
-    elseif MPCfg.GameMode == "ICTF" then
-      self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
-      self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
+    elseif MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
+        self.Ammo = Clone(CPlayer.s_SubClass.IGAmmo)
+        self.EnabledWeapons = {"PainKiller", nil, "StakeGunGL", nil, nil}
     else
         self.EnabledWeapons = {"PainKiller"}
         self:AddWeapon(1)
@@ -1593,7 +1611,7 @@ function CPlayer:ResetStatus(weapon)
         self:AddWeapon(4)
         self:AddWeapon(5)
       elseif MPCfg.GameMode == "ICTF" or MPCfg.GameMode == "Instagib" then
-        self.EnabledWeapons = {nil,nil,"StakeGunGL",nil,nil}
+        self.EnabledWeapons = {"PainKiller",nil,"StakeGunGL",nil,nil}
         self:AddWeapon(3)
       else
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
@@ -2043,8 +2061,8 @@ function CPlayer:Client_OnDamage(entity,health,armor,attack_type,damage,killerID
     end
     
     -- dzwieki i fx w MP
-    if Game.GMode ~= GModes.SingleGame then 
-        
+    local atype = function() for k,v in pairs(AttackTypes) do if v == attack_type then return k end end end
+    if Game.GMode ~= GModes.SingleGame and atype() then 
         local fx = true
         if Cfg.LowQualityMultiplayerSFX then
             fx = false
@@ -2458,32 +2476,32 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
         ENTITY.KillAllChildren(deadEntity,ETypes.Sound)
         ENTITY.KillAllChildrenByName(deadEntity,"fx_weaponmodifier")
         if not Cfg.LowQualityMultiplayerSFX then
-            if gib == 0 then 
-                ENTITY.RecreateRagdollIfNone(deadEntity)
-                MDL.SetRagdollCollisionGroup(deadEntity, ECollisionGroups.Particles)
-                if not IsDedicatedServer() then
-                    MDL.EnableRagdoll(deadEntity,true,ECollisionGroups.Particles)
-                end
-                ENTITY.EnableDraw(deadEntity,true) -- pokazuje ragdolla
-            else    
-                ENTITY.RemoveRagdoll(deadEntity)
-                if not IsDedicatedServer() then
-                    local ge = MDL.MakeGib(deadEntity, ECollisionGroups.Particles)
-                    ENTITY.PO_SetMass(ge,80)
-                    MDL.SetMaterial(ge,"palskinned_bloody")
-                    WORLD.Explosion2(x,y+1,z,3000*FRand(0.8,1.2),2,nil,AttackTypes.Grenade,0)
-                    ENTITY.SetTimeToDie(ge,3)            
-                    local parts = {{"r_l_arm",-1},{"r_p_arm",1},{"n_l_bio",-1},{"n_p_bio",1},{"k_head",-1},{"k_chest",1},{"root",-1}}            
-                    if not Cfg.NoGibs then 
-                    for i,v in parts do
-                        local pfx = AddPFX("FX_gib_blood",0.3)
-                        --if pfx then Game:Print(v[1]) end
-                        ENTITY.RegisterChild(ge,pfx)        
-                        PARTICLE.SetParentOffset(pfx,0,0,0,v[1], nil,nil,nil, 0, 0, math.pi/2 * v[2])
+            if not Cfg.NoGibs then
+                if gib == 0 then 
+                    ENTITY.RecreateRagdollIfNone(deadEntity)
+                    MDL.SetRagdollCollisionGroup(deadEntity, ECollisionGroups.Particles)
+                    if not IsDedicatedServer() then
+                        MDL.EnableRagdoll(deadEntity,true,ECollisionGroups.Particles)
                     end
+                    ENTITY.EnableDraw(deadEntity,true) -- pokazuje ragdolla
+                else    
+                    ENTITY.RemoveRagdoll(deadEntity)
+                    if not IsDedicatedServer() then
+                        local ge = MDL.MakeGib(deadEntity, ECollisionGroups.Particles)
+                        ENTITY.PO_SetMass(ge,80)
+                        MDL.SetMaterial(ge,"palskinned_bloody")
+                        WORLD.Explosion2(x,y+1,z,3000*FRand(0.8,1.2),2,nil,AttackTypes.Grenade,0)
+                        ENTITY.SetTimeToDie(ge,3)            
+                        local parts = {{"r_l_arm",-1},{"r_p_arm",1},{"n_l_bio",-1},{"n_p_bio",1},{"k_head",-1},{"k_chest",1},{"root",-1}}            
+                        for i,v in parts do
+                            local pfx = AddPFX("FX_gib_blood",0.3)
+                            --if pfx then Game:Print(v[1]) end
+                            ENTITY.RegisterChild(ge,pfx)        
+                            PARTICLE.SetParentOffset(pfx,0,0,0,v[1], nil,nil,nil, 0, 0, math.pi/2 * v[2])
+                        end
+                        local x,y,z = MDL.TransformPointByJoint(deadEntity,MDL.GetJointIndex(deadEntity, "k_chest"),0,0,0)
+                        AddPFX("gibExplosion",0.4,Vector:New(x,y,z))                                              
                     end
-                    local x,y,z = MDL.TransformPointByJoint(deadEntity,MDL.GetJointIndex(deadEntity, "k_chest"),0,0,0)
-                    if not Cfg.NoGibs then AddPFX("gibExplosion",0.4,Vector:New(x,y,z)) end                                                 
                 end
             end
         else

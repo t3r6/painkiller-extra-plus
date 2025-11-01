@@ -883,7 +883,7 @@ function Game:LoadObjectsDirectory(path)
             end
             
             if o and Game.GMode == GModes.MultiplayerClient then
-                if o.BaseObj ~= "Teleport.CBox" and o.BaseObj ~= "JumpPad.CItem" and o._Class ~= "CArea" and (not fx and not o.VisibleOnMPClient) then 
+                if o.BaseObj ~= "Teleport.CBox" and o.BaseObj ~= "JumpPad.CItem" and o.BaseObj ~= "Slab.CItem" and o._Class ~= "CArea" and (not fx and not o.VisibleOnMPClient) then 
                     o._DeleteAfterCache = true 
                 end
             end
@@ -1652,6 +1652,21 @@ end
 CL = 0
 --============================================================================
 function Game_GC()    
+    -- PK++ 1.31 Modification start################################################################
+	if INP.Key(Keys.F10) == 3 then
+		if Console.Time ~= nil then
+			if (0.01 > (os.clock() - Console.Time)) then return end
+		end
+		if Console.Time == nil then Console.Time = os.clock() end
+		if(not Console.Activated)then
+			CONSOLE.Activate(true)
+			Console.Activated = true
+		else
+			CONSOLE.Activate(false)
+			Console.Activated = false
+		end
+	end
+    -- PK++ 1.31 Modification end################################################################
     if Game.GMode == GModes.SingleGame then 
         collectgarbage(30000)
     else

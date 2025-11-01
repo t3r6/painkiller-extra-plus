@@ -118,6 +118,10 @@ function Game:Server2ClientRead(txt)
 	    	Console:Cmd_STATSDUMP()
 	    	return true
 	    end	
+		if(txt == "CMD:GETPLAYERSETTINGS")then	-- This should force the client to print out net settings, model, etc... [ THRESHER ]
+			Console:Cmd_GETPLAYERSETTINGS()
+			return true
+		end
 	    local cmdpattern = "CMD:(%w+):([0-9%a%p%d%s]+)"
 	    local cmdcmd = string.gsub(txt, pattern , "%1") 
 	    local cmdparam = string.gsub(txt, pattern , "%1")  	    

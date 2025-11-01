@@ -9,7 +9,7 @@ GameStates =
 
 MPCfg = 
 {
-    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF"
+    GameMode         = "Free For All", -- "Free For All", "Team Deathmatch", "People Can Fly", "Voosh", "The Light Bearer", "Capture The Flag", "Last Man Standing", "Duel", "Clan Arena", "Instagib", "ICTF", "Race"
     GameState        = GameStates.Finished, -- "Counting", "Playing", "Finished"
     TeamDamage       = true,
     AllowBrightskins = true,
@@ -72,22 +72,31 @@ MPGameRules =
         Teams = false,
         PlayerLimit = 2,
     },
-    ["Clan Arena"] = {
+    ["Clan Arena"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = false,
       ResetStatusAfterCountdown = true,
       Teams = true,
     },
-    ["Instagib"] = {
+    ["Instagib"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = false,
     },
-    ["ICTF"] = {
+    ["ICTF"] = 
+    {
       StartState = GameStates.WarmUp,
       AutoRespawnAfterCountdown = true,
       Teams = true,
-    }
+    },
+    ["Race"] =
+    {
+      StartState = GameStates.WarmUp,
+      AutoRespawnAfterCountdown = false,
+      Teams = false, -- changed from TRUE in last version, any bugs? :) [ THRESHER ]
+    },
 }
 
 MPCfgBackup = {}
@@ -239,10 +248,19 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
     end
     
+    -- Enforces MaxFpsMP for the local server. Use Cfg.MaxFpsMP = 0 or "/setmaxfps 0" for uncapped FPS.
+    if self.GMode == GModes.MultiplayerServer then WORLD.SetMaxFPS(Cfg.MaxFpsMP) end
+
 --    if (self.GMode == GModes.DedicatedServer and Cfg.LimitServerFPS) or self.GMode == GModes.MultiplayerServer then
 --        WORLD.SetMaxFPS(Cfg.ServerFPS)
 --    end
-    
+
+    if Game.GMode == GModes.MultiplayerClient then
+        WORLD.SetMaxFPS((Cfg.MaxFpsMP == 0) and MAXFPSMP_MAX_LIMIT or math.min(math.max(Cfg.MaxFpsMP, MAXFPSMP_MIN_LIMIT), MAXFPSMP_MAX_LIMIT))
+        NET.SetServerFramerate((Cfg.NetcodeServerFramerate == 0) and NETCODESERVERFRAMERATE_MAX_LIMIT 
+          or math.min(math.max(Cfg.NetcodeServerFramerate, NETCODESERVERFRAMERATE_MIN_LIMIT), NETCODESERVERFRAMERATE_MAX_LIMIT))
+    end
+
     self.VooshTick = 0
     Game.WaitForServer = nil        
     Game.Active = true
@@ -409,6 +427,20 @@ function Game_InterpretVariable(name,value)
 			}
 		end
 	end
+
+	if name == "I73m3s7" then -- ItemRst
+		local pattern = "([^,]+),([^,]+),([^,]+),([^,]+)"
+		local __name__ = name..'_'..string.gsub(value, pattern, "%1")
+		local __type__ = string.gsub(value, pattern, "%2")
+		local timeleft = string.gsub(value, pattern, "%3")
+		local bearerId = string.gsub(value, pattern, "%4")
+		local obj = _G[__name__]
+		if not obj then obj = GObjects:Add(__name__,Clone(getfenv()['CObject'])) end
+		obj._type = tonumber(__type__)
+		obj._timeleft = tonumber(timeleft)
+		obj._bearerId = tonumber(bearerId)
+	end
+
 end
 --============================================================================
 -- [ENGINE - SERVER ONLY] --
@@ -878,8 +910,10 @@ function Game:OnMultiplayerCommonTick(delta)
         if self._TimeLimitOut >= MPCfg.TimeLimit * 60 then
         
             -- OVERTIME
+          if MPCfg.GameMode == "Team Deathmatch" or MPCfg.GameMode == "Duel" or MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF" then
             Game:CheckOvertime()
             if(not(self._TimeLimitOut > MPCfg.TimeLimit * 60))then return end
+          end
             -- OVERTIME
         
             if Game:IsServer() then StringToDo = "Game.EndOfMatch()" end
@@ -1237,6 +1271,8 @@ function Game:PlayerSpectatorRequest(clientID,spectator)
     
     if can then -- and ps and not ps.Bot
     	--MsgBox("disconnectiung a client")
+        local player = Game:FindPlayerByClientID(clientID)
+        if player then player:FreeBlockedObjects() end
         Game:AfterClientDisconnected(clientID)
         Game.PlayerSpectatorConfirmation(clientID,spectator)    
     else -- (ps and not ps.Bot)
@@ -1287,6 +1323,7 @@ function Game:PlayerRespawnRequest(clientID)
         ENTITY.SetSynchroString(player._Entity,"CPlayer") -- for ENTITY_CREATE callback
         ENTITY.EnableDeathZoneTest(player._Entity,true) 
         ENTITY.PO_SetMovedByExplosions(player._Entity,true)
+        if( MPCfg.GameMode == "Race") then ENTITY.PO_SetCollisionGroup(player._Entity, ECollisionGroups.InsideItems) end -- Race Additions [ THRESHER ]
         ENTITY.EnableNetworkSynchronization(player._Entity,true,false,0,clientID,3)
         
         player:Respawn(x,y,z,a)
@@ -1512,6 +1549,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "map" and Cfg.UserMapChange then
 		allowed = true
+	elseif cmd == "mapany" and Cfg.UserMapAnyChange then
+		allowed = true
 	elseif cmd == "timelimit" and Cfg.UserTimeLimit then
 		allowed = true
 	elseif cmd == "fraglimit" and Cfg.UserFragLimit then
@@ -1561,6 +1600,18 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "stopmatchonplayersquit" and Cfg.UserStopMatchOnPlayersQuit then
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then
+		allowed = true
+	elseif cmd == "brightammo" and Cfg.UserBrightAmmo then
+		allowed = true
+	elseif cmd == "brightskinsarmors" and Cfg.UserBrightSkinsArmors then
+		allowed = true
+	elseif cmd == "forcemodel" and Cfg.UserForceModel then
+		allowed = true
+	elseif cmd == "forcemodel_teams" and Cfg.UserForceModel_Teams then
+		allowed = true
+	elseif cmd == "grapplinghook" and Cfg.UserGrapplingHook then
+		allowed = true
+	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
 		allowed = true
 	end
 	return allowed
@@ -2078,6 +2129,16 @@ function Game:SayToAll(clientID,txt,color)
     
     if(Game:Client2ServerRead(clientID, txt))then return end
     
+    --[[ THRESHER's Cmd_COINTOSS script is called ( Console2.lua ) ]]--
+    if MPCfg.GameState == GameStates.WarmUp then
+      if( string.lower(txt) == "!cointoss heads" or string.lower(txt) == "!cointoss tails" )then
+        txt = string.gsub(  txt, "!cointoss", "" )
+        txt = string.gsub ( txt, " ", "" )
+        Console:Cmd_COINTOSS(clientID, txt)
+        return
+      end
+    end
+
     local onebotheardsomething = nil
     for i, pp in Game.PlayerStats do
     	if pp.Bot and onebotheardsomething == nil then
@@ -2104,8 +2165,22 @@ Network:RegisterMethod("Game.SayToAll", NCallOn.Server, NMode.Reliable, "bsi")
 --============================================================================
 function Game:SayToTeam(clientID,txt,color)
     local ps = Game.PlayerStats[clientID]
-    if not ps or ps.Spectator == 1 then return end
-            
+    if not ps --[[or ps.Spectator == 1--]] then return end
+
+    if ps.Spectator == 1 then  -- spec chat [ THRESHER ]
+        for i,o in Game.PlayerStats do
+            if o.Spectator == 1 then 
+                if o.ClientID == ServerID then
+                    RawCallMethod( Game.ConsoleClientMessage, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) ) 
+                else
+                    SendNetMethod( Game.ConsoleClientMessage, o.ClientID, true, true, clientID, "[spec]"..txt, R3D.RGB( 255, 234, 0 ) )
+                end
+            end
+        end
+
+      return
+    end
+
     for i,o in Game.PlayerStats do
         if o.Team == ps.Team then 
             if o.ClientID == ServerID then

@@ -43,8 +43,8 @@ function PSpectatorControler:New()
 end
 --============================================================================
 function PSpectatorControler:SetPlayerVisibility(e,enable,state)
-     
-    ENTITY.EnableDraw(e,enable,true)    
+    local propagate = state ~= 12 and state ~= 13 -- painhead always visible
+    ENTITY.EnableDraw(e,enable,propagate)    
     
     --[[
     MDL.SetMeshVisibility(e,"-all-",true)
@@ -202,6 +202,10 @@ if(not Hud) then return end
         
     end
 
+    if Cfg.HUD_Show_Spec_Item_Timers and Cfg.HUD_Show_Spec_Item_Timers ~= 0 then
+        Hud:DrawItemTimers()
+    end
+
   if Cfg.HUD_FragMessage and fragmessagestart < Game.currentTime and fragmessageend > Game.currentTime and fragmessageend > Game.currentTime then
     self:ClanArenaMessage(Hud.fname)
   end
@@ -209,7 +213,7 @@ if(not Hud) then return end
 		self:SpectatorHUD()
 	end
 	if self.player ~= -1 and self.mode == CameraStates.InEyes or self.player ~= -1 and self.mode == CameraStates.Auto and self.autoineyes == 1 or MPCfg.GameMode == "Clan Arena" then
-		Hud:QuadRGBA(Hud._matCrosshair,w/2,h/2,Hud.CrossScale,true,255,255,255,Cfg.CrosshairTrans/100.0*96)
+		Hud:QuadRGBA(Hud._matCrosshair,w/2,h/2,Hud.CrossScale,true,Cfg.CrosshairR,Cfg.CrosshairG,Cfg.CrosshairB,Cfg.CrosshairTrans/100*255)
 		self:SpectatorHUD()
 	end
 end
@@ -517,6 +521,16 @@ function PSpectatorControler:Tick3(delta)
 end
 --============================================================================
 function PSpectatorControler:CameraModeSwitch()
+
+    --[[
+    if( MPCfg.GameMode == "Race") then 
+      --for i,o in Game.PlayerStats do    			HIDES OTHER PLAYERS
+        --self:SetPlayerVisibility(o._Entity,false)
+      --end
+      return 
+    end -- Race Additions [ THRESHER ]
+    ]]--
+
     if INP.Action(Actions.Fire) then
         if not self._fire then
             Game:Print(self.player)
@@ -668,13 +682,19 @@ function PSpectatorControler:ProHud(he, ar, am1, am2, cwi, art)
   local alcolor = { {255, 255, 255}, {0, 102, 255}, {255, 0, 0}, {255, 255, 0}, {255, 255, 153}, {0, 0, 0}, {255, 0, 153} }
 
   local i = cwi
-  if type(i) == "number" and i <= 7 and i >= 1 and cwi == i then
+  if type(i) == "number" and cwi == i then
     Hud:QuadRGBA(cupriammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, prcolor[i][1], prcolor[i][2], prcolor[i][3], 255)
     Hud:QuadRGBA(cualtammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, alcolor[i][1], alcolor[i][2], alcolor[i][3], 255)
-    Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
-    Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
+    if i <= 7 and i >= 2 then
+      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
+      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
+    elseif i == 1 then
+      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+    end
   end
 end
+
 --============================================================================
 function PSpectatorControler:SpectatorHUD() 
 	if(not Hud) then return end
@@ -748,14 +768,16 @@ function PSpectatorControler:SpectatorHUD()
 
 	Hud:DrawDigitsText(Cfg.HUDSize*52*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",he),-3),0.9 * Cfg.HUDSize,CPlayer.HealthWarning)
 	Hud:DrawDigitsText(Cfg.HUDSize*52*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",armor),-3),0.9 * Cfg.HUDSize,CPlayer.ArmorWarning)
-  	Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo1),-3),0.9 * Cfg.HUDSize,ammo1warning)
-  	Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo2),-3),0.9 * Cfg.HUDSize,ammo2warning)
+	if currentweaponindex ~= 1 then
+	  Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo1),-3),0.9 * Cfg.HUDSize,ammo1warning)
+	  Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo2),-3),0.9 * Cfg.HUDSize,ammo2warning)
+	end
 	
     if currentweaponindex == 1 then
 	Hud:Quad(self._matAmmoOpenIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 	Hud:Quad(self._matAmmoCloseIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	-- Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	-- Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 2 then
 	Hud:Quad(self._matAmmoIconSG,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 	Hud:Quad(self._matFreezerIcon,(1024-55*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*46)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
@@ -967,3 +989,4 @@ function PSpectatorControler:MapViewConfigure()
     end
     Mapview:Save(Lev.Map)  
 end
+--============================================================================

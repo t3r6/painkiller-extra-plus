@@ -914,3 +914,69 @@ function IsBooH()
     return __IsBooH
 end
 --============================================================================
+-- PK++ THRESHER
+--============================================================================
+function TableMerge(t1, t2)
+    for k,v in pairs(t2) do
+        if type(v) == "table" then
+                if type(t1[k] or false) == "table" then
+                        TableMerge(t1[k] or {}, t2[k] or {})
+                else
+                        t1[k] = v
+                end
+        else
+                t1[k] = v
+        end
+    end
+    return t1
+end
+--============================================================================
+function RaceTimeString( playerTime )
+
+	local capM, capS, capMS
+						
+		capS = math.floor( playerTime ) -- get a nice round number
+			if( capS > 59 ) then -- not sure if I need these here or not, will test later
+					capS = capS - (60 * math.floor( capS / 60 ) ) -- OMG how did I not figure this out before? Prevents timer for showing more than 60 in seconds spot
+			end
+		
+		capMS = playerTime - math.floor( playerTime )
+			capMS = tostring( capMS )
+			capMS = f2( capMS ) -- trims the string down to the last two decimal places utils.lua
+			capMS = string.gsub( capMS, "%p", "")
+			capMS = tonumber( capMS )
+		capM = math.floor( math.floor( playerTime ) / 60 )
+		
+		if( capM < 10 or capM == nil ) then 
+			if( capM < 1 or capM == nil ) then
+				capM = "00"
+			else
+				capM = "0"..tostring(capM)
+			end
+		end
+		
+		if( capS < 10 or capS == nil or capS == 0) then 
+			if( capS < 1 or capS == nil ) then
+				capS= "00"
+			else
+				capS = "0"..tostring(capS)
+			end
+		end
+		if( capMS < 10 or capMS == nil ) then 
+			if( capMS < 1 or capMS == nil ) then
+				capMS= "00"
+			else
+				capMS = "0"..tostring(capMS)
+			end
+		end
+		if( capMS == 100 ) then capMS = "10" end -- obscure bugfix
+		
+	return tostring(capM) .. ":" .. tostring(capS) .. ":" .. tostring(capMS)
+end
+--============================================================================
+function math.clamp(val, lower, upper)
+    assert(val and lower and upper, "not very useful error message here")
+    if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
+    return math.max(lower, math.min(upper, val))
+end
+--============================================================================
