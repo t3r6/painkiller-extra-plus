@@ -578,7 +578,7 @@ function Hud:Tick(delta)
 	end
 end
 --============================================================================
-local function Hud:ApplySpeedUnitHScale(vx,vz)
+function Hud:ApplySpeedUnitHScale(vx,vz)
     local unitScaleQuake = 29.091
     if Cfg.HUD_Speedmeter_UnitType == 1 then
         vx = vx * unitScaleQuake
