@@ -578,6 +578,15 @@ function Hud:Tick(delta)
 	end
 end
 --============================================================================
+local function Hud:ApplySpeedUnitScale(vx,vz)
+    local unitScale1 = 29.091
+    if Cfg.HUD_Speedmeter_Quake then
+        vx = vx * unitScale1
+        vz = vz * unitScale1
+    end
+    return vx, vz
+end
+--============================================================================
 function Hud:Render(delta)
 	--if CONSOLE.DemoIsPlaying() then self:DrawForDemo()  end --return
 	local w,h = R3D.ScreenSize()
@@ -1014,14 +1023,13 @@ end
     -- speedmeter
     if  Cfg.HUD_Show_Speedmeter == 4  and Player and Player._Entity then
         local vx,vy,vz,vl = ENTITY.GetVelocity(Player._Entity)
+
+        vx, vz = ApplySpeedUnitScale(vx, vz)
+
         local hl = Dist2D(0,0,vx,vz)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,100,13,100,100,100)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,hl*2,13,255,0,0)
-        if Cfg.HUD_Speedmeter_Quake then
-            HUD.PrintXY(w/2-10,h-15,string.format("%d",hl * 29.14))
-        else
-            HUD.PrintXY(w/2-10,h-15,string.format("%.02f",hl))
-        end
+        HUD.PrintXY(w/2-10,h-15,string.format("%d",hl * 29.14))
     end
 
   if Player and Cfg.CustomHudSound then

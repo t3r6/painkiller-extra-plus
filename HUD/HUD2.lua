@@ -3,10 +3,10 @@ function Hud:DrawSpeedmeter(entity)
   local w, h = R3D.ScreenSize()
   
   local vx, vy, vz, vl = ENTITY.GetVelocity(entity)
+
+  vx, vz = ApplySpeedUnitScale(vx, vz)
+
   local ups = string.format("%.01f Ups", Dist2D(0, 0, vx, vz))
-  if Cfg.HUD_Speedmeter_Quake then
-    ups = string.format("%d Ups", Dist2D(0, 0, vx, vz) * 29.14)
-  end
   local infoitems = Cfg.HUD_SMeter_Setting
   local spressthiskey = false
   local spfontsizes = 22
