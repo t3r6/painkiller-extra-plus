@@ -67,15 +67,15 @@ function Shotgun:DrawHUD(delta)
     local sizex, sizey = MATERIAL.Size(Hud._matHUDLeft)
     
     if not (INP.IsFireSwitched() or (not Game.SwitchFire[2] and Cfg.SwitchFire[2]) or (not Cfg.SwitchFire[2] and Game.SwitchFire[2])) then
-		Hud:Quad(self._matAmmoIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matFreezerIcon,(1024-55*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*46)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.Shotgun),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shotgun)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.IceBullets),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.IceBullets)
+		Hud:Quad(self._matAmmoIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matFreezerIcon,w-((55*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*46)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.Shotgun),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shotgun)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.IceBullets),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.IceBullets)
 	else
-		Hud:Quad(self._matAmmoIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matFreezerIcon,(1024-55*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.IceBullets),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.IceBullets)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.Shotgun),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shotgun)
+		Hud:Quad(self._matAmmoIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matFreezerIcon,w-((55*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.IceBullets),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.IceBullets)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",Player.Ammo.Shotgun),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shotgun)
     end
 end
 --============================================================================
