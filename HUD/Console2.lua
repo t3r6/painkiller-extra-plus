@@ -2839,3 +2839,7 @@ function Console:Cmd_HUD_SPECITEMTIMERSPOSITION(enable)
   self:Cmd_TEMPLATE_SET_INT("HUD_Spec_Item_Timers_PosX", enable, "Set item timers position left/right in spectator (0-1).")
 end
 --=======================================================================
+function Console:Cmd_SHAFTFX(value)
+  self:Cmd_TEMPLATE_SET_INT("ShaftFX", value, "Sets the DriverElectro shaft style (0-2). Default is 0.")
+end
+--=======================================================================

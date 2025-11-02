@@ -599,15 +599,19 @@ Network:RegisterMethod("DriverElectro.OutOfAmmoFX", NCallOn.AllClients, NMode.Re
 --============================================================================
 function DriverElectro:DrawBezierLine(points,parts,mode,size,color,rnd)
 
+    if Cfg.ShaftFX == 1 then
+        parts = 2
+        mode = 0
+        size = size * 0.75
+    elseif Cfg.ShaftFX == 2 then
+        return
+    end
+
     local va = VARRAY.Create()
     for i,o in points do
         VARRAY.AddPoint(va,o.X,o.Y,o.Z)
     end
-	if Cfg.ThinShaft then			--OriOn_Modification
-		parts = 2
-		mode = 0
-		size = size * 0.75
-	end								--=end=OriOn_Modification
+
     local spr = R3D.Spr_Create(size,color,"particles/spaw",mode)
     if not rnd then rnd = 0.05 end
     local px,py,pz
