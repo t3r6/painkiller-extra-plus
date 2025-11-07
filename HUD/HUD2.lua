@@ -1010,13 +1010,18 @@ function Hud:CurrentWeaponIcon()
     end
   end
 
+  local posx = Cfg.HUD_CurrentWeapon_Icon_Setting[1]
+  if Cfg.HUD_CurrentWeapon_Icon_Setting[1] == 0 then posx = 490.5 end
+  local posy = Cfg.HUD_CurrentWeapon_Icon_Setting[2]
+  local alpha = Cfg.HUD_CurrentWeapon_Icon_Setting[3]
+
   local ji = Player:GetCurWeaponSlotIndex()
   if Cfg.HUD_HudStyle == 0 then
     if type(ji) == "number" and ji <= 7 and ji >= 1 and Player._CurWeaponIndex == ji then
-      Hud:QuadTrans(CurrentWeaponIcons[ji], 490.5 * w / 1024, 700 * h / 768, 1, false, 255)
+      Hud:QuadTrans(CurrentWeaponIcons[ji], posx * w / 1024, posy * h / 768, 1, false, 255*alpha)
     end
   elseif Cfg.HUD_HudStyle == 3 and type(ji) == "number" and ji <= 7 and ji >= 1 and Player._CurWeaponIndex == ji then
-    Hud:QuadRGBA(curw[s][ji], 492 * w / 1024, 695 * h / 768, 1, false, color[ji][1], color[ji][2], color[ji][3], 255)
+    Hud:QuadRGBA(curw[s][ji], posx + 1.5 * w / 1024, posy - 5 * h / 768, 1, false, color[ji][1], color[ji][2], color[ji][3], 255*alpha)
   end
 
 end
