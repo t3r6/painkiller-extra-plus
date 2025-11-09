@@ -662,15 +662,17 @@ function PainMenu:AddItem( i, o )
 			end
 		end
 
-		local ps = Game.PlayerStats[NET.GetClientID()]
-		local spectator = ps and ps.Spectator or 0
+		if NET.GetClientPing() ~= 9999 then
+			local ps = Game.PlayerStats[NET.GetClientID()]
+			local spectator = ps and ps.Spectator or 0
 
-		if spectator == 1 and itemName == "Spectate" then
-			skip = true
-		end
+			if spectator == 1 and itemName == "Spectate" then
+				skip = true
+			end
 
-		if spectator == 0 and itemName == "Join" then
-			skip = true
+			if spectator == 0 and itemName == "Join" then
+				skip = true
+			end
 		end
 
 		if (Game.GMode == GModes.SingleGame or Game:IsServer()) and itemName == "Disconnect" then
