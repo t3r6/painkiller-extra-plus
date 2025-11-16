@@ -664,18 +664,18 @@ function PSpectatorControler:ProHud(he, ar, am1, am2, cwi, art)
     colorh = {0, 204, 255}
   end
 
-  Hud:QuadRGBA(Hud._matHealthSH, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, colorh[1], colorh[2], colorh[3], 255)
-  Hud:DrawDigitsText1(Cfg.HUDSize * 52 * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", he), -3), 0.9 * Cfg.HUDSize, CPlayer.HealthWarning)
+  Hud:QuadRGBA(Hud._matHealthSH, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, colorh[1], colorh[2], colorh[3], 255)
+  Hud:DrawDigitsText1((Cfg.HUDSize * 52) * h/768, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", he), -3), 0.9 * Cfg.HUDSize, CPlayer.HealthWarning)
   if art == 0 then
-    Hud:QuadRGBA(Hud._matArmorNormalSH, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, 0, 0, 0, 125)
+    Hud:QuadRGBA(Hud._matArmorNormalSH, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, 0, 0, 0, 125)
   elseif art == 1 then
-    Hud:QuadRGBA(Hud._matArmorNormalSH, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[1][1], color[1][2], color[1][3], 255)
+    Hud:QuadRGBA(Hud._matArmorNormalSH, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[1][1], color[1][2], color[1][3], 255)
   elseif art == 2 then
-    Hud:QuadRGBA(Hud._matArmorNormalSH, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[2][1], color[2][2], color[2][3], 255)
+    Hud:QuadRGBA(Hud._matArmorNormalSH, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[2][1], color[2][2], color[2][3], 255)
   elseif art == 3 then
-    Hud:QuadRGBA(Hud._matArmorNormalSH, Cfg.HUDSize * 17 * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[3][1], color[3][2], color[3][3], 255)
+    Hud:QuadRGBA(Hud._matArmorNormalSH, (Cfg.HUDSize * 17) * h/768, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, color[3][1], color[3][2], color[3][3], 255)
   end
-  Hud:DrawDigitsText1(Cfg.HUDSize * 52 * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", ar), -3), 0.9 * Cfg.HUDSize, CPlayer.ArmorWarning)
+  Hud:DrawDigitsText1((Cfg.HUDSize * 52) * h/768, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format("%03d", ar), -3), 0.9 * Cfg.HUDSize, CPlayer.ArmorWarning)
 
   local prcolor = { {0, 204, 255}, {255, 102, 0}, {0, 255, 0}, {255, 0, 0}, {204, 0, 255}, {153, 153, 153}, {0, 255, 204} }
 
@@ -683,14 +683,14 @@ function PSpectatorControler:ProHud(he, ar, am1, am2, cwi, art)
 
   local i = cwi
   if type(i) == "number" and cwi == i then
-    Hud:QuadRGBA(cupriammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, prcolor[i][1], prcolor[i][2], prcolor[i][3], 255)
-    Hud:QuadRGBA(cualtammolist[i], (1024 - 57 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, alcolor[i][1], alcolor[i][2], alcolor[i][3], 255)
+    Hud:QuadRGBA(cupriammolist[i], w - ((57 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 13 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, prcolor[i][1], prcolor[i][2], prcolor[i][3], 255)
+    Hud:QuadRGBA(cualtammolist[i], w - ((57 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 48 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize, false, alcolor[i][1], alcolor[i][2], alcolor[i][3], 255)
     if i <= 7 and i >= 2 then
-      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
-      Hud:DrawDigitsText1((1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
+      Hud:DrawDigitsText1(w - ((117 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am2), -3), showinf * Cfg.HUDSize, cualtammolistnumwar[i])
+      Hud:DrawDigitsText1(w - ((117 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, string.sub(string.format(cunumcharact[i], am1), -3), showinf * Cfg.HUDSize, cupriammolistnumwar[i])
     elseif i == 1 then
-      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
-      Hud:Quad(Hud._matInfinityQW, (1024 - 117 * Cfg.HUDSize) * w / 1024, (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+      Hud:Quad(Hud._matInfinityQW, w - ((117 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 51 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
+      Hud:Quad(Hud._matInfinityQW, w - ((117 * Cfg.HUDSize) * h/768), (768 + Cfg.HUDSize * 15 - Cfg.HUDSize * sizey) * h / 768, Cfg.HUDSize*0.55, false)
     end
   end
 end
@@ -766,50 +766,50 @@ function PSpectatorControler:SpectatorHUD()
 		ammo2warning = CPlayer.s_SubClass.AmmoWarning["HeaterBomb"]
 	end
 
-	Hud:DrawDigitsText(Cfg.HUDSize*52*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",he),-3),0.9 * Cfg.HUDSize,CPlayer.HealthWarning)
-	Hud:DrawDigitsText(Cfg.HUDSize*52*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",armor),-3),0.9 * Cfg.HUDSize,CPlayer.ArmorWarning)
+	Hud:DrawDigitsText(Cfg.HUDSize*52*h/768,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",he),-3),0.9 * Cfg.HUDSize,CPlayer.HealthWarning)
+	Hud:DrawDigitsText(Cfg.HUDSize*52*h/768,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",armor),-3),0.9 * Cfg.HUDSize,CPlayer.ArmorWarning)
 	if currentweaponindex ~= 1 then
-	  Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo1),-3),0.9 * Cfg.HUDSize,ammo1warning)
-	  Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo2),-3),0.9 * Cfg.HUDSize,ammo2warning)
+	  Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo1),-3),0.9 * Cfg.HUDSize,ammo1warning)
+	  Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%03d",ammo2),-3),0.9 * Cfg.HUDSize,ammo2warning)
 	end
 	
     if currentweaponindex == 1 then
-	Hud:Quad(self._matAmmoOpenIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoCloseIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matInfinity,(1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoOpenIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoCloseIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matInfinity,w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matInfinity,w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 2 then
-	Hud:Quad(self._matAmmoIconSG,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matFreezerIcon,(1024-55*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*46)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIconSG,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matFreezerIcon,w-((55*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*46)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 3 then
-	Hud:Quad(self._matAmmoIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoRocketIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoRocketIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 4 then
-	Hud:Quad(self._matAmmoMiniIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoRocketIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*17)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoMiniIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoRocketIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*17)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 5 then
-	Hud:Quad(self._matAmmoIconED,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoElectroIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*42)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIconED,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoElectroIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*42)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 6 then
-	Hud:Quad(self._matAmmoIconRFT,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoFlamerIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIconRFT,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoFlamerIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     elseif  currentweaponindex == 7 then
-	Hud:Quad(self._matAmmoIcon1,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-	Hud:Quad(self._matAmmoIcon2,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIcon1,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(self._matAmmoIcon2,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     end
     
         if armortype == 0 then
-            Hud:Quad(Hud._matArmorNormal,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            Hud:Quad(Hud._matArmorNormal,Cfg.HUDSize*17*h/768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif armortype == 1 then
-            Hud:Quad(Hud._matArmorGreen,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            Hud:Quad(Hud._matArmorGreen,Cfg.HUDSize*17*h/768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif armortype == 2 then
-            Hud:Quad(Hud._matArmorYellow,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            Hud:Quad(Hud._matArmorYellow,Cfg.HUDSize*17*h/768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
         elseif armortype == 3 then
-            Hud:Quad(Hud._matArmorRed,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+            Hud:Quad(Hud._matArmorRed,Cfg.HUDSize*17*h/768,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 	end
 	
 	--Hud:QuadRGBA(Hud._matCrosshair,w/2,h/2,Hud.CrossScale,true,255,255,255,Cfg.CrosshairTrans/100.0*96)
-	Hud:Quad(Hud._matHealth,Cfg.HUDSize*17*w/1024,((768+Cfg.HUDSize*14)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+	Hud:Quad(Hud._matHealth,Cfg.HUDSize*17*h/768,((768+Cfg.HUDSize*14)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 	end
    end  
 end
