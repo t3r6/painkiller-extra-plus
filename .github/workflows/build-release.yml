@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag to release (e.g., latest or v1.2.3)'
+        required: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set tag name
+        id: set_tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG_NAME="${{ github.event.inputs.tag_name || 'latest' }}"
+          else
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Set archive prefix and name
+        id: archive_prefix
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            PREFIX="tag-${GITHUB_REF#refs/tags/}"
+          elif [[ "${GITHUB_REF}" == refs/heads/* ]]; then
+            PREFIX="branch-${GITHUB_REF#refs/heads/}"
+          else
+            PREFIX="latest"
+          fi
+          ARCHIVE_NAME="pk-exp-${PREFIX}.zip"
+          echo "prefix=$PREFIX" >> $GITHUB_OUTPUT
+          echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Build with custom Docker image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: painkillergameclassic/paintools:main
+          options: -v ${{ github.workspace }}:/workspace --entrypoint sh -u root
+          run: |
+            TEMP_FOLDER="/data"
+            WORKSPACE_FOLDER="workspace"
+            cp -r /workspace/ "${TEMP_FOLDER}"
+            rm -rf ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.github/
+            PainTools_x64 ${WORKSPACE_FOLDER}/
+            mv ${WORKSPACE_FOLDER}.pak /${WORKSPACE_FOLDER}/PKPlus.pak
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: PKPlus.pak
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+          type: 'zip'
+          path: PKPlus.pak
+          filename: ${{ steps.archive_prefix.outputs.archive_name }}
+          exclusions: '*.git*'
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.set_tag.outputs.tag_name }}
+          name: ${{ steps.set_tag.outputs.tag_name == 'latest' && 'Latest Release' || format('Release {0}', steps.set_tag.outputs.tag_name) }}
+          files: ${{ steps.archive_prefix.outputs.archive_name }}
+          draft: false
+          prerelease: false
+          overwrite: ${{ steps.set_tag.outputs.tag_name == 'latest' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
