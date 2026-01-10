@@ -2346,12 +2346,12 @@ function Console:Cmd_HUD_SHOW_SPEEDMETER(enable)
     CONSOLE_AddMessage("Speedmeter text&bar")
     return
   end
-  if enable == "1" then
+  if enable == "4" then
     Cfg.HUD_Show_Speedmeter = 4
     CONSOLE_AddMessage("Speedmeter classic")
     return
   end
-  CONSOLE_AddMessage("Syntax: HUD_SHOWSPEEDMETER [0/1/2]")
+  CONSOLE_AddMessage("Syntax: HUD_SHOWSPEEDMETER [0/1/2/3/4]")
   CONSOLE_AddMessage("Help: Shows Speedmeter.")
   CONSOLE_AddMessage("State: Speedmeter is currently " .. tostring(Cfg.HUD_Show_Speedmeter))
 end
