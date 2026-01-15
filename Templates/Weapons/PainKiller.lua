@@ -63,15 +63,15 @@ function PainKiller:DrawHUD(delta)
     local sizex, sizey = MATERIAL.Size(Hud._matHUDLeft)
     
     if not (INP.IsFireSwitched() or (not Game.SwitchFire[1] and Cfg.SwitchFire[1]) or (not Cfg.SwitchFire[1] and Game.SwitchFire[1])) then
-		Hud:Quad(self._matAmmoOpenIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoCloseIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoOpenIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoCloseIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     else
-		Hud:Quad(self._matAmmoCloseIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoOpenIcon,(1024-62*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*44)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoCloseIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*12)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoOpenIcon,w-((62*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*44)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
     end
     
-    Hud:Quad(self._matInfinity,(1024-121*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*15)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-    Hud:Quad(self._matInfinity,(1024-121*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+    Hud:Quad(self._matInfinity,w-((121*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*15)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+    Hud:Quad(self._matInfinity,w-((121*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
 end
 --============================================================================
 -- FIRE - Painkiller closed (Server Side)
@@ -333,7 +333,7 @@ function PainKiller:Render()
         end
         
         if isObj or not b then 
-            R3D.DrawSprite1DOF(px,py,pz,x,y,z,0.1,R3D.RGB(255,255,255),"particles/trailpainkiller") --IcI pour l épaisseur du trail
+            R3D.DrawSprite1DOF(px,py,pz,x,y,z,0.1,R3D.RGB(255,255,255),"particles/trailpainkiller") --IcI pour l ï¿½paisseur du trail
             self:EnableEnergyFX(true)            
             if not SOUND2D.IsPlaying(self._sndElectro) then 
                 SOUND2D.SetLoopCount(self._sndElectro,0)             
