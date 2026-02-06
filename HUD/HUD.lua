@@ -1817,28 +1817,37 @@ function Hud:DrawItemTimers()
 
             local size = (Cfg.HUD_Spec_Item_Timers_Size or 0) > 0 and Cfg.HUD_Spec_Item_Timers_Size or 35
             local mw, mh = size, size -- MATERIAL.Size(mat)
+            local dw = (1024-posX-mw*1.6) * w/1024
 
             local r,g,b = unpack(Hud.TimerMats[o._type][2])
             if side then
                 HUD.DrawQuadRGBA(mat,posX*w/1024,(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+                dw = posX*w/1024 + mw
             else
                 HUD.DrawQuadRGBA(mat,w-(posX*w/1024 + mw),(posY+offset-mh*1/15)*h/768,mw,mh,r,g,b)
+                if o._timeleft > 99 then dw = (1024-posX-mw*2) * w/1024 end
             end
 
             r, g, b = 255, 255, 255
             if Cfg.HUD_HudStyle == 0 then
-                r, g, b = 255, 186, 122
+                r, g, b = 230, 161, 97
             end
 
             local bearer = Game.PlayerStats[o._bearerId]
             local txt = bearer and bearer.Name or o._timeleft > 0 and o._timeleft or ''
             local textSize = (mh*5/6<=35) and (mh*5/6) or 35
-            if side then
-                HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,textSize)
+            if txt == o._timeleft then
+              self:DrawDigitsText1(dw, (posY+offset)*h/768, string.sub(string.format("%02d", txt), 0), textSize/50, 3)
             else
-                HUD.SetFont(font,mh*5/6)
-                local width = HUD.GetTextWidth(txt)
-                HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,textSize)
+              if side then
+                  HUD.PrintXY(posX*w/1024 + mw + 3,1+(posY+offset)*h/768,txt,font,0,0,0,textSize)
+                  HUD.PrintXY(posX*w/1024 + mw + 2,(posY+offset)*h/768,txt,font,r,g,b,textSize)
+              else
+                  HUD.SetFont(font,mh*5/6)
+                  local width = HUD.GetTextWidth(txt)
+                  HUD.PrintXY(w - (width + posX*w/1024 + mw + 3),1+(posY+offset)*h/768,txt,font,0,0,0,textSize)
+                  HUD.PrintXY(w - (width + posX*w/1024 + mw + 2),(posY+offset)*h/768,txt,font,r,g,b,textSize)
+              end
             end
             offset = offset + mh
         end
