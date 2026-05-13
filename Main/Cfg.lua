@@ -412,6 +412,7 @@ Cfg =
     HUD_Scores_B_Setting = {50,683,1},
     HUD_Scores_B_Setting_Save = {0,0,0},
     HUD_Brightskins_Style = false,
+    HUD_Speedmeter_UnitType = 0,
     HUD_Show_Medals = false,
     HUD_Flag_Icon = true,
     HUD_Flag_Icon_Trans = 255,
@@ -1031,6 +1032,7 @@ function Cfg:Check()
 	Cfg.HUD_Spec_Item_Timers_PosX = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosX,"n",0,1,1)
 	Cfg.HUD_Spec_Item_Timers_PosY = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosY,"n",0,999,120)
 	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
+	Cfg.HUD_Speedmeter_UnitType = Cfg:CheckVar(Cfg.HUD_Speedmeter_UnitType,"n",0,1,0)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)

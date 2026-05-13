@@ -2843,3 +2843,7 @@ function Console:Cmd_SHAFTFX(value)
   self:Cmd_TEMPLATE_SET_INT("ShaftFX", value, "Sets the DriverElectro shaft style (0-2). Default is 0.")
 end
 --=======================================================================
+function Console:Cmd_HUD_SPEEDMETER_UNITTYPE(value)
+  self:Cmd_TEMPLATE_SET_INT("HUD_Speedmeter_UnitType", value, "Converts speed units from other games. Default is 0.")
+end
+--=======================================================================

@@ -578,6 +578,14 @@ function Hud:Tick(delta)
 	end
 end
 --============================================================================
+function Hud:ApplySpeedUnitHScale(unitFormat, speed)
+  if Cfg.HUD_Speedmeter_UnitType == 1 then
+    return string.format(string.gsub(unitFormat, "%%.%d+f", "%%d"), speed * 29.098)
+  else
+    return string.format(unitFormat, speed)
+  end
+end
+--============================================================================
 function Hud:Render(delta)
 	--if CONSOLE.DemoIsPlaying() then self:DrawForDemo()  end --return
 	local w,h = R3D.ScreenSize()
@@ -1020,7 +1028,8 @@ end
         local hl = Dist2D(0,0,vx,vz)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,100,13,100,100,100)
         HUD.DrawQuadRGBA(nil,w/2-50,h-17,hl*2,13,255,0,0)
-        HUD.PrintXY(w/2-10,h-15,string.format("%.02f",hl))
+		-- HUD.PrintXY(w/2-10,h-15,string.format("%.02f",hl)) -- original PK 1.64 code
+        HUD.PrintXY(w/2-10,h-15, self:ApplySpeedUnitHScale("%.02f", hl))
     end
 
   if Player and Cfg.CustomHudSound then
