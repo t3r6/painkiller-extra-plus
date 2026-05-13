@@ -3,7 +3,8 @@ function Hud:DrawSpeedmeter(entity)
   local w, h = R3D.ScreenSize()
   
   local vx, vy, vz, vl = ENTITY.GetVelocity(entity)
-  local ups = string.format("%.01f Ups", Dist2D(0, 0, vx, vz))
+
+  local ups = self:ApplySpeedUnitHScale("%.01f Ups", Dist2D(0, 0, vx, vz))
   local infoitems = Cfg.HUD_SMeter_Setting
   local spressthiskey = false
   local spfontsizes = 22
@@ -161,7 +162,7 @@ function Hud:DrawInfosTimerBegins()
   local fps = string.format("%03d FPS", R3D.GetFPS())
   local ploss = NET.GetClientPacketLoss(NET.GetClientID()) .. " PL"
   local vx, vy, vz, vl = ENTITY.GetVelocity(entity)
-  local ups = string.format("%.01f Ups", Dist2D(0, 0, vx, vz))
+  local ups = self:ApplySpeedUnitHScale("%.01f Ups", Dist2D(0, 0, vx, vz))
   local fontsizes = { 22, 22, 22, 22, 40 }
   if Player then
     fontsizes = {
