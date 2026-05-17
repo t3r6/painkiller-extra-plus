@@ -1791,7 +1791,7 @@ function Hud:SetTimerMatTypes(hudpreset, armorstyle)
     end
 end
 --============================================================================
-Hud.IconFilters = {
+Hud.SpecIconFilters = {
     SA_MA____MH____________ = {1,1,0,1,0,0,0,0},
     SA_MA_WA_MH____________ = {1,1,1,1,0,0,0,0},
     SA_MA_WA_MH_MP_________ = {1,1,1,1,1,0,0,0},
@@ -1820,7 +1820,7 @@ function Hud:DrawItemTimers()
             [5]="SA_MA_WA_MH____PG_QD_WM",
 			[6]="SA_MA_WA_MH_MP_PG_QD_WM",
         }
-        filter = Hud.IconFilters[filterNames[Cfg.HUD_Show_Spec_Item_Timers]] or {}
+        filter = Hud.SpecIconFilters[filterNames[Cfg.HUD_Show_Spec_Item_Timers]] or {}
     end
 
     local tbl = {}
