@@ -659,10 +659,9 @@ Cfg =
     RaceTimeX = 400,
     RaceTimeY = 255,
     RaceTimeSize = 25,
-    HUD_Show_Spec_Item_Timers = 1,
-    HUD_Spec_Item_Timers_Size = 35,
-    HUD_Spec_Item_Timers_PosX = 1, -- left/right
-    HUD_Spec_Item_Timers_PosY = 120, -- up/down
+    HUD_Show_Spec_Item_Timers = 4,
+    HUD_Spec_Item_Timers_Size = 40,
+    HUD_Spec_Item_Timers_Side = 1, -- left/right
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,
@@ -1027,10 +1026,11 @@ function Cfg:Check()
 	Cfg.CrosshairSize = Cfg:CheckVar(Cfg.CrosshairSize,"n",0.2,3,1)
 	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7,0)
 	Cfg.WarmUpTime = Cfg:CheckVar(Cfg.WarmUpTime,"n",0,999,14.99)
-	Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,6,1)
-	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,35)
-	Cfg.HUD_Spec_Item_Timers_PosX = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosX,"n",0,1,1)
-	Cfg.HUD_Spec_Item_Timers_PosY = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_PosY,"n",0,999,120)
+	if type(Cfg.HUD_Show_Spec_Item_Timers) ~= "table" then
+		Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,6,4)
+	end
+	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,40)
+	Cfg.HUD_Spec_Item_Timers_Side = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Side,"n",0,1,1)
 	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
 	Cfg.HUD_Speedmeter_UnitType = Cfg:CheckVar(Cfg.HUD_Speedmeter_UnitType,"n",0,1,0)
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
