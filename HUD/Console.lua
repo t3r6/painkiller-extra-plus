@@ -365,9 +365,11 @@ function Console:Cmd_TEAM(nr)
             Cfg.Team = nr - 1
             if Cfg.SimpleItems and (MPCfg.GameMode == "Capture The Flag" or MPCfg.GameMode == "ICTF") then
                 for i = 1, 2 do
-                    local entity = Game.FlagEntityData[i].Entity
-                    local param = Game.FlagEntityData[i].Param
-                    Templates["Flag.CItem"]:Client_OnCreateSimpleItems(entity, param)
+                    if Game.FlagEntityData[i] then
+                        local entity = Game.FlagEntityData[i].Entity
+                        local param = Game.FlagEntityData[i].Param
+                        Templates["Flag.CItem"]:Client_OnCreateSimpleItems(entity, param)
+                    end
                 end
             end
             if Game.GMode ~= GModes.SingleGame then 
