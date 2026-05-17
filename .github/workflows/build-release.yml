@@ -10,58 +10,59 @@ on:
         description: 'Tag to release (e.g., latest or v1.2.3). Leave blank to release from the selected branch.'
         required: false
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ARCHIVE_NAME: "pk-exp"
+  RELEASE_NAME: "PK Extra Plus"
+
 permissions:
   contents: read
-  packages: write
 
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
 
       - name: Set tag name
         id: set_tag
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag_name }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            if [ -n "${{ github.event.inputs.tag_name }}" ]; then
-              TAG_NAME="${{ github.event.inputs.tag_name }}"
-            else
-              # For workflow_dispatch, GITHUB_REF is like refs/heads/branch-name
-              BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-              if [ "$BRANCH_NAME" = "main" ]; then
-                TAG_NAME="latest"
-              else
-                TAG_NAME="dev"
-              fi
-            fi
-          elif [ "${{ github.event_name }}" = "push" ]; then
-            BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-            if [ "$BRANCH_NAME" = "main" ]; then
-              TAG_NAME="latest"
-            else
-              TAG_NAME="dev"
-            fi
-          else
+          if [ -n "$INPUT_TAG" ]; then
+            TAG_NAME="$INPUT_TAG"
+          elif [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            TAG_NAME="$GITHUB_REF_NAME"
+          elif [ "$GITHUB_REF_NAME" = "main" ]; then
             TAG_NAME="latest"
+          else
+            TAG_NAME="dev"
           fi
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
       - name: Set archive prefix and name
         id: archive_prefix
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag_name }}
         run: |
-          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            PREFIX="tag-${GITHUB_REF#refs/tags/}"
-          elif [[ "${GITHUB_REF}" == refs/heads/* ]]; then
-            PREFIX="branch-${GITHUB_REF#refs/heads/}"
-          else
+          if [ -n "$INPUT_TAG" ]; then
+            PREFIX="$INPUT_TAG"
+          elif [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            PREFIX="$GITHUB_REF_NAME"
+          elif [ "$GITHUB_REF_NAME" = "main" ]; then
             PREFIX="latest"
+          else
+            PREFIX="dev"
           fi
-          ARCHIVE_NAME="pk-exp-${PREFIX}.zip"
+          ARCHIVE_NAME="${{ env.ARCHIVE_NAME }}-${PREFIX}.zip"
           echo "prefix=$PREFIX" >> $GITHUB_OUTPUT
           echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
 
@@ -74,29 +75,36 @@ jobs:
             TEMP_FOLDER="/data"
             WORKSPACE_FOLDER="workspace"
             cp -r /workspace/ "${TEMP_FOLDER}"
-            rm -rf ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.github/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*script
+            rm -rf ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.github/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*README.md ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*script
             PainTools_x64 -level 1 -deduplication 0 ${WORKSPACE_FOLDER}/
             mv ${WORKSPACE_FOLDER}.pak /${WORKSPACE_FOLDER}/PKPlus.pak
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pk-extra-plus
           path: PKPlus.pak
 
       - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.5
+        uses: thedoctor0/zip-release@0.7.6
         with:
           type: 'zip'
           path: PKPlus.pak
           filename: ${{ steps.archive_prefix.outputs.archive_name }}
           exclusions: '*.git*'
 
+      - name: Delete existing release and tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ steps.set_tag.outputs.tag_name }}
+        run: |
+          gh release delete "$TAG_NAME" --yes --cleanup-tag || true
+
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.set_tag.outputs.tag_name }}
-          name: ${{ steps.set_tag.outputs.tag_name == 'latest' && 'PK Extra Plus latest' || format('PK Extra Plus {0}', steps.set_tag.outputs.tag_name) }}
+          name: ${{ steps.set_tag.outputs.tag_name == 'latest' && format('{0} latest', env.RELEASE_NAME) || format('{0} {1}', env.RELEASE_NAME, steps.set_tag.outputs.tag_name) }}
           files: ${{ steps.archive_prefix.outputs.archive_name }}
           draft: false
           prerelease: false
