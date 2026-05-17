@@ -660,7 +660,7 @@ Cfg =
     RaceTimeY = 255,
     RaceTimeSize = 25,
     HUD_Show_Spec_Item_Timers = 1,
-    HUD_Spec_Item_Timers_Size = 38,
+    HUD_Spec_Item_Timers_Size = 40,
     HUD_Spec_Item_Timers_Side = 1, -- left/right
 
     Overtime = 0,  -- default "2"
@@ -1029,7 +1029,7 @@ function Cfg:Check()
 	if type(Cfg.HUD_Show_Spec_Item_Timers) ~= "table" then
 		Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,6,1)
 	end
-	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,38)
+	Cfg.HUD_Spec_Item_Timers_Size = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Size,"n",0,99,40)
 	Cfg.HUD_Spec_Item_Timers_Side = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Side,"n",0,1,1)
 	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
 	Cfg.HUD_Speedmeter_UnitType = Cfg:CheckVar(Cfg.HUD_Speedmeter_UnitType,"n",0,1,0)
