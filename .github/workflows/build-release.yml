@@ -66,6 +66,11 @@ jobs:
           echo "prefix=$PREFIX" >> $GITHUB_OUTPUT
           echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
 
+      - name: Inject version into Definitions.lua
+        run: |
+          PREFIX="${{ steps.archive_prefix.outputs.prefix }}"
+          sed -i "s/PKPLUSPLUS_VERSION = \"[^\"]*\"/PKPLUSPLUS_VERSION = \"PK Extra Plus ${PREFIX}\"/" Main/Definitions.lua
+
       - name: Build with custom Docker image
         uses: addnab/docker-run-action@v3
         with:
