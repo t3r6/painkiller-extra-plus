@@ -55,6 +55,13 @@ function Hud:LowAmmo()
   local w, h = R3D.ScreenSize()
   local cw = Player._CurWeaponIndex
   local j = Player:GetCurWeaponSlotIndex()
+  local cwx = 0
+  local pfire = 0
+  local paltfire = 0
+  local warfire = 0
+  local waraltfire = 0
+  local tmendsnd = false
+  local tmendaltsnd = false
   if LAmmos[j][1] > 1 then
     cwx = LAmmos[j][1]
     pfire = LAmmos[j][2]
