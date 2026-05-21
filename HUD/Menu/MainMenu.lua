@@ -43,6 +43,18 @@ MainMenu =
 			useItemBG = false,
 		},
 
+		CallVote =
+		{
+			text = "-VoteMenu-",
+			desc = "VoteMenu",
+			x	 = -1,
+			y	 = 100,
+			-- inGameOnly = 1,
+			action = "PainMenu:ActivateScreen(VoteMenu)",
+			sndLightOn = "menu/menu/option-light-on_main4",
+			fontBigSize = 24,
+		},
+
 		modcredits =
 		{
 			text = "PK++ Mod Credits",
@@ -75,7 +87,7 @@ MainMenu =
 			action = "PainMenu:ActivateScreen(OptionsMenu)",
 			sndLightOn = "menu/menu/option-light-on_main4",
 		},
-		
+
 		Quit =
 		{
 			text = TXT.Menu.Quit,
