@@ -2787,10 +2787,6 @@ function Console:Cmd_BRIGHTAMMO(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightAmmo", enable, "Sets full brightskins for ammo (client/server). Requires restart.")
 end
 --=======================================================================
-function Console:Cmd_BRIGHTSKINSARMORS(enable)
-  self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightSkinsArmors", enable, "Sets full brightskins for armor (client/server). Requires restart.")
-end
---=======================================================================
 function Console:Cmd_FORCEMODEL(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("ForceModel", enable, "Overrides players chosen model. Requires restart.")
 end
