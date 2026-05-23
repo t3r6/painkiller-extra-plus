@@ -66,12 +66,23 @@ VoteMenu =
 			fontBigSize = 22,
 		},
 
+		Players =
+		{
+			text = "Players...",
+			desc = "Vote on players",
+			x	 = 15,
+			y	 = 240,
+			action = "PainMenu:ActivateScreen(VoteMenuPlayers)",
+			sndLightOn = "menu/menu/option-light-on_main4",
+			fontBigSize = 22,
+		},
+
 		Mode =
 		{
 			text = "GameMode...",
 			desc = "Change gametype",
 			x	 = 15,
-			y	 = 240,
+			y	 = 270,
 			action = "PainMenu:ActivateScreen(VoteMenuMode)",
 			sndLightOn = "menu/menu/option-light-on_main4",
 			fontBigSize = 22,

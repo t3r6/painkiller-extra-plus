@@ -80,6 +80,7 @@ DoFile(path.."HUD/Menu/Vote/VoteMenuMaps.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuMode.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuRules.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuBots.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuPlayers.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuTime.lua")
 
 --============================================================================
