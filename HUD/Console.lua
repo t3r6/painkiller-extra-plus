@@ -2242,9 +2242,22 @@ function Console:OnPrompt(txt)
         end
     end
 
-    if table.getn(commandlist) > 1 then 
+    local lowerIndex = {}
+    local uniqueCommands = {}
+    for i,o in commandlist do
+        local key = string.lower(o)
+        if lowerIndex[key] == nil then
+            lowerIndex[key] = table.getn(uniqueCommands) + 1
+            table.insert(uniqueCommands, o)
+        elseif uniqueCommands[lowerIndex[key]] == string.lower(uniqueCommands[lowerIndex[key]]) and o ~= string.lower(o) then
+            uniqueCommands[lowerIndex[key]] = o
+        end
+    end
+    commandlist = uniqueCommands
+
+    if table.getn(commandlist) > 1 then
         local commonPart = commandlist[1]
-        CONSOLE_AddMessage(">"..string.lower(txt)) 
+        CONSOLE_AddMessage(">"..string.lower(txt))
         table.sort(commandlist,function (a,b) return string.lower(a) < string.lower(b) end)
         for i,o in commandlist do
             CONSOLE_AddMessage("    "..o) 
