@@ -1,4 +1,4 @@
-local suffix = "; PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )"
+local returnToGameSuffix = "; PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )"
 local snd    = "menu/menu/option-light-on_main4"
 
 local modeList =
@@ -13,6 +13,20 @@ local modeList =
 	{ key = "LMS",   desc = "Last Man Standing",   mode = "lms",   y = 360 },
 }
 
+local items = {}
+for i, m in ipairs(modeList) do
+	items[m.key] =
+	{
+		text        = "Callvote Gamemode " .. m.key,
+		desc        = "Callvote Gamemode " .. m.desc,
+		x           = 15,
+		y           = m.y,
+		action      = "Console:Cmd_CALLVOTE (\"gamemode " .. m.mode .. "\")" .. returnToGameSuffix,
+		sndLightOn  = snd,
+		fontBigSize = 22,
+	}
+end
+
 VoteMenuMode =
 {
 	bgStartFrame = { 120, 243, 268 },
@@ -23,18 +37,5 @@ VoteMenuMode =
 
 	backAction = "PainMenu:ApplySettings(false); PainMenu:ActivateScreen(VoteMenu)",
 
-	items = {},
+	items = items,
 }
-
-for _, m in ipairs(modeList) do
-	VoteMenuMode.items[m.key] =
-	{
-		text        = "Callvote Gamemode " .. m.key,
-		desc        = "Callvote Gamemode " .. m.desc,
-		x           = 15,
-		y           = m.y,
-		action      = "Console:Cmd_CALLVOTE (\"gamemode " .. m.mode .. "\")" .. suffix,
-		sndLightOn  = snd,
-		fontBigSize = 22,
-	}
-end
