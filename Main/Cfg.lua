@@ -139,6 +139,7 @@ Cfg =
     KeyPrimaryUseCards = "None",  -- default "E"
     KeyPrimaryZoom = "Z",
     Language = "english",
+    LangEncoding = "", -- cp1250 (Polish), cp1251 (Russian), iso-8859-1 (English)
     LMSLives = 5,
     ManualIP = "127.0.0.1",
     MasterVolume = 100,

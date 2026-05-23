@@ -25,7 +25,11 @@ function Languages_ParseLangLine( line )
 	if num ~= nil and str ~= nil then
 		Languages.Texts[tonumber(num)] = str
 	else
-		Languages.Encoding = line
+		if Cfg.LangEncoding and Cfg.LangEncoding ~= "" then
+			Languages.Encoding = Cfg.LangEncoding
+		else
+			Languages.Encoding = line
+		end
 	end
 end
 
