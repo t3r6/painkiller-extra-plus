@@ -11,10 +11,10 @@ VoteMenuBots =
 	items =
 	{
 
-		BotAttackYes =
+		BotAttackTrue =
 		{
-			text = "BotAttack Yes",
-			desc = "BotAttack Yes confirmation",
+			text = "BotAttack True",
+			desc = "BotAttack True confirmation",
 			x	 = 15,
 			y	 = 150,
 			action = "Console:Cmd_CALLVOTE (\"botattack 1\"); PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )",
@@ -22,10 +22,10 @@ VoteMenuBots =
 			fontBigSize = 22,
 		},
 
-		BotAttackNo =
+		BotAttackFalse =
 		{
-			text = "BotAttack No",
-			desc = "BotAttack No confirmation",
+			text = "BotAttack False",
+			desc = "BotAttack False confirmation",
 			x	 = 15,
 			y	 = 180,
 			action = "Console:Cmd_CALLVOTE (\"botattack 0\"); PMENU.ResumeSounds(); PMENU.ReturnToGame(); PainMenu:ReloadBrightskins(); CONSOLE.SetMPMsgPosition( Hud.mpMsgPosition[1], Cfg.HUD_ConsolePosition )",
