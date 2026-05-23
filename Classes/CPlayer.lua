@@ -1657,7 +1657,6 @@ function CPlayer:ResetStatus(weapon)
         self.ArmorRescueFactor = a.RescueFactor
     end 
     
-    if(Game:IsServer() and MPCfg.GameState == GameStates.WarmUp) then self:OnDamage(0,nil,20) end 
 end
 --============================================================================
 function CPlayer:InDeathZone(x,y,z,zone)    
