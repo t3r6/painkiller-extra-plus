@@ -1657,7 +1657,6 @@ function CPlayer:ResetStatus(weapon)
         self.ArmorRescueFactor = a.RescueFactor
     end 
     
-    if(Game:IsServer() and MPCfg.GameState == GameStates.WarmUp) then self:OnDamage(0,nil,20) end 
 end
 --============================================================================
 function CPlayer:InDeathZone(x,y,z,zone)    
@@ -1991,13 +1990,11 @@ function CPlayer:Client_OnDamage(entity,health,armor,attack_type,damage,killerID
             --local p = GObjects:Add(TempObjName(),CloneTemplate("FlashScreen.CProcess"))
             --p.Color = Color:New(210,0,0)
 
-            if damage > 0 then
-                if not player.TickCountDamage then
-                    player.TickCountDamage = 0
-                else
-                    if player.TickCountDamage > math.pi then
-                        player.TickCountDamage = 2*math.pi - player.TickCountDamage
-                    end
+            if not player.TickCountDamage then
+                player.TickCountDamage = 0
+            else
+                if player.TickCountDamage > math.pi then
+                    player.TickCountDamage = 2*math.pi - player.TickCountDamage
                 end
             end
 
@@ -2072,19 +2069,19 @@ function CPlayer:Client_OnDamage(entity,health,armor,attack_type,damage,killerID
                 fx = true
             end
         end    
-        if fx and damage > 0 then
+        if fx then
             local x,y,z = ENTITY.GetPosition(entity)
             CActor:BloodFX(x,y+1.7,z,FRand(-1,1),0,FRand(-1,1))
         end
         if attack_type == AttackTypes.HitGround then
-            if damage > 0 then CPlayer:SndEnt("Hurt_OnHitGround",entity) end
+            CPlayer:SndEnt("Hurt_OnHitGround",entity)
         else
-            if (damage >= 50) then
-                CPlayer:SndEnt("Hurt_Big",entity)
-            elseif (damage >= 20) then
-                CPlayer:SndEnt("Hurt_Medium",entity)
-            elseif (damage > 0) then
-                CPlayer:SndEnt("Hurt_Small",entity)
+            if (damage >= 50) then 
+                CPlayer:SndEnt("Hurt_Big",entity) 
+            elseif (damage >= 20) then 
+                CPlayer:SndEnt("Hurt_Medium",entity) 
+            elseif (damage >= 0) then 
+                CPlayer:SndEnt("Hurt_Small",entity) 
             end
         end
     end        
