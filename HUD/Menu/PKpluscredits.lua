@@ -1,3 +1,44 @@
+local function staticText(text, x, y)
+	return {
+		type        = MenuItemTypes.StaticText,
+		text        = text,
+		x           = x,
+		y           = y,
+		action      = "",
+		align       = MenuAlign.Left,
+		useItemBG   = false,
+		fontBigSize = 24,
+		fontBigTex  = "",
+		textColor   = R3D.RGBA(255, 255, 255, 255),
+	}
+end
+
+local items = {
+	Item1  = staticText("CODE:",                              150, 180),
+	Item2  = staticText("Blowfish, OriOn, PeTjA, THRESHER,",  150, 220),
+	Item3  = staticText("dilettante, XDavidXtreme, t3stErr,", 150, 260),
+	Item4  = staticText("tek^^^valkyrie, AI tools",           150, 300),
+	Item5  = staticText("GFX:",                               150, 350),
+	Item6  = staticText("PrimeviL, dilettante",               150, 390),
+	Item7  = staticText("MAPS:",                              150, 440),
+	Item8  = staticText("B6, t3stErr, killua-chan",           150, 480),
+	Item9  = staticText("SOUNDS:",                            150, 530),
+	Item10 = staticText("Mogul",                              150, 570),
+	Item11 = staticText("BETATEST",                           150, 620),
+	Item12 = staticText("sk1p, HV, kenzu, spieler, t3stErr",  150, 660),
+
+	Item13 = staticText("THANKS TO:",                              600, 180),
+	Item14 = staticText("www.painkillergame.com (archive.org)",    600, 220),
+	Item15 = staticText("www.pkeuro.com (archive.org)",            600, 260),
+	Item16 = staticText("www.pkeuro.net",                          600, 300),
+	Item17 = staticText("www.pkzone.org (archive.org)",            600, 340),
+	Item18 = staticText("www.painkiller.ugu.pl",                   600, 380),
+	Item19 = staticText("www.pkrc.ru",                             600, 420),
+	Item20 = staticText("CONTACT:",                                600, 480),
+	Item21 = staticText("##painkiller @ quakenet",                 600, 520),
+	Item23 = staticText("https://discord.gg/bvrDA3Ar9H",           600, 560),
+}
+
 PKpluscredits =
 {
 	bgStartFrame = { 120, 243, 268 },
@@ -5,294 +46,8 @@ PKpluscredits =
 
 	fontBigSize = 36,
 
-	backAction = "PainMenu:ActivateScreen(MainMenu);PMENU.StopSound()",
+	backAction  = "PainMenu:ActivateScreen(MainMenu);PMENU.StopSound()",
 	applyAction = "",
 
-
-	items =
-	{	
-		
-		--[[Test =
-		{
-			type = MenuItemTypes.StaticText,
-			--text = "A Painkiller.Euro creation",
-			text = "PK++ devteam",
-			x	 = 200,
-			y	 = 50,
-			action = "",
-			useItemBG = false,
-			fontBigSize = 40,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},]]
-		
-		
-		Test0 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "CODE:",
-			x	 = 150,
-			y	 = 180,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test1 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "Blowfish, OriOn",
-			x	 = 150,
-			y	 = 220,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test2 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "GFX:",
-			x	 = 150,
-			y	 = 270,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test3 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "PrimeviL",
-			x	 = 150,
-			y	 = 310,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test4 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "MAPS:",
-			x	 = 150,
-			y	 = 360,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test5 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "B6",
-			x	 = 150,
-			y	 = 400,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test6 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "SOUNDS:",
-			x	 = 150,
-			y	 = 450,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test7 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "Mogul",
-			x	 = 150,
-			y	 = 490,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test13 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "BETATEST",
-			x	 = 150,
-			y	 = 540,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test14 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "sk1p, HV, kenzu, spieler",
-			x	 = 150,
-			y	 = 580,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test8 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "THANKS TO:",
-			x	 = 600,
-			y	 = 180,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test10 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.painkillergame.com",
-			x	 = 600,
-			y	 = 220,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Test11 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.pkeuro.net",
-			x	 = 600,
-			y	 = 260,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test12 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.pkzone.org",
-			x	 = 600,
-			y	 = 300,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test15 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.pk-scene.de",
-			x	 = 600,
-			y	 = 340,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Test16 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.esl.eu",
-			x	 = 600,
-			y	 = 380,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		}, 
-		Test17 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "www.thecpl.cn",
-			x	 = 600,
-			y	 = 420,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		}, --www.thecpl.cn
-		Contact =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "CONTACT:",
-			x	 = 600,
-			y	 = 470,
-			action = "",
-			useItemBG = false,
-			align = MenuAlign.Left,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		
-		Contact1 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "##painkiller @ quakenet",
-			x	 = 600,
-			y	 = 510,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-		Contact2 =
-		{
-			type = MenuItemTypes.StaticText,
-			text = "##painkiller.euro @ quakenet",
-			x	 = 600,
-			y	 = 550,
-			action = "",
-			align = MenuAlign.Left,
-			useItemBG = false,
-			fontBigSize = 26,
-			fontBigTex = "",
-			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-		},
-	}
+	items = items,
 }

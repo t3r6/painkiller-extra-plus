@@ -57,8 +57,8 @@ MainMenu =
 
 		modcredits =
 		{
-			text = "PK++ Mod Credits",
-			desc = "PK++ Developers and Contributions",
+			text = "PK EXP Credits",
+			desc = "PK EXP Developers and Contributions",
 			x	 = -1,
 			y	 = 740,
 			action = "PainMenu:ActivateScreen(PKpluscredits);PMENU.PlaySound( 'menu/painkiller-stats-loop', true )", 
