@@ -74,6 +74,14 @@ DoFile(path.."HUD/Menu/Options/MessagesConfig.lua")
 DoFile(path.."HUD/Menu/SaveGame/LoadSaveMenu.lua")
 DoFile(path.."HUD/Menu/MainMenu.lua")
 DoFile(path.."HUD/Menu/Dialogs.lua")
+-- pk extra plus modification
+DoFile(path.."HUD/Menu/Vote/VoteMenu.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuMaps.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuMode.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuRules.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuBots.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuPlayers.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuTime.lua")
 
 --============================================================================
 
@@ -657,7 +665,7 @@ function PainMenu:AddItem( i, o )
 		if Game.GameInProgress == true then
 			if itemName == "BackToMap" then
 				skip = false
-			elseif itemName == "Spectate" or itemName == "Join" then
+			elseif itemName == "Spectate" or itemName == "Join" or itemName == "CallVote" then
 				skip = true
 			end
 		end
