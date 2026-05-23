@@ -357,13 +357,7 @@ function Game:BotTick(delta)
 									PLAYER.BotAction(Game.PlayerStats[botclientid]._Entity,Actions.SelectBestWeapon1,yaw,pitch,delta)
 								return
 							end
-							for i,y in Game.PlayerStats do
-								if y.ClientID == ServerID then
-									RawCallMethod(Game.ConsoleClientMessage,botclientid,txt,0) 
-								else
-									SendNetMethod(Game.ConsoleClientMessage, y.ClientID, true, true, botclientid ,txt,0)
-								end
-							end
+							Game.ConsoleClientMessage(botclientid,txt,0)
 							   
 							--o:SetupAction(botclientid,Actions.SelectBestWeapon1,pitch,yaw)
 							PLAYER.BotAction(Game.PlayerStats[botclientid]._Entity,Actions.SelectBestWeapon1,yaw,pitch,delta)
