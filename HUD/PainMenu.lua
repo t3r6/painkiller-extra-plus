@@ -74,10 +74,12 @@ DoFile(path.."HUD/Menu/Options/MessagesConfig.lua")
 DoFile(path.."HUD/Menu/SaveGame/LoadSaveMenu.lua")
 DoFile(path.."HUD/Menu/MainMenu.lua")
 DoFile(path.."HUD/Menu/Dialogs.lua")
+-- pk extra plus modification
 DoFile(path.."HUD/Menu/Vote/VoteMenu.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuMaps.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuMode.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuRules.lua")
+DoFile(path.."HUD/Menu/Vote/VoteMenuBots.lua")
 DoFile(path.."HUD/Menu/Vote/VoteMenuTime.lua")
 
 --============================================================================
