@@ -1170,7 +1170,7 @@ function CPlayer:OnDamage(damage,killer,attack_type,x,y,z,nx,ny,nz)
         end
         return
     end  
-    if((not Cfg.FallingDamage) and MPCfg.GameState == GameStates.Playing and attack_type == AttackTypes.HitGround) then return end 
+    if((not Cfg.FallingDamage) and attack_type == AttackTypes.HitGround) then return end
     if not Cfg.WarmupDamage and MPCfg.GameState ~= GameStates.Playing and attack_type ~= AttackTypes.ConsoleKill then return end
     -- if MPCfg.GameState == GameStates.WarmUp and MPCfg.GameMode == "Clan Arena" and attack_type ~= AttackTypes.ConsoleKill then return end
     if MPCfg.GameMode == "Race" and attack_type ~= AttackTypes.ConsoleKill then return end -- Race Additions [ THRESHER ]
