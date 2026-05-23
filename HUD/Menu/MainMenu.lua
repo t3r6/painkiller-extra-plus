@@ -45,14 +45,14 @@ MainMenu =
 
 		CallVote =
 		{
-			text = "-VoteMenu-",
-			desc = "VoteMenu",
-			x	 = -1,
-			y	 = 100,
+			text = "Vote",
+			desc = "Vote menu",
+			x	 = 15,
+			y	 = 400,
 			-- inGameOnly = 1,
 			action = "PainMenu:ActivateScreen(VoteMenu)",
 			sndLightOn = "menu/menu/option-light-on_main4",
-			fontBigSize = 24,
+			-- fontBigSize = 24,
 		},
 
 		modcredits =
