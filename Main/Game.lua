@@ -442,6 +442,16 @@ function Game:Tick(delta)
             if o ~= Player then o:ServerTick(delta) end
         end
     else
+        if not IsDedicatedServer() then
+			if CONSOLE.IsActive() then
+				if INP.GetUseDInput() then
+					INP.SetUseDInput(false)
+					self._skipUpdateCam = true
+				end
+			elseif not INP.GetUseDInput() then
+				INP.SetUseDInput(true)
+			end
+		end
         if Player then 
             if self.CameraFromPlayer then
                 PX,PY,PZ = Player.Pos:Get() -- globals        
@@ -688,7 +698,10 @@ Game.TPPView = 0
 function Game:Tick2(delta) -- after physics
 
     if Player and self.CameraFromPlayer and MOUSE.IsLocked() then 
-		Game:UpdateViewFromPlayer() 
+		if not self._skipUpdateCam then
+			self:UpdateViewFromPlayer()
+		end
+		self._skipUpdateCam = nil
 		if self.TPP and Player.ForwardVector then
 			local x,y,z = ENTITY.GetPosition(Player._Entity)            
 			local fv = Player.ForwardVector
