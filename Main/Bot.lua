@@ -359,7 +359,7 @@ function Game:BotTick(delta)
 							end
 							for i,y in Game.PlayerStats do
 								if y.ClientID == ServerID then
-									RawCallMethod(Game.ConsoleClientMessage,botclientid,txt,0)
+									RawCallMethod(Game.ConsoleClientMessage,botclientid,txt,0) 
 								else
 									SendNetMethod(Game.ConsoleClientMessage, y.ClientID, true, true, botclientid ,txt,0)
 								end
