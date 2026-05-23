@@ -111,7 +111,7 @@ function Game:BotTick(delta)
 					
 				-- ATTACK
 				if(true and Cfg.BotAttack)then
-					if(self.bot[botclientid].state ~= BotStates.ChangingWeapon)then
+					if(self.bot[botclientid].state ~= BotStates.ChangingWeapon and self.bot[botclientid].state ~= BotStates.Typing and self.bot[botclientid].state ~= BotStates.Talking)then
 						if(self.bot[botclientid].state ~= BotStates.AttackingEnemy)then
 							local testx,testy,testz,targetsuccess = self:GetAttackTarget(botclientid)
 							if(targetsuccess)then
@@ -357,7 +357,13 @@ function Game:BotTick(delta)
 									PLAYER.BotAction(Game.PlayerStats[botclientid]._Entity,Actions.SelectBestWeapon1,yaw,pitch,delta)
 								return
 							end
-							Game.ConsoleClientMessage(botclientid,txt,0)
+							for i,y in Game.PlayerStats do
+								if y.ClientID == ServerID then
+									RawCallMethod(Game.ConsoleClientMessage,botclientid,txt,0)
+								else
+									SendNetMethod(Game.ConsoleClientMessage, y.ClientID, true, true, botclientid ,txt,0)
+								end
+							end
 							   
 							--o:SetupAction(botclientid,Actions.SelectBestWeapon1,pitch,yaw)
 							PLAYER.BotAction(Game.PlayerStats[botclientid]._Entity,Actions.SelectBestWeapon1,yaw,pitch,delta)
