@@ -67,15 +67,15 @@ function BoltGunHeater:DrawHUD(delta)
     end
     
     if not (INP.IsFireSwitched() or (not Game.SwitchFire[7] and Cfg.SwitchFire[7]) or (not Cfg.SwitchFire[7] and Game.SwitchFire[7])) then
-		Hud:Quad(self._matAmmoIcon1,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoIcon2,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Bolt),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Bolt)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.HeaterBomb),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.HeaterBomb)
+		Hud:Quad(self._matAmmoIcon1,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoIcon2,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Bolt),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Bolt)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.HeaterBomb),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.HeaterBomb)
 	else
-		Hud:Quad(self._matAmmoIcon2,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoIcon1,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.HeaterBomb),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.HeaterBomb)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Bolt),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Bolt)
+		Hud:Quad(self._matAmmoIcon2,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoIcon1,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*49)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.HeaterBomb),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.HeaterBomb)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Bolt),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Bolt)
 	end    
 end
 --============================================================================

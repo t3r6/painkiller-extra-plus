@@ -226,13 +226,13 @@ function Hud:DrawScores(clientid)
       Hud.movespeedstart = false
       Hud.keypressmode = 1
     end
-    if scoresposxy[1][1] >= 1024 - 80 * scsizehud / 2 then
-      scoresposxy[1][1] = tonumber(string.format("%01d", 1024 - 80 * scsizehud / 2))
+    if scoresposxy[1][1] >= w + 80 * scsizehud / 2 then
+      scoresposxy[1][1] = tonumber(string.format("%01d", w + 80 * scsizehud / 2))
     elseif scoresposxy[1][1] <= 80 * scsizehud / 2 then
       scoresposxy[1][1] = tonumber(string.format("%01d", 80 * scsizehud / 2))
     end
-    if scoresposxy[2][1] >= 1024 - 80 * scsizehud / 2 then
-      scoresposxy[2][1] = tonumber(string.format("%01d", 1024 - 80 * scsizehud / 2))
+    if scoresposxy[2][1] >= w + 80 * scsizehud / 2 then
+      scoresposxy[2][1] = tonumber(string.format("%01d", w + 80 * scsizehud / 2))
     elseif scoresposxy[2][1] <= 80 * scsizehud / 2 then
       scoresposxy[2][1] = tonumber(string.format("%01d", 80 * scsizehud / 2))
     end
@@ -399,42 +399,42 @@ function Hud:DrawScores(clientid)
       alliedteam = "Enemy"
     end
   end
-  HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cb[1], cb[2], cb[3], 100)
-  HUD.DrawQuadRGBA(nil, (1024 - scposxy2[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cr[1], cr[2], cr[3], 100)
+  HUD.DrawQuadRGBA(nil, w - ((scposxy1[3] + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 50 * scsizehud * h / 768, cb[1], cb[2], cb[3], 100)
+  HUD.DrawQuadRGBA(nil, w - ((scposxy2[3] + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 50 * scsizehud * h / 768, cr[1], cr[2], cr[3], 100)
   if MPGameRules[MPCfg.GameMode].Teams then
     if gteam1Score < 0 then
-      Hud:QuadTrans(matminus, (1024 - (scposxy1[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
+      Hud:QuadTrans(matminus, w - (((scposxy1[3] + scx) + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
     if gteam2Score < 0 then
-      Hud:QuadTrans(matminus, (1024 - (scposxy2[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
+      Hud:QuadTrans(matminus, w - (((scposxy2[3] + scx) + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
-    Hud:DrawDigitsText1((1024 - scposxy1[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", gamet1), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
-    Hud:DrawDigitsText1((1024 - scposxy2[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", gamet2), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
+    Hud:DrawDigitsText1(w - ((scposxy1[4] + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", gamet1), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
+    Hud:DrawDigitsText1(w - ((scposxy2[4] + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", gamet2), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
   else
     if scplayer1 < 0 then
-      Hud:QuadTrans(matminus, (1024 - (scposxy1[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
+      Hud:QuadTrans(matminus, w - (((scposxy1[3] + scx) + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
     if scplayer2 < 0 or bestenemyscore < 0 then
-      Hud:QuadTrans(matminus, (1024 - (scposxy2[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
+      Hud:QuadTrans(matminus, w - (((scposxy2[3] + scx) + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
     end
-    Hud:DrawDigitsText1((1024 - scposxy1[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", currentplayerscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
+    Hud:DrawDigitsText1(w - ((scposxy1[4] + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", currentplayerscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
     if MPCfg.GameMode == "Duel" then
-      Hud:DrawDigitsText1((1024 - scposxy2[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", scplayer2), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
+      Hud:DrawDigitsText1(w - ((scposxy2[4] + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", scplayer2), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
     else
-      Hud:DrawDigitsText1((1024 - scposxy2[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", bestenemyscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
+      Hud:DrawDigitsText1(w - ((scposxy2[4] + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", bestenemyscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
     end
   end
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2 + 77 * scsizehud) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
+  HUD.DrawQuadRGBA(nil, w - ((markframe[3] + 80 * scsizehud / 2) * h / 768), (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
+  HUD.DrawQuadRGBA(nil, w - ((markframe[3] + 80 * scsizehud / 2) * h / 768), (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
+  HUD.DrawQuadRGBA(nil, w - ((markframe[3] + 80 * scsizehud / 2) * h / 768), (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * h / 768, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
+  HUD.DrawQuadRGBA(nil, w - ((markframe[3] + 80 * scsizehud / 2 - 77 * scsizehud) * h / 768), (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * h / 768, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
   if spressthiskey == true then
     if Cfg.HUD_Scores_Frame == 1 then
-      HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, 0, 255, 0, 255)
-      HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2 + 38.5 * scsizehud) * w / 1024, (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, 0, 255, 0, 255)
+      HUD.DrawQuadRGBA(nil, w - ((scposxy1[3] + 80 * scsizehud / 2) * h / 768), (768 - scposxy1[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 3 * scsizehud * h / 768, 0, 255, 0, 255)
+      HUD.DrawQuadRGBA(nil, w - ((scposxy1[3] + 80 * scsizehud / 2 - 38.5 * scsizehud) * h / 768), (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * h / 768, 50 * scsizehud * h / 768, 0, 255, 0, 255)
     elseif Cfg.HUD_Scores_Frame == 2 then
-      HUD.DrawQuadRGBA(nil, (1024 - scposxy2[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, 0, 255, 0, 255)
-      HUD.DrawQuadRGBA(nil, (1024 - scposxy2[3] - 80 * scsizehud / 2 + 38.5 * scsizehud) * w / 1024, (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, 0, 255, 0, 255)
+      HUD.DrawQuadRGBA(nil, w - ((scposxy2[3] + 80 * scsizehud / 2) * h / 768), (768 - scposxy2[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * h / 768, 3 * scsizehud * h / 768, 0, 255, 0, 255)
+      HUD.DrawQuadRGBA(nil, w - ((scposxy2[3] + 80 * scsizehud / 2 - 38.5 * scsizehud) * h / 768), (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * h / 768, 50 * scsizehud * h / 768, 0, 255, 0, 255)
     end
   end
   if spressthiskey == true then

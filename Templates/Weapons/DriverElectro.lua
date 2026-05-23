@@ -147,15 +147,15 @@ function DriverElectro:DrawHUD(delta)
     local sizex, sizey = MATERIAL.Size(Hud._matHUDLeft)
 
     if not (INP.IsFireSwitched() or (not Game.SwitchFire[5] and Cfg.SwitchFire[5]) or (not Cfg.SwitchFire[5] and Game.SwitchFire[5])) then
-		Hud:Quad(self._matAmmoIcon,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoElectroIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*42)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Shurikens),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shurikens)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Electro),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Electro)
+		Hud:Quad(self._matAmmoIcon,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*11)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoElectroIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*42)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Shurikens),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shurikens)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Electro),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Electro)
 	else
-		Hud:Quad(self._matAmmoElectroIcon,(1024-52*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*10)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:Quad(self._matAmmoIcon,(1024-56*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Electro),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Electro)
-		Hud:DrawDigitsText((1024-118*Cfg.HUDSize)*w/1024,((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Shurikens),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shurikens)
+		Hud:Quad(self._matAmmoElectroIcon,w-((52*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*10)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:Quad(self._matAmmoIcon,w-((56*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*47)-Cfg.HUDSize*sizey)*h/768,Cfg.HUDSize,false)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*16)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Electro),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Electro)
+		Hud:DrawDigitsText(w-((118*Cfg.HUDSize)*h/768),((768+Cfg.HUDSize*50)-Cfg.HUDSize*sizey)*h/768,string.sub(string.format("%04d",Player.Ammo.Shurikens),-3),0.9*Cfg.HUDSize,Player.s_SubClass.AmmoWarning.Shurikens)
 	end
 end
 --============================================================================
