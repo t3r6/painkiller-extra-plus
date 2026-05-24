@@ -1552,7 +1552,7 @@ function CPlayer:ResetStatus(weapon)
     self.ArmorRescueFactor = 0
     self.FrozenArmor = false
 
-    for i=1,6 do
+    for i=1,7 do
         if self.Weapons[i] then WORLD.RemoveEntity(self.Weapons[i]._Entity) end
     end
               
