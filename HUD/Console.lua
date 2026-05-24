@@ -943,7 +943,7 @@ function Console:CheckVotingParams(cmd,params)
 		end
 
 		return true
-	elseif cmd == "timelimit" or cmd == "fraglimit" or cmd == "maxplayers" or cmd == "maxspectators" or cmd == "bankickid" or cmd == "kickid" or cmd == "weaponrespawntime" or cmd == "capturelimit" or cmd == "lmslives" or cmd == "startupweapon" then
+	elseif cmd == "timelimit" or cmd == "fraglimit" or cmd == "maxplayers" or cmd == "maxspectators" or cmd == "bankickid" or cmd == "kickid" or cmd == "weaponrespawntime" or cmd == "capturelimit" or cmd == "lmslives" or cmd == "startupweapon" or cmd == "overtime" then
 		local val = tonumber(params)
 		if not val or type(val) ~= "number" then
 			CONSOLE_AddMessage( "Wrong params for "..cmd )

@@ -1615,6 +1615,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
 		allowed = true
+	elseif cmd == "overtime" and Cfg.UserOvertime then
+		allowed = true
 	end
 	return allowed
 end
