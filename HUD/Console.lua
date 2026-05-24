@@ -2084,6 +2084,12 @@ function Console:OnCommand(cmd)
 
     if i > 2 and (Game.GMode == GModes.SingleGame or is_cmd == true) then
 		local func = string.upper(string.sub(cmd,1,i-1))
+		local tournamentSettingsAllowed = not Cfg.TournamentSettings or Cfg.TournamentSettings and
+		    (func == "MAP" or func == "RELOADMAP" or func == "TEAM" or func == "SPECTATOR"
+		    or func == "READY" or func == "NOTREADY" or func == "BREAK" or func == "KICK"
+		    or func == "BANKICK" or func == "KICKID" or func == "BANKICKID" or func == "CALLVOTE"
+		    or func == "VOTE" or func == "DISCONNECT" or func == "RECONNECT" or func == "CONNECT"
+		    or func == "QUIT" or func == "DEMOPLAY" or func == "DEMOSTOP" or func == "DEMORECORD")
 		for commandname,o in self do
 			if type(o) == "function" then
 				if string.lower("Cmd_"..func) == string.lower(commandname) then
@@ -2092,14 +2098,7 @@ function Console:OnCommand(cmd)
                 return
             end
 	dontshowerror = true
-       if not Cfg.TournamentSettings or Cfg.TournamentSettings and 
-       (func == "MAP" or func == "RELOADMAP" or func == "TEAM" or func == "SPECTATOR" 
-       or func == "READY" or func == "NOTREADY" or func == "BREAK" or func == "KICK" 
-       or func == "BANKICK" or func == "KICKID" or func == "BANKICKID" or func == "CALLVOTE" 
-       or func == "VOTE" or func == "DISCONNECT" or func == "RECONNECT" or func == "CONNECT" 
-       or func == "QUIT" or func == "DEMOPLAY" or func == "DEMOSTOP" or func == "DEMORECORD") then
-       
-       
+		if tournamentSettingsAllowed then
 --------------------------------------------------------------------------------------------
             local params = string.sub(cmd,i+1)
 
@@ -2141,14 +2140,7 @@ function Console:OnCommand(cmd)
                         return
                     end
 	dontshowerror = true
-       if not Cfg.TournamentSettings or Cfg.TournamentSettings and 
-       (func == "MAP" or func == "RELOADMAP" or func == "TEAM" or func == "SPECTATOR" 
-       or func == "READY" or func == "NOTREADY" or func == "BREAK" or func == "KICK" 
-       or func == "BANKICK" or func == "KICKID" or func == "BANKICKID" or func == "CALLVOTE" 
-       or func == "VOTE" or func == "DISCONNECT" or func == "RECONNECT" or func == "CONNECT" 
-       or func == "QUIT" or func == "DEMOPLAY" or func == "DEMOSTOP" or func == "DEMORECORD") then
-       
-       
+		if tournamentSettingsAllowed then
 --------------------------------------------------------------------------------------------
                     local params = string.sub(cmd, i + 1)
         
