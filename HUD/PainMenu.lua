@@ -2100,6 +2100,12 @@ function PainMenu:SwapTextButtonEx( name, inc )
 
 	if name == "GraphicsQuality" then
 		PainMenu:UpdateVideoControls(item.currValue)
+	elseif name == "ConnectionSpeed" then
+		if item.values[item.currValue] == 5 then
+			PMENU.EnableItem("NetcodeServerFramerate")
+		else
+			PMENU.DisableItem("NetcodeServerFramerate")
+		end
 	elseif name == "ModelSelect" then
 		PainMenu:ChangePlayerModel(MPModels[item.values[item.currValue]])
 	end
@@ -3500,6 +3506,9 @@ function PainMenu:CheckItems()
   if Cfg.HUD_HudStyle ~= 2 then
     PMENU.DisableItem("animated3DicoCWhud")
     PMENU.DisableItem("animated3Dicohud")
+  end
+  if Cfg.ConnectionSpeed ~= 5 then
+    PMENU.DisableItem("NetcodeServerFramerate")
   end
 end
 

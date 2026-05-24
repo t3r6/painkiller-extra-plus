@@ -62,7 +62,7 @@ PlayerOptions =
 		NetcodeServerFramerate =
 		{
 			type = MenuItemTypes.Slider,
-			text = "Custom Netcode FPS:",
+			text = "Netcode Framerate:",
 			desc = "Set the frequency at which the client requests status updates from the server",
 			option = "NetcodeServerFramerate",
 			minValue = 0,
