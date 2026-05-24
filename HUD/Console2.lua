@@ -2783,6 +2783,10 @@ function Console:Cmd_STOPMATCHONTEAMQUIT(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("StopMatchOnTeamQuit", enable, "Stops match when an entire team leaves for team gamemodes. Required for the fallback to default maps.")
 end
 --=======================================================================
+function Console:Cmd_NOWARMUP(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("NoWarmup", enable, "Skips warmup phase and starts the match directly.")
+end
+--=======================================================================
 function Console:Cmd_BRIGHTAMMO(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("BrightAmmo", enable, "Sets full brightskins for ammo (client/server). Requires restart.")
 end

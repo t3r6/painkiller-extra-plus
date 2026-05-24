@@ -1601,6 +1601,8 @@ function Game:CheckVotingParams(cmd)
 		allowed = true
 	elseif cmd == "stopmatchonteamquit" and Cfg.UserStopMatchOnTeamQuit then
 		allowed = true
+	elseif cmd == "nowarmup" and Cfg.UserNoWarmup then
+		allowed = true
 	elseif cmd == "brightammo" and Cfg.UserBrightAmmo then
 		allowed = true
 	elseif cmd == "brightskinsarmors" and Cfg.UserBrightSkinsArmors then

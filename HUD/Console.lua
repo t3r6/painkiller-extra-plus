@@ -1015,6 +1015,8 @@ function Console:CheckVotingParams(cmd,params)
 		return true
 	elseif cmd == "stopmatchonteamquit" then
 		return true
+	elseif cmd == "nowarmup" then
+		return true
 	elseif cmd == "forcemodel" then
 		return true
 	elseif cmd == "brightammo" then
