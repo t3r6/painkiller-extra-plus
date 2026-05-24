@@ -487,7 +487,7 @@ function Game:MapRestart()
 	Game:ResetAllClientsState()
 	Game:ResetAllClientsGameState()
 	Game:ResetClientSpectatorState(false)
-	Game:ResetAllPlayers() -- warmup reset fix
+	Game:ResetAllPlayers() -- warmup weapons reset fix
 	Game:RespawnAllPlayers()
 	Game:ResetAllSpectators()
 	Game:ResetClientScores()
