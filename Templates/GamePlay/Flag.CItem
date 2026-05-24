@@ -139,6 +139,7 @@ function Flag:Tick(delta)
         end
     end
     if MPCfg.GameState == GameStates.WarmUp then
+        if self._ReturnTime then self._ReturnTime = 0 end
         self._Return = true
     elseif self._Return or MPCfg.GameState == GameStates.Finished then
         if self._captured then
