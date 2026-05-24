@@ -620,6 +620,7 @@ Cfg =
     NoGong = false,
     NoMPComments = false,
     Newhitsound = false,
+    NewhitsoundFolder = "",
     HitsoundTeammate = true,
     CustomHudSound = false,
     LowAmmoSound = true,
