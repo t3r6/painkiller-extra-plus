@@ -246,6 +246,7 @@ Cfg =
     UserBrightSkinsArmors = true,
     UserForceModel = true,
     UserForceModel_Teams = true,
+    UserOvertime = true,
 
     UserGrapplingHook = true,
     UserGLCollideCombo = true,
