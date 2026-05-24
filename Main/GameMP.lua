@@ -372,8 +372,8 @@ function Game_InterpretVariable(name,value)
 						if Cfg.Newhitsound == false then
 								PlaySound2D("../Sounds/hitsound", nil, nil, true)
 						else
-								local sndSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
-								PlaySound2D("../Sounds/" .. sndSubfolder .. "hitsoundnew", nil, nil, true)
+								local soundSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
+								PlaySound2D("../Sounds/" .. soundSubfolder .. "hitsoundnew", nil, nil, true)
 						end
 					end
 				end
@@ -386,8 +386,8 @@ function Game_InterpretVariable(name,value)
 						if Cfg.Newhitsound == false then
 							PlaySound2D("../Sounds/killsound", nil, nil, true)
 						else
-							local sndSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
-							PlaySound2D("../Sounds/" .. sndSubfolder .. "killsoundnew", nil, nil, true)
+							local soundSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
+							PlaySound2D("../Sounds/" .. soundSubfolder .. "killsoundnew", nil, nil, true)
 						end
 					end
 				end

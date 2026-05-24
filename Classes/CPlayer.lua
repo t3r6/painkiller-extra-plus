@@ -2028,8 +2028,8 @@ function CPlayer:Client_OnDamage(entity,health,armor,attack_type,damage,killerID
           soundda = "../Sounds/hitsoundteam"
         else
           hitplayer = Cfg.HitSoundVolume
-          local sndSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
-          newsoundda = "../Sounds/" .. sndSubfolder .. "hitsoundnew"
+          local soundSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
+          newsoundda = "../Sounds/" .. soundSubfolder .. "hitsoundnew"
           soundda = "../Sounds/hitsound"
         end
         if Cfg.Newhitsound == false then
@@ -2405,8 +2405,8 @@ function CPlayer:Client_OnDeath(deadID,killerID,attack_type,gib,score,damage)
       if Cfg.Newhitsound == false then
         PlaySound2D("../Sounds/killsound", Cfg.KillSoundVolume, nil, true)
       else
-        local sndSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
-        PlaySound2D("../Sounds/" .. sndSubfolder .. "killsoundnew", Cfg.KillSoundVolume, nil, true)
+        local soundSubfolder = (Cfg.NewhitsoundFolder and Cfg.NewhitsoundFolder ~= "") and (Cfg.NewhitsoundFolder .. "/") or ""
+        PlaySound2D("../Sounds/" .. soundSubfolder .. "killsoundnew", Cfg.KillSoundVolume, nil, true)
       end
       end
     end
