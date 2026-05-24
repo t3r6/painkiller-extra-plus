@@ -487,7 +487,9 @@ function Game:MapRestart()
 	Game:ResetAllClientsState()
 	Game:ResetAllClientsGameState()
 	Game:ResetClientSpectatorState(false)
+	--start pk exp: warmup reset fix
 	Game:ResetAllPlayers()
+	--end pk exp
 	Game:RespawnAllPlayers()
 	Game:ResetAllSpectators()
 	Game:ResetClientScores()
