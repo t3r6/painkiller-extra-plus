@@ -364,8 +364,9 @@ function BoltGunHeater:AltFireSFX(pe)
     
     -- update ammo on proper client and server
     if player then 
-        if not Game.NoAmmoLoss then 
-			player.Ammo.HeaterBomb = player.Ammo.HeaterBomb -10
+        if not Game.NoAmmoLoss then
+			player.Ammo.HeaterBomb = player.Ammo.HeaterBomb - 10
+			if player.Ammo.HeaterBomb < 0 then player.Ammo.HeaterBomb = 0 end
 		end
         -- set next shot timeout
         local cw = player:GetCurWeapon()
