@@ -1652,6 +1652,8 @@ function CPlayer:ResetStatus(weapon)
       elseif MPCfg.GameMode == "ICTF" or MPCfg.GameMode == "Instagib" then
         self.EnabledWeapons = {"PainKiller",nil,"StakeGunGL",nil,nil}
         self:AddWeapon(3)
+      elseif MPCfg.GameMode == "People Can Fly" then
+        -- weapon set already configured above based on PCFWeapons setting
       else
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
         self:AddWeapon(1)
