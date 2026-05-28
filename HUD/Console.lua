@@ -1029,6 +1029,13 @@ function Console:CheckVotingParams(cmd,params)
 		return true
 	elseif cmd == "glcollidecombo" then
 		return true
+	elseif cmd == "pcfweapons" then
+		local val = tonumber(params)
+		if val ~= 0 and val ~= 1 then
+			CONSOLE_AddMessage( "Wrong params for "..cmd )
+			return false
+		end
+		return true
 	end
 
 	CONSOLE_AddMessage( "Command '"..cmd.."' cannot be used for voting" )

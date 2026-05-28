@@ -2823,6 +2823,10 @@ function Console:Cmd_GLCOLLIDECOMBO(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("GLCollideCombo", enable, "Enables stake-grenade combo after grenade collision.")
 end
 --=======================================================================
+function Console:Cmd_PCFWEAPONS(enable)
+  self:Cmd_TEMPLATE_SET_INT("PCFWeapons", enable, "Unlocks all weapons in People Can Fly mode (0-1).")
+end
+--=======================================================================
 function Console:Cmd_WEAPONSPOSITIONING(enable)
   self:Cmd_TEMPLATE_TOGGLE_BOOL("WeaponsPositioning", enable, "Press Home to configure weapon positioning.")
 end

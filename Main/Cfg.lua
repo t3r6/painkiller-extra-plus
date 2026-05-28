@@ -250,6 +250,7 @@ Cfg =
 
     UserGrapplingHook = true,
     UserGLCollideCombo = true,
+    UserPCFWeapons = true,
 
     ViewWeaponModel = true,
     WeaponBob = 0,
@@ -702,6 +703,7 @@ Cfg =
 
     GrapplingHook = false,
     GLCollideCombo = false,
+    PCFWeapons = 0,
 }
 --============================================================================
 --============================================================================

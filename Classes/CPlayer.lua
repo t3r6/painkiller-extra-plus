@@ -686,15 +686,29 @@ function CPlayer:ServerTick(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if self.EnabledWeapons[1] then
+            self.Ammo.Shotgun      = 999
+            self.Ammo.IceBullets   = 999
+            self.Ammo.Stakes       = 999
+            self.Ammo.Grenades     = 999
+            self.Ammo.MiniGun      = 999
+            self.Ammo.Shurikens    = 999
+            self.Ammo.Electro      = 999
+            self.Ammo.Rifle        = 999
+            self.Ammo.FlameThrower = 999
+            self.Ammo.Bolt         = 999
+            self.Ammo.HeaterBomb   = 999
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-           
+
     -- ForwardRocketJump
     if self._frjump and self._frjump == 0 then
         --self.CurAction = AddBitFlag(self.CurAction,Actions.Jump)
@@ -732,7 +746,8 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" then return end
+    if MPCfg.GameMode == "Voosh" then return end
+    if MPCfg.GameMode == "People Can Fly" and not self.EnabledWeapons[1] then return end
 
     --MsgBox(slot)    
     local specialFire = false
@@ -1052,15 +1067,29 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if self.EnabledWeapons[1] then
+            self.Ammo.Shotgun      = 999
+            self.Ammo.IceBullets   = 999
+            self.Ammo.Stakes       = 999
+            self.Ammo.Grenades     = 999
+            self.Ammo.MiniGun      = 999
+            self.Ammo.Shurikens    = 999
+            self.Ammo.Electro      = 999
+            self.Ammo.Rifle        = 999
+            self.Ammo.FlameThrower = 999
+            self.Ammo.Bolt         = 999
+            self.Ammo.HeaterBomb   = 999
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-    
+
     if Game.Active then
         if not self._died and not self.Visible then
             local cw = self:GetCurWeapon()
@@ -1560,9 +1589,13 @@ function CPlayer:ResetStatus(weapon)
     if MPCfg.GameMode == "Voosh" then        
         self.Ammo = Clone(CPlayer.s_SubClass.Ammo)
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}    
-    elseif MPCfg.GameMode == "People Can Fly" then    
+    elseif MPCfg.GameMode == "People Can Fly" then
         self.Ammo = Clone(CPlayer.s_SubClass.Ammo)
-        self.EnabledWeapons = {nil,nil,nil,"MiniGunRL",nil}    
+        if weapon == 1 then
+            self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
+        else
+            self.EnabledWeapons = {nil,nil,nil,"MiniGunRL",nil}
+        end
         local a = Templates["ArmorStrong.CItem"]
         self.Armor             = a.ArmorAdd
         self.ArmorType         = a.ArmorType
@@ -1592,6 +1625,12 @@ function CPlayer:ResetStatus(weapon)
             self.Ammo[i] = o
         end
       end
+    elseif MPCfg.GameMode == "People Can Fly" and weapon == 1 then
+      for i = 1, 7 do
+        local cw = self:AddWeapon(i)
+        if self == Player then WORLD.AddEntity(cw._Entity) end
+      end
+      self._CurWeaponIndex = 1
     elseif weapon then
       self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
       local cw = self:AddWeapon(weapon)

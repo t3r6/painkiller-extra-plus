@@ -1336,8 +1336,10 @@ function Game:PlayerRespawnRequest(clientID)
         if Cfg.StartupWeapon > 0 and Cfg.StartupWeapon <= 7 then
             weapon = Cfg.StartupWeapon
         end
-        if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end         
-        if MPCfg.GameMode == "People Can Fly" then weapon = 4 end         
+        if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end
+        if MPCfg.GameMode == "People Can Fly" then
+            if Cfg.PCFWeapons == 1 then weapon = 1 else weapon = 4 end
+        end
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)                 
         
         -- telefrag ?
@@ -1618,6 +1620,8 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
 		allowed = true
 	elseif cmd == "overtime" and Cfg.UserOvertime then
+		allowed = true
+	elseif cmd == "pcfweapons" and Cfg.UserPCFWeapons then
 		allowed = true
 	end
 	return allowed
