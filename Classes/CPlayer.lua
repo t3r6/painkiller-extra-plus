@@ -1615,6 +1615,7 @@ function CPlayer:ResetStatus(weapon)
         self:AddWeapon(1)
     end
 
+    if MPCfg.GameMode == "People Can Fly" then weapon = nil end
     if MPCfg.GameMode == "Clan Arena" then
       if weapon then
         self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
@@ -1625,8 +1626,6 @@ function CPlayer:ResetStatus(weapon)
             self.Ammo[i] = o
         end
       end
-    elseif MPCfg.GameMode == "People Can Fly" then
-      self._CurWeaponIndex = weapon == 1 and 1 or 4
     elseif weapon then
       self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
       local cw = self:AddWeapon(weapon)
