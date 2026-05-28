@@ -687,22 +687,8 @@ function CPlayer:ServerTick(delta)
     end
 
     if MPCfg.GameMode == "People Can Fly" then
-        if self.EnabledWeapons[1] then
-            self.Ammo.Shotgun      = 999
-            self.Ammo.IceBullets   = 999
-            self.Ammo.Stakes       = 999
-            self.Ammo.Grenades     = 999
-            self.Ammo.MiniGun      = 999
-            self.Ammo.Shurikens    = 999
-            self.Ammo.Electro      = 999
-            self.Ammo.Rifle        = 999
-            self.Ammo.FlameThrower = 999
-            self.Ammo.Bolt         = 999
-            self.Ammo.HeaterBomb   = 999
-        else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
-        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
@@ -746,8 +732,7 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" then return end
-    if MPCfg.GameMode == "People Can Fly" and not self.EnabledWeapons[1] then return end
+if MPCfg.GameMode == "Voosh" --[[or MPCfg.GameMode == "People Can Fly"--]] then return end
 
     --MsgBox(slot)    
     local specialFire = false
@@ -1068,22 +1053,8 @@ function CPlayer:ClientRender(delta)
     end
 
     if MPCfg.GameMode == "People Can Fly" then
-        if self.EnabledWeapons[1] then
-            self.Ammo.Shotgun      = 999
-            self.Ammo.IceBullets   = 999
-            self.Ammo.Stakes       = 999
-            self.Ammo.Grenades     = 999
-            self.Ammo.MiniGun      = 999
-            self.Ammo.Shurikens    = 999
-            self.Ammo.Electro      = 999
-            self.Ammo.Rifle        = 999
-            self.Ammo.FlameThrower = 999
-            self.Ammo.Bolt         = 999
-            self.Ammo.HeaterBomb   = 999
-        else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
-        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
