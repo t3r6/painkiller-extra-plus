@@ -686,15 +686,15 @@ function CPlayer:ServerTick(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then
-            self.Ammo.MiniGun      = 0
-            self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then 
+        self.Ammo.MiniGun      = 0
+        self.Ammo.Grenades     = 999
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-
+           
     -- ForwardRocketJump
     if self._frjump and self._frjump == 0 then
         --self.CurAction = AddBitFlag(self.CurAction,Actions.Jump)
