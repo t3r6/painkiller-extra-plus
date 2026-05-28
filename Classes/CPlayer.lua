@@ -686,9 +686,23 @@ function CPlayer:ServerTick(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if (Cfg.PCFWeapons or 0) == 1 then
+            self.Ammo.Shotgun      = 999
+            self.Ammo.IceBullets   = 999
+            self.Ammo.Stakes       = 999
+            self.Ammo.Grenades     = 999
+            self.Ammo.MiniGun      = 999
+            self.Ammo.Shurikens    = 999
+            self.Ammo.Electro      = 999
+            self.Ammo.Rifle        = 999
+            self.Ammo.FlameThrower = 999
+            self.Ammo.Bolt         = 999
+            self.Ammo.HeaterBomb   = 999
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
@@ -1052,9 +1066,23 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if (Cfg.PCFWeapons or 0) == 1 then
+            self.Ammo.Shotgun      = 999
+            self.Ammo.IceBullets   = 999
+            self.Ammo.Stakes       = 999
+            self.Ammo.Grenades     = 999
+            self.Ammo.MiniGun      = 999
+            self.Ammo.Shurikens    = 999
+            self.Ammo.Electro      = 999
+            self.Ammo.Rifle        = 999
+            self.Ammo.FlameThrower = 999
+            self.Ammo.Bolt         = 999
+            self.Ammo.HeaterBomb   = 999
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
