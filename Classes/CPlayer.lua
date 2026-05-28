@@ -1591,11 +1591,7 @@ function CPlayer:ResetStatus(weapon)
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}    
     elseif MPCfg.GameMode == "People Can Fly" then
         self.Ammo = Clone(CPlayer.s_SubClass.Ammo)
-        if weapon == 1 then
-            self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
-        else
-            self.EnabledWeapons = {nil,nil,nil,"MiniGunRL",nil}
-        end
+        self.EnabledWeapons = {nil,nil,nil,"MiniGunRL",nil}
         local a = Templates["ArmorStrong.CItem"]
         self.Armor             = a.ArmorAdd
         self.ArmorType         = a.ArmorType
