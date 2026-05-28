@@ -1052,15 +1052,15 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then
-            self.Ammo.MiniGun      = 0
-            self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then 
+        self.Ammo.MiniGun      = 0
+        self.Ammo.Grenades     = 999
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-
+    
     if Game.Active then
         if not self._died and not self.Visible then
             local cw = self:GetCurWeapon()
