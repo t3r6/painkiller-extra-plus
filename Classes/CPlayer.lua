@@ -1625,12 +1625,8 @@ function CPlayer:ResetStatus(weapon)
             self.Ammo[i] = o
         end
       end
-    elseif MPCfg.GameMode == "People Can Fly" and weapon == 1 then
-      for i = 1, 7 do
-        local cw = self:AddWeapon(i)
-        if self == Player then WORLD.AddEntity(cw._Entity) end
-      end
-      self._CurWeaponIndex = 1
+    elseif MPCfg.GameMode == "People Can Fly" then
+      self._CurWeaponIndex = weapon == 1 and 1 or 4
     elseif weapon then
       self.EnabledWeapons[weapon] = CPlayer.EnabledWeapons[weapon]
       local cw = self:AddWeapon(weapon)
