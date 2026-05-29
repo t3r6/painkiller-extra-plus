@@ -339,6 +339,7 @@ function Game:SetPCFWeapons(state)
 		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
 	end
 	MPCfg.PCFWeapons = state
+	Game.NoAmmoLoss = (state == true)
 end
 --==============================================================
 function Game:SendHitSound(kID)
