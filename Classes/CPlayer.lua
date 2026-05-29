@@ -694,6 +694,7 @@ function CPlayer:ServerTick(delta)
         else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
+            if self._CurWeaponIndex ~= 4 then self:TryToChangeWeapon(4) end
         end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
@@ -738,7 +739,8 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" and not Cfg.PCFWeapons then return end
+    if MPCfg.GameMode == "Voosh" then return end
+    if MPCfg.GameMode == "People Can Fly" and not Cfg.PCFWeapons and slot ~= 4 then return end
 
     --MsgBox(slot)    
     local specialFire = false
