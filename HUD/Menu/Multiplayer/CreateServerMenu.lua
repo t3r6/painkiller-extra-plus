@@ -170,7 +170,21 @@ CreateServerMenu =
 					maxLength = 3,
 					align = MenuAlign.Right,
 				},
-				
+
+				PCFWeapons =
+				{
+					type = MenuItemTypes.Checkbox,
+					text = "PCF All Weapons",
+					desc = "Unlocks all weapons in People Can Fly mode.",
+					option = "PCFWeapons",
+					valueOn = true,
+					valueOff = false,
+					x	 = -1,
+					y	 = 360,
+					action = "",
+					align = MenuAlign.Right,
+				},
+
 				PublicServer =
 				{
 					type = MenuItemTypes.Checkbox,

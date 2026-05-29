@@ -688,17 +688,9 @@ function CPlayer:ServerTick(delta)
 
     if MPCfg.GameMode == "People Can Fly" then
         if Cfg.PCFWeapons then
-            self.Ammo.Shotgun      = 999
-            self.Ammo.IceBullets   = 999
-            self.Ammo.Stakes       = 999
-            self.Ammo.Grenades     = 999
-            self.Ammo.MiniGun      = 999
-            self.Ammo.Shurikens    = 999
-            self.Ammo.Electro      = 999
-            self.Ammo.Rifle        = 999
-            self.Ammo.FlameThrower = 999
-            self.Ammo.Bolt         = 999
-            self.Ammo.HeaterBomb   = 999
+            for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
+                self.Ammo[weapon] = 999
+            end
         else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
@@ -1068,17 +1060,9 @@ function CPlayer:ClientRender(delta)
 
     if MPCfg.GameMode == "People Can Fly" then
         if Cfg.PCFWeapons then
-            self.Ammo.Shotgun      = 999
-            self.Ammo.IceBullets   = 999
-            self.Ammo.Stakes       = 999
-            self.Ammo.Grenades     = 999
-            self.Ammo.MiniGun      = 999
-            self.Ammo.Shurikens    = 999
-            self.Ammo.Electro      = 999
-            self.Ammo.Rifle        = 999
-            self.Ammo.FlameThrower = 999
-            self.Ammo.Bolt         = 999
-            self.Ammo.HeaterBomb   = 999
+            for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
+                self.Ammo[weapon] = 999
+            end
         else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
@@ -1641,8 +1625,6 @@ function CPlayer:ResetStatus(weapon)
       elseif MPCfg.GameMode == "ICTF" or MPCfg.GameMode == "Instagib" then
         self.EnabledWeapons = {"PainKiller",nil,"StakeGunGL",nil,nil}
         self:AddWeapon(3)
-      elseif MPCfg.GameMode == "People Can Fly" then
-        -- weapon set already configured above based on PCFWeapons setting
       else
         self.EnabledWeapons = {"PainKiller","Shotgun","StakeGunGL","MiniGunRL","DriverElectro","RifleFlameThrower","BoltGunHeater"}
         self:AddWeapon(1)
