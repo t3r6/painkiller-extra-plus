@@ -687,7 +687,7 @@ function CPlayer:ServerTick(delta)
     end
 
     if MPCfg.GameMode == "People Can Fly" then
-        if (Cfg.PCFWeapons or 0) == 1 then
+        if Cfg.PCFWeapons then
             self.Ammo.Shotgun      = 999
             self.Ammo.IceBullets   = 999
             self.Ammo.Stakes       = 999
@@ -746,7 +746,7 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" and (Cfg.PCFWeapons or 0) == 0 then return end
+    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" and not Cfg.PCFWeapons then return end
 
     --MsgBox(slot)    
     local specialFire = false
@@ -1067,7 +1067,7 @@ function CPlayer:ClientRender(delta)
     end
 
     if MPCfg.GameMode == "People Can Fly" then
-        if (Cfg.PCFWeapons or 0) == 1 then
+        if Cfg.PCFWeapons then
             self.Ammo.Shotgun      = 999
             self.Ammo.IceBullets   = 999
             self.Ammo.Stakes       = 999

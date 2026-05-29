@@ -2824,7 +2824,7 @@ function Console:Cmd_GLCOLLIDECOMBO(enable)
 end
 --=======================================================================
 function Console:Cmd_PCFWEAPONS(enable)
-  self:Cmd_TEMPLATE_SET_INT("PCFWeapons", enable, "Unlocks all weapons in People Can Fly mode (0-1).")
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("PCFWeapons", enable, "Unlocks all weapons in People Can Fly mode.")
 end
 --=======================================================================
 function Console:Cmd_WEAPONSPOSITIONING(enable)

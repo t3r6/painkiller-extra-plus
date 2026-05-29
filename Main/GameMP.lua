@@ -1338,10 +1338,10 @@ function Game:PlayerRespawnRequest(clientID)
         end
         if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end
         if MPCfg.GameMode == "People Can Fly" then
-            if (Cfg.PCFWeapons or 0) == 1 then weapon = 1 else weapon = 4 end
+            if Cfg.PCFWeapons then weapon = 1 else weapon = 4 end
         end
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)
-        if MPCfg.GameMode == "People Can Fly" and (Cfg.PCFWeapons or 0) == 1 then
+        if MPCfg.GameMode == "People Can Fly" and Cfg.PCFWeapons then
             for i,o in {"IShotgunFZ","IStakeGunGL","IMiniGunRL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater"} do
                 Templates[o..".CItem"].TakeFX(player._Entity,999,999)
             end
