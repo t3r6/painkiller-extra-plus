@@ -988,7 +988,7 @@ function Game:NewPlayerRequest(clientID,name,model,team,state,spectator)
     local txt = "Please install PK++ www.pkeuro.com"
     SendNetMethod(Game.ConsoleClientMessage, clientID, true, true, ServerID, txt, 0)
     if(MPCfg.ProPlus) then Game:Server2ClientCommand(0,"enableproplusall") else Game:Server2ClientCommand(0,"disenableproplusall") end
-    if(MPCfg.PCFWeapons) then Game:Server2ClientCommand(0,"enablepcfweaponsall") else Game:Server2ClientCommand(0,"disenablepcfweaponsall") end
+    Game:Server2ClientCommand(0, MPCfg.PCFWeapons and "enablepcfweaponsall" or "disenablepcfweaponsall")
     Game:SendRocketFix()
             
     local playercount = 0

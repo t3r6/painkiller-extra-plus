@@ -299,28 +299,6 @@ function Game:EnableProPlus()
 	end	
 end
 --==============================================================
-function Game:EnablePCFWeapons()
-	if Game:IsServer() then
-		Cfg.PCFWeapons = true
-		Game:Server2ClientCommand(0,"enablepcfweaponsall")
-	end
-	if not MPCfg.PCFWeapons then
-		CONSOLE_AddMessage("#1***PCF Weapons have been enabled on the server***")
-	end
-	MPCfg.PCFWeapons = true
-end
---==============================================================
-function Game:DisablePCFWeapons()
-	if Game:IsServer() then
-		Cfg.PCFWeapons = false
-		Game:Server2ClientCommand(0,"disenablepcfweaponsall")
-	end
-	if MPCfg.PCFWeapons then
-		CONSOLE_AddMessage("#1***PCF Weapons have been disabled on the server***")
-	end
-	MPCfg.PCFWeapons = false
-end
---==============================================================
 function Game:DisableProPlus()
 	--MsgBox(tostring(Tweak.MultiPlayerMove.AlternateRocketJump))
 	--Tweak.MultiPlayerMove.AlternateRocketJump = true
@@ -343,6 +321,17 @@ function Game:DisableProPlus()
 		--Tweak.MultiPlayerMove.AlternateRocketJump = true
 		--WORLD.ApplyTweaks()
 	end	
+end
+--==============================================================
+function Game:SetPCFWeapons(state)
+	if Game:IsServer() then
+		Cfg.PCFWeapons = state
+		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
+	end
+	if MPCfg.PCFWeapons ~= state then
+		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
+	end
+	MPCfg.PCFWeapons = state
 end
 --==============================================================
 function Game:SendHitSound(kID)

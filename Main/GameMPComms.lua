@@ -35,20 +35,12 @@ function Game:Server2ClientCommand(clientid,command,param)
 			end
 		end
 	end
-	if(command == "enablepcfweaponsall")then
+	if(command == "enablepcfweaponsall" or command == "disenablepcfweaponsall")then
 		if Game:IsServer() then
+			local cmd = command == "enablepcfweaponsall" and "CMD:PCFWEAPONS1" or "CMD:PCFWEAPONS0"
 			for i,ps in Game.PlayerStats do
 				if(Game.PlayerStats[ps.ClientID].Version==true)then
-					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, "CMD:PCFWEAPONS1", 0)
-				end
-			end
-		end
-	end
-	if(command == "disenablepcfweaponsall")then
-		if Game:IsServer() then
-			for i,ps in Game.PlayerStats do
-				if(Game.PlayerStats[ps.ClientID].Version==true)then
-					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, "CMD:PCFWEAPONS0", 0)
+					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, cmd, 0)
 				end
 			end
 		end

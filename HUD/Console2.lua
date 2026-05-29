@@ -2824,8 +2824,8 @@ function Console:Cmd_GLCOLLIDECOMBO(enable)
 end
 --=======================================================================
 function Console:Cmd_PCFWEAPONS(enable)
-	if(tonumber(enable)==1) then Game:EnablePCFWeapons() return end
-	if(tonumber(enable)==0) then Game:DisablePCFWeapons() return end
+	if(tonumber(enable)==1) then Game:SetPCFWeapons(true) return end
+	if(tonumber(enable)==0) then Game:SetPCFWeapons(false) return end
 	CONSOLE_AddMessage("Syntax: pcfweapons [0/1]")
 	CONSOLE_AddMessage("Help: Unlocks all weapons in People Can Fly mode.")
 	if MPCfg.PCFWeapons then CONSOLE_AddMessage("State: PCFWeapons is enabled.")
