@@ -110,9 +110,6 @@ function Game:Server2ClientRead(txt)
 	    end
 	    if(txt == "CMD:PCFWEAPONS0")then
 	    	MPCfg.PCFWeapons = false
-	    	if Player and Player._CurWeaponIndex ~= 4 then
-	    		CPlayer.WeaponChangeConfirmation(Player.ClientID, Player._Entity, 4)
-	    	end
 	    	return true
 	    end
 	    if(txt == "CMD:PROPLUS1")then

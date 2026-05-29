@@ -327,6 +327,13 @@ function Game:SetPCFWeapons(state)
 	if Game:IsServer() then
 		Cfg.PCFWeapons = state
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
+		if not state and MPCfg.GameMode == "People Can Fly" then
+			for i,o in Game.Players do
+				if not o._died then
+					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
+				end
+			end
+		end
 	end
 	if MPCfg.PCFWeapons ~= state then
 		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
