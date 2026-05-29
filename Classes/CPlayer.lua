@@ -694,7 +694,6 @@ function CPlayer:ServerTick(delta)
         else
             self.Ammo.MiniGun      = 0
             self.Ammo.Grenades     = 999
-            if self._CurWeaponIndex ~= 4 then self:TryToChangeWeapon(4) end
         end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
