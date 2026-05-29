@@ -739,8 +739,7 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" then return end
-    if MPCfg.GameMode == "People Can Fly" and not Cfg.PCFWeapons and slot ~= 4 then return end
+    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" and not Cfg.PCFWeapons then return end
 
     --MsgBox(slot)    
     local specialFire = false
