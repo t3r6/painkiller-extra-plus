@@ -175,7 +175,7 @@ CreateServerMenu =
 				{
 					type = MenuItemTypes.Checkbox,
 					text = "PCF All Weapons",
-					desc = "Unlocks all weapons in People Can Fly mode.",
+					desc = "Unlocks all weapons in People Can Fly mode",
 					option = "PCFWeapons",
 					valueOn = true,
 					valueOff = false,
