@@ -299,6 +299,28 @@ function Game:EnableProPlus()
 	end	
 end
 --==============================================================
+function Game:EnablePCFWeapons()
+	if Game:IsServer() then
+		Cfg.PCFWeapons = true
+		Game:Server2ClientCommand(0,"enablepcfweaponsall")
+	end
+	if not MPCfg.PCFWeapons then
+		CONSOLE_AddMessage("#1***PCF Weapons have been enabled on the server***")
+	end
+	MPCfg.PCFWeapons = true
+end
+--==============================================================
+function Game:DisablePCFWeapons()
+	if Game:IsServer() then
+		Cfg.PCFWeapons = false
+		Game:Server2ClientCommand(0,"disenablepcfweaponsall")
+	end
+	if MPCfg.PCFWeapons then
+		CONSOLE_AddMessage("#1***PCF Weapons have been disabled on the server***")
+	end
+	MPCfg.PCFWeapons = false
+end
+--==============================================================
 function Game:DisableProPlus()
 	--MsgBox(tostring(Tweak.MultiPlayerMove.AlternateRocketJump))
 	--Tweak.MultiPlayerMove.AlternateRocketJump = true

@@ -26,11 +26,29 @@ function Game:Server2ClientCommand(clientid,command,param)
 		end
 	end
 	if(command == "disenableproplusall")then
-		if Game:IsServer() then           
+		if Game:IsServer() then
 	    		for i,ps in Game.PlayerStats do
 	    			if(Game.PlayerStats[ps.ClientID].Version==true)then
 					local txt = "CMD:PROPLUS0"
 					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, txt, 0)
+				end
+			end
+		end
+	end
+	if(command == "enablepcfweaponsall")then
+		if Game:IsServer() then
+			for i,ps in Game.PlayerStats do
+				if(Game.PlayerStats[ps.ClientID].Version==true)then
+					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, "CMD:PCFWEAPONS1", 0)
+				end
+			end
+		end
+	end
+	if(command == "disenablepcfweaponsall")then
+		if Game:IsServer() then
+			for i,ps in Game.PlayerStats do
+				if(Game.PlayerStats[ps.ClientID].Version==true)then
+					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, "CMD:PCFWEAPONS0", 0)
 				end
 			end
 		end
@@ -94,6 +112,14 @@ function Game:Server2ClientRead(txt)
 	    	Game:Client2ServerCommand("CMD:PK++VERSIONOKAY")
 	    	return true
 	    end	
+	    if(txt == "CMD:PCFWEAPONS1")then
+	    	MPCfg.PCFWeapons = true
+	    	return true
+	    end
+	    if(txt == "CMD:PCFWEAPONS0")then
+	    	MPCfg.PCFWeapons = false
+	    	return true
+	    end
 	    if(txt == "CMD:PROPLUS1")then
 	    	if(MPCfg.ProPlus~=true)then
 	    		CONSOLE_AddMessage("#1***Proplus on Client Enabled***")
