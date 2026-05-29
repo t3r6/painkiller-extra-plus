@@ -2419,6 +2419,7 @@ function PainMenu:ApplyCheckbox( item, name )
 			Cfg[item.option][item.index] = item.valueOff
 		end
 	end
+	if item.option == "PCFWeapons" then Game:SetPCFWeapons(Cfg.PCFWeapons) end
 end
 
 function PainMenu:ApplySimpleKeyConf( item, name )
