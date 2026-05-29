@@ -1343,8 +1343,8 @@ function Game:PlayerRespawnRequest(clientID)
             if Cfg.PCFWeapons then weapon = 1 else weapon = 4 end
         end
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)
-        if MPCfg.GameMode == "People Can Fly" and Cfg.PCFWeapons then -- required for compatibility with old clients
-            for i,o in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IMiniGunRL"} do -- MiniGunRL takes precedence if last
+        if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then -- required for compatibility with old clients
+            for i,o in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last
                 Templates[o..".CItem"].TakeFX(player._Entity,999,999)
             end
         end
