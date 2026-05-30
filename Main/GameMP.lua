@@ -1345,7 +1345,7 @@ function Game:PlayerRespawnRequest(clientID)
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)
         if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then -- required for compatibility with old clients
             Game:GivePCFWeapons(player._Entity)
-            RawCallMethod(CPlayer.WeaponChangeConfirmation,player._Entity,4) -- MiniGunRL takes precedence on local server
+            CPlayer.WeaponChangeConfirmation(player.ClientID,player._Entity,4) -- MiniGunRL takes precedence
         end
 
         -- telefrag ?
