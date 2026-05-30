@@ -412,10 +412,10 @@ function Hud:DrawScores(clientid)
       Hud:DrawDigitsText1((1024 - scposxy2[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", bestenemyscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
     end
   end
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 128)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 128)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 128)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2 + 77 * scsizehud) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 128)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2 + 77 * scsizehud) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
   if spressthiskey == true then
     if Cfg.HUD_Scores_Frame == 1 then
       HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, 0, 255, 0, 255)
