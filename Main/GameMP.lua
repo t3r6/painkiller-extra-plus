@@ -18,7 +18,8 @@ MPCfg =
     CaptureLimit	 = 0,
     LMSLives         = 5,
     ClientConsoleLockdown = false,
-    ProPlus = false
+    ProPlus = false,
+    PCFWeapons = false
 }
 
 MPGameRules =
@@ -222,7 +223,7 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
 
 	if(Cfg.ProPlus) then Game:EnableProPlus() else Game:DisableProPlus() end
-	
+
         MPCfg.GameState = MPGameRules[Cfg.GameMode].StartState        
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
@@ -1336,10 +1337,16 @@ function Game:PlayerRespawnRequest(clientID)
         if Cfg.StartupWeapon > 0 and Cfg.StartupWeapon <= 7 then
             weapon = Cfg.StartupWeapon
         end
-        if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end         
-        if MPCfg.GameMode == "People Can Fly" then weapon = 4 end         
-        Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)                 
-        
+        if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end
+        if MPCfg.GameMode == "People Can Fly" then
+            if MPCfg.PCFWeapons then weapon = 1 else weapon = 4 end
+        end
+        Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)
+        if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then -- required for compatibility with old clients
+            Game:GivePCFWeapons(player._Entity)
+            CPlayer.WeaponChangeConfirmation(player.ClientID,player._Entity,4) -- MiniGunRL takes precedence
+        end
+
         -- telefrag ?
         if Cfg.Telefrag then player:CheckTeleFrag() end
         
@@ -1618,6 +1625,8 @@ function Game:CheckVotingParams(cmd)
 	elseif cmd == "glcollidecombo" and Cfg.UserGLCollideCombo then
 		allowed = true
 	elseif cmd == "overtime" and Cfg.UserOvertime then
+		allowed = true
+	elseif cmd == "pcfweapons" and Cfg.UserPCFWeapons then
 		allowed = true
 	end
 	return allowed

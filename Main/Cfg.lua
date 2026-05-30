@@ -250,6 +250,7 @@ Cfg =
 
     UserGrapplingHook = true,
     UserGLCollideCombo = true,
+    UserPCFWeapons = true,
 
     ViewWeaponModel = true,
     WeaponBob = 0,
@@ -702,6 +703,7 @@ Cfg =
 
     GrapplingHook = false,
     GLCollideCombo = false,
+    PCFWeapons = false,
 }
 --============================================================================
 --============================================================================
@@ -1037,6 +1039,7 @@ function Cfg:Check()
 	Cfg.HUD_Spec_Item_Timers_Side = Cfg:CheckVar(Cfg.HUD_Spec_Item_Timers_Side,"n",0,1,1)
 	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
 	Cfg.HUD_Speedmeter_UnitType = Cfg:CheckVar(Cfg.HUD_Speedmeter_UnitType,"n",0,1,0)
+	Cfg.PCFWeapons = Cfg:CheckVar(Cfg.PCFWeapons,"b")
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)

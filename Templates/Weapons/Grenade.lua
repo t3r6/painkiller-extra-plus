@@ -65,7 +65,15 @@ function Grenade:Explode()
     ENTITY.EnableCollisions(self._Entity,false) -- disable next callbacks        
     ENTITY.RemoveFromIntersectionSolver(self._Entity)
     ENTITY.PO_Enable(self._Entity, false)	-- bo inaczej by zglaszal msg 'explosion' z soba samym
-    Explosion(x,y,z,self.ExplosionStrength,self.ExplosionRange,self.ObjOwner.ClientID,AttackTypes.Grenade,self.Damage)
+
+    -- PEOPLE CAN FLY MODE PK EXP
+    if MPCfg.GameMode == "People Can Fly" then
+        Explosion(x,y,z,self.ExplosionStrength*0.5,4.5,self.ObjOwner.ClientID,AttackTypes.Grenade,self.Damage,5)
+    else
+        Explosion(x,y,z,self.ExplosionStrength,self.ExplosionRange,self.ObjOwner.ClientID,AttackTypes.Grenade,self.Damage)
+    end
+    -- PEOPLE CAN FLY MODE PK EXP
+
     self.Client_Explosion(self._Entity,x,y,z)    
     GObjects:ToKill(self)
     

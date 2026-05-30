@@ -509,12 +509,19 @@ function PainMenu:ActivateScreen( screen )
 		if item.values[item.currValue] == "Capture The Flag" or item.values[item.currValue] == "ICTF" then
 			PMENU.SetItemVisibility( "CaptureLimit", true )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		elseif item.values[item.currValue] == "Last Man Standing" then
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", true )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
+		elseif item.values[item.currValue] == "People Can Fly" then
+			PMENU.SetItemVisibility( "CaptureLimit", false )
+			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", true )
 		else
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
@@ -640,12 +647,19 @@ function PainMenu:ActivateScreenAlt(screen)
 		if item.values[item.currValue] == "Capture The Flag" or item.values[item.currValue] == "ICTF" then
 			PMENU.SetItemVisibility( "CaptureLimit", true )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		elseif item.values[item.currValue] == "Last Man Standing" then
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", true )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
+		elseif item.values[item.currValue] == "People Can Fly" then
+			PMENU.SetItemVisibility( "CaptureLimit", false )
+			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", true )
 		else
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
@@ -1915,12 +1929,19 @@ function PainMenu:AfterControlChange(name)
 		if item.values[item.currValue] == "Capture The Flag" or item.values[item.currValue] == "ICTF" then
 			PMENU.SetItemVisibility( "CaptureLimit", true )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		elseif item.values[item.currValue] == "Last Man Standing" then
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", true )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
+		elseif item.values[item.currValue] == "People Can Fly" then
+			PMENU.SetItemVisibility( "CaptureLimit", false )
+			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", true )
 		else
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		end
 	elseif self.currScreen == PlayerOptions and name == "NewPrediction" then
 		PainMenu:ApplySettings()
@@ -2228,12 +2249,19 @@ function PainMenu:ShowTabGroup( group, name )
 		if item.values[item.currValue] == "Capture The Flag" or item.values[item.currValue] == "ICTF" then
 			PMENU.SetItemVisibility( "CaptureLimit", true )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		elseif item.values[item.currValue] == "Last Man Standing" then
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", true )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
+		elseif item.values[item.currValue] == "People Can Fly" then
+			PMENU.SetItemVisibility( "CaptureLimit", false )
+			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", true )
 		else
 			PMENU.SetItemVisibility( "CaptureLimit", false )
 			PMENU.SetItemVisibility( "LMSLives", false )
+			PMENU.SetItemVisibility( "PCFWeapons", false )
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
@@ -2391,6 +2419,7 @@ function PainMenu:ApplyCheckbox( item, name )
 			Cfg[item.option][item.index] = item.valueOff
 		end
 	end
+	if item.option == "PCFWeapons" then Game:SetPCFWeapons(Cfg.PCFWeapons) end
 end
 
 function PainMenu:ApplySimpleKeyConf( item, name )

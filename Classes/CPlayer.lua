@@ -439,7 +439,8 @@ end
 --============================================================================
 function CPlayer:Client_OnTakeWeapon(slot)    
     Hud._weaponspri[slot] = true
-    if Cfg.AutoChangeWeapon then    
+    if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then return end -- Fix PCFWeapons MiniGunRL-ShotgunFZ autoswitch race condition related to WeaponChangeConfirmation
+    if Cfg.AutoChangeWeapon then
         for i,o in Cfg.WeaponPriority do
             if o == 0 then return end
             local sl = tonumber(string.sub(tostring(o),1,1))            
@@ -686,9 +687,15 @@ function CPlayer:ServerTick(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if MPCfg.PCFWeapons then
+            for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
+                self.Ammo[weapon] = 999
+            end
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
@@ -732,7 +739,8 @@ end
 --============================================================================
 function CPlayer:TryToChangeWeapon(slot)    
     if not slot then return end    
-    if MPCfg.GameMode == "Voosh" or MPCfg.GameMode == "People Can Fly" then return end
+    if MPCfg.GameMode == "Voosh" then return end
+    if MPCfg.GameMode == "People Can Fly" and not MPCfg.PCFWeapons and slot ~= 4 then return end
 
     --MsgBox(slot)    
     local specialFire = false
@@ -1052,15 +1060,21 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then 
-        self.Ammo.MiniGun      = 0
-        self.Ammo.Grenades     = 999
+    if MPCfg.GameMode == "People Can Fly" then
+        if MPCfg.PCFWeapons then
+            for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
+                self.Ammo[weapon] = 999
+            end
+        else
+            self.Ammo.MiniGun      = 0
+            self.Ammo.Grenades     = 999
+        end
     end
     if MPCfg.GameMode == "Instagib" or MPCfg.GameMode == "ICTF" then
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-    
+
     if Game.Active then
         if not self._died and not self.Visible then
             local cw = self:GetCurWeapon()

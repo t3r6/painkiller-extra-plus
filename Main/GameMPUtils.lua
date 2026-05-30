@@ -323,6 +323,31 @@ function Game:DisableProPlus()
 	end	
 end
 --==============================================================
+function Game:GivePCFWeapons(entity)
+	for i,wname in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last in this list
+		Templates[wname..".CItem"].TakeFX(entity,999,999)
+	end
+end
+--==============================================================
+function Game:SetPCFWeapons(state)
+	if Game:IsServer() then
+		Cfg.PCFWeapons = state
+		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
+		if MPCfg.GameMode == "People Can Fly" then
+			for i,o in Game.Players do
+				if not o._died then
+					if state then Game:GivePCFWeapons(o._Entity) end -- known bug: Painkiller weapon is not allocated when changing PCFWeapons in middle of a match (the state resets after death)
+					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
+				end
+			end
+		end
+	end
+	if MPCfg.PCFWeapons ~= state then
+		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
+	end
+	MPCfg.PCFWeapons = state
+end
+--==============================================================
 function Game:SendHitSound(kID)
 	for i, ps in Game.PlayerStats do
 		if(ps.Spectator == 1) then
