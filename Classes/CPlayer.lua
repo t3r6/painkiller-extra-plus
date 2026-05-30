@@ -1059,7 +1059,7 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" and Game.GMode ~= GModes.MultiplayerClient then
+    if MPCfg.GameMode == "People Can Fly" then
         if MPCfg.PCFWeapons then
             for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
                 self.Ammo[weapon] = 999
