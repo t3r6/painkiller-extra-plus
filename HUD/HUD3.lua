@@ -335,7 +335,7 @@ function Hud:DrawScores(clientid)
     scoresposxy[2][1] - 9 * scsizehud,
     scoresposxy[2][2] + 3
   }
-  local cb = {0, 102, 255}
+  local cb = {0, 0, 255}
   local cr = {255, 0, 0}
   if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
     cb = {
