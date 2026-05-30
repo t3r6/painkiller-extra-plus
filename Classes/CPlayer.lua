@@ -439,7 +439,8 @@ end
 --============================================================================
 function CPlayer:Client_OnTakeWeapon(slot)    
     Hud._weaponspri[slot] = true
-    if Cfg.AutoChangeWeapon then    
+    if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then return end -- Fix CPF MiniGunRL-ShotgunFZ autoswitch race condition
+    if Cfg.AutoChangeWeapon then
         for i,o in Cfg.WeaponPriority do
             if o == 0 then return end
             local sl = tonumber(string.sub(tostring(o),1,1))            
