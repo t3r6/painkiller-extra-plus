@@ -439,7 +439,7 @@ end
 --============================================================================
 function CPlayer:Client_OnTakeWeapon(slot)    
     Hud._weaponspri[slot] = true
-    if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then return end -- Fix PCF MiniGunRL-ShotgunFZ autoswitch race condition related to WeaponChangeConfirmation
+    if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then return end -- Fix PCFWeapons MiniGunRL-ShotgunFZ autoswitch race condition related to WeaponChangeConfirmation
     if Cfg.AutoChangeWeapon then
         for i,o in Cfg.WeaponPriority do
             if o == 0 then return end
