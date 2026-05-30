@@ -223,7 +223,6 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
 
 	if(Cfg.ProPlus) then Game:EnableProPlus() else Game:DisableProPlus() end
-	MPCfg.PCFWeapons = Cfg.PCFWeapons
 
         MPCfg.GameState = MPGameRules[Cfg.GameMode].StartState        
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
@@ -1341,7 +1340,7 @@ function Game:PlayerRespawnRequest(clientID)
         end
         if MPCfg.GameMode == "Voosh" then weapon = Game.VooshCurWeapon end
         if MPCfg.GameMode == "People Can Fly" then
-            if Cfg.PCFWeapons then weapon = 1 else weapon = 4 end
+            if MPCfg.PCFWeapons then weapon = 1 else weapon = 4 end
         end
         Game.PlayerRespawnConfirmation(clientID,player._Entity,ENTITY.GetOrientation(player._Entity),weapon)
         if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons then -- required for compatibility with old clients

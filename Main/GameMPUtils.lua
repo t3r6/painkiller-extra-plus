@@ -327,14 +327,9 @@ function Game:SetPCFWeapons(state)
 	if Game:IsServer() then
 		Cfg.PCFWeapons = state
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
-		if MPCfg.GameMode == "People Can Fly" then
+		if not state and MPCfg.GameMode == "People Can Fly" then
 			for i,o in Game.Players do
 				if not o._died then
-					if state then
-						for i2,item in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do
-							Templates[item..".CItem"].TakeFX(o._Entity, 999, 999)
-						end
-					end
 					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
 				end
 			end
@@ -344,7 +339,6 @@ function Game:SetPCFWeapons(state)
 		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
 	end
 	MPCfg.PCFWeapons = state
-	Game.NoAmmoLoss = (state == true)
 end
 --==============================================================
 function Game:SendHitSound(kID)
