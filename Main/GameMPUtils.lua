@@ -323,13 +323,20 @@ function Game:DisableProPlus()
 	end	
 end
 --==============================================================
+function Game:GivePCFWeapons(entity)
+	for i,wname in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last
+		Templates[wname..".CItem"].TakeFX(entity,999,999)
+	end
+end
+--==============================================================
 function Game:SetPCFWeapons(state)
 	if Game:IsServer() then
 		Cfg.PCFWeapons = state
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
-		if not state and MPCfg.GameMode == "People Can Fly" then
+		if MPCfg.GameMode == "People Can Fly" then
 			for i,o in Game.Players do
 				if not o._died then
+					if state then Game:GivePCFWeapons(o._Entity) end
 					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
 				end
 			end
