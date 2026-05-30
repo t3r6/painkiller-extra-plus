@@ -55,6 +55,9 @@ function Game:Server2ClientCommand(clientid,command,param)
 	    		for i,ps in Game.PlayerStats do
 				if(ps.ClientID~=nil and ps.ClientID == clientid)then --and Game.PlayerStats[ps.ClientID].Version
 					SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, command..param, 0)
+					if(command == "PK++ Authenticated.")then
+						SendNetMethod(Game.ConsoleClientMessage, ps.ClientID, true, true, ServerID, MPCfg.PCFWeapons and "CMD:PCFWEAPONS1" or "CMD:PCFWEAPONS0", 0)
+					end
 				end
 			end
 		end
