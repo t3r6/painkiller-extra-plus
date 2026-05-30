@@ -336,7 +336,10 @@ function Game:SetPCFWeapons(state)
 		if MPCfg.GameMode == "People Can Fly" then
 			for i,o in Game.Players do
 				if not o._died then
-					if state then Game:GivePCFWeapons(o._Entity) end
+					if state then
+						o.EnabledWeapons[1] = "PainKiller" -- no pickup item exists; mirrors weapon=1 respawn path
+						Game:GivePCFWeapons(o._Entity)
+					end
 					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
 				end
 			end
