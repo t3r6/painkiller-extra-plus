@@ -271,8 +271,8 @@ function Hud:DrawScores(clientid)
       if INP.Key(Keys.Num0) == 1 then
         scoresposxy[1][1] = 544
         scoresposxy[2][1] = 480
-        scoresposxy[1][2] = 745
-        scoresposxy[2][2] = 745
+        scoresposxy[1][2] = 750
+        scoresposxy[2][2] = 750
         scoresposxy[1][3] = 0.8
         scoresposxy[2][3] = 0.8
       end
