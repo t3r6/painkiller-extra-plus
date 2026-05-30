@@ -324,7 +324,7 @@ function Game:DisableProPlus()
 end
 --==============================================================
 function Game:GivePCFWeapons(entity)
-	for i,wname in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last
+	for i,wname in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last in this list
 		Templates[wname..".CItem"].TakeFX(entity,999,999)
 	end
 end
