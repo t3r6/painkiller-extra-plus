@@ -195,7 +195,7 @@ if(not Hud) then return end
         if(Cfg.MapView)then
         	self:DrawMapview() 
         end
-        if MPCfg.GameMode ~= "Clan Arena" then
+        if MPCfg.GameMode ~= "Clan Arena" and Cfg.HUD_Scores then
           getplayerentity = ps._Entity
           Hud:DrawScores(ps.ClientID)
         end
