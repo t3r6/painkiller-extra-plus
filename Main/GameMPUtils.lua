@@ -332,6 +332,7 @@ end
 function Game:SetPCFWeapons(state)
 	if Game:IsServer() then
 		Cfg.PCFWeapons = state
+		if state then Game.NoAmmoLoss = true end
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
 		if MPCfg.GameMode == "People Can Fly" then
 			for i,o in Game.Players do
