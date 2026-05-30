@@ -1059,7 +1059,7 @@ function CPlayer:ClientRender(delta)
         self.Ammo.HeaterBomb   = 666        
     end
 
-    if MPCfg.GameMode == "People Can Fly" then
+    if MPCfg.GameMode == "People Can Fly" and Game.GMode ~= GModes.MultiplayerClient then
         if MPCfg.PCFWeapons then
             for i, weapon in ipairs({"Shotgun","IceBullets","Stakes","Grenades","MiniGun","Shurikens","Electro","Rifle","FlameThrower","Bolt","HeaterBomb"}) do
                 self.Ammo[weapon] = 999
@@ -1073,7 +1073,7 @@ function CPlayer:ClientRender(delta)
       self.Ammo.MiniGun = 0
       self.Ammo.Stakes = 999
     end
-    
+
     if Game.Active then
         if not self._died and not self.Visible then
             local cw = self:GetCurWeapon()
