@@ -166,12 +166,12 @@ function Hud:DrawScores(clientid)
     end
   elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
     if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-      scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
+      scoresposxy = { {544, 720, 0.8}, {480, 720, 0.8} }
     else
-      scoresposxy = { {62, 140, 0.8}, {126, 140, 0.8} }
+      scoresposxy = { {480, 720, 0.8}, {544, 720, 0.8} }
     end
   else
-    scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
+    scoresposxy = { {544, 720, 0.8}, {480, 720, 0.8} }
   end
   local scsizehud = scoresposxy[1][3]
   if Player and Cfg.PositioningSystem == 1 then
@@ -269,24 +269,12 @@ function Hud:DrawScores(clientid)
         end
       end
       if INP.Key(Keys.Num0) == 1 then
-        scoresposxy[1][1] = 974
-        scoresposxy[2][1] = 974
-        scoresposxy[1][3] = 1
-        scoresposxy[2][3] = 1
-        if playerteam == 0 and MPGameRules[MPCfg.GameMode].Teams then
-          scoresposxy[1][2] = 733
-          scoresposxy[2][2] = 683
-        elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
-          scoresposxy[1][2] = 683
-          scoresposxy[2][2] = 733
-          if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-            scoresposxy[1][2] = 733
-            scoresposxy[2][2] = 683
-          end
-        else
-          scoresposxy[1][2] = 733
-          scoresposxy[2][2] = 683
-        end
+        scoresposxy[1][1] = 544
+        scoresposxy[2][1] = 480
+        scoresposxy[1][2] = 720
+        scoresposxy[2][2] = 720
+        scoresposxy[1][3] = 0.8
+        scoresposxy[2][3] = 0.8
       end
       if INP.Key(Keys.NumMultiply) == 1 then
         if scoresposxysav[1][1] == 0 and scoresposxysav[1][2] == 0 and scoresposxysav[2][1] == 0 and scoresposxysav[2][2] == 0 then
