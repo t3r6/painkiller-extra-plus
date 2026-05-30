@@ -223,7 +223,8 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         end
 
 	if(Cfg.ProPlus) then Game:EnableProPlus() else Game:DisableProPlus() end
-	
+	MPCfg.PCFWeapons = Cfg.PCFWeapons
+
         MPCfg.GameState = MPGameRules[Cfg.GameMode].StartState        
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
@@ -1347,7 +1348,7 @@ function Game:PlayerRespawnRequest(clientID)
             for i,o in {"IShotgunFZ","IStakeGunGL","IDriverElectro","IRifleFlameThrower","IBoltGunHeater","IMiniGunRL"} do -- MiniGunRL takes precedence on dedicated if last
                 Templates[o..".CItem"].TakeFX(player._Entity,999,999)
             end
-            -- RawCallMethod(CPlayer.WeaponChangeConfirmation,player._Entity,4) -- MiniGunRL takes precedence on local server
+            RawCallMethod(CPlayer.WeaponChangeConfirmation,player._Entity,4) -- MiniGunRL takes precedence on local server
         end
 
         -- telefrag ?
