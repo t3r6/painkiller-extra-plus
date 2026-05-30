@@ -341,6 +341,7 @@ function Game:SetPCFWeapons(state)
 				end
 			end
 		end
+		Console:Cmd_FORCERESPAWN()
 	end
 	if MPCfg.PCFWeapons ~= state then
 		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
