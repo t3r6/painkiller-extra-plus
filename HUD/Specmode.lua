@@ -140,6 +140,17 @@ function PSpectatorControler:Delete()
     end
 end
 --============================================================================
+function PSpectatorControler:LeaderPlayer(tab)
+    local bestIdx, bestScore
+    for i,o in tab do
+        if o.Spectator == 0 and (not bestScore or o.Score > bestScore) then
+            bestIdx = i
+            bestScore = o.Score
+        end
+    end
+    return bestIdx
+end
+--============================================================================
 function PSpectatorControler:NextPlayer(tab,idx)
     local getnext
     for i,o in tab do
@@ -601,7 +612,11 @@ function PSpectatorControler:CameraModeSwitch()
     if INP.Action(Actions.Fire) then
         if not self._fire then
             Game:Print(self.player)
-            self.player = self:NextPlayer(Game.PlayerStats, self.player)
+            if self.player == -1 then
+                self.player = self:LeaderPlayer(Game.PlayerStats)
+            else
+                self.player = self:NextPlayer(Game.PlayerStats, self.player)
+            end
             if MPCfg.GameMode == "Clan Arena" and MPCfg.GameState ~= GameStates.WarmUp then
               for i, psc in Game.PlayerStats, nil do
                 if psc.ClientID ~= 255 then
@@ -666,7 +681,7 @@ function PSpectatorControler:CameraModeSwitch()
 	    self:SnapCamToPlayer()
 	    self.player = -1
 	elseif self.player == -1 then
-	    self.player = self:NextPlayer(Game.PlayerStats, self.player)
+	    self.player = self:LeaderPlayer(Game.PlayerStats)
 	    if not self.player then
 	        self.player = -1
 	        if INP.Action(Actions.NextWeapon) then
