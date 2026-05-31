@@ -2,7 +2,7 @@
 PSpectatorControler.player = -1
 o.angX = 0
 o.angY = 0
-o.mode = 1
+o.mode = 0
 o._entCam = nil
 o._lastCamPos = Vector:New(0,0,0)
 o._currentCamPos = Vector:New(0,0,0)
@@ -590,6 +590,12 @@ function PSpectatorControler:CameraModeSwitch()
             end
             if not self.player then self.player = -1 end
             Game:Print(self.player)
+            if self.mode == CameraStates.Float or self.mode == CameraStates.Ghost then
+                if self.mode == CameraStates.Ghost then
+                    ENTITY.PO_Enable(self._entCam,true)
+                end
+                self.mode = CameraStates.InEyes
+            end
         end
         self._fire = true
     else
@@ -602,6 +608,7 @@ function PSpectatorControler:CameraModeSwitch()
                 ENTITY.PO_Enable(self._entCam,true)
             end
             self.mode = CameraStates.Float
+            self.player = -1
         end
         self._altfire = true
         for i,o in Game.PlayerStats do
