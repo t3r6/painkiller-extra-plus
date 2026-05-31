@@ -635,7 +635,13 @@ function PSpectatorControler:CameraModeSwitch()
 	else
 	    ENTITY.PO_Enable(self._entCam,true)
 	end
-    end  
+	if self.mode == CameraStates.Float or self.mode == CameraStates.Ghost then
+	    self.player = -1
+	elseif self.player == -1 then
+	    self.player = self:NextPlayer(Game.PlayerStats, self.player)
+	    if not self.player then self.player = -1 end
+	end
+    end
   end
 end
 --============================================================================
