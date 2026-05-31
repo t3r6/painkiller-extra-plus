@@ -32,7 +32,8 @@ CameraStates =
     Static  = 3,
     Follow = 4,
     Auto = 5,
-    Mapview = 6
+    Ghost = 6,
+    Mapview = 7
 }
 
 --Inherit(PSpectatorControler,CProcess)
@@ -173,6 +174,7 @@ if(not Hud) then return end
         if(self.mode==3)then cameramode = "STATICCAM" end
         if(self.mode==4)then cameramode = "FOLLOWCAM" end
         if(self.mode==5)then cameramode = "AUTOCAM" end
+        if(self.mode==6)then cameramode = "GHOSTCAM" end
         end
         local cmfont = "Impact"
         local cmr, cmg, cmb = 255, 255, 255
@@ -320,6 +322,36 @@ function PSpectatorControler:Float()
         CAM.SetPos(destPos.X,destPos.Y,destPos.Z)
         self._desiredCamPos:Set(destPos.X,destPos.Y,destPos.Z)
         end
+end
+--============================================================================
+function PSpectatorControler:Ghost(delta)
+    if not MOUSE.IsLocked() then return end
+    local dx,dy = MOUSE.GetDelta()
+    if Cfg.InvertMouse then dy = -dy end
+
+    local ax,ay,az = CAM.GetAng()
+    ax = ax + dx
+    ay = ay + dy
+    if ay > 80  then ay = 80  end
+    if ay < -80 then ay = -80 end
+    CAM.SetAng(ax,ay,az)
+    self._desiredCamAng:Set(ax,ay,az)
+
+    local ox,oy,oz = CAM.GetPos()
+    local move = Vector:New(0,0,0)
+    if INP.Action(Actions.Forward)  then local x,y,z = CAM.GetForwardVector() move:Add(x,y,z) end
+    if INP.Action(Actions.Backward) then local x,y,z = CAM.GetForwardVector() move:Sub(x,y,z) end
+    if INP.Action(Actions.Right)    then local x,y,z = CAM.GetRightVector()   move:Add(x,y,z) end
+    if INP.Action(Actions.Left)     then local x,y,z = CAM.GetRightVector()   move:Sub(x,y,z) end
+    move:Normalize()
+
+    local nx = ox + move.X * 15 * delta
+    local ny = oy + move.Y * 15 * delta
+    local nz = oz + move.Z * 15 * delta
+    ENTITY.SetPosition(self._entCam,nx,ny,nz)
+    CAM.SetPos(nx,ny,nz)
+    self._lastCamPos:Set(nx,ny,nz)
+    self._desiredCamPos:Set(nx,ny,nz)
 end
 --============================================================================
 function PSpectatorControler:InEyes() 
@@ -484,6 +516,8 @@ end
 function PSpectatorControler:Tick3(delta)   
     if MPCfg.GameMode == "Clan Arena" then
 	self:InEyes()
+    elseif self.mode == CameraStates.Ghost then
+	self:Ghost(delta)
     elseif self.mode == CameraStates.InEyes then
 	self:InEyes()
 	--self:InterpolatePosition()
@@ -560,6 +594,9 @@ function PSpectatorControler:CameraModeSwitch()
   if MPCfg.GameMode ~= "Clan Arena" then
     if INP.Action(Actions.AltFire) then
         if not self._altfire then
+            if self.mode == CameraStates.Ghost then
+                ENTITY.PO_Enable(self._entCam,true)
+            end
             self.mode = CameraStates.Float
         end
         self._altfire = true
@@ -570,21 +607,23 @@ function PSpectatorControler:CameraModeSwitch()
         self._altfire = nil
     end
 
-    
+
     if INP.Action(Actions.NextWeapon) then
 	self.mode = self.mode + 1
-	GObjects:ToKill(Game._procStats) 
-	Game._procStats = nil
-	MPSTATS.Hide()
-	if(self.mode>5)then self.mode=0 end
-    end
-    
-    if INP.Action(Actions.PrevWeapon) then
+	if(self.mode>6)then self.mode=0 end
+    elseif INP.Action(Actions.PrevWeapon) then
 	self.mode = self.mode - 1
-	GObjects:ToKill(Game._procStats) 
+	if(self.mode<0)then self.mode=6 end
+    end
+    if INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon) then
+	GObjects:ToKill(Game._procStats)
 	Game._procStats = nil
 	MPSTATS.Hide()
-	if(self.mode<0)then self.mode=5 end
+	if self.mode == CameraStates.Ghost then
+	    ENTITY.PO_Enable(self._entCam,false)
+	else
+	    ENTITY.PO_Enable(self._entCam,true)
+	end
     end  
   end
 end
