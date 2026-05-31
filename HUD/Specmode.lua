@@ -388,10 +388,11 @@ function PSpectatorControler:InEyes()
 	end
 end
 --============================================================================
-function PSpectatorControler:Pivot() 
-    if not MOUSE.IsLocked() then return end 
+function PSpectatorControler:Pivot()
+    if not MOUSE.IsLocked() then return end
     local dx,dy = MOUSE.GetDelta()
-    if Cfg.InvertMouse then dy = - dy end
+    dx = -dx
+    if not Cfg.InvertMouse then dy = -dy end
     local ps = Game.PlayerStats[self.player]
     if ps and ps._Entity and ps._Entity ~=0 and ps.Spectator == 0 and ps._animproc then  
 	self:SetPlayerVisibility(ps._Entity,true,ps._animproc.State)
