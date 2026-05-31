@@ -549,6 +549,17 @@ function PSpectatorControler:Tick3(delta)
 	--self:InterpolatePosition()  
 	--self:InterpolateAngle()  
     end
+    if not FreeCamModes[self.mode] and self.player ~= -1 then
+        local ps = Game.PlayerStats[self.player]
+        if not ps or ps.Spectator ~= 0 then
+            self.player = self:NextPlayer(Game.PlayerStats, self.player)
+            if not self.player then
+                self.player = -1
+                self.mode = CameraStates.Float
+                ENTITY.PO_Enable(self._entCam,true)
+            end
+        end
+    end
     self:CameraModeSwitch()
     self:ForceSpecCheck()
     
@@ -642,7 +653,15 @@ function PSpectatorControler:CameraModeSwitch()
 	    self.player = -1
 	elseif self.player == -1 then
 	    self.player = self:NextPlayer(Game.PlayerStats, self.player)
-	    if not self.player then self.player = -1 end
+	    if not self.player then
+	        self.player = -1
+	        if INP.Action(Actions.NextWeapon) then
+	            self.mode = CameraStates.Ghost
+	            ENTITY.PO_Enable(self._entCam,false)
+	        else
+	            self.mode = CameraStates.Float
+	        end
+	    end
 	end
     end
   end
