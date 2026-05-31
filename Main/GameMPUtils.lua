@@ -340,7 +340,7 @@ function Game:SetPCFWeapons(state)
 			--		CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
 			--	end
 			--end
-			Console:Cmd_FORCERESPAWN() -- Respawn fixes the Painkiller weapon bug
+			Game:ForceRespawn() -- Respawn fixes the Painkiller weapon bug
 		end
 	end
 	if MPCfg.PCFWeapons ~= state then
@@ -439,7 +439,22 @@ function Game:RespawnAllPlayers()
     		if(ps.Spectator==0)then
 			Game:PlayerRespawnRequest(ps.ClientID)
 		end
-	end   
+	end
+end
+--=======================================================================
+function Game:ForceRespawn()
+	for i,o in Game.PlayerStats do
+		if o.Spectator == 0 then
+			local player = Game:FindPlayerByClientID(o.ClientID)
+			player._timeToRespawn = 0
+			player:FreeBlockedObjects()
+			ENTITY.Release(player._Entity)
+			if player._Entity then
+				EntityToObject[player._Entity] = nil
+				player._Entity = nil
+			end
+		end
+	end
 end
 --=======================================================================
 function Game:ResetAllSpectators()
