@@ -2414,7 +2414,8 @@ function Game_DemoLoadLevel(name)
 	Game:AfterWorldSynchronization(Lev.Map,Lev._Name) 
 	
 	-- FORCE SPEC
-	
+
+            GObjects:ToKill(Game._procSpec)
             Game._procSpec = GObjects:Add(TempObjName(),Templates["PSpectatorControler.CProcess"]:New())            
             Game._procSpec:Init()            
             if Game._procStats  then -- kasuje okienko statystki

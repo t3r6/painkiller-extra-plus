@@ -174,11 +174,15 @@ if(not Hud) then return end
         if(self.mode==4)then cameramode = "FOLLOWCAM" end
         if(self.mode==5)then cameramode = "AUTOCAM" end
         end
-        local cmx = (w/2-1.5*HUD.GetTextWidth(cameramode)/2)
+        local cmfont = "Impact"
+        local cmr, cmg, cmb = 255, 255, 255
+        if Cfg.HUD_HudStyle == 0 then cmfont = "timesbd" cmr, cmg, cmb = 230, 161, 97 end
+        HUD.SetFont(cmfont, 36)
+        local cmx = (w - HUD.GetTextWidth(cameramode)) / 2
         local cmy = h-28*h/480
-        
-        HUD.PrintXY(cmx+2,cmy+2,cameramode,"Impact",0,0,0,36)
-				HUD.PrintXY(cmx,cmy,cameramode,"Impact",160,160,160,36)
+
+        HUD.PrintXY(cmx+2,cmy+2,cameramode,cmfont,0,0,0,36)
+        HUD.PrintXY(cmx,cmy,cameramode,cmfont,cmr,cmg,cmb,36)
 
     if not (MPCfg.GameMode == "Last Man Standing" and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
         --HUD.PrintXY(w-HUD.GetTextWidth(Languages.Texts[726])-10*w/1024+1,h-30*h/768+1,Languages.Texts[726],"Impact",10,10,10,26*h/480)
