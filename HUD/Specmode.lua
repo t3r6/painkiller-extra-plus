@@ -575,6 +575,18 @@ function PSpectatorControler:Tick3(delta)
 
 end
 --============================================================================
+function PSpectatorControler:SnapCamToPlayer()
+    if self.player ~= -1 then
+        local ps = Game.PlayerStats[self.player]
+        if ps and ps._Entity and ps._Entity ~= 0 then
+            local x,y,z = ENTITY.GetPosition(ps._Entity)
+            ENTITY.SetPosition(self._entCam,x,y,z)
+            ENTITY.SetVelocity(self._entCam,0,0,0)
+            self._lastCamPos:Set(x,y,z)
+        end
+    end
+end
+--============================================================================
 function PSpectatorControler:CameraModeSwitch()
 
     --[[
@@ -622,6 +634,7 @@ function PSpectatorControler:CameraModeSwitch()
                 ENTITY.PO_Enable(self._entCam,true)
             end
             self.mode = CameraStates.Float
+            self:SnapCamToPlayer()
             self.player = -1
         end
         self._altfire = true
@@ -650,6 +663,7 @@ function PSpectatorControler:CameraModeSwitch()
 	    ENTITY.PO_Enable(self._entCam,true)
 	end
 	if FreeCamModes[self.mode] then
+	    self:SnapCamToPlayer()
 	    self.player = -1
 	elseif self.player == -1 then
 	    self.player = self:NextPlayer(Game.PlayerStats, self.player)
