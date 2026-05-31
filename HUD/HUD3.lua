@@ -166,12 +166,12 @@ function Hud:DrawScores(clientid)
     end
   elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
     if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-      scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
+      scoresposxy = { Cfg.HUD_Scores_A_Setting, Cfg.HUD_Scores_B_Setting }
     else
-      scoresposxy = { {62, 140, 0.8}, {126, 140, 0.8} }
+      scoresposxy = { Cfg.HUD_Scores_B_Setting, Cfg.HUD_Scores_A_Setting }
     end
   else
-    scoresposxy = { {126, 140, 0.8}, {62, 140, 0.8} }
+    scoresposxy = { Cfg.HUD_Scores_A_Setting, Cfg.HUD_Scores_B_Setting }
   end
   local scsizehud = scoresposxy[1][3]
   if Player and Cfg.PositioningSystem == 1 then
@@ -269,24 +269,12 @@ function Hud:DrawScores(clientid)
         end
       end
       if INP.Key(Keys.Num0) == 1 then
-        scoresposxy[1][1] = 974
-        scoresposxy[2][1] = 974
-        scoresposxy[1][3] = 1
-        scoresposxy[2][3] = 1
-        if playerteam == 0 and MPGameRules[MPCfg.GameMode].Teams then
-          scoresposxy[1][2] = 733
-          scoresposxy[2][2] = 683
-        elseif playerteam == 1 and MPGameRules[MPCfg.GameMode].Teams then
-          scoresposxy[1][2] = 683
-          scoresposxy[2][2] = 733
-          if not Cfg.FixedColors and NET.IsSpectator(NET.GetClientID()) == false then
-            scoresposxy[1][2] = 733
-            scoresposxy[2][2] = 683
-          end
-        else
-          scoresposxy[1][2] = 733
-          scoresposxy[2][2] = 683
-        end
+        scoresposxy[1][1] = 544
+        scoresposxy[2][1] = 480
+        scoresposxy[1][2] = 750
+        scoresposxy[2][2] = 750
+        scoresposxy[1][3] = 0.8
+        scoresposxy[2][3] = 0.8
       end
       if INP.Key(Keys.NumMultiply) == 1 then
         if scoresposxysav[1][1] == 0 and scoresposxysav[1][2] == 0 and scoresposxysav[2][1] == 0 and scoresposxysav[2][2] == 0 then
@@ -348,7 +336,7 @@ function Hud:DrawScores(clientid)
     scoresposxy[2][2] + 3
   }
   local cb = {0, 102, 255}
-  local cr = {255, 0, 0}
+  local cr = {200, 0, 0}
   if Cfg.BrightSkins and Cfg.HUD_Brightskins_Style then
     cb = {
       Game._ColorTeamB[1],
@@ -399,8 +387,8 @@ function Hud:DrawScores(clientid)
       alliedteam = "Enemy"
     end
   end
-  HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cb[1], cb[2], cb[3], 100)
-  HUD.DrawQuadRGBA(nil, (1024 - scposxy2[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cr[1], cr[2], cr[3], 100)
+  HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cb[1], cb[2], cb[3], 50)
+  HUD.DrawQuadRGBA(nil, (1024 - scposxy2[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cr[1], cr[2], cr[3], 50)
   if MPGameRules[MPCfg.GameMode].Teams then
     if gteam1Score < 0 then
       Hud:QuadTrans(matminus, (1024 - (scposxy1[3] + scx) - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[5] - 50 * scsizehud / 2) * h / 768, scsizehud * 1.4, false, 255)
@@ -424,10 +412,10 @@ function Hud:DrawScores(clientid)
       Hud:DrawDigitsText1((1024 - scposxy2[4] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy2[2] - 50 * scsizehud / 2) * h / 768, string.format("%3d", bestenemyscore), 0.9 * scsizehud, nil, colord[1], colord[2], colord[3], 255)
     end
   end
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
-  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2 + 77 * scsizehud) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 255)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] + 47 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
+  HUD.DrawQuadRGBA(nil, (1024 - markframe[3] - 80 * scsizehud / 2 + 77 * scsizehud) * w / 1024, (768 - markframe[1] - 50 * scsizehud / 2) * h / 768, 3 * scsizehud * w / 1024, 50 * scsizehud * h / 768, cmarframe[1], cmarframe[2], cmarframe[3], 160)
   if spressthiskey == true then
     if Cfg.HUD_Scores_Frame == 1 then
       HUD.DrawQuadRGBA(nil, (1024 - scposxy1[3] - 80 * scsizehud / 2) * w / 1024, (768 - scposxy1[1] + 23.5 * scsizehud - 50 * scsizehud / 2) * h / 768, 80 * scsizehud * w / 1024, 3 * scsizehud * h / 768, 0, 255, 0, 255)
