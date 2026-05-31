@@ -24,7 +24,7 @@ o.cameraposition = Vector:New(0,0,0)
 o.goodstatic = 0
 o.autoineyes = 0
 
-CameraStates = 
+CameraStates =
 {
     Float = 0,
     InEyes   = 1,
@@ -35,6 +35,8 @@ CameraStates =
     Ghost = 6,
     Mapview = 7
 }
+
+FreeCamModes = { [CameraStates.Float]=true, [CameraStates.Ghost]=true }
 
 --Inherit(PSpectatorControler,CProcess)
 --============================================================================
@@ -590,7 +592,7 @@ function PSpectatorControler:CameraModeSwitch()
             end
             if not self.player then self.player = -1 end
             Game:Print(self.player)
-            if self.mode == CameraStates.Float or self.mode == CameraStates.Ghost then
+            if FreeCamModes[self.mode] then
                 if self.mode == CameraStates.Ghost then
                     ENTITY.PO_Enable(self._entCam,true)
                 end
@@ -635,7 +637,7 @@ function PSpectatorControler:CameraModeSwitch()
 	else
 	    ENTITY.PO_Enable(self._entCam,true)
 	end
-	if self.mode == CameraStates.Float or self.mode == CameraStates.Ghost then
+	if FreeCamModes[self.mode] then
 	    self.player = -1
 	elseif self.player == -1 then
 	    self.player = self:NextPlayer(Game.PlayerStats, self.player)
