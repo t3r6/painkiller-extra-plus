@@ -27,12 +27,13 @@ o.autoineyes = 0
 CameraStates = 
 {
     Float = 0,
-    InEyes   = 1,
-    Pivot = 2,
-    Static  = 3,
-    Follow = 4,
-    Auto = 5,
-    Mapview = 6
+    Ghost = 1,
+    InEyes   = 2,
+    Pivot = 3,
+    Static  = 4,
+    Follow = 5,
+    Auto = 6,
+    Mapview = 7
 }
 
 --Inherit(PSpectatorControler,CProcess)
@@ -168,11 +169,12 @@ if(not Hud) then return end
           cameramode = "EYECAM"
         else
         if(self.mode==0)then cameramode = "FLOATCAM" end
-        if(self.mode==1)then cameramode = "EYECAM" end
-        if(self.mode==2)then cameramode = "PIVOTCAM" end
-        if(self.mode==3)then cameramode = "STATICCAM" end
-        if(self.mode==4)then cameramode = "FOLLOWCAM" end
-        if(self.mode==5)then cameramode = "AUTOCAM" end
+        if(self.mode==1)then cameramode = "GHOSTCAM" end
+        if(self.mode==2)then cameramode = "EYECAM" end
+        if(self.mode==3)then cameramode = "PIVOTCAM" end
+        if(self.mode==4)then cameramode = "STATICCAM" end
+        if(self.mode==5)then cameramode = "FOLLOWCAM" end
+        if(self.mode==6)then cameramode = "AUTOCAM" end
         end
         local cmfont = "Impact"
         local cmr, cmg, cmb = 255, 255, 255
@@ -320,6 +322,10 @@ function PSpectatorControler:Float()
         CAM.SetPos(destPos.X,destPos.Y,destPos.Z)
         self._desiredCamPos:Set(destPos.X,destPos.Y,destPos.Z)
         end
+end
+--============================================================================
+function PSpectatorControler:Ghost()
+    self:Float()
 end
 --============================================================================
 function PSpectatorControler:InEyes() 
@@ -484,6 +490,8 @@ end
 function PSpectatorControler:Tick3(delta)   
     if MPCfg.GameMode == "Clan Arena" then
 	self:InEyes()
+    elseif self.mode == CameraStates.Ghost then
+	self:Ghost()
     elseif self.mode == CameraStates.InEyes then
 	self:InEyes()
 	--self:InterpolatePosition()
@@ -560,6 +568,9 @@ function PSpectatorControler:CameraModeSwitch()
   if MPCfg.GameMode ~= "Clan Arena" then
     if INP.Action(Actions.AltFire) then
         if not self._altfire then
+            if self.mode == CameraStates.Ghost then
+                ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.InsideItems)
+            end
             self.mode = CameraStates.Float
         end
         self._altfire = true
@@ -570,21 +581,23 @@ function PSpectatorControler:CameraModeSwitch()
         self._altfire = nil
     end
 
-    
+
     if INP.Action(Actions.NextWeapon) then
 	self.mode = self.mode + 1
-	GObjects:ToKill(Game._procStats) 
-	Game._procStats = nil
-	MPSTATS.Hide()
-	if(self.mode>5)then self.mode=0 end
-    end
-    
-    if INP.Action(Actions.PrevWeapon) then
+	if(self.mode>6)then self.mode=0 end
+    elseif INP.Action(Actions.PrevWeapon) then
 	self.mode = self.mode - 1
-	GObjects:ToKill(Game._procStats) 
+	if(self.mode<0)then self.mode=6 end
+    end
+    if INP.Action(Actions.NextWeapon) or INP.Action(Actions.PrevWeapon) then
+	GObjects:ToKill(Game._procStats)
 	Game._procStats = nil
 	MPSTATS.Hide()
-	if(self.mode<0)then self.mode=5 end
+	if self.mode == CameraStates.Ghost then
+	    ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.Noncolliding)
+	else
+	    ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.InsideItems)
+	end
     end  
   end
 end
