@@ -100,7 +100,7 @@ function Hud:DrawScores(clientid)
   local scplayer2 = 0
   local scorelist = {}
   local spressthiskey = false
-  bestenemyscore = 0
+  bestenemyscore = nil
   for i, psc in Game.PlayerStats, nil do
     checkifenemy = psc.ClientID
     if psc.Spectator == 0 then
@@ -114,10 +114,11 @@ function Hud:DrawScores(clientid)
   end
   for ig, ni in scorelist, nil do
     checksc = scorelist[ig]
-    if checksc > bestenemyscore then
+    if bestenemyscore == nil or checksc > bestenemyscore then
       bestenemyscore = scorelist[ig]
     end
   end
+  if bestenemyscore == nil then bestenemyscore = 0 end
   if Cfg.HUD_HudStyle == 0 then
     matminus = Hud._matMinusDef
   else
@@ -316,7 +317,7 @@ function Hud:DrawScores(clientid)
     scoresposxy[1][1] = 974
     scoresposxy[2][1] = 974
   end
-  if gteam1Score < -9 or gteam2Score < -9 or scplayer1 < -9 or scplayer2 < -9 then
+  if gteam1Score < -9 or gteam2Score < -9 or scplayer1 < -9 or scplayer2 < -9 or bestenemyscore < -9 then
     scx = 1 * scsizehud
   else
     scx = -17 * scsizehud
