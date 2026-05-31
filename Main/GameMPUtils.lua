@@ -341,7 +341,7 @@ function Game:SetPCFWeapons(state)
 			--		CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
 			--	end
 			--end
-			Game:ForceRespawn() -- Respawn fixes the Painkiller weapon bug
+			Game:ForceRespawn() -- Respawn fixes the weapon bugs
 		end
 	end
 	if MPCfg.PCFWeapons ~= state then
