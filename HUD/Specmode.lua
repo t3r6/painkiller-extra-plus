@@ -27,12 +27,12 @@ o.autoineyes = 0
 CameraStates = 
 {
     Float = 0,
-    Ghost = 1,
-    InEyes   = 2,
-    Pivot = 3,
-    Static  = 4,
-    Follow = 5,
-    Auto = 6,
+    InEyes   = 1,
+    Pivot = 2,
+    Static  = 3,
+    Follow = 4,
+    Auto = 5,
+    Ghost = 6,
     Mapview = 7
 }
 
@@ -169,12 +169,12 @@ if(not Hud) then return end
           cameramode = "EYECAM"
         else
         if(self.mode==0)then cameramode = "FLOATCAM" end
-        if(self.mode==1)then cameramode = "GHOSTCAM" end
-        if(self.mode==2)then cameramode = "EYECAM" end
-        if(self.mode==3)then cameramode = "PIVOTCAM" end
-        if(self.mode==4)then cameramode = "STATICCAM" end
-        if(self.mode==5)then cameramode = "FOLLOWCAM" end
-        if(self.mode==6)then cameramode = "AUTOCAM" end
+        if(self.mode==1)then cameramode = "EYECAM" end
+        if(self.mode==2)then cameramode = "PIVOTCAM" end
+        if(self.mode==3)then cameramode = "STATICCAM" end
+        if(self.mode==4)then cameramode = "FOLLOWCAM" end
+        if(self.mode==5)then cameramode = "AUTOCAM" end
+        if(self.mode==6)then cameramode = "GHOSTCAM" end
         end
         local cmfont = "Impact"
         local cmr, cmg, cmb = 255, 255, 255
