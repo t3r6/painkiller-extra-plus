@@ -199,9 +199,39 @@ if(not Hud) then return end
         HUD.PrintXY(cmx+2,cmy+2,cameramode,cmfont,0,0,0,36)
         HUD.PrintXY(cmx,cmy,cameramode,cmfont,cmr,cmg,cmb,36)
 
-    if not (MPCfg.GameMode == "Last Man Standing" and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
-        --HUD.PrintXY(w-HUD.GetTextWidth(Languages.Texts[726])-10*w/1024+1,h-30*h/768+1,Languages.Texts[726],"Impact",10,10,10,26*h/480)
-        --HUD.PrintXY(w-HUD.GetTextWidth(Languages.Texts[726])-10*w/1024,h-30*h/768,Languages.Texts[726],"Impact",230,161,97,26*h/480)
+    if Cfg.HUD_Show_Spec_Help and FreeCamModes[self.mode] then
+        if MPCfg.GameMode ~= "Clan Arena" and not (MPCfg.GameMode == "Last Man Standing" and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
+            local fsize = 10*h/480
+            local r, g, b = 255, 255, 255
+            local font = "Impact"
+            if Cfg.HUD_HudStyle == 0 then
+                r, g, b = 230, 161, 97
+                font = "timesbd"
+            end
+            HUD.SetFont(font, fsize)
+            local margin = 5*w/1024
+            local leftHints  = { Languages.Texts[724], Languages.Texts[732] }
+            local rightHints = { Languages.Texts[725], Languages.Texts[726] }
+            local startY = h - 3*fsize
+            local lift   = 0.3*fsize
+
+            local by = startY
+            for i,txt in ipairs(leftHints) do
+                local y = (i == 1) and (by - lift) or by
+                HUD.PrintXY(margin+1, y+1, txt, font, 0, 0, 0, fsize)
+                HUD.PrintXY(margin,   y,   txt, font, r, g, b, fsize)
+                by = by + fsize
+            end
+
+            by = startY
+            for i,txt in ipairs(rightHints) do
+                local tx = w - HUD.GetTextWidth(txt) - margin
+                local y  = (i == 1) and (by - lift) or by
+                HUD.PrintXY(tx+1, y+1, txt, font, 0, 0, 0, fsize)
+                HUD.PrintXY(tx,   y,   txt, font, r, g, b, fsize)
+                by = by + fsize
+            end
+        end
     end
 
     local ps = Game.PlayerStats[self.player]
