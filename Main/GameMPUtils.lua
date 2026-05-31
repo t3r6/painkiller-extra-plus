@@ -334,13 +334,14 @@ function Game:SetPCFWeapons(state)
 		Cfg.PCFWeapons = state
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
 		if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons ~= state then -- Menu TakeFX sound fix
-			for i,o in Game.Players do
-				if not o._died then
-					if state then Game:GivePCFWeapons(o._Entity) end -- known bug: Painkiller weapon is not allocated when changing PCFWeapons in middle of a match (the state resets after death)
-					CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
-				end
-			end
-			Console:Cmd_FORCERESPAWN() -- Respawn fixes the Painkiller weapon bug
+			-- This logic is no longer needed after the introduction of ForceRespawn
+			--for i,o in Game.Players do
+			--	if not o._died then
+			--		if state then Game:GivePCFWeapons(o._Entity) end -- known bug: Painkiller weapon is not allocated when changing PCFWeapons in middle of a match (the state resets after death)
+			--		CPlayer.WeaponChangeConfirmation(o.ClientID, o._Entity, 4)
+			--	end
+			--end
+			Game:ForceRespawn() -- Respawn fixes weapon bugs
 		end
 	end
 	if MPCfg.PCFWeapons ~= state then
@@ -439,7 +440,22 @@ function Game:RespawnAllPlayers()
     		if(ps.Spectator==0)then
 			Game:PlayerRespawnRequest(ps.ClientID)
 		end
-	end   
+	end
+end
+--=======================================================================
+function Game:ForceRespawn()
+	for i,o in Game.PlayerStats do
+		if o.Spectator == 0 then
+			local player = Game:FindPlayerByClientID(o.ClientID)
+			player._timeToRespawn = 0
+			player:FreeBlockedObjects()
+			ENTITY.Release(player._Entity)
+			if player._Entity then
+				EntityToObject[player._Entity] = nil
+				player._Entity = nil
+			end
+		end
+	end
 end
 --=======================================================================
 function Game:ResetAllSpectators()
