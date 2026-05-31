@@ -334,6 +334,7 @@ function Game:SetPCFWeapons(state)
 		Cfg.PCFWeapons = state
 		Game:Server2ClientCommand(0, state and "enablepcfweaponsall" or "disenablepcfweaponsall")
 		if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons ~= state then -- Menu TakeFX sound fix
+			-- This logic no longer needs after introduction of ForceRespawn
 			--for i,o in Game.Players do
 			--	if not o._died then
 			--		if state then Game:GivePCFWeapons(o._Entity) end -- known bug: Painkiller weapon is not allocated when changing PCFWeapons in middle of a match (the state resets after death)
