@@ -228,7 +228,7 @@ function Game:AfterWorldSynchronization(mapName,levelName)
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
         Game.SetTimeLimit(Cfg.TimeLimit,0,Cfg.WarmUpTime)                
-        Game.VooshCurWeapon = math.random(1,5)        
+        Game.VooshCurWeapon = math.random(1,7)
         GAMESPY.SetGameMode(2)        
     else
         -- reset ping
@@ -611,7 +611,7 @@ function Game:OnMultiplayerServerTick(delta)
                 self.VooshTick = 0            
                 local w = Game.VooshCurWeapon
                 while w == Game.VooshCurWeapon do
-                    Game.VooshCurWeapon = math.random(1,5)
+                    Game.VooshCurWeapon = math.random(1,7)
                 end                
                 for i,o in self.Players do                
                     if not o._died then
