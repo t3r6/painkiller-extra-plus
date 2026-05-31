@@ -669,6 +669,7 @@ Cfg =
     HUD_Show_Spec_Item_Timers = 4,
     HUD_Spec_Item_Timers_Size = 40,
     HUD_Spec_Item_Timers_Side = 1, -- left/right
+    HUD_Spec_Cam_Label_Timeout = 5,
 
     Overtime = 0,  -- default "2"
     DuelQueue = true,
@@ -1035,6 +1036,7 @@ function Cfg:Check()
 	Cfg.StartupWeapon = Cfg:CheckVar(Cfg.StartupWeapon,"n",0,7,0)
 	Cfg.WarmUpTime = Cfg:CheckVar(Cfg.WarmUpTime,"n",0,999,14.99)
 	Cfg.HUD_Show_Spec_Help = Cfg:CheckVar(Cfg.HUD_Show_Spec_Help,"b")
+	Cfg.HUD_Spec_Cam_Label_Timeout = Cfg:CheckVar(Cfg.HUD_Spec_Cam_Label_Timeout,"n",0,9999,5)
 	if type(Cfg.HUD_Show_Spec_Item_Timers) ~= "table" then
 		Cfg.HUD_Show_Spec_Item_Timers = Cfg:CheckVar(Cfg.HUD_Show_Spec_Item_Timers,"n",0,6,4)
 	end

@@ -23,6 +23,8 @@ o.autocameramode= 0
 o.cameraposition = Vector:New(0,0,0)
 o.goodstatic = 0
 o.autoineyes = 0
+o._camModeLabelTimer = Cfg.HUD_Spec_Cam_Label_Timeout
+o._camLastMode = nil
 
 CameraStates =
 {
@@ -176,30 +178,45 @@ if(not Hud) then return end
 	local w,h = R3D.ScreenSize()
 	
 	if Cfg.DisableHud then return end
-	
-        local cameramode = "FLOATCAM"
-        if MPCfg.GameMode == "Clan Arena" then
-          cameramode = "EYECAM"
-        else
-        if(self.mode==0)then cameramode = "FLOATCAM" end
-        if(self.mode==1)then cameramode = "EYECAM" end
-        if(self.mode==2)then cameramode = "PIVOTCAM" end
-        if(self.mode==3)then cameramode = "STATICCAM" end
-        if(self.mode==4)then cameramode = "FOLLOWCAM" end
-        if(self.mode==5)then cameramode = "AUTOCAM" end
-        if(self.mode==6)then cameramode = "GHOSTCAM" end
+
+        -- Detect mode change → restart label timer
+        if self._camLastMode ~= self.mode then
+            self._camLastMode = self.mode
+            self._camModeLabelTimer = Cfg.HUD_Spec_Cam_Label_Timeout
         end
-        local cmfont = "Impact"
-        local cmr, cmg, cmb = 255, 255, 255
-        if Cfg.HUD_HudStyle == 0 then cmfont = "timesbd" cmr, cmg, cmb = 230, 161, 97 end
-        HUD.SetFont(cmfont, 36)
-        local cmx = (w - HUD.GetTextWidth(cameramode)) / 2
-        local cmy = h-28*h/480
 
-        HUD.PrintXY(cmx+2,cmy+2,cameramode,cmfont,0,0,0,36)
-        HUD.PrintXY(cmx,cmy,cameramode,cmfont,cmr,cmg,cmb,36)
+        -- Decrement once per frame, regardless of what's drawn
+        if self._camModeLabelTimer and self._camModeLabelTimer > 0 then
+            self._camModeLabelTimer = self._camModeLabelTimer - delta
+        end
 
-    if Cfg.HUD_Show_Spec_Help and FreeCamModes[self.mode] then
+        -- Render camera mode label only while timer is active
+        if self._camModeLabelTimer and self._camModeLabelTimer > 0 then
+            local cameramode = "FLOATCAM"
+            if MPCfg.GameMode == "Clan Arena" then
+              cameramode = "EYECAM"
+            else
+            if(self.mode==0)then cameramode = "FLOATCAM" end
+            if(self.mode==1)then cameramode = "EYECAM" end
+            if(self.mode==2)then cameramode = "PIVOTCAM" end
+            if(self.mode==3)then cameramode = "STATICCAM" end
+            if(self.mode==4)then cameramode = "FOLLOWCAM" end
+            if(self.mode==5)then cameramode = "AUTOCAM" end
+            if(self.mode==6)then cameramode = "GHOSTCAM" end
+            end
+            local cmfont = "Impact"
+            local cmr, cmg, cmb = 255, 255, 255
+            if Cfg.HUD_HudStyle == 0 then cmfont = "timesbd" cmr, cmg, cmb = 230, 161, 97 end
+            HUD.SetFont(cmfont, 36)
+            local cmx = (w - HUD.GetTextWidth(cameramode)) / 2
+            local cmy = h-28*h/480
+
+            HUD.PrintXY(cmx+2,cmy+2,cameramode,cmfont,0,0,0,36)
+            HUD.PrintXY(cmx,cmy,cameramode,cmfont,cmr,cmg,cmb,36)
+
+        end
+
+    if self._camModeLabelTimer and self._camModeLabelTimer > 0 and Cfg.HUD_Show_Spec_Help and FreeCamModes[self.mode] then
         if MPCfg.GameMode ~= "Clan Arena" and not (MPCfg.GameMode == "Last Man Standing" and (MPCfg.GameState == GameStates.Playing or MPCfg.GameState == GameStates.Finished)) then
             local fsize = 10*h/480
             local r, g, b = 255, 255, 255
