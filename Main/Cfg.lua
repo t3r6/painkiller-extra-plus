@@ -269,6 +269,7 @@ Cfg =
     CameraInterpolation = true, -- only for MP client
     CameraInterpolatePosition = false, -- PK++
     CameraInterpolateAngle = false, -- PK++
+    CameraSpecSpeed = 15, -- spectator float/ghost camera speed
     MaxFpsMP = 125,  --default "120"
     NetcodeStatsUpdateDelay = 1000,
     NetcodeStatsNumberToAverageFrom = 1,
