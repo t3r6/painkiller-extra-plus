@@ -43,6 +43,14 @@ function PSpectatorControler:New()
     return p
 end
 --============================================================================
+function PSpectatorControler:SetupCamPhysics(collisionGroup)
+    ENTITY.PO_Create(self._entCam,BodyTypes.Sphere,0.3,collisionGroup)
+    ENTITY.PO_EnableGravity(self._entCam,false)
+    ENTITY.PO_SetMovedByExplosions(self._entCam,false)
+    ENTITY.PO_HideFromPrediction(self._entCam)
+    ENTITY.PO_SetMissile(self._entCam,MPProjectileTypes.Spectator)
+end
+--============================================================================
 function PSpectatorControler:SetPlayerVisibility(e,enable,state)
     local propagate = state ~= 12 and state ~= 13 -- painhead always visible
     ENTITY.EnableDraw(e,enable,propagate)    
@@ -569,7 +577,7 @@ function PSpectatorControler:CameraModeSwitch()
     if INP.Action(Actions.AltFire) then
         if not self._altfire then
             if self.mode == CameraStates.Ghost then
-                ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.InsideItems)
+                self:SetupCamPhysics(ECollisionGroups.InsideItems)
             end
             self.mode = CameraStates.Float
         end
@@ -594,9 +602,9 @@ function PSpectatorControler:CameraModeSwitch()
 	Game._procStats = nil
 	MPSTATS.Hide()
 	if self.mode == CameraStates.Ghost then
-	    ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.Noncolliding)
+	    self:SetupCamPhysics(ECollisionGroups.Noncolliding)
 	else
-	    ENTITY.PO_SetCollisionGroup(self._entCam, ECollisionGroups.InsideItems)
+	    self:SetupCamPhysics(ECollisionGroups.InsideItems)
 	end
     end  
   end
