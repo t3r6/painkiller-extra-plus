@@ -477,7 +477,7 @@ function Game:ResetGameState()
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
         Game.SetTimeLimit(Cfg.TimeLimit,0,Cfg.WarmUpTime)                
-        Game.VooshCurWeapon = math.random(1,5)        
+        Game.VooshCurWeapon = math.random(1,7)
         GAMESPY.SetGameMode(2)  
 end
 --=======================================================================
@@ -590,7 +590,7 @@ function Game:MapRestart()
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
         Game.SetTimeLimit(Cfg.TimeLimit,0,Cfg.WarmUpTime)                
-        Game.VooshCurWeapon = math.random(1,5)        
+        Game.VooshCurWeapon = math.random(1,7)
         GAMESPY.SetGameMode(2)        
     else
         -- reset ping
@@ -652,7 +652,7 @@ function duff()
         if Cfg.NoWarmup then MPCfg.GameState = GameStates.Counting end
         Game.SetConfiguration(Cfg.AllowBrightskins, Cfg.GameMode, Cfg.FragLimit, Cfg.CaptureLimit, Cfg.LMSLives, Cfg.TeamDamage, Cfg.ClientConsoleLockdown)
         Game.SetTimeLimit(Cfg.TimeLimit,0,Cfg.WarmUpTime)                
-        Game.VooshCurWeapon = math.random(1,5)        
+        Game.VooshCurWeapon = math.random(1,7)
         GAMESPY.SetGameMode(2)        
     else
         -- reset ping
