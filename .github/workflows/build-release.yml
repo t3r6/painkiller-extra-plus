@@ -32,6 +32,10 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Get Short SHA from Git
+        id: git_sha
+        run: echo "sha_short=$(git rev-parse --short=5 HEAD)" >> $GITHUB_OUTPUT
+
       - name: Set tag name
         id: set_tag
         env:
@@ -69,7 +73,9 @@ jobs:
       - name: Inject version into Definitions.lua
         run: |
           PREFIX="${{ steps.archive_prefix.outputs.prefix }}"
-          sed -i "s/PKPLUSPLUS_VERSION = \"[^\"]*\"/PKPLUSPLUS_VERSION = \"PK Extra Plus ${PREFIX}\"/" Main/Definitions.lua
+          SHORT_SHA="${{ steps.git_sha.outputs.sha_short }}"
+          sed -i "s/PKEXP_VERSION = \"[^\"]*\"/PKEXP_VERSION = \"PK Extra Plus ${PREFIX} ${SHORT_SHA}\"/" Main/Definitions.lua
+          sed -i "s/pkexp_version/pkexp ${PREFIX} ${SHORT_SHA}/" HUD/Menu/PKpluscredits.lua
 
       - name: Build with custom Docker image
         uses: addnab/docker-run-action@v3

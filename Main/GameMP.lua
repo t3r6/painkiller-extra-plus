@@ -172,7 +172,7 @@ function Game:AfterWorldSynchronization(mapName,levelName)
     Waypoint:Load(mapName)
     Game.ClearStats()
     
-    Cfg.ModName = PKPLUSPLUS_VERSION
+    Cfg.ModName = PKEXP_VERSION
     
     if linker ~= "versionB.txt ../Data/PKPlusSounds ../Data/Locs PKPlusSounds.pak" then MsgBox("Something isn't right here. Exiting.") Exit(1) end
     
@@ -287,7 +287,7 @@ function Game_SetupCustomGameSpyVariables()
 --  variable at any time later.
 
     -- NET.SetupGameSpyVariable("PiTaBOT",true,"hello")
-    -- NET.SetupGameSpyVariable("Version", true, PKPLUSPLUS_VERSION)
+    -- NET.SetupGameSpyVariable("Version", true, PKEXP_VERSION)
     if(Cfg.PitabotEnabled) then
     	LoadPiTaBOT()
     end
@@ -480,7 +480,7 @@ function Game:AfterNewClientConnected(clientID)
     SendNetMethod(Game.SetTimeLimit,clientID, true, true,MPCfg.TimeLimit,Game._TimeLimitOut,Game._countTimer)
     local rest = Cfg.MOTD
     
-    	local rest = tostring(PKPLUSPLUS_VERSION) .. " ("..PK_VERSION..") Server - "
+    	local rest = tostring(PKEXP_VERSION) .. " ("..PK_VERSION..") Server - "
 	if(Cfg.RocketFix) then rest = rest .. "RocketFix on - " else rest = rest .. "RocketFix off - "  end -- - rf:"..tostring(Cfg.RocketFactor).." rfo:"..tostring(Cfg.RocketFactorOrder).."
 	if(MPCfg.ProPlus) then rest = rest .. "ProPlus on;" else rest = rest .. "ProPlus off;"  end
 	rest = rest .. "ServerFPS - "..tostring(Cfg.ServerFPS)..";"

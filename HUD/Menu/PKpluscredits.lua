@@ -51,3 +51,17 @@ PKpluscredits =
 
 	items = items,
 }
+
+items.ModVersion =
+{
+	type = MenuItemTypes.StaticText,
+	text = "pkexp_version", -- The version is handled during release
+	x = 952,
+	y = 740,
+	action = "",
+	align = MenuAlign.Right,
+	useItemBG = false,
+	fontBigSize = 18,
+	fontBigTex = "",
+	textColor = R3D.RGBA(255, 255, 255, 255),
+}

@@ -889,7 +889,7 @@ function Console:Cmd_AUTOSCREENSHOT(enable)
 end
 --=======================================================================
 function Console:Cmd_VERSION()
-	CONSOLE_AddMessage(PKPLUSPLUS_VERSION)
+	CONSOLE_AddMessage(PKEXP_VERSION)
 end
 --=======================================================================
 function Console:Cmd_EXAMPLECONFIG()
@@ -2589,7 +2589,7 @@ end
 -- PK++ THRESHER
 --=======================================================================
 function Console:Cmd_GETPLAYERSETTINGS()
-	CONSOLE_AddMessage(PKPLUSPLUS_VERSION) -- needs to send something like this, so that all clients send their info at once [ THRESHER ]
+	CONSOLE_AddMessage(PKEXP_VERSION) -- needs to send something like this, so that all clients send their info at once [ THRESHER ]
 end
 --=======================================================================
 function Console:Cmd_COINTOSS(clientID, coin)
