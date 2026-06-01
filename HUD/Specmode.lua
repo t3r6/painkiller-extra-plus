@@ -179,6 +179,45 @@ if(not Hud) then return end
 	
 	if Cfg.DisableHud then return end
 
+        local keyToMode = {
+            [Keys.K1] = CameraStates.Float,
+            [Keys.K2] = CameraStates.InEyes,
+            [Keys.K3] = CameraStates.Pivot,
+            [Keys.K4] = CameraStates.Static,
+            [Keys.K5] = CameraStates.Follow,
+            [Keys.K6] = CameraStates.Auto,
+            [Keys.K7] = CameraStates.Ghost
+        }
+
+        -- switch camera modes by keys
+        for key, mode in pairs(keyToMode) do
+            if INP.Key(key) == 1 then
+                self.mode = mode
+                if FreeCamModes[self.mode] then
+                    self.player = -1
+                    MPSTATS.Hide()
+                    if Game._procStats then
+                        GObjects:ToKill(Game._procStats)
+                        Game._procStats = nil
+                    end
+                else
+                    self.player = self:LeaderPlayer(Game.PlayerStats)
+                    if not self.player then
+                        self.mode = CameraStates.Float
+                        self.player = -1
+                        MPSTATS.Hide()
+                        if Game._procStats then
+                            GObjects:ToKill(Game._procStats)
+                            Game._procStats = nil
+                        end
+                    else
+                        self:SnapCamToPlayer()
+                    end
+                end
+                break
+            end
+        end
+
         -- Detect mode change → restart label timer
         if self._camLastMode ~= self.mode then
             self._camLastMode = self.mode
