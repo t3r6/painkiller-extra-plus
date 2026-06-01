@@ -57,19 +57,19 @@ MainMenu =
 
 		modcredits =
 		{
-			text = "PK EXP Credits",
+			text = TXT.Menu.Credits,
 			desc = "PK EXP Developers and Contributions",
 			x	 = -1,
-			y	 = 740,
+			y	 = 730,
 			action = "PainMenu:ActivateScreen(PKpluscredits);PMENU.PlaySound( 'menu/painkiller-stats-loop', true )", 
 			sndLightOn = "menu/menu/option-light-on_main4",
 			textColor	= R3D.RGBA( 255, 255, 255, 255 ),
-			fontBigSize = 26,
+			fontBigSize = 32,
 		},
 
 		Multiplayer =
 		{
-			text = "Multiplayer",
+			text = TXT.Menu.Multiplayer,
 			desc = TXT.MenuDesc.Multiplayer,
 			x	 = 15,
 			y	 = 480,
