@@ -405,7 +405,7 @@ function PSpectatorControler:Float()
             move:Sub(x,y,z)
         end                    
         move:Normalize()
-        local fspeed = Cfg.CameraSpecSpeed
+        local fspeed = Cfg.CameraSpecSpeed or 15
         if INP.Key(Keys.LeftShift) == 2 then fspeed = fspeed * 2 end
         ENTITY.SetVelocity(self._entCam,move.X*fspeed,move.Y*fspeed,move.Z*fspeed)
         -- interpolation
@@ -445,7 +445,7 @@ function PSpectatorControler:Ghost(delta)
     if INP.Action(Actions.Right)    then local x,y,z = CAM.GetRightVector()   move:Add(x,y,z) end
     if INP.Action(Actions.Left)     then local x,y,z = CAM.GetRightVector()   move:Sub(x,y,z) end
     move:Normalize()
-    local fspeed = Cfg.CameraSpecSpeed
+    local fspeed = Cfg.CameraSpecSpeed or 15
     if INP.Key(Keys.LeftShift) == 2 then fspeed = fspeed * 2 end
 
     local nx = ox + move.X * fspeed * delta
