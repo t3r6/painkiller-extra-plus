@@ -365,7 +365,6 @@ Cfg =
     CrosshairTeamStatus = true,
     QuitConfirmation = false,
     DisableMOTDRendering = false,
-    LanguageNoCD = "english",
     ColouredIcons = false,
     DisableHud = false,
     TeamOverlay = true,
@@ -977,28 +976,11 @@ function Cfg:CheckLanguage()
 		Cfg.KeyPrimaryStrafeLeft = "Q"
 		Cfg.KeyPrimaryMoveForward = "Z"
 	end
-
-  local findlan = {"french","german","italian","spanish","polish","russian","czech"}
-  for i = 1, 7 do
-    local languagefile = FS.File_Exist("../Bin/" .. findlan[i] .. ".lan")
-    if languagefile then
-      if Cfg.LanguageNoCD == findlan[i] then
-        os.remove("./" .. findlan[i] .. ".lan")
-      end
-      Cfg.LanguageNoCD = findlan[i]
-    end
-  end
-  if label then
-    Cfg.Language = lang
-  --	Cfg.Language = "polish"
-  else
-    Cfg.Language = Cfg.LanguageNoCD
-  end
-
 	-- if Cfg.Language == "german" then
 	-- 	Tweak.GlobalData.DisableGibs = true
 	-- 	Tweak.GlobalData.GermanVersion = true
 	-- end
+	Cfg.Language = lang
 end
 --============================================================================
 function Cfg:CheckLimitations()
