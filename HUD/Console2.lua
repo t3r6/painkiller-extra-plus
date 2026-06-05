@@ -2860,3 +2860,11 @@ function Console:Cmd_HUD_SPEEDMETER_UNITTYPE(value)
   self:Cmd_TEMPLATE_SET_INT("HUD_Speedmeter_UnitType", value, "Converts speed units from other games. Default is 0.")
 end
 --=======================================================================
+function Console:Cmd_CAMERASNAP(enable)
+  self:Cmd_TEMPLATE_TOGGLE_BOOL("CameraSnap", enable, "Spectator float/ghost camera snaps to an active player.")
+end
+--=======================================================================
+function Console:Cmd_CAMERASPEED(value)
+  self:Cmd_TEMPLATE_SET_INT("CameraSpeed", value, "Spectator float/ghost camera speed. Default is 15.")
+end
+--=======================================================================
