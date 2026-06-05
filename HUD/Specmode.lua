@@ -108,7 +108,9 @@ function PSpectatorControler:Init()
     ENTITY.PO_HideFromPrediction(self._entCam)
     ENTITY.SetPosition(self._entCam,Lev.Pos.X,Lev.Pos.Y,Lev.Pos.Z)
     self._lastCamPos:Set(Lev.Pos)
-    ENTITY.PO_SetMissile( self._entCam, MPProjectileTypes.Spectator )
+    if not Cfg.CameraSnap or Cfg.CameraSnap == 0 then
+      ENTITY.PO_SetMissile( self._entCam, MPProjectileTypes.Spectator ) -- camera can go through walls when disabled
+    end
     Mapview:Load(Lev.Map)  
     self._matMapView            = MATERIAL.Create("Textures/Electro.tga", TextureFlags.NoLOD + TextureFlags.NoMipMaps)
     local filename = string.gsub (Lev.Map,"(%a+).mpk", "%1")
@@ -194,13 +196,16 @@ if(not Hud) then return end
             if INP.Key(key) == 1 then
                 self.mode = mode
                 if FreeCamModes[self.mode] then
+                    self:RestoreAllPlayersVisibility()
                     self.player = -1
                     MPSTATS.Hide()
                     if Game._procStats then
                         GObjects:ToKill(Game._procStats)
                         Game._procStats = nil
                     end
+                    self:SnapCamToPlayer()
                 else
+                    self:RestoreAllPlayersVisibility()
                     self.player = self:LeaderPlayer(Game.PlayerStats)
                     if not self.player then
                         self.mode = CameraStates.Float
@@ -405,12 +410,13 @@ function PSpectatorControler:Float()
             move:Sub(x,y,z)
         end                    
         move:Normalize()
-        local fspeed = Cfg.CameraSpecSpeed or 15
+        local fspeed = Cfg.CameraSpeed or 15
         if INP.Key(Keys.LeftShift) == 2 then fspeed = fspeed * 2 end
         ENTITY.SetVelocity(self._entCam,move.X*fspeed,move.Y*fspeed,move.Z*fspeed)
         -- interpolation
         if(true)then
-        local x,y,z = ENTITY.GetWorldPosition(self._entCam)    
+        local x,y,z = ENTITY.GetWorldPosition(self._entCam)
+        y = y - 0.407        
         local destPos = Vector:New(x,y,z)
         local diff = destPos:Copy()
         diff:Sub(self._lastCamPos)
@@ -445,7 +451,7 @@ function PSpectatorControler:Ghost(delta)
     if INP.Action(Actions.Right)    then local x,y,z = CAM.GetRightVector()   move:Add(x,y,z) end
     if INP.Action(Actions.Left)     then local x,y,z = CAM.GetRightVector()   move:Sub(x,y,z) end
     move:Normalize()
-    local fspeed = Cfg.CameraSpecSpeed or 15
+    local fspeed = Cfg.CameraSpeed or 15
     if INP.Key(Keys.LeftShift) == 2 then fspeed = fspeed * 2 end
 
     local nx = ox + move.X * fspeed * delta
@@ -485,6 +491,7 @@ function PSpectatorControler:Pivot()
 	local v = Vector:New(0,0,5)
 	self.angX = self.angX + dy/40
 	self.angY = self.angY + dx/40
+    self.angX = math.min(math.max(self.angX, -1.396), 0.523) -- clamp to -80°/+30°
 	v:Rotate(self.angX,self.angY,0)
                 
 	local px,py,pz = ENTITY.GetPosition(ps._Entity)
@@ -674,13 +681,24 @@ function PSpectatorControler:Tick3(delta)
 end
 --============================================================================
 function PSpectatorControler:SnapCamToPlayer()
-    if self.player ~= -1 then
-        local ps = Game.PlayerStats[self.player]
-        if ps and ps._Entity and ps._Entity ~= 0 then
-            local x,y,z = ENTITY.GetPosition(ps._Entity)
-            ENTITY.SetPosition(self._entCam,x,y,z)
-            ENTITY.SetVelocity(self._entCam,0,0,0)
-            self._lastCamPos:Set(x,y,z)
+    if Cfg.CameraSnap then
+        ENTITY.SetPosition(self._entCam,self._desiredCamPos:Get())
+        -- if self.player ~= -1 then
+            -- local ps = Game.PlayerStats[self.player]
+            -- if ps and ps._Entity and ps._Entity ~= 0 then
+                -- local x,y,z = ENTITY.GetPosition(ps._Entity)
+                -- ENTITY.SetPosition(self._entCam,x,y,z)
+                -- ENTITY.SetVelocity(self._entCam,0,0,0)
+                -- self._lastCamPos:Set(x,y,z)
+            -- end
+        -- end
+    end
+end
+--============================================================================
+function PSpectatorControler:RestoreAllPlayersVisibility()
+    for i,o in Game.PlayerStats do
+        if o and o._Entity and o._Entity ~= 0 and o.Spectator == 0 then
+            self:SetPlayerVisibility(o._Entity, true)
         end
     end
 end
@@ -699,6 +717,7 @@ function PSpectatorControler:CameraModeSwitch()
     if INP.Action(Actions.Fire) then
         if not self._fire then
             Game:Print(self.player)
+            self:RestoreAllPlayersVisibility()
             if self.player == -1 then
                 self.player = self:LeaderPlayer(Game.PlayerStats)
             else
@@ -738,11 +757,9 @@ function PSpectatorControler:CameraModeSwitch()
             self.mode = CameraStates.Float
             self:SnapCamToPlayer()
             self.player = -1
+            self:RestoreAllPlayersVisibility() 
         end
         self._altfire = true
-        for i,o in Game.PlayerStats do
-		self:SetPlayerVisibility(o._Entity,true)
-	end
     else
         self._altfire = nil
     end
@@ -759,6 +776,7 @@ function PSpectatorControler:CameraModeSwitch()
 	GObjects:ToKill(Game._procStats)
 	Game._procStats = nil
 	MPSTATS.Hide()
+    self:RestoreAllPlayersVisibility()
 	if self.mode == CameraStates.Ghost then
 	    ENTITY.PO_Enable(self._entCam,false)
 	else
