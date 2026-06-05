@@ -4,8 +4,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 1: Oui
 2: Non
 3: OK
-4: Activé(e)
-5: Désactivé(e)
+4: ActivÃ©(e)
+5: DÃ©sactivÃ©(e)
 6: Aucun(e)
 7: Fin de partie
 
@@ -22,11 +22,11 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 14: Secrets
 15: Retour
 16: Quitter
-17: Etes-vous sûr(e) ?
+17: Etes-vous sÃ»r(e) ?
 
 # difficulty level
-18: Sélectionner niveau de difficulté
-19: Rêverie
+18: SÃ©lectionner niveau de difficultÃ©
+19: RÃªverie
 20: Insomnie
 21: Cauchemar
 22: Traumatisme
@@ -35,8 +35,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 23: Commandes
 24: A.T.H.
 25: Audio
-26: Vidéo
-27: Vidéo (avancé)
+26: VidÃ©o
+27: VidÃ©o (avancÃ©)
 
 # controls config
 
@@ -48,13 +48,13 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # keys
 32: Avancer
 33: Reculer
-34: Pas latéral gauche
-35: Pas latéral droite
+34: Pas latÃ©ral gauche
+35: Pas latÃ©ral droite
 36: Sauter
 37: Tirer
 38: Tir alternatif
 39: Arme suivante
-40: Arme précédente
+40: Arme prÃ©cÃ©dente
 41: Arme 1
 42: Arme 2
 43: Arme 3
@@ -62,21 +62,21 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 45: Arme 5
 46: Bullet Time
 47: Pause
-48: Capture d'écran
+48: Capture d'Ã©cran
 49: Menu
 50: Statistiques
-51: Parler à tous
-52: Parler à l'équipe
+51: Parler Ã  tous
+52: Parler Ã  l'Ã©quipe
 53: Saut de roquette
 54: Saut de roquette avant
 55: Cadence tir
 56: Changer cadence tir
-57: Sélectionner meilleure arme explosive
-58: Sélectionner meilleure arme non explosive
-59: Sélectionner meilleure arme personnalisée
+57: SÃ©lectionner meilleure arme explosive
+58: SÃ©lectionner meilleure arme non explosive
+59: SÃ©lectionner meilleure arme personnalisÃ©e
 60: Utiliser meilleure arme explosive
 61: Utiliser meilleure arme non explosive
-62: Utiliser meilleure arme personnalisée
+62: Utiliser meilleure arme personnalisÃ©e
 
 # mouse options
 63: Inverser souris
@@ -87,31 +87,31 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # weapons config
 67: Secondaire
 68: Changer
-69: Matériel
+69: MatÃ©riel
 70: Armes explosives
 71: Armes non explosives
 72: Changer d'arme automatiquement
-73: Personnalisée
+73: PersonnalisÃ©e
 74: Haut
 75: Bas
 
 # HUD config
-76: Opacité ATH
+76: OpacitÃ© ATH
 77: Taille ATH
 78: Petite
 79: Normale
 80: Grande
-81: Réticule
-82: Opacité
+81: RÃ©ticule
+82: OpacitÃ©
 83: Rouge
 84: Vert
 85: Bleu
 
 # sound config
-86: Volume général
+86: Volume gÃ©nÃ©ral
 87: Volume musique 
 88: Volume audio
-89: Stéréo inversée
+89: StÃ©rÃ©o inversÃ©e
 90: Configuration hauts-parleurs
 91: Carte son 3D
 92: Deux hauts-parleurs
@@ -122,45 +122,45 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 97: Sept-un
 
 # video config
-98: Résolution
-99: Qualité texture
-100: Plein écran
+98: RÃ©solution
+99: QualitÃ© texture
+100: Plein Ã©cran
 101: Gamma
-102: Luminosité
+102: LuminositÃ©
 103: Contraste
-104: Très bas
+104: TrÃ¨s bas
 105: Bas
 106: Moyen
-107: Elevé
+107: ElevÃ©
 108: Architecture
 109: Personnages
 110: Ciel
 
 # advanced video config
 111: Ombres pers.
-112: Effets météo
+112: Effets mÃ©tÃ©o
 113: Ciel
 114: Voir arme
-115: Spécularité armes
+115: SpÃ©cularitÃ© armes
 116: Mapping armes
 117: Filtrage texture
 118: Multisampling
 119: Permanence motifs
-120: Lumières dynamiques
+120: LumiÃ¨res dynamiques
 121: Projecteurs
 122: Effets corona
 123: Motifs
-124: Détails texture 
-125: Bilinéaire
-126: Trilinéaire
+124: DÃ©tails texture 
+125: BilinÃ©aire
+126: TrilinÃ©aire
 127: Anisotropique
 
 # multiplayer menu
 
 128: Mot de passe
 129: Rejoindre partie
-130: Démarrer partie
-131: Réglages joueur
+130: DÃ©marrer partie
+131: RÃ©glages joueur
 
 # join game menu
 132: Internet
@@ -168,8 +168,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 134: Favoris
 135: Ajouter aux Favoris
 136: Retirer des Favoris
-137: Rafraîchir
-138: Arrêter
+137: RafraÃ®chir
+138: ArrÃªter
 139: Rejoindre
 140: Nom du serveur
 141: Serveurs
@@ -179,9 +179,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 145: Ping
 146: Saisir IP
 147: Serveur introuvable
-148: Cliquer pour sélectionner
-149: Mise à jour liste serveurs
-150: Mise à jour terminée
+148: Cliquer pour sÃ©lectionner
+149: Mise Ã  jour liste serveurs
+150: Mise Ã  jour terminÃ©e
 151: [AUCUN(E)]
 152: [PAS DE CARTE]
 153: Inconnu(e)
@@ -196,27 +196,27 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 160: The Light Bearer
 161: People Can Fly
 #157: Chacun pour soi
-#158: Match à mort en équipe
+#158: Match Ã  mort en Ã©quipe
 #159: Voosh
-#160: Porteur de lumière
+#160: Porteur de lumiÃ¨re
 #161: Avoir des ailes
 162: Nb. joueurs max.
 163: Nb. spectateurs max.
 164: Limite frags
 165: Limite temps
 166: Serveur public
-167: Dégâts équipe
+167: DÃ©gÃ¢ts Ã©quipe
 168: Permanence armes
 169: Bonus
 170: Permanence bonus
 171: Autoriser saut de lapin
 172: Autoriser brillance sur peau
 173: Autoriser "rocket jump" avant
-174: Brillance sur peau équipe
+174: Brillance sur peau Ã©quipe
 175: Brillance sur peau ennemis
-176: Général
-177: Avancé
-178: Démarrer
+176: GÃ©nÃ©ral
+177: AvancÃ©
+178: DÃ©marrer
 179: Ajouter
 180: Ajouter tout
 181: Retirer
@@ -224,265 +224,265 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # player settings menu
 183: Nom
-184: Équipe
+184: Ã‰quipe
 185: Vitesse connexion
-186: Clé CD
+186: ClÃ© CD
 187: Annuler
 188: Entrer
 
 # menu items' descriptions
 
-189: Revenir à l'écran précédent
-190: Appliquer les paramètres et revenir à l'écran précédent
+189: Revenir Ã  l'Ã©cran prÃ©cÃ©dent
+190: Appliquer les paramÃ¨tres et revenir Ã  l'Ã©cran prÃ©cÃ©dent
 
 # main menu
-191: Démarrer une nouvelle partie solo
-192: Charger une partie sauvegardée ou sauvegarder la partie en cours
-193: Jouer sur Internet ou démarrer votre propre serveur multijoueur
-194: Configurer les commandes, les paramètres audio, vidéo et autres du jeu
-195: Vérifier le nombre de secrets découverts
+191: DÃ©marrer une nouvelle partie solo
+192: Charger une partie sauvegardÃ©e ou sauvegarder la partie en cours
+193: Jouer sur Internet ou dÃ©marrer votre propre serveur multijoueur
+194: Configurer les commandes, les paramÃ¨tres audio, vidÃ©o et autres du jeu
+195: VÃ©rifier le nombre de secrets dÃ©couverts
 196: Reprendre la partie
-197: Quitter immédiatement la partie
+197: Quitter immÃ©diatement la partie
 
 # difficulty modes
-198: Mode extrêmement facile pour débutants
-199: Niveau de difficulté standard
-200: Mode difficile pour joueurs confirmés
-201: La véritable histoire de Painkiller
+198: Mode extrÃªmement facile pour dÃ©butants
+199: Niveau de difficultÃ© standard
+200: Mode difficile pour joueurs confirmÃ©s
+201: La vÃ©ritable histoire de Painkiller
 
 # options menu
 202: Configuration des commandes de jeu
-203: Configuration de l'affichage tête haute
+203: Configuration de l'affichage tÃªte haute
 204: Configuration audio et musique
 205: Configuration options graphiques
-206: Configuration avancée pour utilisateurs confirmés
+206: Configuration avancÃ©e pour utilisateurs confirmÃ©s
 
 # controls config
 
-207: Aller à l'écran de configuration des armes
+207: Aller Ã  l'Ã©cran de configuration des armes
 208: Cliquer sur la touche pour changer puis appuyer sur la nouvelle touche
 
 # mouse options
-209: Contrôle de la souris façon simulateur de vol
+209: ContrÃ´le de la souris faÃ§on simulateur de vol
 210: Supprimer les secousses de la souris
-211: Régler la sensibilité de la souris
-212: Régler la sensibilité de la molette de la souris
+211: RÃ©gler la sensibilitÃ© de la souris
+212: RÃ©gler la sensibilitÃ© de la molette de la souris
 
 # HUD config
-213: Régler l'opacité de l'ATH
-214: Régler la taille de l'ATH
-215: Choisir le réticule
-216: Choisir l'opacité du réticule
-217: Choisir la couleur du réticule
+213: RÃ©gler l'opacitÃ© de l'ATH
+214: RÃ©gler la taille de l'ATH
+215: Choisir le rÃ©ticule
+216: Choisir l'opacitÃ© du rÃ©ticule
+217: Choisir la couleur du rÃ©ticule
 
 # weapons config
 218: Changer d'arme automatiquement
 
 # sound config
-219: Régler le volume général
-220: Régler le volume de la musique
-221: Régler le volume des effets sonores
-222: Stéréo inversée
+219: RÃ©gler le volume gÃ©nÃ©ral
+220: RÃ©gler le volume de la musique
+221: RÃ©gler le volume des effets sonores
+222: StÃ©rÃ©o inversÃ©e
 223: Choisir la configuration du haut-parleur
 224: Choisir la carte son 3D
 
 # video config
-225: Une haute résolution nécessite un ordinateur et une carte 3D plus rapides
-226: Régler sur bas en cas de problèmes de performance 
-227: Décocher pour jouer en mode fenêtré
-228: Régler gamma
-229: Régler luminosité
-230: Régler contraste
-231: Changer qualité texture armes,
-232: Changer qualité texture architecture,
-233: Changer qualité texture ennemi,
-234: Changer qualité texture ciel,
+225: Une haute rÃ©solution nÃ©cessite un ordinateur et une carte 3D plus rapides
+226: RÃ©gler sur bas en cas de problÃ¨mes de performance 
+227: DÃ©cocher pour jouer en mode fenÃªtrÃ©
+228: RÃ©gler gamma
+229: RÃ©gler luminositÃ©
+230: RÃ©gler contraste
+231: Changer qualitÃ© texture armes,
+232: Changer qualitÃ© texture architecture,
+233: Changer qualitÃ© texture ennemi,
+234: Changer qualitÃ© texture ciel,
 
 # advanced video config
-235: Désactiver en cas de problèmes de performance
-236: Régler sur bilinéaire en cas de problèmes de performance
-237: Régler le niveau de multisampling
-238: Régler le temps au bout duquel les motifs disparaissent
+235: DÃ©sactiver en cas de problÃ¨mes de performance
+236: RÃ©gler sur bilinÃ©aire en cas de problÃ¨mes de performance
+237: RÃ©gler le niveau de multisampling
+238: RÃ©gler le temps au bout duquel les motifs disparaissent
 
 # multiplayer menu
 
 239: Entrer le mot de passe serveur
 240: Rechercher des parties multijoueurs sur le LAN ou sur Internet et les rejoindre
-241: Démarrer votre propre serveur multijoueur en réseau local/sur Internet
-242: Configurer paramètres multijoueurs
+241: DÃ©marrer votre propre serveur multijoueur en rÃ©seau local/sur Internet
+242: Configurer paramÃ¨tres multijoueurs
 
 # join game menu
 243: Rechercher des parties multijoueurs sur Internet et les rejoindre
-244: Rechercher des parties multijoueurs sur le réseau local et les rejoindre
+244: Rechercher des parties multijoueurs sur le rÃ©seau local et les rejoindre
 245: Liste des serveurs favoris
-246: Ajouter le serveur sélectionné à vos Favoris
-247: Retirer le serveur sélectionné de vos Favoris
-248: Rafraîchir la liste des serveurs
-249: Arrêter le rafraîchissement de la liste des serveurs
+246: Ajouter le serveur sÃ©lectionnÃ© Ã  vos Favoris
+247: Retirer le serveur sÃ©lectionnÃ© de vos Favoris
+248: RafraÃ®chir la liste des serveurs
+249: ArrÃªter le rafraÃ®chissement de la liste des serveurs
 250: Rejoindre le serveur et jouer
 251: Saisir l'IP du serveur
 
 # start game menu
 252: Saisir le nom du serveur
-253: Définir le mot de passe limitant l'accès au serveur
+253: DÃ©finir le mot de passe limitant l'accÃ¨s au serveur
 254: Changer le port de serveur
-255: Sélectionner le mode de jeu
-256: Définir le nombre maximum de joueurs
-257: Définir le nombre maximum de spectateurs
-258: Nombre de frags nécessaires pour finir la carte, 0 = non autorisé
-259: Durée maximum entre deux changements de carte, 0 = non autorisé
-260: Faire connaître votre serveur sur Internet
-261: Activer/désactiver les tirs alliés
-262: Cocher si les armes doivent continuer à apparaître après avoir été ramassées
-263: Activer/désactiver les bonus sur la carte
-264: Cocher si le bonus disparaît lorsque le personnage meurt
+255: SÃ©lectionner le mode de jeu
+256: DÃ©finir le nombre maximum de joueurs
+257: DÃ©finir le nombre maximum de spectateurs
+258: Nombre de frags nÃ©cessaires pour finir la carte, 0 = non autorisÃ©
+259: DurÃ©e maximum entre deux changements de carte, 0 = non autorisÃ©
+260: Faire connaÃ®tre votre serveur sur Internet
+261: Activer/dÃ©sactiver les tirs alliÃ©s
+262: Cocher si les armes doivent continuer Ã  apparaÃ®tre aprÃ¨s avoir Ã©tÃ© ramassÃ©es
+263: Activer/dÃ©sactiver les bonus sur la carte
+264: Cocher si le bonus disparaÃ®t lorsque le personnage meurt
 265: Cocher pour autoriser le saut de lapin
 266: Cocher pour autoriser l'effet de brillance sur la peau
 267: Cocher pour autoriser le saut de roquette avant
-268: Sélectionner la couleur de l'effet de brillance sur la peau de l'équipe
-269: Sélectionner la couleur de l'effet de brillance sur la peau des ennemis
-270: Paramètres généraux
-271: Paramètres avancés
-272: Démarrer le serveur
+268: SÃ©lectionner la couleur de l'effet de brillance sur la peau de l'Ã©quipe
+269: SÃ©lectionner la couleur de l'effet de brillance sur la peau des ennemis
+270: ParamÃ¨tres gÃ©nÃ©raux
+271: ParamÃ¨tres avancÃ©s
+272: DÃ©marrer le serveur
 
 # list manipulation
 273: Monter
 274: Descendre
-275: Ajouter l'élément sélectionné
-276: Ajouter tous les éléments
-277: Retirer l'élément sélectionné
-278: Retirer tous les éléments
+275: Ajouter l'Ã©lÃ©ment sÃ©lectionnÃ©
+276: Ajouter tous les Ã©lÃ©ments
+277: Retirer l'Ã©lÃ©ment sÃ©lectionnÃ©
+278: Retirer tous les Ã©lÃ©ments
 
 # player settings menu
 279: Saisir votre pseudo
-280: Sélectionner votre équipe pour les parties en équipe
-281: Sélectionner votre vitesse de connexion
-282: Saisir votre clé CD
+280: SÃ©lectionner votre Ã©quipe pour les parties en Ã©quipe
+281: SÃ©lectionner votre vitesse de connexion
+282: Saisir votre clÃ© CD
 
 # map
 
 # levels
-283: Cimetière
+283: CimetiÃ¨re
 284: Atrium
 285: Catacombes
-286: Cathédrale
+286: CathÃ©drale
 287: Enclave
 288: Prison
-289: Opéra
+289: OpÃ©ra
 290: Asile
-291: Pont enneigé
+291: Pont enneigÃ©
 292: Ville
 293: Marais
 294: Gare
-295: Usine désaff.
+295: Usine dÃ©saff.
 296: Base milit.
 297: Ruines
-298: Château
+298: ChÃ¢teau
 299: Le Palais
 300: Babel
-301: Forêt
+301: ForÃªt
 302: Tour
-303: Cité lac.
+303: CitÃ© lac.
 304: Quais
-305: Monastère
+305: MonastÃ¨re
 306: Enfer
 
 # stats
-307: Cartes trouvées
-308: Or trouvé
+307: Cartes trouvÃ©es
+308: Or trouvÃ©
 
 # single-player stats
 
 309: VOTRE SCORE
-310: Durée de jeu
-311: Monstres tués
-312: Ames collectées
-313: Or trouvé
-314: Objets sacrés trouvés
-315: Munitions trouvées
-316: Objets détruits
-317: Secrets découverts
-318: Statut de déverrouillage de la carte
+310: DurÃ©e de jeu
+311: Monstres tuÃ©s
+312: Ames collectÃ©es
+313: Or trouvÃ©
+314: Objets sacrÃ©s trouvÃ©s
+315: Munitions trouvÃ©es
+316: Objets dÃ©truits
+317: Secrets dÃ©couverts
+318: Statut de dÃ©verrouillage de la carte
 319: Statut
 320: VERROUILLE(E)
 321: DEVERROUILLE(E)
 
 # multi-player messages
 
-322: $PLAYER est entré dans l'arène.
-323: $PLAYER s'est dégonflé et a quitté l'arène.
-324: $KILLER a tué $PLAYER avec son arme.
-325: $KILLER a abrégé les souffrances de $PLAYER.
-326: $KILLER a ventilé $PLAYER.
-327: $PLAYER a embrassé la grenade de $KILLER.
-328: $PLAYER a chevauché la roquette de $KILLER.
-329: $PLAYER s'est mangé la roquette de $KILLER.
-330: $KILLER a crucifié $PLAYER.
-331: $KILLER a déchiqueté $PLAYER.
-332: $KILLER a habilement téléfraggé $PLAYER.
-333: $PLAYER a lutté contre la loi de la pesanteur et a perdu.
-334: $PLAYER a quitté le bâtiment.
-335: $PLAYER a oublié comment fonctionnait une arme.
+322: $PLAYER est entrÃ© dans l'arÃ¨ne.
+323: $PLAYER s'est dÃ©gonflÃ© et a quittÃ© l'arÃ¨ne.
+324: $KILLER a tuÃ© $PLAYER avec son arme.
+325: $KILLER a abrÃ©gÃ© les souffrances de $PLAYER.
+326: $KILLER a ventilÃ© $PLAYER.
+327: $PLAYER a embrassÃ© la grenade de $KILLER.
+328: $PLAYER a chevauchÃ© la roquette de $KILLER.
+329: $PLAYER s'est mangÃ© la roquette de $KILLER.
+330: $KILLER a crucifiÃ© $PLAYER.
+331: $KILLER a dÃ©chiquetÃ© $PLAYER.
+332: $KILLER a habilement tÃ©lÃ©fraggÃ© $PLAYER.
+333: $PLAYER a luttÃ© contre la loi de la pesanteur et a perdu.
+334: $PLAYER a quittÃ© le bÃ¢timent.
+335: $PLAYER a oubliÃ© comment fonctionnait une arme.
 336: $PLAYER vient de prouver que la vie est courte.
-337: $PLAYER a explosé.
+337: $PLAYER a explosÃ©.
 
 # cards
 338: Vitesse
-339: Dextérité
+339: DextÃ©ritÃ©
 340: Fureur
 341: Rage
 342: Confusion
 343: Endurance
-344: Volonté de fer
-345: Hâte
-346: Double hâte
-347: Triple hâte
+344: VolontÃ© de fer
+345: HÃ¢te
+346: Double hÃ¢te
+347: Triple hÃ¢te
 348: Bonus de temps
 349: Double bonus de temps
-350: Piégeur d'âme
-351: Gardien d'âme
-352: Pouvoir d'âme
+350: PiÃ©geur d'Ã¢me
+351: Gardien d'Ã¢me
+352: Pouvoir d'Ã¢me
 353: Ame sombre
 354: Soulagement
-355: Vitalité
+355: VitalitÃ©
 356: Reconstitution
-357: Avidité
+357: AviditÃ©
 358: Pardon
-359: Clémence
+359: ClÃ©mence
 360: Intervention divine
 361: Dernier soupir
 
 # cards descriptions
-362: Se déplacer plus rapidement
+362: Se dÃ©placer plus rapidement
 363: Recharger les armes\n2 fois plus vite
-364: Infliger 2 fois plus de dégâts
-365: Infliger 4 fois plus de dégâts
+364: Infliger 2 fois plus de dÃ©gÃ¢ts
+365: Infliger 4 fois plus de dÃ©gÃ¢ts
 366: Perturber les ennemis
-367: Ne subir que la\nmoitié des dégâts
+367: Ne subir que la\nmoitiÃ© des dÃ©gÃ¢ts
 368: Les ennemis ne peuvent\npas vous blesser
 369: Le monde va 2 fois\nplus lentement
 370: Le monde va 4 fois\nplus lentement
 371: Le monde va 8 fois\nplus lentement
 372: Les cartes temporaires\ndurent 10 secondes de plus
 373: Les cartes temporaires\ndurent 20 secondes de plus
-374: Collecter les âmes à distance
-375: Les âmes restent plus\nlongtemps
-376: Les âmes donnent\ndavantage de santé
-377: Se transformer en démon\ntoutes les 50 âmes
-378: Augmenter la santé\ninitiale à 150
-379: Augmenter la capacité\nde santé initiale à 150
-380: Doubler les munitions dans\nla boîte de munitions
-381: Doubler le nombre de\nrichesses cachées
+374: Collecter les Ã¢mes Ã  distance
+375: Les Ã¢mes restent plus\nlongtemps
+376: Les Ã¢mes donnent\ndavantage de santÃ©
+377: Se transformer en dÃ©mon\ntoutes les 50 Ã¢mes
+378: Augmenter la santÃ©\ninitiale Ã  150
+379: Augmenter la capacitÃ©\nde santÃ© initiale Ã  150
+380: Doubler les munitions dans\nla boÃ®te de munitions
+381: Doubler le nombre de\nrichesses cachÃ©es
 382: Vous pouvez utiliser les cartes\ntemporaires 2 fois par niveau
 383: Vous pouvez utiliser les cartes\ntemporaires 3 fois par niveau
-384: Toutes les cartes peuvent être\nplacées gratuitement
-385: Régénérer votre santé\nlorsque vous êtes mourant
+384: Toutes les cartes peuvent Ãªtre\nplacÃ©es gratuitement
+385: RÃ©gÃ©nÃ©rer votre santÃ©\nlorsque vous Ãªtes mourant
 
 # multi-player stats
 
 386: Joueur
 387: Frags
-388: Tués
+388: TuÃ©s
 389: Morts
 390: Ping
 391: Temps
@@ -495,90 +495,90 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # black tarot card unlocking conditions
 396: Terminer le niveau
-397: Détruire tous les objets
+397: DÃ©truire tous les objets
 398: Tuer tous les monstres
-399: Trouver au moins 500 pièce(s) d'or
+399: Trouver au moins 500 piÃ¨ce(s) d'or
 400: Tuer Necrogiant en moins de 02:00
 401: Terminer le niveau en utilisant seulement des armes non explosives
-402: Collecter au moins 100 âmes
+402: Collecter au moins 100 Ã¢mes
 403: Terminer le niveau en utilisant seulement le painkiller
 404: Trouver tous les lieux secrets
 405: Terminer le niveau en utilisant uniquement des pieux
 406: Tuer la chose des marais en moins de 04:00
-407: Ne pas collecter une seule âme
-408: Tuer au moins 30 ennemis en étant transformé en démon
+407: Ne pas collecter une seule Ã¢me
+408: Tuer au moins 30 ennemis en Ã©tant transformÃ© en dÃ©mon
 409: Tuer tous les monstres
 410: Tuer Guardian en moins de 01:20
-411: Trouver tous les objets sacrés
+411: Trouver tous les objets sacrÃ©s
 412: terminer le niveau sans armure
 413: Trouver toutes les munitions
 414: Terminer le niveau sans utiliser le tarot noir
 415: Tuer Alastor en moins de 05:00
 416: Trouver tous les lieux secrets
-417: Se transformer en démon au moins 3 fois
+417: Se transformer en dÃ©mon au moins 3 fois
 418: Conserver plus de 50 PV
 419: Tuer Lucifer
 
 # main menu
 420: Reprendre la partie
-421: Revenir à la carte
+421: Revenir Ã  la carte
 
 # difficulty level
-422: Mode verrouillé : terminer Cauchemar pour déverrouiller
+422: Mode verrouillÃ© : terminer Cauchemar pour dÃ©verrouiller
 
 # map
 423: Chapitre
 424: Niveau
-425: Tarot noir non disponible dans la version démo
+425: Tarot noir non disponible dans la version dÃ©mo
 426: Tarot noir inactif
-427: Sélectionner niveau
-428: Sélectionner chapitre
+427: SÃ©lectionner niveau
+428: SÃ©lectionner chapitre
 429: Aller au tarot noir
 430: Aller au Menu principal
 431: Lancer le niveau
 432: Tarot noir inactif au cours du niveau
-433: Tarot noir non disponible au niveau Rêverie
+433: Tarot noir non disponible au niveau RÃªverie
 
 # black tarot
-434: Coût du placement
+434: CoÃ»t du placement
 435: Retour du retrait
-436: Or après retrait
-437: Cliquez sur 'Utiliser cartes dorées' au cours du\nniveau pour libérer le pouvoir de vos cartes dorées.\nVous pouvez les utiliser [x] fois par niveau.
-438: Les effets de toutes les cartes argentées placées ici\nsont immédiats et durent tout le niveau.
+436: Or aprÃ¨s retrait
+437: Cliquez sur 'Utiliser cartes dorÃ©es' au cours du\nniveau pour libÃ©rer le pouvoir de vos cartes dorÃ©es.\nVous pouvez les utiliser [x] fois par niveau.
+438: Les effets de toutes les cartes argentÃ©es placÃ©es ici\nsont immÃ©diats et durent tout le niveau.
 439: Or insuffisant pour placer\nla carte.
 440: Votre or
-441: Or nécessaire
+441: Or nÃ©cessaire
 
 # sound options
 442: EAX Acoustics
 443: Cocher pour activer les effets EAX
 444: Mus. de combat
 445: Mus. ambiance
-446: Régler le volume de la musique de combat
-447: Régler le volume de la musique d'ambiance
+446: RÃ©gler le volume de la musique de combat
+447: RÃ©gler le volume de la musique d'ambiance
 
 # video options
-448: Niv. détails partic. 
+448: Niv. dÃ©tails partic. 
 
 # controls
-449: Utiliser cartes dorées
+449: Utiliser cartes dorÃ©es
 450: Lampe torche
 
 # game over
 451: Appuyer sur 'Tirer' pour recommencer ou sur 'Echap' pour revenir au menu.
 
 # scoreboard
-452: Armures trouvées
+452: Armures trouvÃ©es
 453: ECHEC
 454: N/A
 455: Vous avez
-456: déverrouillé une nouvelle
+456: dÃ©verrouillÃ© une nouvelle
 457: carte de tarot noir !
 
 # weapons
 458: Pain
 459: Killer
-460: Fusil à pompe
+460: Fusil Ã  pompe
 461: Congeleur
 462: Lance-pieu
 463: Lance-grenade
@@ -588,17 +588,17 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 467: Electro
 
 # warnings
-468: Le niveau Rêverie est extrêmement facile et s'adresse aux débutants. Dans ce niveau, vous n'avez pas accès au tarot noir.\nVoulez-vous vraiment sélectionner ce niveau ?
-469: Etes-vous sûr ?
+468: Le niveau RÃªverie est extrÃªmement facile et s'adresse aux dÃ©butants. Dans ce niveau, vous n'avez pas accÃ¨s au tarot noir.\nVoulez-vous vraiment sÃ©lectionner ce niveau ?
+469: Etes-vous sÃ»r ?
 470: Ne plus afficher ce message
 
 471: NIVEAU QUALITE TEXTURE
 
-472: Revenir à la carte
+472: Revenir Ã  la carte
 
-473: Zone secrète découverte !
+473: Zone secrÃ¨te dÃ©couverte !
 
-474: Difficulté
+474: DifficultÃ©
 
 # create server
 475: Cartes disponibles
@@ -613,7 +613,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 482: Espace
 483: Tab
 484: Ret. Arr.
-485: Entrée
+485: EntrÃ©e
 486: Pause
 487: Maj.
 488: Ctrl
@@ -640,35 +640,35 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 509: (Pavnum) .
 510: (Pavnum) /
 511: Verr num
-512: Arrêt défil
+512: ArrÃªt dÃ©fil
 513: Maj.
 514: Maj.-D
 515: Alt
 516: Alt Gr
 517: Menu gauche
 518: Menu droite
-519: Menu tout à droite
-520: Impr écran
+519: Menu tout Ã  droite
+520: Impr Ã©cran
 521: Verr. Maj.
 522: (Pavnum) Entr
 523: Bouton gauche souris
 524: Bouton droit souris
 525: Bouton central souris
 526: Molette avant souris
-527: Molette arrière souris
+527: Molette arriÃ¨re souris
 528: Ctrl
 529: Ctrl-D
 
 # video options
 530: Bas    
-531: Elevé 
+531: ElevÃ© 
 
 # weapons config
-532: Priorité de ramassage
+532: PrioritÃ© de ramassage
 533: Personnalisation 1
 534: Personnalisation 2
-535: Sélec. meill. pers. 1
-536: Sélec. meill. pers. 2
+535: SÃ©lec. meill. pers. 1
+536: SÃ©lec. meill. pers. 2
 537: Util. meill. pers. 1
 538: Util. meill. pers. 2
 
@@ -689,9 +689,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 548: Notre Rage est morte
 549: Rage ennemie !
 550: La Rage ennemie est morte
-551: Trouvez Immunité !
-552: Notre Immunité !
-553: Immunité ennemie !
+551: Trouvez ImmunitÃ© !
+552: Notre ImmunitÃ© !
+553: ImmunitÃ© ennemie !
 554: [custom message/taunt]
 555: [custom message/taunt]
 556: [custom message/taunt]
@@ -704,23 +704,23 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 563: [custom message/taunt]
 
 # video options
-564: Paramètres graphiques
-565: Régler la qualité des éléments graphiques
-566: Personnalisé
-567: Très rapide
+564: ParamÃ¨tres graphiques
+565: RÃ©gler la qualitÃ© des Ã©lÃ©ments graphiques
+566: PersonnalisÃ©
+567: TrÃ¨s rapide
 568: Rapide
 569: Normal
-570: Très basse
-571: Démente
+570: TrÃ¨s basse
+571: DÃ©mente
 
-572: Cocher les messages que vous souhaitez dire à tous les joueurs
+572: Cocher les messages que vous souhaitez dire Ã  tous les joueurs
 573: Tous les joueurs peuvent lire ce message
-574: Seule votre équipe peut lire ce message
+574: Seule votre Ã©quipe peut lire ce message
 
 575: Rognage plan
-576: Régler le rognage du plan
-577: Modèle multijoueur secret déverrouillé
-578: Vous pouvez utiliser les cartes dorées de façon illimitée et gratuitement
+576: RÃ©gler le rognage du plan
+577: ModÃ¨le multijoueur secret dÃ©verrouillÃ©
+578: Vous pouvez utiliser les cartes dorÃ©es de faÃ§on illimitÃ©e et gratuitement
 
 # multiplayer error messages - DO NOT TRANSLATE
 579: Disconnected on timeout: %d ms
@@ -778,85 +778,85 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # maps stats
 630: MEILLEURS SCORES
 
-631: Mouvt. tête
-632: Régler mouvement de la tête
+631: Mouvt. tÃªte
+632: RÃ©gler mouvement de la tÃªte
 633: Sons d'ambiance
-634: Activer/désactiver les sons d'ambiance
+634: Activer/dÃ©sactiver les sons d'ambiance
 
-635: Niveau non disponible\ndans ce mode de\ndifficulté
+635: Niveau non disponible\ndans ce mode de\ndifficultÃ©
 636: Voulez-vous supprimer toutes vos cartes de tarot et vos scores ?
 
 637: Date et heure
 638: [NOUVELLE SAUVEGARDE]
 639: Enr.
 640: Charg.
-641: Partie sauvegardée
-642: Partie chargée
+641: Partie sauvegardÃ©e
+642: Partie chargÃ©e
 643: [Rapide]
 644: [Auto]
-645: Voulez-vous vraiment supprimer cette partie sauvegardée ?
-646: Voulez-vous vraiment écraser cette partie sauvegardée ?
+645: Voulez-vous vraiment supprimer cette partie sauvegardÃ©e ?
+646: Voulez-vous vraiment Ã©craser cette partie sauvegardÃ©e ?
 
 647: POINT DE CONTROLE
 648: Sauvegarde en cours
 
 # cheats
-649: Les cheats ne sont actifs qu'en mode Rêverie et Insomnie.
-650: Maximum de munitions autorisé.
-651: Toutes les armes autorisées.
-652: Maximum de santé autorisé.
-653: Maximum de munitions et de santé autorisé.
-654: God mode activé.
-655: God mode désactivé.
-656: Projections excessives activées.
-657: Projections excessives désactivées.
-658: Les corps ne disparaîtront pas.
-659: Les corps disparaîtront.
-660: Les motifs ne disparaîtront pas.
-661: Les motifs disparaîtront.
+649: Les cheats ne sont actifs qu'en mode RÃªverie et Insomnie.
+650: Maximum de munitions autorisÃ©.
+651: Toutes les armes autorisÃ©es.
+652: Maximum de santÃ© autorisÃ©.
+653: Maximum de munitions et de santÃ© autorisÃ©.
+654: God mode activÃ©.
+655: God mode dÃ©sactivÃ©.
+656: Projections excessives activÃ©es.
+657: Projections excessives dÃ©sactivÃ©es.
+658: Les corps ne disparaÃ®tront pas.
+659: Les corps disparaÃ®tront.
+660: Les motifs ne disparaÃ®tront pas.
+661: Les motifs disparaÃ®tront.
 662: Tous les ennemis ont 1 PV.
 663: Tous les ennemis ont des PV normaux.
-664: Pluie d'or autorisée.
-665: "Hâte" activée (le monde va plus lentement).
-666: "Hâte" désactivée.
-667: Mode Démon activé.
-668: Mode Démon désactivé.
-669: Modificateur d'arme activé.
-670: Modificateur d'arme désactivé.
-671: L'utilisation illimitée des cartes dorées est autorisée.
-672: Accès à tous les niveaux autorisé.
-673: Toutes les cartes de tarot sont autorisées.
+664: Pluie d'or autorisÃ©e.
+665: "HÃ¢te" activÃ©e (le monde va plus lentement).
+666: "HÃ¢te" dÃ©sactivÃ©e.
+667: Mode DÃ©mon activÃ©.
+668: Mode DÃ©mon dÃ©sactivÃ©.
+669: Modificateur d'arme activÃ©.
+670: Modificateur d'arme dÃ©sactivÃ©.
+671: L'utilisation illimitÃ©e des cartes dorÃ©es est autorisÃ©e.
+672: AccÃ¨s Ã  tous les niveaux autorisÃ©.
+673: Toutes les cartes de tarot sont autorisÃ©es.
 
 # connection speed
 674: Modem
 675: ISDN
-676: Câble/ADSL
+676: CÃ¢ble/ADSL
 677: LAN/T1
 
 678: Sauvegardes
 679: Auto-sauv.
 680: [Pt ctrl]
 
-681: Appuyer sur Tirer pour charger le dernier point de contrôle.
-682: Appuyer sur Tir secondaire pour charger la dernière sauvegarde rapide.
-683: Appuyer sur Echap pour accéder au menu.
-684: En mode Traumatisme, seuls les points de contrôle permettent d'effectuer une auto-sauvegarde.
-685: Santé totalement régénérée.
+681: Appuyer sur Tirer pour charger le dernier point de contrÃ´le.
+682: Appuyer sur Tir secondaire pour charger la derniÃ¨re sauvegarde rapide.
+683: Appuyer sur Echap pour accÃ©der au menu.
+684: En mode Traumatisme, seuls les points de contrÃ´le permettent d'effectuer une auto-sauvegarde.
+685: SantÃ© totalement rÃ©gÃ©nÃ©rÃ©e.
 
-686: Ceci va démarrer une nouvelle partie : tous les niveaux vont être bloqués à nouveau. Etes-vous sûr de vouloir quitter la partie actuelle et en commencer une nouvelle ?
-687: Etes vous sûr de vouloir quitter le niveau actuel ?
+686: Ceci va dÃ©marrer une nouvelle partie : tous les niveaux vont Ãªtre bloquÃ©s Ã  nouveau. Etes-vous sÃ»r de vouloir quitter la partie actuelle et en commencer une nouvelle ?
+687: Etes vous sÃ»r de vouloir quitter le niveau actuel ?
 
 688: Temps de jeu
 
 #last minute crap
-689: Débloquez 23 cartes du Tarot Noir pour activer ce mode
+689: DÃ©bloquez 23 cartes du Tarot Noir pour activer ce mode
 
 #last minute MP crap <-eh watch your language :)
 
-690: Modèle
+690: ModÃ¨le
 691: Choisissez votre apparence
-692: Démon
-693: Ange déchu
+692: DÃ©mon
+693: Ange dÃ©chu
 694: Chevalier
 695: Monstre
 696: Painkiller
@@ -866,12 +866,12 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 699: Pentafrag!
 700: Oh Mon Dieu!
 
-701: Temps de chasse supplémentaire autorisé.
-702: $PLAYER est notre nouveau porteur de lumière.
-703: $PLAYER a perdu la lumière.
-704: La lumière est retournée à son emplacement d'origine.
+701: Temps de chasse supplÃ©mentaire autorisÃ©.
+702: $PLAYER est notre nouveau porteur de lumiÃ¨re.
+703: $PLAYER a perdu la lumiÃ¨re.
+704: La lumiÃ¨re est retournÃ©e Ã  son emplacement d'origine.
 705: CREDITS
-706: Voir crédits
+706: Voir crÃ©dits
 
 707: Blanc
 708: Rouge
@@ -879,18 +879,18 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 709: PAUSE
 
 710: Appuyer sur 'Tirer' pour commencer
-711: RÉSULTAT FINAL
+711: RÃ‰SULTAT FINAL
 
 # electro
-712: $KILLER a abrégé les souffrances de $PLAYER.
+712: $KILLER a abrÃ©gÃ© les souffrances de $PLAYER.
 # shuriken
-713: $KILLER a abrégé les souffrances de $PLAYER.
+713: $KILLER a abrÃ©gÃ© les souffrances de $PLAYER.
 
 714: Ready
 715: Break
 
 716: Appuyer sur 'Tirer' pour ready/unready
-717: 'Tir secondaire' - Sélectionner votre équipe
+717: 'Tir secondaire' - SÃ©lectionner votre Ã©quipe
 
 # lava
 718: $PLAYER vient de prouver que la vie est courte.
@@ -909,7 +909,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 729: minute(s)
 730: Le match commence dans %d secondes.
 731: En attente d'autres joueurs.
-732: 'Arme suivante/précédente' - changer de vue
+732: 'Arme suivante/prÃ©cÃ©dente' - changer de vue
 733: Prediction (beta)
 734: Warning: this option enables experimental prediction code
 735: Warning: You need to reconnect for the changes to take effect. This experimental beta code requires much more processing power of your PC, turn it off if you experience serious slowdowns. Please read README file for patch 1.15 for more info about the prediction code.
@@ -920,42 +920,42 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 739: Arme 9
 740: Arme 10
 
-741: Délai de réapparition des armes
-742: Régler le délai de réapparition des armes
+741: DÃ©lai de rÃ©apparition des armes
+742: RÃ©gler le dÃ©lai de rÃ©apparition des armes
 743: FPS du Serveur 
-744: Régler FPS du Serveur 
+744: RÃ©gler FPS du Serveur 
 
-745: Veuillez insérer Painkiller CD1
-746: Prédiction
+745: Veuillez insÃ©rer Painkiller CD1
+746: PrÃ©diction
 
-747: Réduit le temps de latence Internet, en utilisant plus de ressources système.\nDéconseillé pour les parties en LAN.
+747: RÃ©duit le temps de latence Internet, en utilisant plus de ressources systÃ¨me.\nDÃ©conseillÃ© pour les parties en LAN.
 
 748: Vous devez vous reconnecter au serveur pour que ce changement prenne effet
 
-749: Vérouillage du Framerate 
-750: Description du vérouillage du Framerate 
-751: Désactivé
+749: VÃ©rouillage du Framerate 
+750: Description du vÃ©rouillage du Framerate 
+751: DÃ©sactivÃ©
 752: FPS du Serveur
 753: FPS du Serveur x2
 754: FPS du Serveur x3
 
 755: FPS Physique
-756: Réglages FPS Physique
+756: RÃ©glages FPS Physique
 
-757: Effets spé. multi basse qualité
-758: Utiliser des effets spéciaux de basse qualité en multijoueur
+757: Effets spÃ©. multi basse qualitÃ©
+758: Utiliser des effets spÃ©ciaux de basse qualitÃ© en multijoueur
 
 759: Capture du drapeau
 
 760: Effets de halo
-761: Activer/désactiver les effets de halo
+761: Activer/dÃ©sactiver les effets de halo
 
-762: Sélectionner partie
+762: SÃ©lectionner partie
 763: Painkiller
 764: Battle out of Hell
 
 765: Effet de chaleur
-766: Activer/désactiver les effets de chaleur
+766: Activer/dÃ©sactiver les effets de chaleur
 
 767: Zoom
 
@@ -964,11 +964,11 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 768: rouge
 769: bleu(e)
 770: $PLAYER a pris le drapeau $COLOR
-771: $PLAYER marque pour l'équipe $COLOR
-772: Drapeau $COLOR rapporté
-773: $PLAYER a rapporté le drapeau $COLOR
-774: $PLAYER a lâché le drapeau $COLOR
-775: L'équipe $COLOR gagne
+771: $PLAYER marque pour l'Ã©quipe $COLOR
+772: Drapeau $COLOR rapportÃ©
+773: $PLAYER a rapportÃ© le drapeau $COLOR
+774: $PLAYER a lÃ¢chÃ© le drapeau $COLOR
+775: L'Ã©quipe $COLOR gagne
 
 # Lighting
 776: Ultra
@@ -977,9 +977,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 778: Duel
 779: Survivant
 780: Limite de captures
-781: Nombre de captures nécessaire pour gagner la partie, 0 = désactivé
+781: Nombre de captures nÃ©cessaire pour gagner la partie, 0 = dÃ©sactivÃ©
 
-782: Vous possédez l'arme rêvée de tout sniper !\nN'oubliez pas, la touche ZOOM vous permet de tuer les ennemis sans vous exposer.
+782: Vous possÃ©dez l'arme rÃªvÃ©e de tout sniper !\nN'oubliez pas, la touche ZOOM vous permet de tuer les ennemis sans vous exposer.
 
 # BOOH cards
 783: Modificateur d'arme
@@ -987,22 +987,22 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 785: Invoquer golem
 786: Invoquer combattant
 787: Invoquer guerrier
-788: Drain de santé
-789: Régénération de santé
-790: Régénération d'armure
+788: Drain de santÃ©
+789: RÃ©gÃ©nÃ©ration de santÃ©
+790: RÃ©gÃ©nÃ©ration d'armure
 791: Peur
 792: Munitions 666
 
 # BOOH cards descriptions
 793: Active modificateur d'arme
-794: Hâte n'affecte pas les armes
+794: HÃ¢te n'affecte pas les armes
 795: Lent mais robuste, tous les\nennemis se concentrent dessus
 796: Rapide mais faible,\nles ennemis l'ignorent
-797: Equilibré, 50 % des ennemis\nl'ignorent
-798: 2.5 % des dégâts à l'ennemi sont\nconvertis en santé pour le joueur
-799: La santé commence à se régénérer\n10 sec après avoir subi des dégâts
-800: L'armure se régénère peu a peu\n10 sec après avoir subi des dégâts
-801: Tous les ennemis ont 90 %\nde leur santé initiale
+797: EquilibrÃ©, 50 % des ennemis\nl'ignorent
+798: 2.5 % des dÃ©gÃ¢ts Ã  l'ennemi sont\nconvertis en santÃ© pour le joueur
+799: La santÃ© commence Ã  se rÃ©gÃ©nÃ©rer\n10 sec aprÃ¨s avoir subi des dÃ©gÃ¢ts
+800: L'armure se rÃ©gÃ©nÃ¨re peu a peu\n10 sec aprÃ¨s avoir subi des dÃ©gÃ¢ts
+801: Tous les ennemis ont 90 %\nde leur santÃ© initiale
 802: Le joueur debute chaque niveau\navec 666 munitions par arme
 # Last man standing
 803: Vies Survivant
@@ -1012,14 +1012,14 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # BOOH black tarot card unlocking conditions
 806: Ne pas tuer plus de 88 ennemis
 807: Tuer tous les ennemis
-808: Terminer le niveau avec plus de 200 en santé
-809: Se transformer 5 fois en démon
+808: Terminer le niveau avec plus de 200 en santÃ©
+809: Se transformer 5 fois en dÃ©mon
 810: Trouver tous les lieux secrets
 811: Terminer le niveau en 20 minutes maximum
 812: Ne pas se faire blesser
-813: Trouver tous les objets sacrés
-814: Tuer l'araignée panzer en moins de 04:00
-815: Détruire Alastor en moins de 04:00
+813: Trouver tous les objets sacrÃ©s
+814: Tuer l'araignÃ©e panzer en moins de 04:00
+815: DÃ©truire Alastor en moins de 04:00
 
 # BOOH level names
 816: Orphelinat
@@ -1027,17 +1027,17 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 818: Labo
 819: Ville morte
 820: Leningrad
-821: Colisée
+821: ColisÃ©e
 822: Pentagone
 823: Outre-monde
-824: Carrière
+824: CarriÃ¨re
 825: Terre des ombres
 
 # BOOH weapons
 826: Arme 11
 827: Arme 12
 828: Lance-clous
-829: Dévastateur
+829: DÃ©vastateur
 830: Mitraillette
 831: Lance-flammes
 832: Arme 13
@@ -1046,13 +1046,13 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # Lab new card unlocking conditions
 834: Terminer le niveau en utilisant seulement le lance-clous
 
-835: Débloquez 9 cartes du Tarot Noir pour activer ce mode
+835: DÃ©bloquez 9 cartes du Tarot Noir pour activer ce mode
 
-836: Modèle d'arme hte res.
+836: ModÃ¨le d'arme hte res.
 837: Effets d'eau
 
 # magic gun card description
-838: Aucune munition n'est gachée
+838: Aucune munition n'est gachÃ©e
 
 # booh mp models
 839: HellKing
@@ -1060,20 +1060,20 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # changed booh cards
 841: Le Sceptre
-842: Mutation démoniaque
+842: Mutation dÃ©moniaque
 843: Nouvelle vie
 844: Les ennemis sont affaiblis.
-845: Transformation en démon
-846: L'armure et la santé sontn/entierement régénérées
+845: Transformation en dÃ©mon
+846: L'armure et la santÃ© sontn/entierement rÃ©gÃ©nÃ©rÃ©es
 
 # multi-player messages
 
-847: $KILLER a chatié $PLAYER d'une bonne rafale de mitraillette.
-848: $KILLER a multi-poutré $PLAYER.
-849: $KILLER a éparpillé $PLAYER façon puzzle au dévastateur.
+847: $KILLER a chatiÃ© $PLAYER d'une bonne rafale de mitraillette.
+848: $KILLER a multi-poutrÃ© $PLAYER.
+849: $KILLER a Ã©parpillÃ© $PLAYER faÃ§on puzzle au dÃ©vastateur.
 
 # black edition
-850: Crédits
+850: CrÃ©dits
 851: Videos
 852: View videos
 853: Making of
@@ -1083,3 +1083,5 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 857: Client Console Lockdown
 858: Disable client's console
+
+1000: Langue

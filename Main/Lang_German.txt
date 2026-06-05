@@ -11,8 +11,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # menu items
 
-8: Zurück
-9: Übernehmen
+8: ZurÃ¼ck
+9: Ãœbernehmen
 
 # main menu
 10: Pakt zeichnen
@@ -20,12 +20,12 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 12: Multiplayer
 13: Optionen
 14: Geheimnisse
-15: Zurück
+15: ZurÃ¼ck
 16: Beenden
 17: Sind Sie sicher?
 
 # difficulty level
-18: Schwierigkeitsgrad wählen
+18: Schwierigkeitsgrad wÃ¤hlen
 19: Tagtraum
 20: Schlaflos
 21: Albtraum
@@ -42,18 +42,18 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 28: Waffen
 29: Aktion
-30: Primär
-31: Sekundär
+30: PrimÃ¤r
+31: SekundÃ¤r
 
 # keys
-32: Vorwärts
-33: Rückwärts
+32: VorwÃ¤rts
+33: RÃ¼ckwÃ¤rts
 34: Seitschritt links
 35: Seitschritt rechts
 36: Springen
 37: Feuern
-38: Sekundärfeuer
-39: Nächste Waffe
+38: SekundÃ¤rfeuer
+39: NÃ¤chste Waffe
 40: Vorherige Waffe
 41: Waffe 1
 42: Waffe 2
@@ -63,29 +63,29 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 46: BulletTime
 47: Pause
 48: Screenshot
-49: Menü
+49: MenÃ¼
 50: Rangliste
 51: Allen sagen
 52: Nur dem Team sagen
 53: Raketensprung
-54: Raketensprung vorwärts
+54: Raketensprung vorwÃ¤rts
 55: Feuermodus
 56: Feuermodus umschalten
-57: Beste Sprengwaffe wählen
-58: Beste Nicht-Sprengwaffe wählen
-59: Beste eigene Waffe wählen
+57: Beste Sprengwaffe wÃ¤hlen
+58: Beste Nicht-Sprengwaffe wÃ¤hlen
+59: Beste eigene Waffe wÃ¤hlen
 60: Beste Sprengwaffe abfeuern
 61: Beste Nicht-Sprengwaffe abfeuern
 62: Beste eigene Waffe abfeuern
 
 # mouse options
 63: Maus spiegeln
-64: Maus glätten
+64: Maus glÃ¤tten
 65: Mausempf.
 66: Mausrad-Empf.
 
 # weapons config
-67: Sekundär
+67: SekundÃ¤r
 68: Umschalten
 69: Pickup
 70: Sprengwaffen
@@ -97,33 +97,33 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # HUD config
 76: HUD-Transp.
-77: HUD-Größe
+77: HUD-GrÃ¶ÃŸe
 78: Klein
 79: Normal
-80: Groß
+80: GroÃŸ
 81: Fadenkreuz
 82: Transparenz
 83: Rot
-84: Grün
+84: GrÃ¼n
 85: Blau
 
 # sound config
 86: Haupt-Lautst.
-87: Musik-Lautstärke
+87: Musik-LautstÃ¤rke
 88: Sound-Lautst.
 89: Stereo umkehren
 90: Lautsprecher-Setup
 91: 3D Sound
 92: 2 Lautsprecher
-93: Kopfhörer
+93: KopfhÃ¶rer
 94: Surround
 95: 4 Lautsprecher
 96: 5:1
 97: 7:1
 
 # video config
-98: Auflösung
-99: Texturqualität
+98: AuflÃ¶sung
+99: TexturqualitÃ¤t
 100: Vollbild
 101: Gamma
 102: Helligkeit
@@ -132,7 +132,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 105: Niedrig
 106: Mittel
 107: Hoch
-108: Gebäude
+108: GebÃ¤ude
 109: Figuren
 110: Himmel
 
@@ -166,7 +166,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 132: Internet
 133: LAN
 134: Favor.
-135: Zu Favoriten hinzufügen
+135: Zu Favoriten hinzufÃ¼gen
 136: Von Favoriten entfernen
 137: Aktualisieren
 138: Stopp
@@ -181,7 +181,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 147: Kein Server gefunden
 148: Auswahl mit Linksklick
 149: Server-Liste wird aktualisiert
-150: Update ausgeführt
+150: Update ausgefÃ¼hrt
 151: [KEIN]
 152: [KEINE KARTE]
 153: Unbekannt
@@ -199,20 +199,20 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 163: Max. Zuschauer
 164: Fraglimit
 165: Zeitlimit
-166: Öffentlicher Server
+166: Ã–ffentlicher Server
 167: Teamschaden
 168: Waffen bleiben
 169: Powerups
 170: Powerup-Verlust
 171: Bunnyhopping erlaubt
 172: Brightskins erlaubt
-173: Raketensprung vorwärts erlaubt
+173: Raketensprung vorwÃ¤rts erlaubt
 174: Team-Brightskin
 175: Gegner-Brightskin
 176: Allgemein
 177: Erweitert
 178: Starten
-179: Hinzufügen
+179: HinzufÃ¼gen
 180: Alle hinzuf.
 181: Entfernen
 182: Alle entfernen
@@ -222,106 +222,106 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 184: Team
 185: Geschwindigkeit
 186: CD-Code
-187: Löschen
+187: LÃ¶schen
 188: Eingabe
 
 # menu items' descriptions
 
-189: Zurück zum vorherigen Bildschirm
-190: Einstellungen übernehmen und zurück zum vorherigen Bildschirm
+189: ZurÃ¼ck zum vorherigen Bildschirm
+190: Einstellungen Ã¼bernehmen und zurÃ¼ck zum vorherigen Bildschirm
 
 # main menu
 191: Starten Sie eine neue Einzelspieler-Partie.
 192: Laden Sie einen Spielstand oder speichern Sie das aktuelle Spiel.
-193: Spielen Sie im Internet oder eröffnen Sie Ihren eigenen Multiplayer-Server.
-194: Konfigurieren Sie die Steuerung und ändern Sie die Sound- und Grafikoptionen.
+193: Spielen Sie im Internet oder erÃ¶ffnen Sie Ihren eigenen Multiplayer-Server.
+194: Konfigurieren Sie die Steuerung und Ã¤ndern Sie die Sound- und Grafikoptionen.
 195: Werfen Sie einen Blick auf die bereits entdeckten Geheimnisse.
-196: Kehren Sie zum Spiel zurück.
+196: Kehren Sie zum Spiel zurÃ¼ck.
 197: Verlassen Sie das Spiel.
 
 # difficulty modes
-198: Extrem einfacher Modus für Anfänger.
+198: Extrem einfacher Modus fÃ¼r AnfÃ¤nger.
 199: Empfohlener Standard-Schwierigkeitsgrad.
-200: Schwieriger Modus für erfahrene Spieler.
+200: Schwieriger Modus fÃ¼r erfahrene Spieler.
 201: Painkillers wahre Geschichte.
 
 # options menu
 202: Konfigurieren Sie die Spielsteuerung.
 203: Konfigurieren Sie Ihr HUD.
-204: Ändern Sie die Sound- und Musikeinstellungen.
+204: Ã„ndern Sie die Sound- und Musikeinstellungen.
 205: Bestimmen Sie die Grafikeinstellungen.
-206: Weitere Einstellungen für erfahrene Anwender.
+206: Weitere Einstellungen fÃ¼r erfahrene Anwender.
 
 # controls config
 
 207: Rufen Sie den Bildschirm "Waffen-Konfiguration" auf.
-208: Linksklicken Sie auf den gewünschten Befehl und drücken Sie die Taste, mit der Sie diesen zukünftig ausführen möchten.
+208: Linksklicken Sie auf den gewÃ¼nschten Befehl und drÃ¼cken Sie die Taste, mit der Sie diesen zukÃ¼nftig ausfÃ¼hren mÃ¶chten.
 
 # mouse options
 209: Flugsimulator-Maussteuerung.
 210: Verringern Sie das Ruckeln der Maus.
 211: Bestimmen Sie die Empfindlichkeit der Maus.
-212: Ändern Sie die Empfindlichkeit des Mausrades.
+212: Ã„ndern Sie die Empfindlichkeit des Mausrades.
 
 # HUD config
 213: Bestimmen Sie die Transparenz Ihres HUDs.
-214: Bestimmen Sie die Größe Ihres HUDs.
-215: Wählen Sie ein Fadenkreuz.
+214: Bestimmen Sie die GrÃ¶ÃŸe Ihres HUDs.
+215: WÃ¤hlen Sie ein Fadenkreuz.
 216: Bestimmen Sie die Transparenz des Fadenkreuzes.
-217: Wählen Sie die Farbe Ihres Fadenkreuzes.
+217: WÃ¤hlen Sie die Farbe Ihres Fadenkreuzes.
 
 # weapons config
 218: Wechseln Sie die Waffen automatisch.
 
 # sound config
-219: Bestimmen Sie die Lautstärke des gesamten Spiels.
-220: Bestimmen Sie die Lautstärke der Musik.
-221: Bestimmen Sie die Lautstärke der Soundeffekte.
-222: Vertauschen Sie die Stereokanäle.
+219: Bestimmen Sie die LautstÃ¤rke des gesamten Spiels.
+220: Bestimmen Sie die LautstÃ¤rke der Musik.
+221: Bestimmen Sie die LautstÃ¤rke der Soundeffekte.
+222: Vertauschen Sie die StereokanÃ¤le.
 223: Konfigurieren Sie Ihre Lautsprecher.
-224: Wählen Sie Ihren 3D Sound-Anbieter.
+224: WÃ¤hlen Sie Ihren 3D Sound-Anbieter.
 
 # video config
-225: Für höhere Auflösungen brauchen si schnelle PC und 3D-Karte.
-226: Wählen Sie "Niedrig", wenn während des Spiels Probleme auftreten.
-227: Deaktivieren Sie diese Option, wenn Sie im Fenstermodus spielen möchten.
+225: FÃ¼r hÃ¶here AuflÃ¶sungen brauchen si schnelle PC und 3D-Karte.
+226: WÃ¤hlen Sie "Niedrig", wenn wÃ¤hrend des Spiels Probleme auftreten.
+227: Deaktivieren Sie diese Option, wenn Sie im Fenstermodus spielen mÃ¶chten.
 228: Bestimmen Sie die Gamma-Einstellung.
-229: Ändern Sie die Helligkeit des Spiels.
-230: Ändern Sie den Kontrast des Spiels.
-231: Ändern Sie die Texturqualität der Waffen.
-232: Ändern Sie die Texturqualität der Gebäude.
-233: Ändern Sie die Texturqualität der Gegner.
-234: Ändern Sie die Texturqualität des Himmels.
+229: Ã„ndern Sie die Helligkeit des Spiels.
+230: Ã„ndern Sie den Kontrast des Spiels.
+231: Ã„ndern Sie die TexturqualitÃ¤t der Waffen.
+232: Ã„ndern Sie die TexturqualitÃ¤t der GebÃ¤ude.
+233: Ã„ndern Sie die TexturqualitÃ¤t der Gegner.
+234: Ã„ndern Sie die TexturqualitÃ¤t des Himmels.
 
 # advanced video config
-235: Schalten Sie diese Option aus, wenn während des Spiels Probleme auftreten.
-236: Wählen Sie "Bilinear", wenn während des Spiels Probleme auftreten.
-237: Wählen Sie die Multisampling-Stufe.
+235: Schalten Sie diese Option aus, wenn wÃ¤hrend des Spiels Probleme auftreten.
+236: WÃ¤hlen Sie "Bilinear", wenn wÃ¤hrend des Spiels Probleme auftreten.
+237: WÃ¤hlen Sie die Multisampling-Stufe.
 238: Legen Sie fest, wie lange Decals angezeigt werden.
 
 # multiplayer menu
 
 239: Geben Sie das Server-Passwort ein.
-240: Schließen Sie sich einem Multiplayer-Spiel in Ihrem LAN oder im Internet an.
+240: SchlieÃŸen Sie sich einem Multiplayer-Spiel in Ihrem LAN oder im Internet an.
 241: Starten Sie Ihren eigenen Multiplayer-Server.
 242: Konfigurieren Sie die Multiplayer-Einstellungen.
 
 # join game menu
-243: Schließen Sie sich einem Multiplayer-Spiel im Internet an.
-244: Schließen Sie sich einem Multiplayer-Spiel in Ihrem LAN an.
+243: SchlieÃŸen Sie sich einem Multiplayer-Spiel im Internet an.
+244: SchlieÃŸen Sie sich einem Multiplayer-Spiel in Ihrem LAN an.
 245: Eine Liste Ihrer Lieblingsserver.
-246: Nehmen Sie den gewählten Server in Ihre Favoriten-Liste auf.
-247: Entfernen Sie den gewählten Server aus Ihrer Favoriten-Liste.
+246: Nehmen Sie den gewÃ¤hlten Server in Ihre Favoriten-Liste auf.
+247: Entfernen Sie den gewÃ¤hlten Server aus Ihrer Favoriten-Liste.
 248: Aktualisieren Sie die Server-Liste.
 249: Beenden Sie die Aktualisierung der Server-Liste.
-250: Schließen Sie sich dem Server an und stürzen Sie sich ins Spiel.
+250: SchlieÃŸen Sie sich dem Server an und stÃ¼rzen Sie sich ins Spiel.
 251: Geben Sie die IP-Adresse des Servers ein.
 
 # start game menu
 252: Geben Sie Ihrem Server einen Namen.
 253: Bestimmen Sie ein Passwort, um die Zugriffe auf Ihren Server zu begrenzen.
-254: Ändern Sie den Server-Port.
-255: Wählen Sie einen Spielmodus.
+254: Ã„ndern Sie den Server-Port.
+255: WÃ¤hlen Sie einen Spielmodus.
 256: Bestimmen Sie die maximale Spielerzahl.
 257: Bestimmen Sie die maximale Zuschauerzahl.
 258: Erforderliche Anzahl Frags, 0 = deaktiviert
@@ -331,9 +331,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 262: Aktivieren Sie diese Option, verschwinden Waffen-Pickups nicht.
 263: Schalten Sie die versteckten Powerups ein/aus.
 264: Aktivieren Sie diese Option, lassen besiegte Feinde ihre Powerups fallen.
-265: Aktivieren Sie diese Option, wenn Sie mit Bunnyhopping spielen möchten.
-266: Aktivieren Sie diese Option, wenn Sie Brightskins zulassen möchten.
-267: Spielen Sie mit Vorwärts-Raketensprüngen.
+265: Aktivieren Sie diese Option, wenn Sie mit Bunnyhopping spielen mÃ¶chten.
+266: Aktivieren Sie diese Option, wenn Sie Brightskins zulassen mÃ¶chten.
+267: Spielen Sie mit VorwÃ¤rts-RaketensprÃ¼ngen.
 268: Bestimmen Sie die Brightskin-Farbe des Teams.
 269: Bestimmen Sie die Brightskin-Farbe der Gegner.
 270: Allgemeine Einstellungen
@@ -343,14 +343,14 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 # list manipulation
 273: Nach oben
 274: Nach unten
-275: Gewähltes Objekt hinzufügen
-276: Alle Objekte hinzufügen
-277: Gewähltes Objekt entfernen
+275: GewÃ¤hltes Objekt hinzufÃ¼gen
+276: Alle Objekte hinzufÃ¼gen
+277: GewÃ¤hltes Objekt entfernen
 278: Alle Objekte entfernen
 
 # player settings menu
 279: Geben Sie Ihren Spitznamen ein.
-280: Wählen Sie Ihr Team für Teamspiele.
+280: WÃ¤hlen Sie Ihr Team fÃ¼r Teamspiele.
 281: Geben Sie Ihre Verbindungsgeschwindigkeit an.
 282: Geben Sie den CD-Code ein.
 
@@ -362,15 +362,15 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 285: Katakomben
 286: Kathedrale
 287: Enklave
-288: Gefängnis
+288: GefÃ¤ngnis
 289: Oper
 290: Irrenanstalt
-291: Verschneite Brücke
+291: Verschneite BrÃ¼cke
 292: Stadt
 293: Sumpf
 294: Bahnhof
 295: Verlassene Fabrik
-296: Militärstützpunkt
+296: MilitÃ¤rstÃ¼tzpunkt
 297: Ruinen
 298: Schloss
 299: Der Palast
@@ -380,7 +380,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 303: Wasserstadt
 304: Hafen
 305: Altes Kloster
-306: Hölle
+306: HÃ¶lle
 
 # stats
 307: Karten gefunden
@@ -393,9 +393,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 311: Vernichtete Monster
 312: Verschlungene Seelen
 313: Gesammeltes Gold
-314: Entdeckte heilige Gegenstände
+314: Entdeckte heilige GegenstÃ¤nde
 315: Gefundene Munition
-316: Zerstörte Objekte
+316: ZerstÃ¶rte Objekte
 317: Entdeckte Geheimnisse
 318: Status der Karte
 319: Status
@@ -407,16 +407,16 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 322: $PLAYER hat die Arena betreten.
 323: $PLAYER ist aus der Arena geflohen.
 324: $KILLER hat $PLAYER mit der Schrotflinte erledigt.
-325: $KILLER hat $PLAYER erlöst.
+325: $KILLER hat $PLAYER erlÃ¶st.
 326: $KILLER hat $PLAYER vernichtet.
-327: $PLAYER hat $KILLERs Granate geküsst.
+327: $PLAYER hat $KILLERs Granate gekÃ¼sst.
 328: $PLAYER ist auf $KILLERs Rakete geritten.
 329: $PLAYER hat sich an $KILLERs Rakete verschluckt.
 330: $KILLER hat $PLAYER eliminiert.
-331: $KILLER hat $PLAYER von seinen Qualen erlöst.
-332: $KILLER hat $PLAYER per Telefrag zur Hölle geschickt.
+331: $KILLER hat $PLAYER von seinen Qualen erlÃ¶st.
+332: $KILLER hat $PLAYER per Telefrag zur HÃ¶lle geschickt.
 333: $PLAYER hat den Kampf gegen die Schwerkraft verloren.
-334: $PLAYER hat das Gebäude verlassen.
+334: $PLAYER hat das GebÃ¤ude verlassen.
 335: $PLAYER hat vergessen, wo die Kugel rauskommt.
 336: $PLAYER hat bewiesen, dass das Leben verdammt kurz ist.
 337: $PLAYER ist explodiert.
@@ -434,17 +434,17 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 347: Hast (3-fach)
 348: Zeitbonus
 349: Doppelter Zeitbonus
-350: Seelenjäger
-351: Hüter der Seelen
-352: Erlöser der Seelen
+350: SeelenjÃ¤ger
+351: HÃ¼ter der Seelen
+352: ErlÃ¶ser der Seelen
 353: Dunkle Seele
 354: Segen
-355: Vitalität
+355: VitalitÃ¤t
 356: Regeneration
 357: Gier
 358: Vergebung
 359: Gnade
-360: Göttliche Intervention
+360: GÃ¶ttliche Intervention
 361: Letzter Atemzug
 
 # cards descriptions
@@ -458,26 +458,26 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 369: Die Welt dreht sich\n3 Mal langsamer
 370: Die Welt dreht sich\n4 Mal langsamer
 371: Die Welt dreht sich\n8 Mal langsamer
-372: Temporäre Karten sind\n10 Sekunden länger verfügbar
-373: Temporäre Karten sind\n20 Sekunden länger verfügbar
+372: TemporÃ¤re Karten sind\n10 Sekunden lÃ¤nger verfÃ¼gbar
+373: TemporÃ¤re Karten sind\n20 Sekunden lÃ¤nger verfÃ¼gbar
 374: Verschlingen Sie Seelen\naus der Distanz
-375: Die Seelen bleiben länger\nin Ihrer Welt
+375: Die Seelen bleiben lÃ¤nger\nin Ihrer Welt
 376: Seelen regenerieren mehr\nGesundheit
-377: Verwandeln Sie sich nach\n50 Seelen in einen Dämon
-378: Erhöhen Sie Ihre\nAnfangsgesundheit auf 150
-379: Erhöhen Sie Ihre maximale\nGesundheit auf 150
+377: Verwandeln Sie sich nach\n50 Seelen in einen DÃ¤mon
+378: ErhÃ¶hen Sie Ihre\nAnfangsgesundheit auf 150
+379: ErhÃ¶hen Sie Ihre maximale\nGesundheit auf 150
 380: Verdoppeln Sie die Munition\nin Munitionskisten
-381: Verdoppeln Sie die Zahl der\nverborgenen Schätze
-382: Sie können temporäre Karten\nzweimal/Level verwenden
-383: Sie können temporäre Karten\ndreimal/pro Level verwenden
-384: Alle Karten können kostenlos\nplatziert werden
+381: Verdoppeln Sie die Zahl der\nverborgenen SchÃ¤tze
+382: Sie kÃ¶nnen temporÃ¤re Karten\nzweimal/Level verwenden
+383: Sie kÃ¶nnen temporÃ¤re Karten\ndreimal/pro Level verwenden
+384: Alle Karten kÃ¶nnen kostenlos\nplatziert werden
 385: Ihre Gesundheit wird nach\ndem Tod wiederhergestellt
 
 # multi-player stats
 
 386: Spieler
 387: Frags
-388: Abschüsse
+388: AbschÃ¼sse
 389: Gestorben
 390: Ping
 391: Zeit
@@ -485,61 +485,61 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 393: Verbleibende Zeit
 
 # messages
-394: Drücken Sie 'Enter', um fortzufahren.
-395: Drücken Sie 'Feuern', um fortzufahren.
+394: DrÃ¼cken Sie 'Enter', um fortzufahren.
+395: DrÃ¼cken Sie 'Feuern', um fortzufahren.
 
 # black tarot card unlocking conditions
 396: Beenden Sie das Level
-397: Zerstören Sie alle Objekte
-398: Töten Sie alle Monster
+397: ZerstÃ¶ren Sie alle Objekte
+398: TÃ¶ten Sie alle Monster
 399: Finden Sie mindestens 500 Gold
-400: Töten Sie den Nekrogiganten in weniger als 02:00
-401: Meistern Sie das Level ausschließlich mit Nicht-Sprengwaffen
+400: TÃ¶ten Sie den Nekrogiganten in weniger als 02:00
+401: Meistern Sie das Level ausschlieÃŸlich mit Nicht-Sprengwaffen
 402: Verschlingen Sie mindestens 100 Seelen
 403: Meistern Sie das Level nur mit dem Painkiller
 404: Finden Sie alle geheimen Bereiche
 405: Meistern Sie das Level nur mit Bolzen 
-406: Töten Sie das Sumpfmonster in weniger als 04:00
+406: TÃ¶ten Sie das Sumpfmonster in weniger als 04:00
 407: Verschlingen Sie keine einzige Seele
-408: Töten Sie im Dämonenmodus mindestens 30 Feinde
-409: Töten Sie alle Monster
-410: Töten Sie den Wächter in weniger als 01:20
-411: Finden Sie alle heiligen Gegenstände
-412: Meistern Sie das Level ohne Rüstung
+408: TÃ¶ten Sie im DÃ¤monenmodus mindestens 30 Feinde
+409: TÃ¶ten Sie alle Monster
+410: TÃ¶ten Sie den WÃ¤chter in weniger als 01:20
+411: Finden Sie alle heiligen GegenstÃ¤nde
+412: Meistern Sie das Level ohne RÃ¼stung
 413: Finden Sie die ganze Munition
 414: Meistern Sie das Level ohne Tarotbrett
-415: Töten Sie Alastor in weniger als 05:00
+415: TÃ¶ten Sie Alastor in weniger als 05:00
 416: Finden Sie alle geheimen Bereiche
-417: Verwandeln Sie sich mindestens dreimal in einen Dämon
-418: Halten Sie Ihre Gesundheitspunkte über 50
-419: Töten Sie Luzifer
+417: Verwandeln Sie sich mindestens dreimal in einen DÃ¤mon
+418: Halten Sie Ihre Gesundheitspunkte Ã¼ber 50
+419: TÃ¶ten Sie Luzifer
 
 # main menu
 420: Spiel fortsetzen
-421: Zurück zur Karte
+421: ZurÃ¼ck zur Karte
 
 # difficulty level
-422: Modus gesperrt: Meistern Sie zunächst den Modus 'Albtraum'!
+422: Modus gesperrt: Meistern Sie zunÃ¤chst den Modus 'Albtraum'!
 
 # map
 423: Kapitel
 424: Level
-425: Tarotbrett ist in der Demo-Version nicht verfügbar
+425: Tarotbrett ist in der Demo-Version nicht verfÃ¼gbar
 426: Tarotbrett nicht aktiv
-427: Level wählen
-428: Kapitel wählen
+427: Level wÃ¤hlen
+428: Kapitel wÃ¤hlen
 429: Zum Tarotbrett
-430: Zum Hauptmenü
+430: Zum HauptmenÃ¼
 431: Level spielen
 432: Wenn Sie das Level spielen, ist das Tarotbrett inaktiv 
-433: Tarotbrett im Tagtraum-Modus nicht verfügbar 
+433: Tarotbrett im Tagtraum-Modus nicht verfÃ¼gbar 
 
 # black tarot
 434: Kosten
-435: Rückerstattung
-436: Gold nach Rückerstattung
-437: Drücken Sie "Goldene Karten benutzen",um\ndie Macht Ihrer goldenen Karten zu entfesseln.\nDies ist [x] Mal pro Level möglich.
-438: Die Wirkung der hier platzierten silbernen Karten\ntritt sofort in Kraft und hält bis zum Ende des\nLevels an.
+435: RÃ¼ckerstattung
+436: Gold nach RÃ¼ckerstattung
+437: DrÃ¼cken Sie "Goldene Karten benutzen",um\ndie Macht Ihrer goldenen Karten zu entfesseln.\nDies ist [x] Mal pro Level mÃ¶glich.
+438: Die Wirkung der hier platzierten silbernen Karten\ntritt sofort in Kraft und hÃ¤lt bis zum Ende des\nLevels an.
 439: Zu wenig Gold,\num Karte zu platzieren.
 440: Ihr Gold
 441: Erforderliches Gold
@@ -549,8 +549,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 443: Mit dieser Option aktivieren Sie die EAX-Effekte des Spiels
 444: Kampfmusik
 445: Hintergd.musik
-446: Bestimmen Sie die Lautstärke der Kampfmusik 
-447: Bestimmen Sie die Lautstärke der Hintergrundmusik
+446: Bestimmen Sie die LautstÃ¤rke der Kampfmusik 
+447: Bestimmen Sie die LautstÃ¤rke der Hintergrundmusik
 
 # video options
 448: Partikeldetails
@@ -560,10 +560,10 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 450: Blitzlicht
 
 # game over
-451: Drücken Sie 'Feuern', um neu zu starten oder 'Esc', wenn Sie das Menü verlassen möchten.
+451: DrÃ¼cken Sie 'Feuern', um neu zu starten oder 'Esc', wenn Sie das MenÃ¼ verlassen mÃ¶chten.
 
 # scoreboard
-452: Gefundene Rüstungsteile
+452: Gefundene RÃ¼stungsteile
 453: GESCHEITERT
 454: -
 455: Sie haben
@@ -583,20 +583,20 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 467: Elektr. Entladung
 
 # warnings
-468: Der Tagtraum-Modus ist ein extrem einfacher Modus für Anfänger. Tarotkarten sind in diesem Modus nicht verfügbar.\nMöchten Sie diesen Modus wählen?
+468: Der Tagtraum-Modus ist ein extrem einfacher Modus fÃ¼r AnfÃ¤nger. Tarotkarten sind in diesem Modus nicht verfÃ¼gbar.\nMÃ¶chten Sie diesen Modus wÃ¤hlen?
 469: Sind Sie sicher?
 470: Diese Warnung nicht mehr zeigen.
 
-471: TEXTURQUALITÄT
+471: TEXTURQUALITÃ„T
 
-472: Zurück zur Karte
+472: ZurÃ¼ck zur Karte
 
 473: Geheimen Bereich entdeckt!
 
 474: Schwierigk.
 
 # create server
-475: Verfügbare Karten
+475: VerfÃ¼gbare Karten
 476: Server-Karten
 
 # keys
@@ -613,8 +613,8 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 487: Shift
 488: Strg
 489: Esc
-490: Bild aufwärts
-491: Bild abwärts
+490: Bild aufwÃ¤rts
+491: Bild abwÃ¤rts
 492: Ende
 493: Pos1
 494: Einfg
@@ -640,17 +640,17 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 514: Shift rechts
 515: Alt links
 516: Alt rechts
-517: Linkes Menü
-518: Rechtes Menü
-519: Ganz rechtes Menü
+517: Linkes MenÃ¼
+518: Rechtes MenÃ¼
+519: Ganz rechtes MenÃ¼
 520: Druck
 521: Feststelltaste
 522: Ziffernblock Enter
 523: Linke Maustaste
 524: Rechte Maustaste 
 525: Mittlere Maustaste 
-526: Mausrad vorwärts
-527: Mausrad rückwärts
+526: Mausrad vorwÃ¤rts
+527: Mausrad rÃ¼ckwÃ¤rts
 528: Strg links
 529: Strg rechts
 
@@ -659,7 +659,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 531: Hoch 
 
 # weapons config
-532: Pickup-Priorität
+532: Pickup-PrioritÃ¤t
 533: Eigen 1
 534: Eigen 2
 535: Beste eigene Waffe 1
@@ -700,7 +700,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 # video options
 564: Grafikeinstellungen
-565: Allgemeine Grafikqualität bestimmen
+565: Allgemeine GrafikqualitÃ¤t bestimmen
 566: Eigen
 567: Sehr schnell
 568: Schnell
@@ -708,14 +708,14 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 570: Sehr hoch
 571: Krank
 
-572: Markieren Sie Nachrichten, die Sie allen Spielern senden möchten.
+572: Markieren Sie Nachrichten, die Sie allen Spielern senden mÃ¶chten.
 573: Diese Nachricht sehen alle Spieler
 574: Diese Nachricht sehen nur Mitglieder Ihres Teams
 
 575: Clipebene
 576: Clipebene bestimmen
 577: Geheimes Multiplayer-Modell freigeschaltet
-578: Sie können ab jetzt beliebig viele goldene Karten kostenlos einsetzen
+578: Sie kÃ¶nnen ab jetzt beliebig viele goldene Karten kostenlos einsetzen
 
 # multiplayer error messages - DO NOT TRANSLATE
 579: Disconnected on timeout: %d ms
@@ -775,11 +775,11 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 631: HeadBob
 632: HeadBob einstellen
-633: Hintergrundgeräusche
-634: Hintergrundgeräusche ein-/ausschalten
+633: HintergrundgerÃ¤usche
+634: HintergrundgerÃ¤usche ein-/ausschalten
 
-635: Level in diesem\nSchwierigkeitsgrad\nnicht verfügbar
-636: Möchten Sie alle Tarotkarten und Bestleistungen löschen?
+635: Level in diesem\nSchwierigkeitsgrad\nnicht verfÃ¼gbar
+636: MÃ¶chten Sie alle Tarotkarten und Bestleistungen lÃ¶schen?
 
 637: Datum & Zeit
 638: [NEUE SPEICHERDATEI]
@@ -789,14 +789,14 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 642: Spiel geladen
 643: [Schnell]
 644: [Auto]
-645: Möchten Sie diesen Spielstand wirklich löschen?
-646: Möchten Sie diesen Spielstand wirklich überschreiben?
+645: MÃ¶chten Sie diesen Spielstand wirklich lÃ¶schen?
+646: MÃ¶chten Sie diesen Spielstand wirklich Ã¼berschreiben?
 
 647: KONTROLLPUNKT
 648: Speichere Fortschritt
 
 # cheats
-649: Cheats sind nur in den Schwierigkeitsgraden "Tagtraum" und "Schlaflos" verfügbar.
+649: Cheats sind nur in den Schwierigkeitsgraden "Tagtraum" und "Schlaflos" verfÃ¼gbar.
 650: Volle Munition.
 651: Alle Waffen.
 652: Volle Gesundheit.
@@ -814,13 +814,13 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 664: Jede Menge Gold.
 665: Turbo ein.
 666: Turbo aus.
-667: Dämonenverwandlung ein.
-668: Dämonenverwandlung aus.
+667: DÃ¤monenverwandlung ein.
+668: DÃ¤monenverwandlung aus.
 669: Waffenmodifikator ein.
 670: Waffenmodifikator aus.
 671: Unbegrenzt goldene Karten.
 672: Zugriff auf alle Level.
-673: Alle schwarzen Tarotkarten verfügbar.
+673: Alle schwarzen Tarotkarten verfÃ¼gbar.
 
 # connection speed
 674: Modem
@@ -828,17 +828,17 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 676: Kabel/DSL
 677: LAN/T1
 
-678: Spielstände
+678: SpielstÃ¤nde
 679: Autosave
 680: [Ktrlpkt]
 
-681: Drücken Sie "Feuern", um den letzten Kontrollpunkt zu laden.
-682: Drücken Sie "Sekundärfeuer", um den letzten Schnellspeicher-Spielstand zu laden.
-683: Drücken Sie Esc, um das Menü aufzurufen.
-684: Sie können das Spiel nur im Modus "Trauma" an Kontrollpunkten automatisch speichern.
-685: Ihre Gesundheit wurde vollständig wiederhergestellt.
+681: DrÃ¼cken Sie "Feuern", um den letzten Kontrollpunkt zu laden.
+682: DrÃ¼cken Sie "SekundÃ¤rfeuer", um den letzten Schnellspeicher-Spielstand zu laden.
+683: DrÃ¼cken Sie Esc, um das MenÃ¼ aufzurufen.
+684: Sie kÃ¶nnen das Spiel nur im Modus "Trauma" an Kontrollpunkten automatisch speichern.
+685: Ihre Gesundheit wurde vollstÃ¤ndig wiederhergestellt.
 
-686: Dadurch wird das Spiel neu gestartet und alle Level werden gesperrt. Möchten Sie das aktuelle Spiel wirklich verlassen?
+686: Dadurch wird das Spiel neu gestartet und alle Level werden gesperrt. MÃ¶chten Sie das aktuelle Spiel wirklich verlassen?
 687: Aktuelles Level wirklich verlassen?
 
 688: Spielzeit
@@ -850,7 +850,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 690: Spielermodell
 691: Bestimmen Sie Ihr Aussehen.
-692: Dämon
+692: DÃ¤mon
 693: Gefallener Engel
 694: Ritter
 695: Bestie
@@ -864,7 +864,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 701: Zeitbonus erhalten.
 702: $PLAYER ist der neue Light Bearer.
 703: $PLAYER hat das Licht verloren.
-704: Das Licht wurde an seinen Ursprungsort zurückgebracht.
+704: Das Licht wurde an seinen Ursprungsort zurÃ¼ckgebracht.
 705: DAS TEAM
 706: Liste der Mitwirkenden betrachten.
 
@@ -873,19 +873,19 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 709: PAUSE
 
-710: Drücken Sie 'Feuern', um starten
+710: DrÃ¼cken Sie 'Feuern', um starten
 711: ENDERGEBNIS
 
 # electro
-712: $KILLER hat $PLAYER erlöst.
+712: $KILLER hat $PLAYER erlÃ¶st.
 # shuriken
-713: $KILLER hat $PLAYER erlöst.
+713: $KILLER hat $PLAYER erlÃ¶st.
 
 714: Ready
 715: Break
 
-716: Drücken Sie 'Feuern', um ready/unready
-717: Drücken Sie 'Sekundärfeuer', um Team wählen
+716: DrÃ¼cken Sie 'Feuern', um ready/unready
+717: DrÃ¼cken Sie 'SekundÃ¤rfeuer', um Team wÃ¤hlen
 
 # lava
 718: $PLAYER hat bewiesen, dass das Leben verdammt kurz ist.
@@ -897,14 +897,14 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 722: Serververbindung trennen
 723: ZUSCHAUER
 724: Spieler wechseln mit 'Feuern'
-725: Fliegen mit 'Sekundärfeuer'
+725: Fliegen mit 'SekundÃ¤rfeuer'
 726: An Spiel teilnehmen mit 'Springen'
 727: Zuschauer
 728: Zusch.
 729: Minute(n)
 730: Spiel startet in %d Sekunden.
 731: Warten auf andere Spieler.
-732: 'Nächste/Vorherige Waffe' für Sichtwechsel
+732: 'NÃ¤chste/Vorherige Waffe' fÃ¼r Sichtwechsel
 733: Prediction (beta)
 734: Warning: this option enables experimental prediction code
 735: Warning: You need to reconnect for the changes to take effect. This experimental beta code requires much more processing power of your PC, turn it off if you experience serious slowdowns. Please read README file for patch 1.15 for more info about the prediction code.
@@ -923,9 +923,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 745: Bitte legen Sie die Painkiller-CD1 ein
 746: Prediction-Code
 
-747: Minimiert Internet-Lags auf Kosten der Rechenleistung Ihres PCs.\nFür Lan-Spiele nicht zu empfehlen!
+747: Minimiert Internet-Lags auf Kosten der Rechenleistung Ihres PCs.\nFÃ¼r Lan-Spiele nicht zu empfehlen!
 
-748: Sie müssen die Serververbindung neu aufbauen, um diese Option zu aktivieren. 
+748: Sie mÃ¼ssen die Serververbindung neu aufbauen, um diese Option zu aktivieren. 
 
 749: Framerate Lock
 750: Framerate Lock - Beschreibung
@@ -937,7 +937,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 755: Physik-FPS
 756: Physik-FPS definieren
 
-757: MP FX niedrige Qualität
+757: MP FX niedrige QualitÃ¤t
 758: Spielen Sie im Multiplayer-Modus mit relativ einfachen Effekten.
 
 759: Capture The Flag
@@ -945,7 +945,7 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 760: Bloom
 761: Bloom-Effekt aktivieren/deaktivieren
 
-762: Spiel wählen
+762: Spiel wÃ¤hlen
 763: Painkiller
 764: Battle out of Hell
 
@@ -959,9 +959,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 768: rot
 769: blau
 770: $PLAYER hat die Fahne $COLOR erobert
-771: $PLAYER punktet für Team $COLOR
-772: Fahne $COLOR zurückgebracht
-773: $PLAYER hat die Fahne $COLOR zurückgebracht
+771: $PLAYER punktet fÃ¼r Team $COLOR
+772: Fahne $COLOR zurÃ¼ckgebracht
+773: $PLAYER hat die Fahne $COLOR zurÃ¼ckgebracht
 774: $PLAYER hat die Fahne $COLOR verloren
 775: Team $COLOR gewinnt
 
@@ -972,33 +972,33 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 778: Duell
 779: Last Man Standing
 780: Fahnen-Limit
-781: Zahl der für den Sieg erforderlichen Fahnen, 0 = kein Limit
+781: Zahl der fÃ¼r den Sieg erforderlichen Fahnen, 0 = kein Limit
 
-782: Sie halten gerade den Traum jedes Scharfschützen in Händen!\nBenutzen Sie die ZOOM-Taste, um weiter entfernte Gegner auszuschalten ...
+782: Sie halten gerade den Traum jedes ScharfschÃ¼tzen in HÃ¤nden!\nBenutzen Sie die ZOOM-Taste, um weiter entfernte Gegner auszuschalten ...
 
 # BOOH cards
 783: Waffenmodifikator
 784: Magische Waffe
-785: Golem beschwören
-786: Kämpfer beschwören
-787: Krieger beschwören
-788: Dieb beschwören
+785: Golem beschwÃ¶ren
+786: KÃ¤mpfer beschwÃ¶ren
+787: Krieger beschwÃ¶ren
+788: Dieb beschwÃ¶ren
 789: Gesundheitsregeneration
-790: Rüstungsregeneration
+790: RÃ¼stungsregeneration
 791: Angst
 792: 666 Munition
 
 # BOOH cards descriptions
 793: Waffenmodifikator aktivieren.
 794: Hast wirkt sich nicht auf\nWaffen aus.
-795: Langsam aber stark. Alle Feinde\nstürzen sich auf ihn.
+795: Langsam aber stark. Alle Feinde\nstÃ¼rzen sich auf ihn.
 796: Schnell aber schwach. Wird\nvon Gegnern ignoriert.
 797: Mittel. 50% der Gegner\nignorieren ihn.
 798: 2.5% des verursachten Schadens\nwird in Gesundheit umgewandelt.
 799: 10 Sek. nach dem letzten\nSchaden beginnt die Regeneration.
-800: 10 Sek. nach dem letzten\nRüstung beginnt die Regeneration.
-801: Alle Gegner haben 90% ihrer\nursprünglichen TP.
-802: Sie haben am Anfang jedes Levels\n666 Schuss für alle Waffen.
+800: 10 Sek. nach dem letzten\nRÃ¼stung beginnt die Regeneration.
+801: Alle Gegner haben 90% ihrer\nursprÃ¼nglichen TP.
+802: Sie haben am Anfang jedes Levels\n666 Schuss fÃ¼r alle Waffen.
 
 # Last man standing
 803: LMS-Leben
@@ -1006,16 +1006,16 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 805: Leben
 
 # BOOH black tarot card unlocking conditions
-806: Töten Sie maximal 88 Feinde.
-807: Töten Sie alle Feinde.
+806: TÃ¶ten Sie maximal 88 Feinde.
+807: TÃ¶ten Sie alle Feinde.
 808: Beenden Sie das Level mit mehr als 200 Gesundheit.
-809: Verwandeln Sie sich fünfmal in einen Dämon.
+809: Verwandeln Sie sich fÃ¼nfmal in einen DÃ¤mon.
 810: Finden Sie alle geheimen Orte.
 811: Beenden Sie das Level in maximal 20 Minuten.
 812: Werden Sie nie verletzt!
-813: Finden Sie alle heiligen Gegenstände.
-814: Töten Sie die Panzerspinne in maximal 04:00.
-815: Töten Sie Alastor in maximal 04:00.
+813: Finden Sie alle heiligen GegenstÃ¤nde.
+814: TÃ¶ten Sie die Panzerspinne in maximal 04:00.
+815: TÃ¶ten Sie Alastor in maximal 04:00.
 
 # BOOH level names
 816: Herrenhaus
@@ -1051,21 +1051,21 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 838: Verschwenden Sie nie Munition
 
 # booh mp models
-839: Höllenfürst
+839: HÃ¶llenfÃ¼rst
 840: Commando
 
 # changed booh cards
 841: Das Zepter
-842: Dämonenwandlung
+842: DÃ¤monenwandlung
 843: Wiedergeburt
 844: Alle Feinde sind schwach.
-845: Verwandeln Sie sich in einen Dämon
-846: Regenerieren Sie Ihre Gesundheit \n und Rüstung
+845: Verwandeln Sie sich in einen DÃ¤mon
+846: Regenerieren Sie Ihre Gesundheit \n und RÃ¼stung
 
 # multi-player messages
 
 847: $KILLER hat $PLAYER mit der MP erledigt.
-848: $KILLER hat $PLAYER gepfählt.
+848: $KILLER hat $PLAYER gepfÃ¤hlt.
 849: $KILLER hat $PLAYER mit der Heater-Bombe erledigt.
 
 # black edition
@@ -1079,3 +1079,5 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 857: Client Console Lockdown
 858: Disable client's console
+
+1000: Sprache

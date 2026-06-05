@@ -1106,3 +1106,5 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 
 857: Client Console Lockdown
 858: Disable client's console
+
+1000: Language

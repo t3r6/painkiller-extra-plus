@@ -1,7 +1,7 @@
 iso-8859-1 # encoding
 
 # globals
-1: SÏ
+1: S√¨
 2: No
 3: OK
 4: On
@@ -25,7 +25,7 @@ iso-8859-1 # encoding
 17: Sei sicuro?
 
 # difficulty level
-18: Seleziona il livello di difficolt‡
+18: Seleziona il livello di difficolt√†
 19: Sogno
 20: Insonnia
 21: Incubo
@@ -93,16 +93,16 @@ iso-8859-1 # encoding
 72: Cambio arma automatico
 73: Personalizza
 74: Su
-75: Gi˘
+75: Gi√π
 
 # HUD config
-76: Opacit‡ HUD
+76: Opacit√† HUD
 77: Dimensioni HUD
 78: Piccolo
 79: Normale
 80: Grande
 81: Mirino
-82: Opacit‡
+82: Opacit√†
 83: Rosso
 84: Verde
 85: Blu
@@ -123,10 +123,10 @@ iso-8859-1 # encoding
 
 # video config
 98: Risoluzione
-99: Qualit‡ texture
+99: Qualit√† texture
 100: Schermo intero
 101: Gamma
-102: Luminosit‡
+102: Luminosit√†
 103: Contrasto
 104: Molto basso
 105: Basso
@@ -189,7 +189,7 @@ iso-8859-1 # encoding
 # start game menu
 154: Password server
 155: Porta server
-156: Modalit‡
+156: Modalit√†
 157: Free For All
 158: Team Deathmatch
 159: Voosh
@@ -225,7 +225,7 @@ iso-8859-1 # encoding
 # player settings menu
 183: Nome
 184: Squadra
-185: Velocit‡ conness.
+185: Velocit√† conness.
 186: Chiave
 187: Elimina
 188: Inserisci
@@ -240,14 +240,14 @@ iso-8859-1 # encoding
 192: Carica una partita salvata in precedenza o salva la tua partita attuale
 193: Gioca su Internet o avvia il tuo server multiplayer personale
 194: Configura controlli, audio, video e altre impostazioni del gioco
-195: Guarda quanti segreti hai gi‡ scoperto nel gioco
+195: Guarda quanti segreti hai gi√† scoperto nel gioco
 196: Torna al gioco
 197: Esci immediatamente dal gioco
 
 # difficulty modes
-198: Modalit‡ molto facile per principianti
-199: Difficolt‡ standard raccomandata
-200: Modalit‡ difficile per giocatori esperti
+198: Modalit√† molto facile per principianti
+199: Difficolt√† standard raccomandata
+200: Modalit√† difficile per giocatori esperti
 201: La vera storia di Painkiller
 
 # options menu
@@ -265,14 +265,14 @@ iso-8859-1 # encoding
 # mouse options
 209: Controllo con il mouse in stile simulatore di volo
 210: Elimina scatti del mouse
-211: Imposta la sensibilit‡ del mouse
-212: Imposta la sensibilit‡ della rotella del mouse
+211: Imposta la sensibilit√† del mouse
+212: Imposta la sensibilit√† della rotella del mouse
 
 # HUD config
-213: Imposta l'opacit‡ dell'HUD
+213: Imposta l'opacit√† dell'HUD
 214: Imposta la dimensione dell'HUD
 215: Scegli il tuo mirino
-216: Scegli l'opacit‡ del tuo mirino
+216: Scegli l'opacit√† del tuo mirino
 217: Scegli il colore del tuo mirino
 
 # weapons config
@@ -287,16 +287,16 @@ iso-8859-1 # encoding
 224: Scegli il sistema per il suono 3D
 
 # video config
-225: Pi˘ sono alte le risoluzioni, pi˘ veloci devono essere PC e scheda 3D
+225: Pi√π sono alte le risoluzioni, pi√π veloci devono essere PC e scheda 3D
 226: Imposta su basso se hai prestazioni limitate
-227: Deseleziona se vuoi avviare il gioco in modalit‡ finestra
+227: Deseleziona se vuoi avviare il gioco in modalit√† finestra
 228: Imposta gamma
-229: Imposta luminosit‡
+229: Imposta luminosit√†
 230: Imposta contrasto
-231: Cambia la qualit‡ delle texture delle armi,
-232: Cambia la qualit‡ delle texture architettoniche,
-233: Cambia la qualit‡ delle texture dei nemici,
-234: Cambia la qualit‡ delle texture del cielo,
+231: Cambia la qualit√† delle texture delle armi,
+232: Cambia la qualit√† delle texture architettoniche,
+233: Cambia la qualit√† delle texture dei nemici,
+234: Cambia la qualit√† delle texture del cielo,
 
 # advanced video config
 235: Imposta su off se hai prestazioni limitate
@@ -326,7 +326,7 @@ iso-8859-1 # encoding
 252: Qui puoi nominare il tuo server
 253: Puoi impostare una password per limitare l'accesso al server
 254: Cambia la porta del server
-255: Seleziona modalit‡ di gioco
+255: Seleziona modalit√† di gioco
 256: Imposta numero massimo di giocatori
 257: Imposta numero massimo di spettatori
 258: Numero di frag richiesti per finire la mappa, 0 = disabilitato
@@ -347,7 +347,7 @@ iso-8859-1 # encoding
 
 # list manipulation
 273: Vai su
-274: Vai gi˘
+274: Vai gi√π
 275: Aggiungi l'oggetto selezionato
 276: Aggiungi tutti gli oggetti
 277: Togli l'oggetto selezionato
@@ -356,7 +356,7 @@ iso-8859-1 # encoding
 # player settings menu
 279: Inserisci il tuo soprannome
 280: Seleziona la squadra per le partite di gruppo
-281: Seleziona la tua velocit‡ di connessione
+281: Seleziona la tua velocit√† di connessione
 282: Inserisci la tua chiave CD
 
 # map
@@ -371,7 +371,7 @@ iso-8859-1 # encoding
 289: Teatro dell'Opera
 290: Manicomio
 291: Ponte innevato
-292: Citt‡
+292: Citt√†
 293: Palude
 294: Stazione
 295: Fabbrica
@@ -382,7 +382,7 @@ iso-8859-1 # encoding
 300: Babele
 301: Foresta
 302: Torre
-303: Citt‡ sull'acqua
+303: Citt√† sull'acqua
 304: Moli
 305: Vecchio monastero
 306: Inferno
@@ -409,8 +409,8 @@ iso-8859-1 # encoding
 
 # multi-player messages
 
-322: $PLAYER Ë entrato nell'arena.
-323: $PLAYER si Ë ritirato e ha lasciato l'arena.
+322: $PLAYER √® entrato nell'arena.
+323: $PLAYER si √® ritirato e ha lasciato l'arena.
 324: $KILLER ha aggredito $PLAYER con il fucile.
 325: $KILLER ha messo fine alle sofferenze di $PLAYER.
 326: $KILLER ha fatto fuori $PLAYER.
@@ -420,20 +420,20 @@ iso-8859-1 # encoding
 330: $KILLER ha crocifisso $PLAYER.
 331: $KILLER ha fatto a pezzi $PLAYER.
 332: $KILLER ha telefraggato $PLAYER.
-333: $PLAYER ha sfidato la gravit‡ e ha perso.
+333: $PLAYER ha sfidato la gravit√† e ha perso.
 334: $PLAYER ci ha lasciati.
 335: $PLAYER ha dimenticato come si spara.
-336: $PLAYER ha dimostrato che la vita Ë breve.
-337: $PLAYER Ë esploso.
+336: $PLAYER ha dimostrato che la vita √® breve.
+337: $PLAYER √® esploso.
 
 # cards
-338: Velocit‡
+338: Velocit√†
 339: Destrezza
 340: Furia
 341: Rabbia
 342: Confusione
 343: Resistenza
-344: Volont‡ ferrea
+344: Volont√† ferrea
 345: Accelerazione
 346: Doppia accelerazione
 347: Tripla accelerazione
@@ -444,33 +444,33 @@ iso-8859-1 # encoding
 352: Redentore dell'anima
 353: Anima scura
 354: Benedizione
-355: Vitalit‡
+355: Vitalit√†
 356: Ricostituente
-357: Avidit‡
+357: Avidit√†
 358: Perdono
-359: Piet‡
+359: Piet√†
 360: Intervento divino
 361: Ultimo respiro
 
 # cards descriptions
-362: Ti muovi pi˘ velocemente
-363: Velocit‡ ricarica armi 2x
+362: Ti muovi pi√π velocemente
+363: Velocit√† ricarica armi 2x
 364: Danno inflitto 2x
 365: Danno inflitto 4x
 366: Confondi i nemici
-367: Ricevi solo met‡ dei danni
+367: Ricevi solo met√† dei danni
 368: I nemici non possono ferirti
-369: Mondo 2 volte pi˘ lento
-370: Mondo 4 volte pi˘ lento
-371: Mondo 8 volte pi˘ lento
+369: Mondo 2 volte pi√π lento
+370: Mondo 4 volte pi√π lento
+371: Mondo 8 volte pi√π lento
 372: Durata carte +10 sec.
 373: Durata carte +20 sec.
 374: Assorbi le anime da lontano
-375: Le anime rimangono di pi˘
-376: Le anime danno pi˘ salute
+375: Le anime rimangono di pi√π
+376: Le anime danno pi√π salute
 377: Diventi demone ogni 50 anime
 378: Porti la salute iniziale a 150
-379: Capacit‡ base salute a 150
+379: Capacit√† base salute a 150
 380: Doppie munizioni nelle scatole
 381: Doppie ricchezze nascoste
 382: Carte temp. 2 volte a livello
@@ -506,7 +506,7 @@ iso-8859-1 # encoding
 405: Finisci il livello usando solo i dardi
 406: Uccidi il mostro della palude in meno di MM:SS
 407: Non raccogliere nessuna anima
-408: Uccidi almeno 30 nemici in modalit‡ demone
+408: Uccidi almeno 30 nemici in modalit√† demone
 409: Uccidi tutti i mostri
 410: Uccidi il guardiano in meno di 01:20
 411: Trova tutti gli oggetti sacri
@@ -524,7 +524,7 @@ iso-8859-1 # encoding
 421: Ritorna alla mappa
 
 # difficulty level
-422: Modalit‡ bloccata: finisci la modalit‡ Incubo per sbloccarla
+422: Modalit√† bloccata: finisci la modalit√† Incubo per sbloccarla
 
 # map
 423: Capitolo
@@ -537,7 +537,7 @@ iso-8859-1 # encoding
 430: Vai al menu principale
 431: Gioca livello
 432: Tarocco nero non attivo durante il livello
-433: Tarocco nero non attivo in modalit‡ Sogno
+433: Tarocco nero non attivo in modalit√† Sogno
 
 # black tarot
 434: Costo per posizionare
@@ -588,17 +588,17 @@ iso-8859-1 # encoding
 467: Electro
 
 # warnings
-468: La modalit‡ sogno Ë molto facile ed Ë per i principianti. Non hai accesso al tarocco nero.\nSei sicuro di voler selezionare questa modalit‡?
+468: La modalit√† sogno √® molto facile ed √® per i principianti. Non hai accesso al tarocco nero.\nSei sicuro di voler selezionare questa modalit√†?
 469: Sei sicuro?
-470: Non mostrare pi˘ questo avviso
+470: Non mostrare pi√π questo avviso
 
-471: QUALIT¿ TEXTURE
+471: QUALIT√Ä TEXTURE
 
 472: Vai alla mappa
 
 473: Scoperta un'area segreta!
 
-474: Difficolt‡
+474: Difficolt√†
 
 # create server
 475: Mappe disponibili
@@ -607,7 +607,7 @@ iso-8859-1 # encoding
 # keys
 477: Tasto sconosciuto
 478: Freccia su
-479: Freccia gi˘
+479: Freccia gi√π
 480: Freccia sinistra
 481: Freccia destra
 482: Barra spaziatrice
@@ -619,7 +619,7 @@ iso-8859-1 # encoding
 488: Ctrl
 489: Esc
 490: Pagsu
-491: Paggi˘
+491: Paggi√π
 492: Fine
 493: Home
 494: Ins
@@ -664,7 +664,7 @@ iso-8859-1 # encoding
 531: Alto
 
 # weapons config
-532: Priorit‡ pickup
+532: Priorit√† pickup
 533: Personalizza 1
 534: Personalizza 2
 535: Scegli miglior personale 1
@@ -689,9 +689,9 @@ iso-8859-1 # encoding
 548: Nostra Quad esaurita
 549: Quad nemici!
 550: Quad nemici esaurita!
-551: Ottieni invincibilit‡
-552: Invincibilit‡ nostra!
-553: Invincibilit‡ nemici!
+551: Ottieni invincibilit√†
+552: Invincibilit√† nostra!
+553: Invincibilit√† nemici!
 554: [messaggio personalizzato/sfida]
 555: [messaggio personalizzato/sfida]
 556: [messaggio personalizzato/sfida]
@@ -705,7 +705,7 @@ iso-8859-1 # encoding
 
 # video options
 564: Impostazioni grafiche
-565: Imposta qualit‡ grafica generale
+565: Imposta qualit√† grafica generale
 566: Personalizzato
 567: Velocissimo
 568: Veloce
@@ -715,7 +715,7 @@ iso-8859-1 # encoding
 
 572: Seleziona i messaggi che vuoi inviare a tutti i giocatori
 573: Tutti i giocatori possono vedere questo messaggio
-574: Solo la tua squadra puÚ vedere questo messaggio
+574: Solo la tua squadra pu√≤ vedere questo messaggio
 
 575: Piano di clip
 576: Imposta piano di clip
@@ -783,7 +783,7 @@ iso-8859-1 # encoding
 633: Suoni ambientali
 634: Attiva/disattiva suoni ambientali
 
-635: Livello non disponibile\nin questa\nmodalit‡
+635: Livello non disponibile\nin questa\nmodalit√†
 636: Vuoi cancellare tutte le tue carte tarocco nero e i tuoi punteggi?
 
 637: Data e ora salvataggio
@@ -801,13 +801,13 @@ iso-8859-1 # encoding
 648: Salvataggio progressi in corso
 
 # cheats
-649: I cheat sono attivi solo nelle modalit‡ Sogno e Insonnia.
+649: I cheat sono attivi solo nelle modalit√† Sogno e Insonnia.
 650: Ottenute tutte le munizioni.
 651: Ottenute tutte le armi.
 652: Ottenuta massima salute.
 653: Ottenute tutte le munizioni e la massima salute.
-654: Modalit‡ divinit‡ attiva.
-655: Modalit‡ divinit‡ non attiva.
+654: Modalit√† divinit√† attiva.
+655: Modalit√† divinit√† non attiva.
 656: Gore eccessivo attivo.
 657: Gore eccessivo non attivo.
 658: I corpi non scompaiono mai.
@@ -840,8 +840,8 @@ iso-8859-1 # encoding
 681: Premi Fuoco per caricare l'ultimo checkpoint.
 682: Premi Alt Fuoco per caricare l'ultimo salvataggio rapido.
 683: Premi Esc per entrare nel menu.
-684: Puoi usare i checkpoint per il salvataggio automatico del gioco solo in modalit‡ Trauma.
-685: La tua salute Ë stata completamente ripristinata.
+684: Puoi usare i checkpoint per il salvataggio automatico del gioco solo in modalit√† Trauma.
+685: La tua salute √® stata completamente ripristinata.
 
 686: In questo modo inizierai una nuova partita e tutti i livelli saranno di nuovo bloccati. Vuoi davvero uscire dalla partita corrente e iniziarne una nuova?
 687: Vuoi davvero uscire dal livello corrente?
@@ -849,7 +849,7 @@ iso-8859-1 # encoding
 688: Tempo gioco
 
 #last minute crap
-689: Sblocca 23 carte tarocco nero per attivare questa modalit‡
+689: Sblocca 23 carte tarocco nero per attivare questa modalit√†
 
 #last minute MP crap
 
@@ -867,9 +867,9 @@ iso-8859-1 # encoding
 700: Oh mamma!
 
 701: Aggiunto tempo per la caccia.
-702: $PLAYER Ë il nostro nuovo portatore della luce.
+702: $PLAYER √® il nostro nuovo portatore della luce.
 703: $PLAYER ha perso la luce.
-704: La luce Ë stata riportata al suo posto originale.
+704: La luce √® stata riportata al suo posto originale.
 705: CREDITI
 706: Mostra crediti
 
@@ -893,7 +893,7 @@ iso-8859-1 # encoding
 717: 'Alt Fuoco' - Seleziona la squadra
 
 # lava
-718: $PLAYER ha dimostrato che la vita Ë breve.
+718: $PLAYER ha dimostrato che la vita √® breve.
 
 # Patch 1
 719: Spectate
@@ -942,8 +942,8 @@ iso-8859-1 # encoding
 755: Fisica FPS
 756: Imposta fisica FPS
 
-757: Bassa qualit‡ effetti Multiplayer
-758: Usa effetti speciali in bassa qualit‡ in Multiplayer
+757: Bassa qualit√† effetti Multiplayer
+758: Usa effetti speciali in bassa qualit√† in Multiplayer
 
 759: Cattura la bandiera
 
@@ -1007,11 +1007,11 @@ iso-8859-1 # encoding
 
 # Last man standing
 803: Vite LMS
-804: Numero di vite di ogni giocatore in modalit‡ LMS
+804: Numero di vite di ogni giocatore in modalit√† LMS
 805: Vite
 
 # BOOH black tarot card unlocking conditions
-806: Non uccidere pi˘ di 88 nemici
+806: Non uccidere pi√π di 88 nemici
 807: Uccidi tutti i nemici
 808: Termina il livello con salute oltre 200
 809: Trasformati in demone 5 volte
@@ -1047,7 +1047,7 @@ iso-8859-1 # encoding
 # Lab new card unlocking conditions
 834: Finisci il livello usando solo l'arma Sparadardi
 
-835: Sblocca 9 carte tarocco nero per attivare questa modalit‡
+835: Sblocca 9 carte tarocco nero per attivare questa modalit√†
 
 836: Modello arma alta risol.
 837: Effetto acqua
@@ -1084,3 +1084,5 @@ iso-8859-1 # encoding
 
 857: Client Console Lockdown
 858: Disable client's console
+
+1000: Lingua
