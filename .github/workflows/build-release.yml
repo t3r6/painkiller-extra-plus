@@ -86,7 +86,7 @@ jobs:
             TEMP_FOLDER="/data"
             WORKSPACE_FOLDER="workspace"
             cp -r /workspace/ "${TEMP_FOLDER}"
-            rm -rf ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.github/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*README* ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*script
+            rm -rf ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git* ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.git/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/.github/ ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*README* ${TEMP_FOLDER}/${WORKSPACE_FOLDER}/*script
             PainTools_x64 -level 1 -deduplication 0 ${WORKSPACE_FOLDER}/
             mv ${WORKSPACE_FOLDER}.pak /${WORKSPACE_FOLDER}/PKPlus.pak
 
