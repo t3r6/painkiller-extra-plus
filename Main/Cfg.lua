@@ -995,10 +995,10 @@ function Cfg:CheckLanguage()
     Cfg.Language = Cfg.LanguageNoCD
   end
 
-	if Cfg.Language == "german" then
-		Tweak.GlobalData.DisableGibs = true
-		Tweak.GlobalData.GermanVersion = true
-	end
+	-- if Cfg.Language == "german" then
+	-- 	Tweak.GlobalData.DisableGibs = true
+	-- 	Tweak.GlobalData.GermanVersion = true
+	-- end
 end
 --============================================================================
 function Cfg:CheckLimitations()
