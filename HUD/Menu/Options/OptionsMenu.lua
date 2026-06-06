@@ -19,14 +19,14 @@ OptionsMenu =
 	items =
 	{
 		
-		--[[PkguiNEW =
+		Language =
 		{
-			text = "PK++GUI",
-			desc = "Extra multiplayer tweakings for tournament play",
+			text = "TXT.Menu.Language",
+			desc = "Change Language",
 			x	 = 15,
 			y	 = 310,
 			action = "PainMenu:CheckItemTimer(); PainMenu:ActivateScreen(PkguiNEW); PainMenu:CheckItems()",
-		},]]--
+		},
 		
 		ConfigureHUD =
 		{

@@ -25,7 +25,7 @@ function Languages_ParseLangLine( line )
 	if num ~= nil and str ~= nil then
 		Languages.Texts[tonumber(num)] = str
 	else
-		if Cfg.LangEncoding and Cfg.LangEncoding ~= "" then
+		if Cfg.LangEncoding and (Cfg.LangEncoding == "cp1250" or Cfg.LangEncoding == "cp1251" or Cfg.LangEncoding == "iso-8859-1") then
 			Languages.Encoding = Cfg.LangEncoding
 		else
 			Languages.Encoding = line
@@ -393,6 +393,8 @@ Languages.English =
 		AutoSaves         = Languages.Texts[679],
 		
 		InsertCD		  = Languages.Texts[745],
+
+		Language		  = Languages.Texts[1000],
     },
 
     MenuDesc =
