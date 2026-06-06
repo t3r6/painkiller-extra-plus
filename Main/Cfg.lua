@@ -139,7 +139,7 @@ Cfg =
     KeyPrimaryUseCards = "None",  -- default "E"
     KeyPrimaryZoom = "Z",
     Language = "english",
-    LangEncoding = "", -- cp1250 (Polish), cp1251 (Russian), iso-8859-1 (English)
+    LangEncoding = "", -- PK EXP: cp1250 (Polish), cp1251 (Russian), iso-8859-1 (English)
     LMSLives = 5,
     ManualIP = "127.0.0.1",
     MasterVolume = 100,
@@ -219,6 +219,7 @@ Cfg =
     UserTimeLimit = true,
     UserFragLimit = true,
     UserStartupWeapon = true,
+    BlackEdition = false, -- PK EXP: Slightly changes the classic HUD when true. This var is now independent of IsBlackEdition().
 
   -- PK++ additions
     UserProPlus = true,
@@ -1030,6 +1031,7 @@ function Cfg:Check()
 	Cfg.ShaftFX = Cfg:CheckVar(Cfg.ShaftFX,"n",0,2,0)
 	Cfg.HUD_Speedmeter_UnitType = Cfg:CheckVar(Cfg.HUD_Speedmeter_UnitType,"n",0,1,0)
 	Cfg.PCFWeapons = Cfg:CheckVar(Cfg.PCFWeapons,"b")
+	Cfg.BlackEdition = Cfg:CheckVar(Cfg.BlackEdition,"b")
 	--Cfg.Tiny = Cfg:CheckVar(Cfg.Tiny,"n",0,999)
 	--Cfg.ShowWeaponX = Cfg:CheckVar(Cfg.ShowWeaponX,"n",-999,999)
 	--Cfg.ShowWeaponY = Cfg:CheckVar(Cfg.ShowWeaponY,"n",-999,999)
@@ -1100,10 +1102,6 @@ function Cfg:Check()
 	if not IsPKInstalled() then
 		Cfg.PublicServer = false
 	end
-	if IsBlackEdition() then
-		Cfg.BlackEdition = true
-	else
-		Cfg.BlackEdition = false
-	end
+
 end
 --============================================================================
