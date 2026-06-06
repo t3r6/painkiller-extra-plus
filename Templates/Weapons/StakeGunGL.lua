@@ -115,7 +115,7 @@ function StakeGunGL:Fire(prevstate) -- Stake
         return obj
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,1)
-        self.ShotTimeOut = s.AltFireTimeout
+        self.ShotTimeOut = 4
     end
 end
 --============================================================================
@@ -180,7 +180,7 @@ function StakeGunGL:AltFire() -- grenade
         PlayLogicSound("FIRE",x,y,z,26,52,player)
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,2)
-        self.ShotTimeOut = s.AltFireTimeout
+        self.ShotTimeOut = 4
     end
 end
 --============================================================================

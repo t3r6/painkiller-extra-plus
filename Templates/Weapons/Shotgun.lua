@@ -167,7 +167,7 @@ function Shotgun:Fire()
         self.FireSFX(self.ObjOwner._Entity)                 
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,1)
-        self.ShotTimeOut = s.FireTimeout
+        self.ShotTimeOut = 4
     end
 end
 --============================================================================
@@ -224,7 +224,7 @@ function Shotgun:AltFire()
         self.AltFireSFX(self.ObjOwner._Entity)                
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,2)
-        self.ShotTimeOut = s.AltFireTimeout
+        self.ShotTimeOut = 4
     end
 end
 --============================================================================

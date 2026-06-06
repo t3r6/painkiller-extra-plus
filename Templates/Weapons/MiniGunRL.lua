@@ -220,7 +220,7 @@ function MiniGunRL:Fire() -- rocket
         self.FireSFX(self.ObjOwner._Entity)
     else
         self.OutOfAmmoFX(self.ObjOwner._Entity,1)
-        self.ShotTimeOut = s.FireTimeout
+        self.ShotTimeOut = 4
     end
 end
 --============================================================================
