@@ -22,18 +22,18 @@ LanguageConfig =
 			x	 = -1,
 			y	 = 330,
 			action = "PainMenu:ApplySettings(); PainMenu:NeedRestartGame('ChangeLanguage')",
-			applyRequired = false,
+			applyRequired = true,
 			align = MenuAlign.Left,
 		},
 		
-		TextureQualityArchitecture =
+		ChangeEncoding =
 		{
 			type = MenuItemTypes.TextButtonEx,
 			text = TXT.Menu.Architecture,
 			desc = TXT.MenuDesc.Architecture,
-			option = "TextureQualityArchitecture",
-			values = { 3, 2, 1, 0 },
-			visible = { TXT.Menu.VeryLow, TXT.Menu.Low, TXT.Menu.Medium, TXT.Menu.High },
+			option = "LangEncoding",
+			values = { "", "iso-8859-1", "cp1250", "cp1251" },
+			visible = { "Default", "iso-8859-1 (Western Europe)", "cp1250 (Central Europe)", "cp1251 (Russia)" },
 			x	 = -1,
 			y	 = 380,
 			action = "",
