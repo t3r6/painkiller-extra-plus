@@ -1083,4 +1083,4 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 1000: Sprache
 1001: Sprache ändern
 1002: Kodierung
-1003: Ändern Sie die Kodierung, um Ihre Sprache in der Konsole zu verwenden, während das Menü auf Englisch bleibt.
+1003: Konsolen-Kodierung ändern, ohne die Menüsprache zu beeinflussen.

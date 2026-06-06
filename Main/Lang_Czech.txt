@@ -1083,4 +1083,4 @@ cp1250	# encoding - use cp1250 for Windows Central European
 1000: Jazyk
 1001: Změnit jazyk
 1002: Kódování
-1003: Změňte kódování, abyste mohli používat svůj jazyk v konzoli, zatímco menu zůstane v angličtině.
+1003: Nastavte kódování konzole bez ovlivnění jazyka menu.
