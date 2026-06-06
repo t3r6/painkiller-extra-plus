@@ -21,11 +21,11 @@ OptionsMenu =
 		
 		Language =
 		{
-			text = "TXT.Menu.Language",
+			text = TXT.Menu.Language,
 			desc = "Change Language",
 			x	 = 15,
 			y	 = 310,
-			action = "PainMenu:CheckItemTimer(); PainMenu:ActivateScreen(PkguiNEW); PainMenu:CheckItems()",
+			action = "PainMenu:ActivateScreen(LanguageConfig); PainMenu:CheckItems()",
 		},
 		
 		ConfigureHUD =
