@@ -22,7 +22,7 @@ OptionsMenu =
 		Language =
 		{
 			text = TXT.Menu.Language,
-			desc = "Change Language",
+			desc = "Change language",
 			x	 = 15,
 			y	 = 310,
 			action = "PainMenu:ActivateScreen(LanguageConfig); PainMenu:CheckItems()",
