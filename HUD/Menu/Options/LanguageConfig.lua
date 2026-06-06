@@ -15,7 +15,7 @@ LanguageConfig =
 		{
 			type = MenuItemTypes.TextButtonEx,
 			text = TXT.Menu.Language,
-			desc = TXT.MenuDesc.Weapons,
+			desc = TXT.MenuDesc.Language,
 			option = "Language",
 			values = { "english", "french", "german", "italian", "spanish", "polish", "czech", "russian" },
 			visible = { "English", "French", "German", "Italian", "Spanish", "Polish", "Czech", "Russian" },
@@ -29,11 +29,11 @@ LanguageConfig =
 		ChangeEncoding =
 		{
 			type = MenuItemTypes.TextButtonEx,
-			text = TXT.Menu.Architecture,
-			desc = TXT.MenuDesc.Architecture,
+			text = TXT.Menu.Encoding,
+			desc = TXT.MenuDesc.Encoding,
 			option = "LangEncoding",
 			values = { "", "iso-8859-1", "cp1250", "cp1251" },
-			visible = { "Default", "iso-8859-1 (Western Europe)", "cp1250 (Central Europe)", "cp1251 (Russia)" },
+			visible = { "Default", "iso-8859-1 (Western Europe)", "cp1250 (Polish, Czech)", "cp1251 (Russian)" },
 			x	 = -1,
 			y	 = 380,
 			action = "",

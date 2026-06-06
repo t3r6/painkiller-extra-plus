@@ -1085,4 +1085,7 @@ iso-8859-1	# encoding
 857: Client Console Lockdown
 858: Disable client's console
 
-1000: Lengua
+1000: Idioma
+1001: Cambiar idioma
+1002: Codificación
+1003: Cambia la codificación para usar tu idioma en la consola manteniendo el menú en inglés.

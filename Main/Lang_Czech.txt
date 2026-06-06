@@ -1081,3 +1081,6 @@ cp1250	# encoding - use cp1250 for Windows Central European
 858: Disable client's console
 
 1000: Jazyk
+1001: Změnit jazyk
+1002: Kódování
+1003: Změňte kódování, abyste mohli používat svůj jazyk v konzoli, zatímco menu zůstane v angličtině.

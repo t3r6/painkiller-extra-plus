@@ -1086,3 +1086,6 @@ iso-8859-1 # encoding
 858: Disable client's console
 
 1000: Lingua
+1001: Cambia lingua
+1002: Codifica
+1003: Cambia la codifica per usare la tua lingua nella console mantenendo il menu in inglese.

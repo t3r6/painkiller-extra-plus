@@ -1084,3 +1084,6 @@ cp1250	# encoding
 858: Disable client's console
 
 1000: Język
+1001: Zmień język
+1002: Kodowanie
+1003: Zmień kodowanie, aby używać swojego języka w konsoli, zachowując menu w języku angielskim.
