@@ -344,7 +344,7 @@ function Game:SetPCFWeapons(state)
 			Game:ForceRespawn() -- Respawn fixes weapon bugs
 		end
 	end
-	if MPCfg.PCFWeapons ~= state then
+	if MPCfg.GameMode == "People Can Fly" and MPCfg.PCFWeapons ~= state then
 		CONSOLE_AddMessage(state and "#1***PCF Weapons have been enabled on the server***" or "#1***PCF Weapons have been disabled on the server***")
 	end
 	MPCfg.PCFWeapons = state
