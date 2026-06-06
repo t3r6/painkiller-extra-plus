@@ -22,7 +22,7 @@ MainMenu =
 			desc = TXT.MenuDesc.SignAPact,
 			x	 = -1,
 			y	 = 210,
-			action = "if not IsPKInstalled() then PainMenu:SignAPactBooHOnly(1,true) else PainMenu:ActivateScreen(GameMenu) end",
+			action = "PainMenu:ActivateScreen(GameMenu)",
 --			action = "PMENU:SwitchToMap()",
 			sndLightOn = "menu/menu/option-light-on_main",
 --			disabled = 1,
@@ -133,7 +133,7 @@ MainMenu =
 			x	 = -1,
 			y	 = 660,
 			fontBigSize = 36,
-			action = "if not IsPKInstalled() then PainMenu:Disconnect(); PMENU.ShowCredits(true) else PainMenu:ActivateScreen(CreditsMenu) end",
+			action = "PainMenu:ActivateScreen(CreditsMenu)",
 			useItemBG = false,
 		},
 

@@ -525,7 +525,6 @@ function PainMenu:ActivateScreen( screen )
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
-		if not IsPKInstalled() then PMENU.DisableItem( "PublicServer" ) end
 	end
 	
 	if(Cfg and Cfg.DirectInput) then
@@ -663,7 +662,6 @@ function PainMenu:ActivateScreenAlt(screen)
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
-		if not IsPKInstalled() then PMENU.DisableItem( "PublicServer" ) end
 	end
 end
 
@@ -717,12 +715,6 @@ function PainMenu:AddItem( i, o )
 		elseif itemName == "ModelSelect" then
 			o.values = { 1, 2, 3, 4 }
 			o.visible = { TXT.Menu.Model1, TXT.Menu.Model2, TXT.Menu.Model3, TXT.Menu.Model4 }
-		end
-	end
-	
-	if not IsPKInstalled() then
-		if itemName == "CDKey" then
-			o.disabled = true
 		end
 	end
 
@@ -1230,11 +1222,6 @@ function PainMenu:SetupItem( screen, i, o )
 		screen.items.AdvancedTab.items.RenderSky.visible = { TXT.Menu.Low2, TXT.Off }
 	end
 
-	if screen == FavoritesGameMenu or screen == InternetGameMenu or screen == LANGameMenu then
-		if not IsPKInstalled() then
-			screen.items.InternetGame.disabled = true
-		end
-	end
 end
 
 --=======================================================================================
@@ -2265,7 +2252,6 @@ function PainMenu:ShowTabGroup( group, name )
 		end
 		
 		item = self.currScreen.items.GeneralTab.items.PublicServer
-		if not IsPKInstalled() then PMENU.DisableItem( "PublicServer" ) end
 	end
 end
 
@@ -3302,11 +3288,6 @@ function PainMenu_PrintGameVersion()
 end
 
 function PainMenu:SignAPact(mode,addon)
-	if not IsPKInstalled() then
-		Game:Print( "PK not installed" )
-		return PainMenu:SignAPactBooHOnly(mode,addon)
-	end
-	
 	if not IsBooHInstalled() then
 		Game:Print( "BooH not installed" )
 		return PainMenu:SignAPactPKOnly(mode,addon)

@@ -989,17 +989,6 @@ function Cfg:CheckLimitations()
 		Cfg.ServerName = "Painkiller Demo"
 	end
 
-	if not IsPKInstalled() then
-		Cfg.ServerMapsFFA = {"DM_Factory","DM_Trainstation","DM_Fallen1"}
-		Cfg.ServerMapsTDM = {"DM_Mine","DM_Trainstation"}
-		Cfg.ServerMapsTLB = {"DM_Fallen1"}
-		Cfg.ServerMapsPCF = {}
-		Cfg.ServerMapsVSH = {"DM_Fallen2"}
-		Cfg.ServerMapsCTF = {"CTF_Forbidden","CTF_Chaos","CTF_Trainstation"}
-		Cfg.ServerMapsDUE = {"DM_Fragenstein","DM_Fallen2"}
-		Cfg.ServerMapsLMS = {"DM_Factory","DM_Trainstation"}
-		Cfg.ServerMapsCLA = {"DM_Sacred","DM_Cursed","DM_Factory","DM_Trainstation","DM_Fallen1"}
-	end
 end
 --============================================================================
 function Cfg:Check()
@@ -1098,10 +1087,6 @@ function Cfg:Check()
 	Cfg.UseGamespy = nil
 	Cfg.PushLatency = nil
 	Cfg.PlayerPrediction = nil
-
-	if not IsPKInstalled() then
-		Cfg.PublicServer = false
-	end
 
 end
 --============================================================================

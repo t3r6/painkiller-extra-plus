@@ -15,7 +15,7 @@ NewGameMenu =
 	useItemBG = true,
 
 --	backAction = "PainMenu:ActivateScreen(MainMenu)",
-	backAction = "if not IsPKInstalled() then PainMenu:ActivateScreen(MainMenu) elseif not IsBooHInstalled() then PainMenu:ActivateScreen(MainMenu) else PainMenu:ActivateScreen(GameMenu) end",
+	backAction = "if not IsBooHInstalled() then PainMenu:ActivateScreen(MainMenu) else PainMenu:ActivateScreen(GameMenu) end",
 
 	items		=
 	{

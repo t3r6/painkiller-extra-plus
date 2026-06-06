@@ -60,7 +60,7 @@ OptionsMenu =
 			desc = TXT.MenuDesc.Credits,
 			x	 = -1,
 			y	 = 530,
-			action = "if not IsPKInstalled() then PainMenu:Disconnect(); PMENU.ShowCredits(true) else PainMenu:ActivateScreen(CreditsMenu) end",
+			action = "PainMenu:ActivateScreen(CreditsMenu)",
 		},
 --[[		
 		AdvancedOptions =
