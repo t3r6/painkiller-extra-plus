@@ -46,12 +46,9 @@ ControlsConfig =
 						{ TXT.Menu.Zoom, "KeyPrimaryZoom", "KeyAlternativeZoom" },
 						{ TXT.Menu.AlternativeFire, "KeyPrimaryAlternativeFire", "KeyAlternativeAlternativeFire" },
 		--				{ TXT.Menu.BulletTime, "KeyPrimaryBulletTime", "KeyAlternativeBulletTime" },
-						--{ TXT.Menu.UseCards, "KeyPrimaryUseCards", "KeyAlternativeUseCards" },                                                                                                                    	--OriOn_Modification
 						{ TXT.Menu.Scoreboard, "KeyPrimaryScoreboard", "KeyAlternativeScoreboard" },
 						{ TXT.Menu.NextWeapon, "KeyPrimaryNextWeapon", "KeyAlternativeNextWeapon" },
 						{ TXT.Menu.PreviousWeapon, "KeyPrimaryPreviousWeapon", "KeyAlternativePreviousWeapon" },
-						--{ TXT.Menu.QuickLoad, "KeyPrimaryQuickLoad", "KeyAlternativeQuickLoad" },  											--OriOn_Modification
-						--{ TXT.Menu.QuickSave, "KeyPrimaryQuickSave", "KeyAlternativeQuickSave" }, 											--OriOn_Modification
 						{ TXT.Menu.Screenshot, "KeyPrimaryScreenshot", "KeyAlternativeScreenshot" },					--OriOn_Modification
 		--				{ TXT.Menu.Menu, "KeyPrimaryMenu", "KeyAlternativeMenu" },
 						{ TXT.Menu.SayToAll, "KeyPrimarySayToAll", "KeyAlternativeSayToAll" },							--OriOn_Modification
@@ -64,13 +61,16 @@ ControlsConfig =
 						{ "Ready/Unready", "KeyPrimaryReadyUnready", "KeyAlternativeReadyUnready" },					--OriOn_Modification
 						--{ "Unready", "KeyPrimaryUnready", "KeyAlternativeUnready" },									--OriOn_Modification
 						{ "Team 1/2", "KeyPrimaryTeam", "KeyAlternativeTeam" },											--OriOn_Modification
-						--{ "Team 2", "KeyPrimaryTeam2", "KeyAlternativeTeam2" },											--OriOn_Modification
+						--{ "Team 2", "KeyPrimaryTeam2", "KeyAlternativeTeam2" },										--OriOn_Modification
 						{ "Kill", "KeyPrimaryKill", "KeyAlternativeKill" },												--OriOn_Modification
 						{ "Break", "KeyPrimaryBreak", "KeyAlternativeBreak" },											--OriOn_Modification
 						{ "Spectator", "KeyPrimarySpectator", "KeyAlternativeSpectator" },								--OriOn_Modification
 						{ "Disconnect", "KeyPrimaryDisconnect", "KeyAlternativeDisconnect" },							--OriOn_Modification
 						{ "Stats Overlay", "KeyPrimaryStatsOverlay", "KeyAlternativeStatsOverlay" },					--OriOn_Modification
 						{ "Net Stats", "KeyPrimaryNetStats", "KeyAlternativeNetStats" },								--OriOn_Modification
+						{ TXT.Menu.UseCards, "KeyPrimaryUseCards", "KeyAlternativeUseCards" },
+						{ TXT.Menu.QuickLoad, "KeyPrimaryQuickLoad", "KeyAlternativeQuickLoad" },
+						{ TXT.Menu.QuickSave, "KeyPrimaryQuickSave", "KeyAlternativeQuickSave" },
 					},
 					action = "",
 				},
@@ -207,14 +207,14 @@ ControlsConfig =
 						{ TXT.Menu.Weapon12, "KeyPrimaryWeapon12", "KeyAlternativeWeapon12" },
 						{ TXT.Menu.Weapon13, "KeyPrimaryWeapon13", "KeyAlternativeWeapon13" },
 						{ TXT.Menu.Weapon14, "KeyPrimaryWeapon14", "KeyAlternativeWeapon14" },
-						--{ TXT.Menu.Flashlight, "KeyPrimaryFlashlight", "KeyAlternativeFlashlight" },								--OriOn_Modification		
-						--{ TXT.Menu.Pause, "KeyPrimaryPause", "KeyAlternativePause" },										--OriOn_Modification
+						{ TXT.Menu.Flashlight, "KeyPrimaryFlashlight", "KeyAlternativeFlashlight" },
+						{ TXT.Menu.Pause, "KeyPrimaryPause", "KeyAlternativePause" },
 						--{ TXT.Menu.Screenshot, "KeyPrimaryScreenshot", "KeyAlternativeScreenshot" },
-		--				{ TXT.Menu.Menu, "KeyPrimaryMenu", "KeyAlternativeMenu" },
+						--{ TXT.Menu.Menu, "KeyPrimaryMenu", "KeyAlternativeMenu" },
 						--{ TXT.Menu.SayToAll, "KeyPrimarySayToAll", "KeyAlternativeSayToAll" },
 						--{ TXT.Menu.SayToTeam, "KeyPrimarySayToTeam", "KeyAlternativeSayToTeam" },
-						--{ TXT.Menu.RocketJump, "KeyPrimaryRocketJump", "KeyAlternativeRocketJump" },							--OriOn_Modification
-						--{ TXT.Menu.ForwardRocketJump, "KeyPrimaryForwardRocketJump", "KeyAlternativeForwardRocketJump" },			--OriOn_Modification
+						{ TXT.Menu.RocketJump, "KeyPrimaryRocketJump", "KeyAlternativeRocketJump" },
+						{ TXT.Menu.ForwardRocketJump, "KeyPrimaryForwardRocketJump", "KeyAlternativeForwardRocketJump" },
 						{ TXT.Menu.FireSwitch, "KeyPrimaryFireSwitch", "KeyAlternativeFireSwitch" },
 						{ TXT.Menu.FireSwitchToggle, "KeyPrimaryFireSwitchToggle", "KeyAlternativeFireSwitchToggle" },
 						{ TXT.Menu.SelectBestCustom1, "KeyPrimarySelectBestWeapon1", "KeyAlternativeSelectBestWeapon1" },
