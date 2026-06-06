@@ -561,8 +561,8 @@ Languages.English =
 		BlackBoardNotDaydream = Languages.Texts[433],
 		BlackBoardNotDemo  = Languages.Texts[425],
 
-		Language		  = Languages.Texts[1001]
-		Encoding		  = Languages.Texts[1003]
+		Language		  = Languages.Texts[1001],
+		Encoding		  = Languages.Texts[1003],
     },
 
 	Map =
