@@ -6,7 +6,7 @@ LanguageConfig =
 	fontBigSize = 32,
 
 	backAction = "PainMenu:ApplySettings(false); Cfg:Save(); PainMenu:ActivateScreen(OptionsMenu)",
-	applyAction = "PainMenu:ApplySettings(true); PMENU.SetItemVisibility('ApplyButton',false)",
+	applyAction = "PainMenu:ApplySettings(true); PMENU.SetItemVisibility('ApplyButton',false); PainMenu:NeedRestartGame('LanguageConfig')",
 
 		items =
 		{
