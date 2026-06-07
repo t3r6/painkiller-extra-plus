@@ -1086,7 +1086,7 @@ iso-8859-1 # encoding
 858: Disable client's console
 
 1000: Lingua
-1001: Cambia lingua
+1001: Cambia lingua. Riavvio richiesto.
 1002: Codifica
 1003: Imposta la codifica della console senza modificare la lingua del menu.
 
