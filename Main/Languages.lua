@@ -396,6 +396,8 @@ Languages.English =
 
 		Language		  = Languages.Texts[1000],
 		Encoding		  = Languages.Texts[1002],
+
+		Vote			  = Languages.Texts[1004],
     },
 
     MenuDesc =
@@ -563,6 +565,8 @@ Languages.English =
 
 		Language		  = Languages.Texts[1001],
 		Encoding		  = Languages.Texts[1003],
+
+		Vote			  = Languages.Texts[1005],
     },
 
 	Map =

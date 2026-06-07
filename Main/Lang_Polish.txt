@@ -1087,3 +1087,6 @@ cp1250	# encoding
 1001: Zmień język
 1002: Kodowanie
 1003: Ustaw kodowanie konsoli bez wpływu na język menu.
+
+1004: Głosuj
+1005: Menu głosowania

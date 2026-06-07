@@ -45,8 +45,8 @@ MainMenu =
 
 		CallVote =
 		{
-			text = "Vote",
-			desc = "Vote menu",
+			text = TXT.Menu.Vote,
+			desc = TXT.MenuDesc.Vote,
 			x	 = 15,
 			y	 = 400,
 			inGameOnly = 1,

@@ -1088,3 +1088,6 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 1001: Changer la langue
 1002: Encodage
 1003: Définissez l'encodage de la console sans affecter la langue du menu.
+
+1004: Voter
+1005: Menu de vote

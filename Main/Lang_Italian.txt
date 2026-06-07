@@ -1089,3 +1089,6 @@ iso-8859-1 # encoding
 1001: Cambia lingua
 1002: Codifica
 1003: Imposta la codifica della console senza modificare la lingua del menu.
+
+1004: Vota
+1005: Menu di voto
