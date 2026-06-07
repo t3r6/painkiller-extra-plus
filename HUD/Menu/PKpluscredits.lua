@@ -24,7 +24,7 @@ local items = {
 	Item8  = staticText("B6, t3stErr, killua-chan",           150, 480),
 	Item9  = staticText("SOUNDS:",                            150, 530),
 	Item10 = staticText("Mogul",                              150, 570),
-	Item11 = staticText("BETATEST",                           150, 620),
+	Item11 = staticText("BETATEST:",                          150, 620),
 	Item12 = staticText("sk1p, HV, kenzu, spieler, t3stErr",  150, 660),
 
 	Item13 = staticText("THANKS TO:",                              600, 180),
