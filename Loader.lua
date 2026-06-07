@@ -73,8 +73,8 @@ FS.RegisterPack("../Data/".."Locs.pak","../Data/Locs/")
 FS.RegisterPack("../Data/".."Mapview.pak","../Data/Mapview/")
 FS.RegisterPack("../Data/".."Waypoints.pak","../Data/Waypoints/")
 
-if Cfg.Language = "russian" then
-	FS.RegisterPack("../Data/".."Fonts_ru.pak","../Data/Fonts/")
+if Cfg.Language == "russian" then
+    FS.RegisterPack("../Data/".."Fonts_ru.pak","../Data/Fonts/")
 end
 
 linker = "versionB.txt ../Data/PKPlusSounds ../Data/Locs PKPlusSounds.pak"
