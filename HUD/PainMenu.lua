@@ -3550,7 +3550,7 @@ function PainMenu:CheckItemsCrosshair()
 end
 
 function PainMenu:NeedRestartGame(screen)
-  PainMenu:AskYesNo("Need restart game. Click yes to exit game.", "Exit()", "PainMenu:ActivateScreen(" .. screen .. "); PainMenu:CheckItems()")
+  PainMenu:AskYesNo("Restart required. Click yes to exit game.", "Exit()", "PainMenu:ActivateScreen(" .. screen .. "); PainMenu:CheckItems()")
 end
 
 function PainMenu:CheckItemTimer()
