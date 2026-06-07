@@ -160,7 +160,7 @@ cp1251	# encoding - use cp1250 for Windows Central European
 128: Пароль
 129: Присоединитьсѕ
 130: Создать игру
-131: Настройки
+131: Настройки игрока
 
 # join game menu
 132: Онлайн
