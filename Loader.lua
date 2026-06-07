@@ -66,16 +66,19 @@ if test3 then
 	checkfilesize = nil
 end
 --================================================================
- 
+
+if Cfg.Language == "russian" then
+    local filename = "../Data/Fonts_ru.pak"
+    if FS.File_Exist(filename) then
+        FS.RegisterPack(filename, "../Data/Fonts/")
+    end
+end
+
 FS.RegisterPack("../Data/".."PKPlusData1.pak","../Data/Textures/") -- PK Extra Plus
 FS.RegisterPack("../Data/".."PKPlusData.pak","../Data/Textures/")
 FS.RegisterPack("../Data/".."Locs.pak","../Data/Locs/")
 FS.RegisterPack("../Data/".."Mapview.pak","../Data/Mapview/")
 FS.RegisterPack("../Data/".."Waypoints.pak","../Data/Waypoints/")
-
-if Cfg.Language == "russian" then
-    FS.RegisterPack("../Data/".."Fonts_ru.pak","../Data/Fonts/")
-end
 
 linker = "versionB.txt ../Data/PKPlusSounds ../Data/Locs PKPlusSounds.pak"
 
