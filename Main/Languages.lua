@@ -25,7 +25,7 @@ function Languages_ParseLangLine( line )
 	if num ~= nil and str ~= nil then
 		Languages.Texts[tonumber(num)] = str
 	else
-		if Cfg.LangEncoding and Cfg.LangEncoding ~= "" then
+		if Cfg.LangEncoding and (Cfg.LangEncoding == "cp1250" or Cfg.LangEncoding == "cp1251" or Cfg.LangEncoding == "iso-8859-1") then
 			Languages.Encoding = Cfg.LangEncoding
 		else
 			Languages.Encoding = line
@@ -70,7 +70,7 @@ Languages.English =
 
     Menu = 
     {
-	CPL		  = Languages.Texts[900],
+        CPL  = Languages.Texts[900],
         CPLBrightskinEnemy = Languages.Texts[911],
         CPLBrightskinRed = Languages.Texts[913],
         CPLBrightskinGreen = Languages.Texts[914],
@@ -78,9 +78,9 @@ Languages.English =
         CPLBrightskinWhite = Languages.Texts[916],
         CPLBrightskinTeam = Languages.Texts[917],
         CPLFixedColors = Languages.Texts[919],
-	CPLRight = Languages.Texts[921],
+        CPLRight = Languages.Texts[921],
         CPLLeft = Languages.Texts[922],
-	CPLCenter = Languages.Texts[923],
+        CPLCenter = Languages.Texts[923],
 
         SignAPact         = Languages.Texts[10],
         LoadGame          = Languages.Texts[11],
@@ -393,6 +393,11 @@ Languages.English =
 		AutoSaves         = Languages.Texts[679],
 		
 		InsertCD		  = Languages.Texts[745],
+
+		Language		  = Languages.Texts[1000],
+		Encoding		  = Languages.Texts[1002],
+
+		Vote			  = Languages.Texts[1004],
     },
 
     MenuDesc =
@@ -557,6 +562,11 @@ Languages.English =
 		BlackBoardInactive = Languages.Texts[432],
 		BlackBoardNotDaydream = Languages.Texts[433],
 		BlackBoardNotDemo  = Languages.Texts[425],
+
+		Language		  = Languages.Texts[1001],
+		Encoding		  = Languages.Texts[1003],
+
+		Vote			  = Languages.Texts[1005],
     },
 
 	Map =

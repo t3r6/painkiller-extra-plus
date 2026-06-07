@@ -1084,3 +1084,9 @@ cp1250	# encoding
 858: Disable client's console
 
 1000: Język
+1001: Zmień język. Wymagany restart.
+1002: Kodowanie
+1003: Ustaw kodowanie konsoli bez wpływu na język menu.
+
+1004: Głosuj
+1005: Menu głosowania

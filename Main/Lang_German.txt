@@ -1081,3 +1081,9 @@ iso-8859-1	# encoding - use cp1250 for Windows Central European
 858: Disable client's console
 
 1000: Sprache
+1001: Sprache ändern. Neustart erforderlich.
+1002: Kodierung
+1003: Konsolen-Kodierung ändern, ohne die Menüsprache zu beeinflussen.
+
+1004: Abstimmen
+1005: Abstimmungsmenü

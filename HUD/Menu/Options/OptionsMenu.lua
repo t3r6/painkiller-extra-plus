@@ -18,22 +18,12 @@ OptionsMenu =
 
 	items =
 	{
-		
-		--[[PkguiNEW =
-		{
-			text = "PK++GUI",
-			desc = "Extra multiplayer tweakings for tournament play",
-			x	 = 15,
-			y	 = 310,
-			action = "PainMenu:CheckItemTimer(); PainMenu:ActivateScreen(PkguiNEW); PainMenu:CheckItems()",
-		},]]--
-		
 		ConfigureHUD =
 		{
 			text = TXT.Menu.HUD,
 			desc = TXT.MenuDesc.HUD,
 			x	 = 15,
-			y	 = 400,
+			y	 = 310,
 			action = "PainMenu:ActivateScreen(HUDConfig); PainMenu:CheckItems()", --OriOn_Modification
 		},
 
@@ -42,7 +32,7 @@ OptionsMenu =
 			text = TXT.Menu.Sound,
 			desc = TXT.MenuDesc.Sound,
 			x	 = 15,
-			y	 = 480,
+			y	 = 400,
 			action = "PainMenu:ActivateScreen(SoundOptions)",
 		},
 
@@ -51,7 +41,7 @@ OptionsMenu =
 			text = TXT.Menu.Video,
 			desc = TXT.MenuDesc.Video,
 			x	 = 15,
-			y	 = 560,
+			y	 = 480,
 			action = "PainMenu:ActivateScreen(VideoOptions)",
 		},
 		
@@ -60,26 +50,17 @@ OptionsMenu =
 			text = TXT.Menu.Controls,
 			desc = TXT.MenuDesc.Controls,
 			x	 = 15,
-			y	 = 640,
+			y	 = 560,
 			action = "PainMenu:ActivateScreen(ControlsConfig)",
 		},
-		
-		--[[PkGui =
+
+		Language =
 		{
-			text = "PK++GUI",
-			desc = "Extra multiplayer tweakings for tournament play",
+			text = TXT.Menu.Language,
+			desc = TXT.MenuDesc.Language,
 			x	 = 15,
-			y	 = 710,
-			action = "PainMenu:ActivateScreen(Pkgui)",
-		},]]--
---[[		
-		AdvancedOptions =
-		{
-			text = TXT.Menu.AdvancedVideo,
-			desc = TXT.MenuDesc.AdvancedVideo,
-			x	 = 15,
-			y	 = 550,
-			action = "PainMenu:ActivateScreen(AdvancedVideoOptions)",
-		},]]--
+			y	 = 640,
+			action = "PainMenu:ActivateScreen(LanguageConfig); PainMenu:CheckItems()",
+		},
 	}
 }
