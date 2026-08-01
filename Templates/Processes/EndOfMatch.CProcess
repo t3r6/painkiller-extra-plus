@@ -66,7 +66,7 @@ function EndOfMatch:Tick(delta)
     if self.TimeOut > 1.5 or self.Mode == 2 then
         if INP.Action(Actions.Fire) or INP.Action(Actions.Jump) then
             if self.Mode == 0 then
-				Game.PlayerRespawnRequest(Player.ClientID)
+				if Player then Game.PlayerRespawnRequest(Player.ClientID) end
 				INP.RemoveAction(Actions.Fire)
 				INP.RemoveAction(Actions.AltFire)
 				INP.RemoveAction(Actions.Jump)
@@ -83,7 +83,7 @@ function EndOfMatch:Tick(delta)
 					end
 					INP.Reset()
 				else
-					Game.PlayerRespawnRequest(Player.ClientID)
+					if Player then Game.PlayerRespawnRequest(Player.ClientID) end
 					INP.RemoveAction(Actions.Fire)
 					INP.RemoveAction(Actions.AltFire)
 					INP.RemoveAction(Actions.Jump)
